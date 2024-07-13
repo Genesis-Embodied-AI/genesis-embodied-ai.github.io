@@ -16,3 +16,7 @@ cd docs
 npm start
 ```
 By default, a browser window will open at http://localhost:3000.
+
+
+### How to build the website and 
+You can follow this [link](https://emmachan2021.github.io/docs/tech/docusaurus-github)

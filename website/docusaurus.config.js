@@ -10,8 +10,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Genesis-Embodied-AI',
   tagline: 'A generative world for general-purpose robotics & embodied AI learning',
-  favicon: 'img/favicon.ico',
-
+  favicon: 'img/genesis_logo_small.ico',
   // Set the production url of your site here
   url: 'https://genesis-embodied-ai.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
