@@ -13,6 +13,6 @@ First install node.js following
 Then run your website locally:
 ```
 cd docs
-npm run start
+npm start
 ```
 By default, a browser window will open at http://localhost:3000.
