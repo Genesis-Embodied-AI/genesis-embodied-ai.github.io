@@ -79,5 +79,3 @@ export default async function createConfigAsync() {
 ```
 
 Then copy-paste the result to the mdx file in `website/docs/api` folder and do some refinement.
-
-This 
