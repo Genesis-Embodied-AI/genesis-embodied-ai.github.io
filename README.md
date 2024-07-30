@@ -79,3 +79,10 @@ export default async function createConfigAsync() {
 ```
 
 Then copy-paste the result to the mdx file in `website/docs/api` folder and do some refinement.
+
+
+To Update Website, you should run as following:
+```
+npm run build
+npm run deploy
+```
