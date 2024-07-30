@@ -1,7 +1,45 @@
+Here is an example of how to structure a hierarchical Python API documentation using the provided template. This structure includes separate files for different classes and methods to make it easier to reference.
+
+### Directory Structure
+
+```
+python-api-doc/
+├── docs/
+│   ├── api/
+│   │   ├── API1.md
+│   │   ├── Class1.md
+│   │   ├── Class2.md
+│   │   └── Subclass1.md
+│   └── sidebar.js
+└── docusaurus.config.js
+```
+
+### `sidebar.js`
+
+```js
+module.exports = {
+  sidebar: [
+    {
+      type: 'category',
+      label: 'API',
+      items: [
+        'api/API1',
+        'api/Class1',
+        'api/Class2',
+        'api/Subclass1',
+      ],
+    },
+  ],
+};
+```
+
+### `API1.md`
+
+```markdown
 ---
 sidebar_position: 0
 description: API reference for Docusaurus configuration file.
-slug: /api/docusaurus-config
+slug: /api/API1
 ---
 
 # `API 1`
@@ -9,28 +47,19 @@ slug: /api/docusaurus-config
 import APITable from '@site/src/components/APITable';
 
 :::info
-
-info xxxx [**static-methods**](./example1/README.mdx) for examples.
-
-
+info xxxx [**static-methods**](./Class1.md) for examples.
 :::
 
 :::tip
-
-xxxx [**static-methods**](./example1/README.mdx)  `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
-
+xxxx [**static-methods**](./Class1.md) `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
 :::
 
 :::danger Breaking changes in minor versions
-
 xxxx
-
 :::
 
 :::note
-
-xxxx [**static-methods**](./example1/README.mdx)  `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
-
+xxxx [**static-methods**](./Class1.md) `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
 :::
 
 ## Overview {#overview}
@@ -38,13 +67,11 @@ xxxx [**static-methods**](./example1/README.mdx)  `xxx` [Website](https://github
 `API 1` contains xxxx
 - Type: `string | undefined`
 
-
-
 The `API 1` file supports:
 
 - [**a**](https://flaviocopes.com/es-modules/)
 - [**b**](https://flaviocopes.com/commonjs/)
-- [**c**](./example1/README.mdx)
+- [**c**](./Class1.md)
 
 Examples:
 
@@ -56,26 +83,9 @@ export default {
 };
 ```
 
-```js title="API 1"
-export default async function createConfigAsync() {
-  return {
-    title: 'xxx',
-    url: 'https://xxx.io',
-    // your site config ...
-  };
-}
-```
-
-
-
-
-
-
 ## Optional fields {#optional-fields}
 
 ### `favicon` {#favicon}
-
-
 
 Path to your site favicon; must be a URL that can be used in link's href. For example, if your favicon is in `static/img/favicon.ico`:
 
@@ -95,19 +105,94 @@ Allow to customize the presence/absence of a trailing slash at the end of URLs/l
 - `true`: add trailing slashes to URLs/links, and emit `/docs/myDoc/index.html` for `/docs/myDoc.md`
 - `false`: remove trailing slashes from URLs/links, and emit `/docs/myDoc.html` for `/docs/myDoc.md`
 
+### `onBrokenAnchors` {#onBrokenAnchors}
 
+- Type: `'ignore' | 'log' | 'warn' | 'throw'`
 
-- `defaultLocale`: The locale that (1) does not have its name in the base URL (2) gets started with `docusaurus start` without `--locale` option (3) will be used for the `<link hrefLang="x-default">` tag
-- `locales`: List of locales deployed on your site. Must contain `defaultLocale`.
-- `path`: Root folder which all locale folders are relative to. Can be absolute or relative to the config file. Defaults to `i18n`.
-- `localeConfigs`: Individual options for each locale.
-  - `label`: The label displayed for this locale in the locales dropdown.
-  - `direction`: `ltr` (default) or `rtl` (for [right-to-left languages](https://developer.mozilla.org/en-US/docs/Glossary/rtl) like Farsi, Arabic, Hebrew, etc.). Used to select the locale's CSS and HTML meta attribute.
-  - `htmlLang`: BCP 47 language tag to use in `<html lang="...">` (or any other DOM tag name) and in `<link ... hreflang="...">`
-  - `calendar`: the [calendar](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/calendar) used to calculate the date era. Note that it doesn't control the actual string displayed: `MM/DD/YYYY` and `DD/MM/YYYY` are both `gregory`. To choose the format (`DD/MM/YYYY` or `MM/DD/YYYY`), set your locale name to `en-GB` or `en-US` (`en` means `en-US`).
-  - `path`: Root folder that all plugin localization folders of this locale are relative to. Will be resolved against `i18n.path`. Defaults to the locale's name. Note: this has no effect on the locale's `baseUrl`—customization of base URL is a work-in-progress.
+The behavior of Docusaurus when it detects any broken anchor declared with the `Heading` component of Docusaurus.
 
+By default, it prints a warning, to let you know about your broken anchors.
 
+### `onBrokenMarkdownLinks` {#onBrokenMarkdownLinks}
+
+- Type: `'ignore' | 'log' | 'warn' | 'throw'`
+
+The behavior of Docusaurus when it detects any broken Markdown link.
+
+By default, it prints a warning, to let you know about your broken Markdown link.
+```
+
+### `Class1.md`
+
+```markdown
+---
+sidebar_position: 1
+description: API reference for Class1.
+slug: /api/Class1
+---
+
+# `Class1`
+
+import APITable from '@site/src/components/APITable';
+
+:::info
+info xxxx [**static-methods**](./Subclass1.md) for examples.
+:::
+
+:::tip
+xxxx [**static-methods**](./Subclass1.md) `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
+:::
+
+:::danger Breaking changes in minor versions
+xxxx
+:::
+
+:::note
+xxxx [**static-methods**](./Subclass1.md) `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
+:::
+
+## Overview {#overview}
+
+`Class1` contains xxxx
+- Type: `string | undefined`
+
+The `Class1` file supports:
+
+- [**a**](https://flaviocopes.com/es-modules/)
+- [**b**](https://flaviocopes.com/commonjs/)
+- [**c**](./Subclass1.md)
+
+Examples:
+
+```js title="Class1"
+export default {
+  title: 'xxx',
+  url: 'https://xxxx.io',
+  // your site config ...
+};
+```
+
+## Optional fields {#optional-fields}
+
+### `favicon` {#favicon}
+
+Path to your site favicon; must be a URL that can be used in link's href. For example, if your favicon is in `static/img/favicon.ico`:
+
+```js title="Class1"
+export default {
+  favicon: '/img/favicon.ico',
+};
+```
+
+### `trailingSlash` {#trailingSlash}
+
+- Type: `boolean | undefined`
+
+Allow to customize the presence/absence of a trailing slash at the end of URLs/links, and how static HTML files are generated:
+
+- `undefined` (default): keeps URLs untouched, and emit `/docs/myDoc/index.html` for `/docs/myDoc.md`
+- `true`: add trailing slashes to URLs/links, and emit `/docs/myDoc/index.html` for `/docs/myDoc.md`
+- `false`: remove trailing slashes from URLs/links, and emit `/docs/myDoc.html` for `/docs/myDoc.md`
 
 ### `onBrokenAnchors` {#onBrokenAnchors}
 
@@ -124,490 +209,220 @@ By default, it prints a warning, to let you know about your broken anchors.
 The behavior of Docusaurus when it detects any broken Markdown link.
 
 By default, it prints a warning, to let you know about your broken Markdown link.
+```
 
-### `onDuplicateRoutes` {#onDuplicateRoutes}
+### `Class2.md`
+
+```markdown
+---
+sidebar_position: 2
+description: API reference for Class2.
+slug: /api/Class2
+---
+
+# `Class2`
+
+import APITable from '@site/src/components/APITable';
+
+:::info
+info xxxx [**static-methods**](./Subclass1.md) for examples.
+:::
+
+:::tip
+xxxx [**static-methods**](./Subclass1.md) `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
+:::
+
+:::danger Breaking changes in minor versions
+xxxx
+:::
+
+:::note
+xxxx [**static-methods**](./Subclass1.md) `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
+:::
+
+## Overview {#overview}
+
+`Class2` contains xxxx
+- Type: `string | undefined`
+
+The `Class2` file supports:
+
+- [**a**](https://flaviocopes.com/es-modules/)
+- [**b**](https://flaviocopes.com/commonjs/)
+- [**c**](./Subclass1.md)
+
+Examples:
+
+```js title="Class2"
+export default {
+  title: 'xxx',
+  url: 'https://xxxx.io',
+  // your site config ...
+};
+```
+
+## Optional fields {#optional-fields}
+
+### `favicon` {#favicon}
+
+Path to your site favicon; must be a URL that can be used in link's href. For example, if your favicon is in `static/img/favicon.ico`:
+
+```js title="Class2"
+export default {
+  favicon: '/img/favicon.ico',
+};
+```
+
+### `trailingSlash` {#trailingSlash}
+
+- Type: `boolean | undefined`
+
+Allow to customize the presence/absence of a trailing slash at the end of URLs/links, and how static HTML files are generated:
+
+- `undefined` (default): keeps URLs untouched, and emit `/docs/myDoc/index.html` for `/docs/myDoc.md`
+- `true`: add trailing slashes to URLs/links, and emit `/docs/myDoc/index.html` for `/docs/myDoc.md`
+- `false`: remove trailing slashes from URLs/links, and emit `/docs/myDoc.html` for `/docs/myDoc.md`
+
+### `onBrokenAnchors` {#onBrokenAnchors}
 
 - Type: `'ignore' | 'log' | 'warn' | 'throw'`
 
-The behavior of Docusaurus when it detects any [duplicate routes](./example1/README.mdx).
+The behavior of Docusaurus when it detects any broken anchor declared with the `Heading` component of Docusaurus.
 
-By default, it displays a warning after you run `yarn start` or `yarn build`.
+By default, it prints a warning, to let you know about your broken anchors.
 
-### `tagline` {#tagline}
+### `onBrokenMarkdownLinks` {#onBrokenMarkdownLinks}
 
-- Type: `string`
+- Type: `'ignore' | 'log' | 'warn' | 'throw'`
 
-The tagline for your website.
+The behavior of Docusaurus when it detects any broken Markdown link.
 
-```js title="API 1"
-export default {
-  tagline:
-    'Docusaurus makes it easy to maintain Open Source documentation websites.',
-};
+By default, it prints a warning, to let you know about your broken Markdown link
+
+.
 ```
 
-### `organizationName` {#organizationName}
+### `Subclass1.md`
 
-- Type: `string`
+```markdown
+---
+sidebar_position: 3
+description: API reference for Subclass1.
+slug: /api/Subclass1
+---
 
-The GitHub user or organization that owns the repository. You don't need this if you are not using the `docusaurus deploy` command.
+# `Subclass1`
 
-```js title="API 1"
-export default {
-  // Docusaurus' organization is facebook
-  organizationName: 'facebook',
-};
-```
-
-### `projectName` {#projectName}
-
-- Type: `string`
-
-The name of the GitHub repository. You don't need this if you are not using the `docusaurus deploy` command.
-
-```js title="API 1"
-export default {
-  projectName: 'docusaurus',
-};
-```
-
-### `deploymentBranch` {#deploymentBranch}
-
-- Type: `string`
-
-The name of the branch to deploy the static files to. You don't need this if you are not using the `docusaurus deploy` command.
-
-```js title="API 1"
-export default {
-  deploymentBranch: 'gh-pages',
-};
-```
-
-### `githubHost` {#githubHost}
-
-- Type: `string`
-
-The hostname of your server. Useful if you are using GitHub Enterprise. You don't need this if you are not using the `docusaurus deploy` command.
-
-```js title="API 1"
-export default {
-  githubHost: 'github.com',
-};
-```
-
-### `githubPort` {#githubPort}
-
-- Type: `string`
-
-The port of your server. Useful if you are using GitHub Enterprise. You don't need this if you are not using the `docusaurus deploy` command.
-
-```js title="API 1"
-export default {
-  githubPort: '22',
-};
-```
-
-### `themeConfig` {#themeConfig}
-
-- Type: `Object`
-
-The [theme configuration](./example1/README.mdx) object to customize your site UI like navbar and footer.
-
-Example:
-
-```js title="API 1"
-export default {
-  themeConfig: {
-    docs: {
-      sidebar: {
-        hideable: false,
-        autoCollapseCategories: false,
-      },
-    },
-    colorMode: {
-      defaultMode: 'light',
-      disableSwitch: false,
-      respectPrefersColorScheme: true,
-    },
-    navbar: {
-      title: 'Site Title',
-      logo: {
-        alt: 'Site Logo',
-        src: 'img/logo.svg',
-        width: 32,
-        height: 32,
-      },
-      items: [
-        {
-          to: 'docs/API 1',
-          activeBasePath: 'docs',
-          label: 'API 1',
-          position: 'left',
-        },
-        // ... other links
-      ],
-    },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Docs',
-              to: 'docs/doc1',
-            },
-          ],
-        },
-        // ... other links
-      ],
-      logo: {
-        alt: 'Meta Open Source Logo',
-        src: 'img/meta_oss_logo.png',
-        href: 'https://opensource.fb.com',
-        width: 160,
-        height: 51,
-      },
-      copyright: `Copyright © ${new Date().getFullYear()} Facebook, Inc.`, // You can also put own HTML here
-    },
-  },
-};
-```
-
-### `plugins` {#plugins}
-
-- Type: `PluginConfig[]`
-
-```ts
-type PluginConfig = string | [string, any] | PluginModule | [PluginModule, any];
-```
-
-See [plugin method references](./example1/README.mdx) for the shape of a `PluginModule`.
-
-```js title="API 1"
-export default {
-  plugins: [
-    'docusaurus-plugin-awesome',
-    ['docusuarus-plugin-confetti', {fancy: false}],
-    () => ({
-      postBuild() {
-        console.log('Build finished');
-      },
-    }),
-  ],
-};
-```
-
-### `themes` {#themes}
-
-- Type: `PluginConfig[]`
-
-```js title="API 1"
-export default {
-  themes: ['@docusaurus/theme-classic'],
-};
-```
-
-### `presets` {#presets}
-
-- Type: `PresetConfig[]`
-
-```ts
-type PresetConfig = string | [string, any];
-```
-
-```js title="API 1"
-export default {
-  presets: [],
-};
-```
-
-### `markdown` {#markdown}
-
-The global Docusaurus Markdown config.
-
-- Type: `MarkdownConfig`
-
-```ts
-type MarkdownPreprocessor = (args: {
-  filePath: string;
-  fileContent: string;
-}) => string;
-
-type MDX1CompatOptions =
-  | boolean
-  | {
-      comments: boolean;
-      admonitions: boolean;
-      headingIds: boolean;
-    };
-
-export type ParseFrontMatter = (params: {
-  filePath: string;
-  fileContent: string;
-  defaultParseFrontMatter: ParseFrontMatter;
-}) => Promise<{
-  frontMatter: {[key: string]: unknown};
-  content: string;
-}>;
-
-type MarkdownAnchorsConfig = {
-  maintainCase: boolean;
-};
-
-type MarkdownConfig = {
-  format: 'mdx' | 'md' | 'detect';
-  mermaid: boolean;
-  preprocessor?: MarkdownPreprocessor;
-  parseFrontMatter?: ParseFrontMatter;
-  mdx1Compat: MDX1CompatOptions;
-  remarkRehypeOptions: object; // see https://github.com/remarkjs/remark-rehype#options
-  anchors: MarkdownAnchorsConfig;
-};
-```
-
-Example:
-
-```js title="API 1"
-export default {
-  markdown: {
-    format: 'mdx',
-    mermaid: true,
-    preprocessor: ({filePath, fileContent}) => {
-      return fileContent.replaceAll('{{MY_VAR}}', 'MY_VALUE');
-    },
-    parseFrontMatter: async (params) => {
-      const result = await params.defaultParseFrontMatter(params);
-      result.frontMatter.description =
-        result.frontMatter.description?.replaceAll('{{MY_VAR}}', 'MY_VALUE');
-      return result;
-    },
-    mdx1Compat: {
-      comments: true,
-      admonitions: true,
-      headingIds: true,
-    },
-    anchors: {
-      maintainCase: true,
-    },
-  },
-};
-```
-
-```mdx-code-block
-<APITable>
-```
-
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `format` | `'mdx' \| 'md' \| 'detect'` | `'mdx'` | The default parser format to use for Markdown content. Using 'detect' will select the appropriate format automatically based on file extensions: `.md` vs `.mdx`. |
-| `mermaid` | `boolean` | `false` | When `true`, allows Docusaurus to render Markdown code blocks with `mermaid` language as Mermaid diagrams. |
-| `preprocessor` | `MarkdownPreprocessor` | `undefined` | Gives you the ability to alter the Markdown content string before parsing. Use it as a last-resort escape hatch or workaround: it is almost always better to implement a Remark/Rehype plugin. |
-| `parseFrontMatter` | `ParseFrontMatter` | `undefined` | Gives you the ability to provide your own front matter parser, or to enhance the default parser. Read our xxxx for details. |
-| `mdx1Compat` | `MDX1CompatOptions` | `{comments: true, admonitions: true, headingIds: true}` | Compatibility options to make it easier to upgrade to Docusaurus v3+. |
-| `anchors` | `MarkdownAnchorsConfig` | `{maintainCase: false}` | Options to control the behavior of anchors generated from Markdown headings |
-| `remarkRehypeOptions` | `object` | `undefined` | Makes it possible to pass custom [`remark-rehype` options](https://github.com/remarkjs/remark-rehype#options). |
-
-```mdx-code-block
-</APITable>
-```
-
-### `customFields` {#customFields}
-
-Docusaurus guards `API 1` from unknown fields. To add a custom field, define it on `customFields`.
-
-- Type: `Object`
-
-```js title="API 1"
-export default {
-  customFields: {
-    admin: 'endi',
-    superman: 'lol',
-  },
-};
-```
-
-Attempting to add unknown fields in the config will lead to errors during build time:
-
-```bash
-Error: The field(s) 'foo', 'bar' are not recognized in API 1
-```
-
-### `staticDirectories` {#staticDirectories}
-
-An array of paths, relative to the site's directory or absolute. Files under these paths will be copied to the build output as-is.
-
-- Type: `string[]`
-
-Example:
-
-```js title="API 1"
-export default {
-  staticDirectories: ['static'],
-};
-```
-
-### `headTags` {#headTags}
-
-An array of tags that will be inserted in the HTML `<head>`. The values must be objects that contain two properties; `tagName` and `attributes`. `tagName` must be a string that determines the tag being created; eg `"link"`. `attributes` must be an attribute-value map.
-
-- Type: `{ tagName: string; attributes: Object; }[]`
-
-Example:
-
-```js title="API 1"
-export default {
-  headTags: [
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'icon',
-        href: '/img/docusaurus.png',
-      },
-    },
-  ],
-};
-```
-
-This would become `<link rel="icon" href="img/docusaurus.png" />` in the generated HTML.
-
-### `scripts` {#scripts}
-
-An array of scripts to load. The values can be either strings or plain objects of attribute-value maps. The `<script>` tags will be inserted in the HTML `<head>`. If you use a plain object, the only required attribute is `src`, and any other attributes are permitted (each one should have boolean/string values).
-
-Note that `<script>` added here are render-blocking, so you might want to add `async: true`/`defer: true` to the objects.
-
-- Type: `(string | Object)[]`
-
-Example:
-
-```js title="API 1"
-export default {
-  scripts: [
-    // String format.
-    'https://docusaurus.io/script.js',
-    // Object format.
-    {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
-      async: true,
-    },
-  ],
-};
-```
-
-### `stylesheets` {#stylesheets}
-
-An array of CSS sources to load. The values can be either strings or plain objects of attribute-value maps. The `<link>` tags will be inserted in the HTML `<head>`. If you use an object, the only required attribute is `href`, and any other attributes are permitted (each one should have boolean/string values).
-
-- Type: `(string | Object)[]`
-
-Example:
-
-```js title="API 1"
-export default {
-  stylesheets: [
-    // String format.
-    'https://docusaurus.io/style.css',
-    // Object format.
-    {
-      href: 'http://mydomain.com/style.css',
-    },
-  ],
-};
-```
+import APITable from '@site/src/components/APITable';
 
 :::info
-
-By default, the `<link>` tags will have `rel="stylesheet"`, but you can explicitly add a custom `rel` value to inject any kind of `<link>` tag, not necessarily stylesheets.
-
+info xxxx [**static-methods**](./Subclass1.md) for examples.
 :::
 
-### `clientModules` {#clientModules}
-
-An array of [client modules](./example1/README.mdx) to load globally on your site.
-
-Example:
-
-```js title="API 1"
-export default {
-  clientModules: ['./mySiteGlobalJs.js', './mySiteGlobalCss.css'],
-};
-```
-
-### `ssrTemplate` {#ssrTemplate}
-
-An HTML template written in [Eta's syntax](https://eta.js.org/docs/syntax#syntax-overview) that will be used to render your application. This can be used to set custom attributes on the `body` tags, additional `meta` tags, customize the `viewport`, etc. Please note that Docusaurus will rely on the template to be correctly structured in order to function properly, once you do customize it, you will have to make sure that your template is compliant with the requirements from upstream.
-
-- Type: `string`
-
-Example:
-
-```js title="API 1"
-export default {
-  ssrTemplate: `<!DOCTYPE html>
-<html <%~ it.htmlAttributes %>>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="generator" content="Docusaurus v<%= it.version %>">
-    <% it.metaAttributes.forEach((metaAttribute) => { %>
-      <%~ metaAttribute %>
-    <% }); %>
-    <%~ it.headTags %>
-    <% it.stylesheets.forEach((stylesheet) => { %>
-      <link rel="stylesheet" href="<%= it.baseUrl %><%= stylesheet %>" />
-    <% }); %>
-    <% it.scripts.forEach((script) => { %>
-      <link rel="preload" href="<%= it.baseUrl %><%= script %>" as="script">
-    <% }); %>
-  </head>
-  <body <%~ it.bodyAttributes %>>
-    <%~ it.preBodyTags %>
-    <div id="__docusaurus">
-      <%~ it.appHtml %>
-    </div>
-    <% it.scripts.forEach((script) => { %>
-      <script src="<%= it.baseUrl %><%= script %>"></script>
-    <% }); %>
-    <%~ it.postBodyTags %>
-  </body>
-</html>`,
-};
-```
-
-### `titleDelimiter` {#titleDelimiter}
-
-- Type: `string`
-
-Will be used as title delimiter in the generated `<title>` tag.
-
-Example:
-
-```js title="API 1"
-export default {
-  titleDelimiter: '🦖', // Defaults to `|`
-};
-```
-
-### `baseUrlIssueBanner` {#baseUrlIssueBanner}
-
-- Type: `boolean`
-
-When enabled, will show a banner in case your site can't load its CSS or JavaScript files, which is a very common issue, often related to a wrong `baseUrl` in site config.
-
-Example:
-
-```js title="API 1"
-export default {
-  baseUrlIssueBanner: true, // Defaults to `true`
-};
-```
-
-![A sample base URL issue banner. The style is very raw since the stylesheets failed to load. The text says "Your Docusaurus site did not load properly... Current configured baseUrl = / (default value); We suggest trying baseUrl = /build/](/img/baseUrlIssueBanner.png)
-
-:::warning
-
-This banner needs to inline CSS / JS in case all asset loading fails due to wrong base URL.
-
-If you have a strict [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP), you should rather disable it.
-
+:::tip
+xxxx [**static-methods**](./Subclass1.md) `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
 :::
+
+:::danger Breaking changes in minor versions
+xxxx
+:::
+
+:::note
+xxxx [**static-methods**](./Subclass1.md) `xxx` [Website](https://github.com/facebook/docusaurus/blob/main/website/docusaurus.config.ts).
+:::
+
+## Overview {#overview}
+
+`Subclass1` contains xxxx
+- Type: `string | undefined`
+
+The `Subclass1` file supports:
+
+- [**a**](https://flaviocopes.com/es-modules/)
+- [**b**](https://flaviocopes.com/commonjs/)
+- [**c**](./Subclass1.md)
+
+Examples:
+
+```js title="Subclass1"
+export default {
+  title: 'xxx',
+  url: 'https://xxxx.io',
+  // your site config ...
+};
+```
+
+## Optional fields {#optional-fields}
+
+### `favicon` {#favicon}
+
+Path to your site favicon; must be a URL that can be used in link's href. For example, if your favicon is in `static/img/favicon.ico`:
+
+```js title="Subclass1"
+export default {
+  favicon: '/img/favicon.ico',
+};
+```
+
+### `trailingSlash` {#trailingSlash}
+
+- Type: `boolean | undefined`
+
+Allow to customize the presence/absence of a trailing slash at the end of URLs/links, and how static HTML files are generated:
+
+- `undefined` (default): keeps URLs untouched, and emit `/docs/myDoc/index.html` for `/docs/myDoc.md`
+- `true`: add trailing slashes to URLs/links, and emit `/docs/myDoc/index.html` for `/docs/myDoc.md`
+- `false`: remove trailing slashes from URLs/links, and emit `/docs/myDoc.html` for `/docs/myDoc.md`
+
+### `onBrokenAnchors` {#onBrokenAnchors}
+
+- Type: `'ignore' | 'log' | 'warn' | 'throw'`
+
+The behavior of Docusaurus when it detects any broken anchor declared with the `Heading` component of Docusaurus.
+
+By default, it prints a warning, to let you know about your broken anchors.
+
+### `onBrokenMarkdownLinks` {#onBrokenMarkdownLinks}
+
+- Type: `'ignore' | 'log' | 'warn' | 'throw'`
+
+The behavior of Docusaurus when it detects any broken Markdown link.
+
+By default, it prints a warning, to let you know about your broken Markdown link.
+```
+
+### `docusaurus.config.js`
+
+```js
+module.exports = {
+  title: 'API Documentation',
+  tagline: 'Hierarchical API documentation example',
+  url: 'https://your-docusaurus-test-site.com',
+  baseUrl: '/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+  favicon: 'img/favicon.ico',
+  organizationName: 'your-org', // Usually your GitHub org/user name.
+  projectName: 'your-project', // Usually your repo name.
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      {
+        docs: {
+          sidebarPath: require.resolve('./sidebar.js'),
+          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+        },
+        blog: {
+          showReadingTime: true,
+          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/blog/',
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      },
+    ],
+  ],
+};
+```
+
+This structure will allow you to maintain a hierarchical and well-organized API documentation for your Python project.

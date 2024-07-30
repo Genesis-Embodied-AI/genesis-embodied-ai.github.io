@@ -78,6 +78,12 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
+          {
+            type: 'docSidebar',
+            sidebarId: 'apiSidebar',
+            position: 'left',
+            label: 'API',
+          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/Genesis-Embodied-AI',
@@ -96,6 +102,7 @@ const config = {
                 label: 'Tutorial',
                 to: '/docs/intro',
               },
+           
             ],
           },
           // {
