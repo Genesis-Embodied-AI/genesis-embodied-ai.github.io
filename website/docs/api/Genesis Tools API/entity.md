@@ -5,7 +5,9 @@ slug: api/Genesis Tools API/entity
 ---
 
 # Entity {#Entity}
-### `class nvisii.entity(*args, **kwargs)`
+
+**[`class nvisii.entity(*args, **kwargs)`](https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io)**
+
 ```python title="nvisii.entity"
 class nvisii.entity(*args, **kwargs)
 ```
@@ -43,7 +45,6 @@ The membership flag.
 ![](../../../../website/static/img/api_example.webp)
 </details>
 
----
 
 ### static **`create(name, transform=None, material=None, mesh=None, light=None, camera=None, volume=None)`**
 > **Static Method**
@@ -67,7 +68,7 @@ Constructs an Entity with the given name.
 **Returns:**
 A reference to the created Entity.
 
----
+
 
 
 ### `get_count()`
