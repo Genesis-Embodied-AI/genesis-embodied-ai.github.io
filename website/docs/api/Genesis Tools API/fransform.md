@@ -11,10 +11,10 @@ slug: api/Genesis Tools API/transform
 class nvisii.transform(*args, **kwargs)
 ```
 
-> An [**Transform**](transform) is a component that is used to connect other component types together.
+> An [**Transform**](https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io) is a component that is used to connect other component types together.
 > If you’d like to place an object in the scene, an Entity would be used to connect a Mesh component, a Transform component, and a Material component together.
 
-### Static **`get(name)`** [[source](xxxx.com)]  {#get}
+### Static **`get(name)`** [[source](https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io)]  {#get}
 
 
 - **Type**: `boolean | undefined`
@@ -30,6 +30,12 @@ This method is part of the kinematics library and is used for inverse kinematics
 The membership flag.
 
 ---
+
+<details>
+<summary>Figure Example, Click to expand</summary>
+
+![](../../../../website/static/img/api_example.webp)
+</details>
 
 ### static **`create(name, transform=None, material=None, mesh=None, light=None, camera=None, volume=None)`**
 > **Static Method**

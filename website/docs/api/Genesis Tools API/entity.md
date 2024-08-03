@@ -5,12 +5,12 @@ slug: api/Genesis Tools API/entity
 ---
 
 # Entity {#Entity}
-## `class nvisii.entity(*args, **kwargs)`
+### `class nvisii.entity(*args, **kwargs)`
 ```python title="nvisii.entity"
 class nvisii.entity(*args, **kwargs)
 ```
 
-> An [**Entity**](Entity) is a component that is used to connect other component types together.
+> An [**Entity**](https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io) is a component that is used to connect other component types together.
 > If you’d like to place an object in the scene, an Entity would be used to connect a Mesh component, a Transform component, and a Material component together.
 > 
 > Only one component of a given type can be connected to an entity at any given point in time.
@@ -18,11 +18,15 @@ class nvisii.entity(*args, **kwargs)
 > Multiple entities can “share” the same component type. For example, a sphere mesh component can be referenced by many entities, with each entity having a unique material. This is essentially a form of “instancing”. Alternatively, many different entities can share the same Material component, such that any adjustments to that material component effect a collection of objects instead of just one.
 
 
-### Static **`get(name)`** [[source](xxxx.com)]  {#get}
+### Static **`get(name)`** [[source](https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io)]  {#get}
 
 
 - **Type**: `boolean | undefined`
-- **Parameters**: `name` (string) - The name of the entity to get.
+- **Parameters**: 
+    - `name` (string) - The name of the entity to get.
+    - `name` (string) - The name of the entity to get.
+    - `name` (string) - The name of the entity to get.
+    - `name` (string) - The name of the entity to get.
 - **Return Type**: `Entity`
 - **Returns**: An entity whose name matches the given name.
 
@@ -32,6 +36,12 @@ This method is part of the kinematics library and is used for inverse kinematics
 
 ### Property **`thisown`**
 The membership flag.
+
+<details>
+<summary>Figure Example, Click to expand</summary>
+
+![](../../../../website/static/img/api_example.webp)
+</details>
 
 ---
 
