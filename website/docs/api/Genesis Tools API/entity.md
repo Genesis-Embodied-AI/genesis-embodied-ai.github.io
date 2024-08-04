@@ -6,7 +6,28 @@ slug: api/Genesis Tools API/entity
 
 # Entity {#Entity}
 
-**[`class nvisii.entity(*args, **kwargs)`](https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io)**
+export const Highlight = ({children, color}) => (
+  <span
+    style={{
+      backgroundColor: color,
+      borderRadius: '10px',
+      color: '#fff',
+      padding: '10px',
+      cursor: 'pointer',
+    }}
+    onClick={() => {
+      alert(`You clicked the color ${color} with label ${children}`);
+    }}>
+    {children}
+  </span>
+);
+
+<Highlight color="#79a2db">class **nvisii.entity** (*args, **kwargs)</Highlight>
+
+<br />
+<br />
+
+<!-- **[`class nvisii.entity(*args, **kwargs)`](https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io)** -->
 
 ```python title="nvisii.entity"
 class nvisii.entity(*args, **kwargs)
