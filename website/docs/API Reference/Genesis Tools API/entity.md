@@ -33,7 +33,7 @@ export const Highlight = ({children, color}) => (
 class nvisii.entity(*args, **kwargs)
 ```
 
-> An [**Entity**](https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io) is a component that is used to connect other component types together.
+> An [**Entity**](https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io) is a component that is used to connect other component types together.sssss
 > If you’d like to place an object in the scene, an Entity would be used to connect a Mesh component, a Transform component, and a Material component together.
 > 
 > Only one component of a given type can be connected to an entity at any given point in time.

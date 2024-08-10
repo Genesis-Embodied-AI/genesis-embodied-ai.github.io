@@ -1,7 +1,5 @@
 ---
 sidebar_position: 1
-description: API reference for _kernel_inverse_kinematics_new.
-slug: /api/scene/add_entity
 ---
 
 # `Scene.add_entity`
@@ -19,7 +17,7 @@ Add a `genesis.Entity` object into the current Scene.
 
 - **Parameters**:
   - `morph` (gs.morphs.Morph)
-    - A `gs.Morph` object specifying morpology or the entity.
+    - A `gs.Morph` object specifying morpology of the entity.
   - `material` (gs.materials.*)
     - A `gs.materials.*` object specifying the physical material of the entity. Defaults to `gs.materials.Rigid()`.
   - `surface` (gs.surfaces.*) 
