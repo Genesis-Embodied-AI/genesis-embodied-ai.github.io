@@ -1,25 +1,69 @@
 ---
 sidebar_position: 0
 description: API reference for _kernel_inverse_kinematics_new.
-slug: /api/scene
+# slug: /api/scene
 ---
 
-# `genesis.Scene`
+<!-- # `genesis.Scene` -->
 
+
+export const Highlight = ({children, color}) => (
+  <span
+    style={{
+      backgroundColor: color,
+      borderRadius: '10px',
+      color: '#fff',
+      padding: '10px',
+      cursor: 'pointer',
+    }}
+    onClick={() => {
+      alert(`You clicked the color ${color} with label ${children}`);
+    }}>
+    {children}
+  </span>
+);
+
+<Highlight color="#79a2db">class **genesis.Scene**</Highlight>
+
+<br />
+<br />
 ```python
-class genesis.Scene(sim_options=SimOptions(), coupler_options=CouplerOptions(), tool_options=ToolOptions(), rigid_options=RigidOptions(), avatar_options=AvatarOptions(), mpm_options=MPMOptions(), sph_options=SPHOptions(), fem_options=FEMOptions(), sf_options=SFOptions(), pbd_options=PBDOptions(), vis_options=VisOptions(), viewer_options=ViewerOptions(), renderer=Rasterizer(), show_FPS=True))
+class genesis.Scene(
+  sim_options=SimOptions(), 
+  coupler_options=CouplerOptions(), 
+  tool_options=ToolOptions(), 
+  rigid_options=RigidOptions(), 
+  avatar_options=AvatarOptions(), 
+  mpm_options=MPMOptions(), 
+  sph_options=SPHOptions(), 
+  fem_options=FEMOptions(), 
+  sf_options=SFOptions(), 
+  pbd_options=PBDOptions(), 
+  vis_options=VisOptions(), 
+  viewer_options=ViewerOptions(), 
+  renderer=Rasterizer(), 
+  show_FPS=True
+)
 ```
+
+:::tip
+- The added light is for visual purpose only and is not an actual `Entity`.
+- Light added this way only takes effect for the `RayTracer` renderer, since `Rasterizer` renderer only supports simple lighting effects.
+:::
+
 A `genesis.Scene` object wraps all the components of a simulated world.
 
-- **Parameters**: 
-  - `sim_options` (gs.options.SimOptions)
+- **Parameters (option 1)**: 
+  - **sim_options** : *gs.options.SimOptions*
     - The options for the whole simulator.
-  - `coupler_options` (gs.options.CouplerOptions)
+  - **coupler_options** : *gs.options.CouplerOptions*
     - The options for the coupler which handles inter-solver coupling.
-  - `tool_options` (gs.options.ToolOptions)
+  - **tool_options** : *gs.options.ToolOptions*
     - The options for ToolSolver that manages all the Tool entities.
-  - `rigid_options` (gs.options.ToolOptions)
+  - **rigid_options** : *gs.options.ToolOptions*
     - The options for RigidSolver which manages all the rigid body entities.
+
+- **Parameters (option 2)**: 
   - `avatar_options` (gs.options.AvatarOptions)
     - The options for AvatarSolver, which manages the avatar entities in the simulation.
   - `mpm_options` (gs.options.MPMOptions)

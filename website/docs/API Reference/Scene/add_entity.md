@@ -2,7 +2,27 @@
 sidebar_position: 1
 ---
 
-# `Scene.add_entity`
+<!-- # `Scene.add_entity` -->
+
+export const Highlight = ({children, color}) => (
+  <span
+    style={{
+      backgroundColor: color,
+      borderRadius: '10px',
+      color: '#fff',
+      padding: '10px',
+      cursor: 'pointer',
+    }}
+    onClick={() => {
+      alert(`You clicked the color ${color} with label ${children}`);
+    }}>
+    {children}
+  </span>
+);
+
+<Highlight color="#79a2db">func **Scene.add_entity**</Highlight>
+<br />
+<br />
 
 ```python
 Scene.add_entity(

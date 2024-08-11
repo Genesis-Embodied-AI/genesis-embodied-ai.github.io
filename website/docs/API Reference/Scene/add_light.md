@@ -1,8 +1,29 @@
 ---
-sidebar_position: 2
+sidebar_position: 0
+slug: /api/you_can_change_file_name
 ---
 
-# `Scene.add_light`
+<!-- # `Scene.add_light` -->
+export const Highlight = ({children, color}) => (
+  <span
+    style={{
+      backgroundColor: color,
+      borderRadius: '10px',
+      color: '#fff',
+      padding: '10px',
+      cursor: 'pointer',
+    }}
+    onClick={() => {
+      alert(`You clicked the color ${color} with label ${children}`);
+    }}>
+    {children}
+  </span>
+);
+
+<Highlight color="#79a2db">func **Scene.add_light**</Highlight>
+<br />
+<br />
+
 
 ```python
 Scene.add_entity(
@@ -14,7 +35,7 @@ Scene.add_entity(
 
 Add a light into the current Scene.
 
-:::note
+:::tip
 - The added light is for visual purpose only and is not an actual `Entity`.
 - Light added this way only takes effect for the `RayTracer` renderer, since `Rasterizer` renderer only supports simple lighting effects.
 :::
