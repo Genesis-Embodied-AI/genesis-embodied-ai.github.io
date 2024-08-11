@@ -20,9 +20,8 @@ export const Highlight = ({children, color}) => (
   </span>
 );
 
-<Highlight color="#79a2db">func **Scene.add_light**</Highlight>
-<br />
-<br />
+### <Highlight color="#79a2db">func **Scene.add_light**</Highlight>
+
 
 
 ```python

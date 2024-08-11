@@ -6,14 +6,13 @@ description: API reference for _kernel_inverse_kinematics_new.
 
 <!-- # `genesis.Scene` -->
 
-
 export const Highlight = ({children, color}) => (
   <span
     style={{
       backgroundColor: color,
-      borderRadius: '10px',
+      borderRadius: '7px',
       color: '#fff',
-      padding: '10px',
+      padding: '7px',
       cursor: 'pointer',
     }}
     onClick={() => {
@@ -23,10 +22,9 @@ export const Highlight = ({children, color}) => (
   </span>
 );
 
-<Highlight color="#79a2db">class **genesis.Scene**</Highlight>
+### <Highlight color="#79a2db">class **genesis.Scene**</Highlight>
 
-<br />
-<br />
+
 ```python
 class genesis.Scene(
   sim_options=SimOptions(), 

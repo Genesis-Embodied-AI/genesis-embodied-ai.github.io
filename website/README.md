@@ -54,7 +54,7 @@ You can change `sidebar_position` in `md` API file
 
 You can change API to xxxx in:
 `website/docusaurus.config.js`
-(Try to search API1111, you can find where to modify)
+(Try to search `API (you can modify)`, you can find where to modify)
 
 ### Slug meaning:
 
@@ -65,3 +65,6 @@ When using some super link you may use this, but we haven't use slug yet.
 ### API title:
 + If you add `# title level 1`, the name will be `title level 1`
 + If you do not add `# title level 1`, the name will be the title of markdown file 
+
+### Change folder position and name:
+Try to modify `website/docs/API Reference/Scene/_category_.yml`
