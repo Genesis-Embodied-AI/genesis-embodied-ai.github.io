@@ -50,7 +50,7 @@ cargo install splashsurf
 
 ### (Optional) Ray Tracing Renderer
 
-If you need photo-realistic visuals, Genesis includes a ray-tracing (path-tracing) based renderer, developped using [LuisaCompute](https://github.com/LuisaGroup/LuisaCompute), a high-performance domain specific language designed for rendering.
+If you need photo-realistic visuals, Genesis has a built-in a ray-tracing (path-tracing) based renderer developped using [LuisaCompute](https://github.com/LuisaGroup/LuisaCompute), a high-performance domain specific language designed for rendering.
 
 blahblahs
 
