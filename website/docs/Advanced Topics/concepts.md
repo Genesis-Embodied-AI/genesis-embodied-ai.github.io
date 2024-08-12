@@ -1,6 +1,6 @@
 ---
 sidebar_position: 0
-title: "Hello, Genesis!"
+title: "Concepts"
 ---
 
 # Create a Page

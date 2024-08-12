@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: "Scene Creation"
+title: "Create a Scene"
 ---
 
 # Create a Page

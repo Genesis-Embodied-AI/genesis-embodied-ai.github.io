@@ -1,6 +1,6 @@
 ---
-sidebar_position: 0
-title: "Hello, Genesis!"
+sidebar_position: 6
+title: "Parallelized RL Training Pipeline"
 ---
 
 # Create a Page

@@ -1,6 +1,6 @@
 ---
-sidebar_position: 0
-title: "Hello, Genesis!"
+sidebar_position: 7
+title: "Soft Robots"
 ---
 
 # Create a Page
