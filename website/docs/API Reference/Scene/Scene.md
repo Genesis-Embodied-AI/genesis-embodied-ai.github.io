@@ -1,7 +1,8 @@
 ---
-sidebar_position: 0
+title: Scene API (you can msssodify, too)
+position: 0
+sidebar_position: 9
 description: API reference for _kernel_inverse_kinematics_new.
-# slug: /api/scene
 ---
 
 <!-- # `genesis.Scene` -->
@@ -26,7 +27,7 @@ export const Highlight = ({children, color}) => (
 
 
 ```python
-class genesis.Scene(
+class genesis.Scene(asdffffffffffffffffff asdffffffffffffffffff asdffffffffffffffffff asdffffffffffffffffff
   sim_options=SimOptions(), 
   coupler_options=CouplerOptions(), 
   tool_options=ToolOptions(), 
