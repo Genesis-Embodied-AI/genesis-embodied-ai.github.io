@@ -1,0 +1,1024 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>numpy.nditer &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/generated/numpy.nditer';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="numpy.nditer.close" href="numpy.nditer.close.html" />
+    <link rel="prev" title="numpy.fill_diagonal" href="numpy.fill_diagonal.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../routines.html">Routines and objects by topic</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.array-creation.html">Array creation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.array-manipulation.html">Array manipulation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.bitwise.html">Bit-wise operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.strings.html">String functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.datetime.html">Datetime support functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.dtype.html">Data type routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.emath.html">Mathematical functions with automatic domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.err.html">Floating point error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.exceptions.html">Exceptions and Warnings (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.exceptions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.fft.html">Discrete Fourier Transform (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.fft</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.functional.html">Functional programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.io.html">Input and output</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../routines.indexing.html">Indexing routines</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="numpy.c_.html">numpy.c_</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.r_.html">numpy.r_</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.s_.html">numpy.s_</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.nonzero.html">numpy.nonzero</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.where.html">numpy.where</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.indices.html">numpy.indices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.ix_.html">numpy.ix_</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.ogrid.html">numpy.ogrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.ravel_multi_index.html">numpy.ravel_multi_index</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.unravel_index.html">numpy.unravel_index</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.diag_indices.html">numpy.diag_indices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.diag_indices_from.html">numpy.diag_indices_from</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.mask_indices.html">numpy.mask_indices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.tril_indices.html">numpy.tril_indices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.tril_indices_from.html">numpy.tril_indices_from</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.triu_indices.html">numpy.triu_indices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.triu_indices_from.html">numpy.triu_indices_from</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.take.html">numpy.take</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.take_along_axis.html">numpy.take_along_axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.choose.html">numpy.choose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.compress.html">numpy.compress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.diag.html">numpy.diag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.diagonal.html">numpy.diagonal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.select.html">numpy.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.place.html">numpy.place</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.put.html">numpy.put</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.put_along_axis.html">numpy.put_along_axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.putmask.html">numpy.putmask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.fill_diagonal.html">numpy.fill_diagonal</a></li>
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">numpy.nditer</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="numpy.nditer.close.html">numpy.nditer.close</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.nditer.copy.html">numpy.nditer.copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.nditer.debug_print.html">numpy.nditer.debug_print</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.nditer.enable_external_loop.html">numpy.nditer.enable_external_loop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.nditer.iternext.html">numpy.nditer.iternext</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.nditer.remove_axis.html">numpy.nditer.remove_axis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.nditer.remove_multi_index.html">numpy.nditer.remove_multi_index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.nditer.reset.html">numpy.nditer.reset</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.ndenumerate.html">numpy.ndenumerate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.ndindex.html">numpy.ndindex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.nested_iters.html">numpy.nested_iters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.flatiter.html">numpy.flatiter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.iterable.html">numpy.iterable</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.linalg.html">Linear algebra (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.linalg</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.logic.html">Logic functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.ma.html">Masked array operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.math.html">Mathematical functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.other.html">Miscellaneous routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.polynomials.html">Polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../random/index.html">Random sampling (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.random</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.set.html">Set routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.sort.html">Sorting, searching, and counting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.statistics.html">Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.testing.html">Test support (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.testing</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.window.html">Window functions</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../c-api/index.html">NumPy C-API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../routines.indexing.html" class="nav-link">Indexing routines</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">numpy.nditer</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="numpy-nditer">
+<h1>numpy.nditer<a class="headerlink" href="#numpy-nditer" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="numpy.nditer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">numpy.</span></span><span class="sig-name descname"><span class="pre">nditer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op_flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op_dtypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'K'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">casting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'safe'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op_axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itershape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffersize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/numpy/numpy/blob/v2.1.0/numpy/__init__.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numpy.nditer" title="Link to this definition">#</a></dt>
+<dd><p>Efficient multi-dimensional iterator object to iterate over arrays.
+To get started using this object, see the
+<a class="reference internal" href="../arrays.nditer.html#arrays-nditer"><span class="std std-ref">introductory guide to array iteration</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>op</strong><span class="classifier">ndarray or sequence of array_like</span></dt><dd><p>The array(s) to iterate over.</p>
+</dd>
+<dt><strong>flags</strong><span class="classifier">sequence of str, optional</span></dt><dd><p>Flags to control the behavior of the iterator.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">buffered</span></code> enables buffering when required.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c_index</span></code> causes a C-order index to be tracked.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f_index</span></code> causes a Fortran-order index to be tracked.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multi_index</span></code> causes a multi-index, or a tuple of indices
+with one per iteration dimension, to be tracked.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">common_dtype</span></code> causes all the operands to be converted to
+a common data type, with copying or buffering as necessary.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">copy_if_overlap</span></code> causes the iterator to determine if read
+operands have overlap with write operands, and make temporary
+copies as necessary to avoid overlap. False positives (needless
+copying) are possible in some cases.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delay_bufalloc</span></code> delays allocation of the buffers until
+a reset() call is made. Allows <code class="docutils literal notranslate"><span class="pre">allocate</span></code> operands to
+be initialized before their values are copied into the buffers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">external_loop</span></code> causes the <code class="docutils literal notranslate"><span class="pre">values</span></code> given to be
+one-dimensional arrays with multiple values instead of
+zero-dimensional arrays.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grow_inner</span></code> allows the <code class="docutils literal notranslate"><span class="pre">value</span></code> array sizes to be made
+larger than the buffer size when both <code class="docutils literal notranslate"><span class="pre">buffered</span></code> and
+<code class="docutils literal notranslate"><span class="pre">external_loop</span></code> is used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ranged</span></code> allows the iterator to be restricted to a sub-range
+of the iterindex values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">refs_ok</span></code> enables iteration of reference types, such as
+object arrays.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reduce_ok</span></code> enables iteration of <code class="docutils literal notranslate"><span class="pre">readwrite</span></code> operands
+which are broadcasted, also known as reduction operands.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zerosize_ok</span></code> allows <a class="reference internal" href="numpy.nditer.itersize.html#numpy.nditer.itersize" title="numpy.nditer.itersize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">itersize</span></code></a> to be zero.</p></li>
+</ul>
+</dd>
+<dt><strong>op_flags</strong><span class="classifier">list of list of str, optional</span></dt><dd><p>This is a list of flags for each operand. At minimum, one of
+<code class="docutils literal notranslate"><span class="pre">readonly</span></code>, <code class="docutils literal notranslate"><span class="pre">readwrite</span></code>, or <code class="docutils literal notranslate"><span class="pre">writeonly</span></code> must be specified.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">readonly</span></code> indicates the operand will only be read from.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">readwrite</span></code> indicates the operand will be read from and written to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">writeonly</span></code> indicates the operand will only be written to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">no_broadcast</span></code> prevents the operand from being broadcasted.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contig</span></code> forces the operand data to be contiguous.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aligned</span></code> forces the operand data to be aligned.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nbo</span></code> forces the operand data to be in native byte order.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">copy</span></code> allows a temporary read-only copy if required.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">updateifcopy</span></code> allows a temporary read-write copy if required.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allocate</span></code> causes the array to be allocated if it is None
+in the <code class="docutils literal notranslate"><span class="pre">op</span></code> parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">no_subtype</span></code> prevents an <code class="docutils literal notranslate"><span class="pre">allocate</span></code> operand from using a subtype.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arraymask</span></code> indicates that this operand is the mask to use
+for selecting elements when writing to operands with the
+‘writemasked’ flag set. The iterator does not enforce this,
+but when writing from a buffer back to the array, it only
+copies those elements indicated by this mask.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">writemasked</span></code> indicates that only elements where the chosen
+<code class="docutils literal notranslate"><span class="pre">arraymask</span></code> operand is True will be written to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">overlap_assume_elementwise</span></code> can be used to mark operands that are
+accessed only in the iterator order, to allow less conservative
+copying when <code class="docutils literal notranslate"><span class="pre">copy_if_overlap</span></code> is present.</p></li>
+</ul>
+</dd>
+<dt><strong>op_dtypes</strong><span class="classifier">dtype or tuple of dtype(s), optional</span></dt><dd><p>The required data type(s) of the operands. If copying or buffering
+is enabled, the data will be converted to/from their original types.</p>
+</dd>
+<dt><strong>order</strong><span class="classifier">{‘C’, ‘F’, ‘A’, ‘K’}, optional</span></dt><dd><p>Controls the iteration order. ‘C’ means C order, ‘F’ means
+Fortran order, ‘A’ means ‘F’ order if all the arrays are Fortran
+contiguous, ‘C’ order otherwise, and ‘K’ means as close to the
+order the array elements appear in memory as possible. This also
+affects the element memory order of <code class="docutils literal notranslate"><span class="pre">allocate</span></code> operands, as they
+are allocated to be compatible with iteration order.
+Default is ‘K’.</p>
+</dd>
+<dt><strong>casting</strong><span class="classifier">{‘no’, ‘equiv’, ‘safe’, ‘same_kind’, ‘unsafe’}, optional</span></dt><dd><p>Controls what kind of data casting may occur when making a copy
+or buffering.  Setting this to ‘unsafe’ is not recommended,
+as it can adversely affect accumulations.</p>
+<ul class="simple">
+<li><p>‘no’ means the data types should not be cast at all.</p></li>
+<li><p>‘equiv’ means only byte-order changes are allowed.</p></li>
+<li><p>‘safe’ means only casts which can preserve values are allowed.</p></li>
+<li><p>‘same_kind’ means only safe casts or casts within a kind,
+like float64 to float32, are allowed.</p></li>
+<li><p>‘unsafe’ means any data conversions may be done.</p></li>
+</ul>
+</dd>
+<dt><strong>op_axes</strong><span class="classifier">list of list of ints, optional</span></dt><dd><p>If provided, is a list of ints or None for each operands.
+The list of axes for an operand is a mapping from the dimensions
+of the iterator to the dimensions of the operand. A value of
+-1 can be placed for entries, causing that dimension to be
+treated as <a class="reference internal" href="../constants.html#numpy.newaxis" title="numpy.newaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">newaxis</span></code></a>.</p>
+</dd>
+<dt><strong>itershape</strong><span class="classifier">tuple of ints, optional</span></dt><dd><p>The desired shape of the iterator. This allows <code class="docutils literal notranslate"><span class="pre">allocate</span></code> operands
+with a dimension mapped by op_axes not corresponding to a dimension
+of a different operand to get a value not equal to 1 for that
+dimension.</p>
+</dd>
+<dt><strong>buffersize</strong><span class="classifier">int, optional</span></dt><dd><p>When buffering is enabled, controls the size of the temporary
+buffers. Set to 0 for the default value.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>dtypes</strong><span class="classifier">tuple of dtype(s)</span></dt><dd><p>The data types of the values provided in <a class="reference internal" href="numpy.nditer.value.html#numpy.nditer.value" title="numpy.nditer.value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></a>. This may be
+different from the operand data types if buffering is enabled.
+Valid only before the iterator is closed.</p>
+</dd>
+<dt><strong>finished</strong><span class="classifier">bool</span></dt><dd><p>Whether the iteration over the operands is finished or not.</p>
+</dd>
+<dt><strong>has_delayed_bufalloc</strong><span class="classifier">bool</span></dt><dd><p>If True, the iterator was created with the <code class="docutils literal notranslate"><span class="pre">delay_bufalloc</span></code> flag,
+and no reset() function was called on it yet.</p>
+</dd>
+<dt><strong>has_index</strong><span class="classifier">bool</span></dt><dd><p>If True, the iterator was created with either the <code class="docutils literal notranslate"><span class="pre">c_index</span></code> or
+the <code class="docutils literal notranslate"><span class="pre">f_index</span></code> flag, and the property <a class="reference internal" href="numpy.nditer.index.html#numpy.nditer.index" title="numpy.nditer.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a> can be used to
+retrieve it.</p>
+</dd>
+<dt><strong>has_multi_index</strong><span class="classifier">bool</span></dt><dd><p>If True, the iterator was created with the <code class="docutils literal notranslate"><span class="pre">multi_index</span></code> flag,
+and the property <a class="reference internal" href="numpy.nditer.multi_index.html#numpy.nditer.multi_index" title="numpy.nditer.multi_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multi_index</span></code></a> can be used to retrieve it.</p>
+</dd>
+<dt><strong>index</strong></dt><dd><p>When the <code class="docutils literal notranslate"><span class="pre">c_index</span></code> or <code class="docutils literal notranslate"><span class="pre">f_index</span></code> flag was used, this property
+provides access to the index. Raises a ValueError if accessed
+and <code class="docutils literal notranslate"><span class="pre">has_index</span></code> is False.</p>
+</dd>
+<dt><strong>iterationneedsapi</strong><span class="classifier">bool</span></dt><dd><p>Whether iteration requires access to the Python API, for example
+if one of the operands is an object array.</p>
+</dd>
+<dt><strong>iterindex</strong><span class="classifier">int</span></dt><dd><p>An index which matches the order of iteration.</p>
+</dd>
+<dt><strong>itersize</strong><span class="classifier">int</span></dt><dd><p>Size of the iterator.</p>
+</dd>
+<dt><strong>itviews</strong></dt><dd><p>Structured view(s) of <a class="reference internal" href="numpy.nditer.operands.html#numpy.nditer.operands" title="numpy.nditer.operands"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operands</span></code></a> in memory, matching the reordered
+and optimized iterator access pattern. Valid only before the iterator
+is closed.</p>
+</dd>
+<dt><strong>multi_index</strong></dt><dd><p>When the <code class="docutils literal notranslate"><span class="pre">multi_index</span></code> flag was used, this property
+provides access to the index. Raises a ValueError if accessed
+accessed and <code class="docutils literal notranslate"><span class="pre">has_multi_index</span></code> is False.</p>
+</dd>
+<dt><strong>ndim</strong><span class="classifier">int</span></dt><dd><p>The dimensions of the iterator.</p>
+</dd>
+<dt><strong>nop</strong><span class="classifier">int</span></dt><dd><p>The number of iterator operands.</p>
+</dd>
+<dt><a class="reference internal" href="numpy.nditer.operands.html#numpy.nditer.operands" title="numpy.nditer.operands"><code class="xref py py-obj docutils literal notranslate"><span class="pre">operands</span></code></a><span class="classifier">tuple of operand(s)</span></dt><dd><p>operands[<em class="xref py py-obj">Slice</em>]</p>
+</dd>
+<dt><strong>shape</strong><span class="classifier">tuple of ints</span></dt><dd><p>Shape tuple, the shape of the iterator.</p>
+</dd>
+<dt><strong>value</strong></dt><dd><p>Value of <code class="docutils literal notranslate"><span class="pre">operands</span></code> at current iteration. Normally, this is a
+tuple of array scalars, but if the flag <code class="docutils literal notranslate"><span class="pre">external_loop</span></code> is used,
+it is a tuple of one dimensional arrays.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="numpy.nditer.close.html#numpy.nditer.close" title="numpy.nditer.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
+<td><p>Resolve all writeback semantics in writeable operands.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="numpy.nditer.copy.html#numpy.nditer.copy" title="numpy.nditer.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Get a copy of the iterator in its current state.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="numpy.nditer.debug_print.html#numpy.nditer.debug_print" title="numpy.nditer.debug_print"><code class="xref py py-obj docutils literal notranslate"><span class="pre">debug_print</span></code></a>()</p></td>
+<td><p>Print the current state of the <a class="reference internal" href="#numpy.nditer" title="numpy.nditer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nditer</span></code></a> instance and debug info to stdout.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="numpy.nditer.enable_external_loop.html#numpy.nditer.enable_external_loop" title="numpy.nditer.enable_external_loop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enable_external_loop</span></code></a>()</p></td>
+<td><p>When the &quot;external_loop&quot; was not used during construction, but is desired, this modifies the iterator to behave as if the flag was specified.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="numpy.nditer.iternext.html#numpy.nditer.iternext" title="numpy.nditer.iternext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iternext</span></code></a>()</p></td>
+<td><p>Check whether iterations are left, and perform a single internal iteration without returning the result.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="numpy.nditer.remove_axis.html#numpy.nditer.remove_axis" title="numpy.nditer.remove_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_axis</span></code></a>(i, /)</p></td>
+<td><p>Removes axis <em class="xref py py-obj">i</em> from the iterator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="numpy.nditer.remove_multi_index.html#numpy.nditer.remove_multi_index" title="numpy.nditer.remove_multi_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_multi_index</span></code></a>()</p></td>
+<td><p>When the &quot;multi_index&quot; flag was specified, this removes it, allowing the internal iteration structure to be optimized further.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="numpy.nditer.reset.html#numpy.nditer.reset" title="numpy.nditer.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>()</p></td>
+<td><p>Reset the iterator to its initial state.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Notes</p>
+<p><a class="reference internal" href="#numpy.nditer" title="numpy.nditer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nditer</span></code></a> supersedes <a class="reference internal" href="numpy.flatiter.html#numpy.flatiter" title="numpy.flatiter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatiter</span></code></a>.  The iterator implementation behind
+<a class="reference internal" href="#numpy.nditer" title="numpy.nditer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nditer</span></code></a> is also exposed by the NumPy C API.</p>
+<p>The Python exposure supplies two iteration interfaces, one which follows
+the Python iterator protocol, and another which mirrors the C-style
+do-while pattern.  The native Python approach is better in most cases, but
+if you need the coordinates or index of an iterator, use the C-style pattern.</p>
+<p class="rubric">Examples</p>
+<p>Here is how we might write an <code class="docutils literal notranslate"><span class="pre">iter_add</span></code> function, using the
+Python iterator protocol:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">iter_add_py</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">addop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span>
+<span class="gp">... </span>    <span class="n">it</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="p">],</span> <span class="p">[],</span>
+<span class="gp">... </span>                <span class="p">[[</span><span class="s1">&#39;readonly&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;readonly&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;writeonly&#39;</span><span class="p">,</span><span class="s1">&#39;allocate&#39;</span><span class="p">]])</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">it</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">addop</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">it</span><span class="o">.</span><span class="n">operands</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here is the same function, but following the C-style pattern:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">iter_add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="n">addop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span>
+<span class="gp">... </span>   <span class="n">it</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="p">],</span> <span class="p">[],</span>
+<span class="gp">... </span>               <span class="p">[[</span><span class="s1">&#39;readonly&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;readonly&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;writeonly&#39;</span><span class="p">,</span><span class="s1">&#39;allocate&#39;</span><span class="p">]])</span>
+<span class="gp">... </span>   <span class="k">with</span> <span class="n">it</span><span class="p">:</span>
+<span class="gp">... </span>       <span class="k">while</span> <span class="ow">not</span> <span class="n">it</span><span class="o">.</span><span class="n">finished</span><span class="p">:</span>
+<span class="gp">... </span>           <span class="n">addop</span><span class="p">(</span><span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">it</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">out</span><span class="o">=</span><span class="n">it</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="gp">... </span>           <span class="n">it</span><span class="o">.</span><span class="n">iternext</span><span class="p">()</span>
+<span class="gp">... </span>       <span class="k">return</span> <span class="n">it</span><span class="o">.</span><span class="n">operands</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here is an example outer product function:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">outer_it</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">mulop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span>
+<span class="gp">... </span>    <span class="n">it</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;external_loop&#39;</span><span class="p">],</span>
+<span class="gp">... </span>            <span class="p">[[</span><span class="s1">&#39;readonly&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;readonly&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;writeonly&#39;</span><span class="p">,</span> <span class="s1">&#39;allocate&#39;</span><span class="p">]],</span>
+<span class="gp">... </span>            <span class="n">op_axes</span><span class="o">=</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+<span class="gp">... </span>                     <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">ndim</span><span class="p">)),</span>
+<span class="gp">... </span>                     <span class="kc">None</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">it</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">mulop</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">it</span><span class="o">.</span><span class="n">operands</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">outer_it</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="go">array([[1, 2, 3],</span>
+<span class="go">       [2, 4, 6]])</span>
+</pre></div>
+</div>
+<p>Here is an example function which operates like a “lambda” ufunc:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">luf</span><span class="p">(</span><span class="n">lamdaexpr</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">... </span><span class="w">   </span><span class="sd">&#39;&#39;&#39;luf(lambdaexpr, op1, ..., opn, out=None, order=&#39;K&#39;, casting=&#39;safe&#39;, buffersize=0)&#39;&#39;&#39;</span>
+<span class="gp">... </span>   <span class="n">nargs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="n">op</span> <span class="o">=</span> <span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="kc">None</span><span class="p">),)</span> <span class="o">+</span> <span class="n">args</span>
+<span class="gp">... </span>   <span class="n">it</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;buffered&#39;</span><span class="p">,</span><span class="s1">&#39;external_loop&#39;</span><span class="p">],</span>
+<span class="gp">... </span>           <span class="p">[[</span><span class="s1">&#39;writeonly&#39;</span><span class="p">,</span><span class="s1">&#39;allocate&#39;</span><span class="p">,</span><span class="s1">&#39;no_broadcast&#39;</span><span class="p">]]</span> <span class="o">+</span>
+<span class="gp">... </span>                           <span class="p">[[</span><span class="s1">&#39;readonly&#39;</span><span class="p">,</span><span class="s1">&#39;nbo&#39;</span><span class="p">,</span><span class="s1">&#39;aligned&#39;</span><span class="p">]]</span><span class="o">*</span><span class="n">nargs</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="n">order</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;order&#39;</span><span class="p">,</span><span class="s1">&#39;K&#39;</span><span class="p">),</span>
+<span class="gp">... </span>           <span class="n">casting</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;casting&#39;</span><span class="p">,</span><span class="s1">&#39;safe&#39;</span><span class="p">),</span>
+<span class="gp">... </span>           <span class="n">buffersize</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;buffersize&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="gp">... </span>   <span class="k">while</span> <span class="ow">not</span> <span class="n">it</span><span class="o">.</span><span class="n">finished</span><span class="p">:</span>
+<span class="gp">... </span>       <span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lamdaexpr</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="gp">... </span>       <span class="n">it</span><span class="o">.</span><span class="n">iternext</span><span class="p">()</span>
+<span class="gp">... </span>   <span class="k">return</span> <span class="n">it</span><span class="o">.</span><span class="n">operands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">luf</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="go">array([  0.5,   1.5,   4.5,   9.5,  16.5])</span>
+</pre></div>
+</div>
+<p>If operand flags <code class="docutils literal notranslate"><span class="pre">&quot;writeonly&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;readwrite&quot;</span></code> are used the
+operands may be views into the original data with the
+<em class="xref py py-obj">WRITEBACKIFCOPY</em> flag. In this case <a class="reference internal" href="#numpy.nditer" title="numpy.nditer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nditer</span></code></a> must be used as a
+context manager or the <a class="reference internal" href="numpy.nditer.close.html#numpy.nditer.close" title="numpy.nditer.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nditer.close</span></code></a> method must be called before
+using the result. The temporary data will be written back to the
+original data when the <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#object.__exit__" title="(in Python v3.12)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__exit__</span></code></a> function is called
+but not before:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;i4&#39;</span><span class="p">)[::</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[],</span>
+<span class="gp">... </span>       <span class="p">[[</span><span class="s1">&#39;writeonly&#39;</span><span class="p">,</span> <span class="s1">&#39;updateifcopy&#39;</span><span class="p">]],</span>
+<span class="gp">... </span>       <span class="n">casting</span><span class="o">=</span><span class="s1">&#39;unsafe&#39;</span><span class="p">,</span>
+<span class="gp">... </span>       <span class="n">op_dtypes</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;f4&#39;</span><span class="p">)])</span> <span class="k">as</span> <span class="n">i</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">operands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">... </span>   <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">... </span>   <span class="c1"># a still unchanged here</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">x</span>
+<span class="go">(array([-1, -2, -3], dtype=int32), array([-1., -2., -3.], dtype=float32))</span>
+</pre></div>
+</div>
+<p>It is important to note that once the iterator is exited, dangling
+references (like <em class="xref py py-obj">x</em> in the example) may or may not share data with
+the original data <em class="xref py py-obj">a</em>. If writeback semantics were active, i.e. if
+<em class="xref py py-obj">x.base.flags.writebackifcopy</em> is <em class="xref py py-obj">True</em>, then exiting the iterator
+will sever the connection between <em class="xref py py-obj">x</em> and <em class="xref py py-obj">a</em>, writing to <em class="xref py py-obj">x</em> will
+no longer write to <em class="xref py py-obj">a</em>. If writeback semantics are not active, then
+<em class="xref py py-obj">x.data</em> will still point at some part of <em class="xref py py-obj">a.data</em>, and writing to
+one will affect the other.</p>
+<p>Context management and the <a class="reference internal" href="numpy.nditer.close.html#numpy.nditer.close" title="numpy.nditer.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a> method appeared in version 1.15.0.</p>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="numpy.fill_diagonal.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">numpy.fill_diagonal</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="numpy.nditer.close.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">numpy.nditer.close</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy.nditer"><code class="docutils literal notranslate"><span class="pre">nditer</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

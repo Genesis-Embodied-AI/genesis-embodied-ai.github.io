@@ -1,0 +1,957 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Parallel random number generation &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="../../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/random/parallel';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Multithreaded generation" href="multithreading.html" />
+    <link rel="prev" title="Compatibility policy" href="compatibility.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../routines.html">Routines and objects by topic</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.array-creation.html">Array creation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.array-manipulation.html">Array manipulation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.bitwise.html">Bit-wise operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.strings.html">String functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.datetime.html">Datetime support functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.dtype.html">Data type routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.emath.html">Mathematical functions with automatic domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.err.html">Floating point error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.exceptions.html">Exceptions and Warnings (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.exceptions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.fft.html">Discrete Fourier Transform (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.fft</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.functional.html">Functional programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.io.html">Input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.indexing.html">Indexing routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.linalg.html">Linear algebra (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.linalg</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.logic.html">Logic functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.ma.html">Masked array operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.math.html">Mathematical functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.other.html">Miscellaneous routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.polynomials.html">Polynomials</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Random sampling (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.random</span></code>)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="generator.html">Random <code class="docutils literal notranslate"><span class="pre">Generator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="legacy.html">Legacy Generator (RandomState)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bit_generators/index.html">Bit generators</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="upgrading-pcg64.html">Upgrading PCG64 with PCG64DXSM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compatibility.html">Compatibility policy</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Parallel Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multithreading.html">Multithreaded Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="new-or-different.html">What’s new or different</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html">Comparing Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="c-api.html">C API for random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extending.html">Examples of using Numba, Cython, CFFI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.set.html">Set routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.sort.html">Sorting, searching, and counting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.statistics.html">Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.testing.html">Test support (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.testing</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.window.html">Window functions</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../c-api/index.html">NumPy C-API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Random sampling (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.random</span></code>)</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Parallel...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="parallel-random-number-generation">
+<h1>Parallel random number generation<a class="headerlink" href="#parallel-random-number-generation" title="Link to this heading">#</a></h1>
+<p>There are four main strategies implemented that can be used to produce
+repeatable pseudo-random numbers across multiple processes (local
+or distributed).</p>
+<section id="seedsequence-spawning">
+<span id="seedsequence-spawn"></span><h2><a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> spawning<a class="headerlink" href="#seedsequence-spawning" title="Link to this heading">#</a></h2>
+<p>NumPy allows you to spawn new (with very high probability) independent
+<a class="reference internal" href="bit_generators/generated/numpy.random.BitGenerator.html#numpy.random.BitGenerator" title="numpy.random.BitGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BitGenerator</span></code></a> and <a class="reference internal" href="generator.html#numpy.random.Generator" title="numpy.random.Generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Generator</span></code></a> instances via their <code class="docutils literal notranslate"><span class="pre">spawn()</span></code> method.
+This spawning is implemented by the <a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> used for initializing
+the bit generators random stream.</p>
+<p><a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> <a class="reference external" href="https://www.pcg-random.org/posts/developing-a-seed_seq-alternative.html">implements an algorithm</a> to process a user-provided seed,
+typically as an integer of some size, and to convert it into an initial state for
+a <a class="reference internal" href="bit_generators/generated/numpy.random.BitGenerator.html#numpy.random.BitGenerator" title="numpy.random.BitGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BitGenerator</span></code></a>. It uses hashing techniques to ensure that low-quality seeds
+are turned into high quality initial states (at least, with very high
+probability).</p>
+<p>For example, <a class="reference internal" href="bit_generators/mt19937.html#numpy.random.MT19937" title="numpy.random.MT19937"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MT19937</span></code></a> has a state consisting of 624 <code class="docutils literal notranslate"><span class="pre">uint32</span></code>
+integers. A naive way to take a 32-bit integer seed would be to just set
+the last element of the state to the 32-bit seed and leave the rest 0s. This is
+a valid state for <a class="reference internal" href="bit_generators/mt19937.html#numpy.random.MT19937" title="numpy.random.MT19937"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MT19937</span></code></a>, but not a good one. The Mersenne Twister
+algorithm <a class="reference external" href="http://www.math.sci.hiroshima-u.ac.jp/m-mat/MT/MT2002/emt19937ar.html">suffers if there are too many 0s</a>. Similarly, two adjacent 32-bit
+integer seeds (i.e. <code class="docutils literal notranslate"><span class="pre">12345</span></code> and <code class="docutils literal notranslate"><span class="pre">12346</span></code>) would produce very similar
+streams.</p>
+<p><a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> avoids these problems by using successions of integer hashes
+with good <a class="reference external" href="https://en.wikipedia.org/wiki/Avalanche_effect">avalanche properties</a> to ensure that flipping any bit in the input
+has about a 50% chance of flipping any bit in the output. Two input seeds that
+are very close to each other will produce initial states that are very far
+from each other (with very high probability). It is also constructed in such
+a way that you can provide arbitrary-sized integers or lists of integers.
+<a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> will take all of the bits that you provide and mix them
+together to produce however many bits the consuming <a class="reference internal" href="bit_generators/generated/numpy.random.BitGenerator.html#numpy.random.BitGenerator" title="numpy.random.BitGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BitGenerator</span></code></a> needs to
+initialize itself.</p>
+<p>These properties together mean that we can safely mix together the usual
+user-provided seed with simple incrementing counters to get <a class="reference internal" href="bit_generators/generated/numpy.random.BitGenerator.html#numpy.random.BitGenerator" title="numpy.random.BitGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BitGenerator</span></code></a>
+states that are (to very high probability) independent of each other. We can
+wrap this together into an API that is easy to use and difficult to misuse.
+Note that while <a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> attempts to solve many of the issues related to
+user-provided small seeds, we still <a class="reference internal" href="index.html#recommend-secrets-randbits"><span class="std std-ref">recommend</span></a>
+using <a class="reference external" href="https://docs.python.org/3/library/secrets.html#secrets.randbits" title="(in Python v3.12)"><code class="xref py py-func docutils literal notranslate"><span class="pre">secrets.randbits</span></code></a> to generate seeds with 128 bits of entropy to
+avoid the remaining biases introduced by human-chosen seeds.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">SeedSequence</span><span class="p">,</span> <span class="n">default_rng</span>
+
+<span class="n">ss</span> <span class="o">=</span> <span class="n">SeedSequence</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+
+<span class="c1"># Spawn off 10 child SeedSequences to pass to child processes.</span>
+<span class="n">child_seeds</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">streams</span> <span class="o">=</span> <span class="p">[</span><span class="n">default_rng</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">child_seeds</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For convenience the direct use of <a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> is not necessary.
+The above <code class="docutils literal notranslate"><span class="pre">streams</span></code> can be spawned directly from a parent generator
+via <a class="reference internal" href="generated/numpy.random.Generator.spawn.html#numpy.random.Generator.spawn" title="numpy.random.Generator.spawn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spawn</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parent_rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">streams</span> <span class="o">=</span> <span class="n">parent_rng</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Child objects can also spawn to make grandchildren, and so on.
+Each child has a <a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> with its position in the tree of spawned
+child objects mixed in with the user-provided seed to generate independent
+(with very high probability) streams.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grandchildren</span> <span class="o">=</span> <span class="n">streams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This feature lets you make local decisions about when and how to split up
+streams without coordination between processes. You do not have to preallocate
+space to avoid overlapping or request streams from a common global service. This
+general “tree-hashing” scheme is <a class="reference external" href="https://www.iro.umontreal.ca/~lecuyer/myftp/papers/parallel-rng-imacs.pdf">not unique to numpy</a> but not yet widespread.
+Python has increasingly-flexible mechanisms for parallelization available, and
+this scheme fits in very well with that kind of use.</p>
+<p>Using this scheme, an upper bound on the probability of a collision can be
+estimated if one knows the number of streams that you derive. <a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a>
+hashes its inputs, both the seed and the spawn-tree-path, down to a 128-bit
+pool by default. The probability that there is a collision in
+that pool, pessimistically-estimated (<a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>), will be about <span class="math notranslate nohighlight">\(n^2*2^{-128}\)</span> where
+<em class="xref py py-obj">n</em> is the number of streams spawned. If a program uses an aggressive million
+streams, about <span class="math notranslate nohighlight">\(2^{20}\)</span>, then the probability that at least one pair of
+them are identical is about <span class="math notranslate nohighlight">\(2^{-88}\)</span>, which is in solidly-ignorable
+territory (<a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>).</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>The algorithm is carefully designed to eliminate a number of possible
+ways to collide. For example, if one only does one level of spawning, it
+is guaranteed that all states will be unique. But it’s easier to
+estimate the naive upper bound on a napkin and take comfort knowing
+that the probability is actually lower.</p>
+</aside>
+<aside class="footnote brackets" id="id4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>In this calculation, we can mostly ignore the amount of numbers drawn from each
+stream. See <a class="reference internal" href="upgrading-pcg64.html#upgrading-pcg64"><span class="std std-ref">Upgrading PCG64 with PCG64DXSM</span></a> for the technical details about
+<a class="reference internal" href="bit_generators/pcg64.html#numpy.random.PCG64" title="numpy.random.PCG64"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PCG64</span></code></a>. The other PRNGs we provide have some extra protection built in
+that avoids overlaps if the <a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> pools differ in the
+slightest bit. <a class="reference internal" href="bit_generators/pcg64dxsm.html#numpy.random.PCG64DXSM" title="numpy.random.PCG64DXSM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PCG64DXSM</span></code></a> has <span class="math notranslate nohighlight">\(2^{127}\)</span> separate cycles
+determined by the seed in addition to the position in the
+<span class="math notranslate nohighlight">\(2^{128}\)</span> long period for each cycle, so one has to both get on or
+near the same cycle <em>and</em> seed a nearby position in the cycle.
+<a class="reference internal" href="bit_generators/philox.html#numpy.random.Philox" title="numpy.random.Philox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Philox</span></code></a> has completely independent cycles determined by the seed.
+<a class="reference internal" href="bit_generators/sfc64.html#numpy.random.SFC64" title="numpy.random.SFC64"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SFC64</span></code></a> incorporates a 64-bit counter so every unique seed is at
+least <span class="math notranslate nohighlight">\(2^{64}\)</span> iterations away from any other seed. And
+finally, <a class="reference internal" href="bit_generators/mt19937.html#numpy.random.MT19937" title="numpy.random.MT19937"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MT19937</span></code></a> has just an unimaginably huge period. Getting
+a collision internal to <a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> is the way a failure would be
+observed.</p>
+</aside>
+</aside>
+</section>
+<section id="sequence-of-integer-seeds">
+<span id="sequence-of-seeds"></span><h2>Sequence of integer seeds<a class="headerlink" href="#sequence-of-integer-seeds" title="Link to this heading">#</a></h2>
+<p>As discussed in the previous section, <a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.html#numpy.random.SeedSequence" title="numpy.random.SeedSequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code></a> can not only take an
+integer seed, it can also take an arbitrary-length sequence of (non-negative)
+integers. If one exercises a little care, one can use this feature to design
+<em>ad hoc</em> schemes for getting safe parallel PRNG streams with similar safety
+guarantees as spawning.</p>
+<p>For example, one common use case is that a worker process is passed one
+root seed integer for the whole calculation and also an integer worker ID (or
+something more granular like a job ID, batch ID, or something similar). If
+these IDs are created deterministically and uniquely, then one can derive
+reproducible parallel PRNG streams by combining the ID and the root seed
+integer in a list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># default_rng() and each of the BitGenerators use SeedSequence underneath, so</span>
+<span class="c1"># they all accept sequences of integers as seeds the same way.</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
+
+<span class="k">def</span> <span class="nf">worker</span><span class="p">(</span><span class="n">root_seed</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">([</span><span class="n">worker_id</span><span class="p">,</span> <span class="n">root_seed</span><span class="p">])</span>
+    <span class="c1"># Do work ...</span>
+
+<span class="n">root_seed</span> <span class="o">=</span> <span class="mh">0x8c3c010cb4754c905776bdac5ee7501</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">worker</span><span class="p">(</span><span class="n">root_seed</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">worker_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>This can be used to replace a number of unsafe strategies that have been used
+in the past which try to combine the root seed and the ID back into a single
+integer seed value. For example, it is common to see users add the worker ID to
+the root seed, especially with the legacy <a class="reference internal" href="legacy.html#numpy.random.RandomState" title="numpy.random.RandomState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomState</span></code></a> code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># UNSAFE! Do not do this!</span>
+<span class="n">worker_seed</span> <span class="o">=</span> <span class="n">root_seed</span> <span class="o">+</span> <span class="n">worker_id</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">worker_seed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It is true that for any one run of a parallel program constructed this way,
+each worker will have distinct streams. However, it is quite likely that
+multiple invocations of the program with different seeds will get overlapping
+sets of worker seeds. It is not uncommon (in the author’s self-experience) to
+change the root seed merely by an increment or two when doing these repeat
+runs. If the worker seeds are also derived by small increments of the worker
+ID, then subsets of the workers will return identical results, causing a bias
+in the overall ensemble of results.</p>
+<p>Combining the worker ID and the root seed as a list of integers eliminates this
+risk. Lazy seeding practices will still be fairly safe.</p>
+<p>This scheme does require that the extra IDs be unique and deterministically
+created. This may require coordination between the worker processes. It is
+recommended to place the varying IDs <em>before</em> the unvarying root seed.
+<a class="reference internal" href="bit_generators/generated/numpy.random.SeedSequence.spawn.html#numpy.random.SeedSequence.spawn" title="numpy.random.SeedSequence.spawn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spawn</span></code></a> <em>appends</em> integers after the user-provided seed, so if
+you might be mixing both this <em>ad hoc</em> mechanism and spawning, or passing your
+objects down to library code that might be spawning, then it is a little bit
+safer to prepend your worker IDs rather than append them to avoid a collision.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Good.</span>
+<span class="n">worker_seed</span> <span class="o">=</span> <span class="p">[</span><span class="n">worker_id</span><span class="p">,</span> <span class="n">root_seed</span><span class="p">]</span>
+
+<span class="c1"># Less good. It will *work*, but it&#39;s less flexible.</span>
+<span class="n">worker_seed</span> <span class="o">=</span> <span class="p">[</span><span class="n">root_seed</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>With those caveats in mind, the safety guarantees against collision are about
+the same as with spawning, discussed in the previous section. The algorithmic
+mechanisms are the same.</p>
+</section>
+<section id="independent-streams">
+<span id="id5"></span><h2>Independent streams<a class="headerlink" href="#independent-streams" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="bit_generators/philox.html#numpy.random.Philox" title="numpy.random.Philox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Philox</span></code></a> is a counter-based RNG based which generates values by
+encrypting an incrementing counter using weak cryptographic primitives. The
+seed determines the key that is used for the encryption. Unique keys create
+unique, independent streams. <a class="reference internal" href="bit_generators/philox.html#numpy.random.Philox" title="numpy.random.Philox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Philox</span></code></a> lets you bypass the
+seeding algorithm to directly set the 128-bit key. Similar, but different, keys
+will still create independent streams.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">secrets</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">Philox</span>
+
+<span class="c1"># 128-bit number as a seed</span>
+<span class="n">root_seed</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span>
+<span class="n">streams</span> <span class="o">=</span> <span class="p">[</span><span class="n">Philox</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">root_seed</span> <span class="o">+</span> <span class="n">stream_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">stream_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>This scheme does require that you avoid reusing stream IDs. This may require
+coordination between the parallel processes.</p>
+</section>
+<section id="jumping-the-bitgenerator-state">
+<span id="parallel-jumped"></span><h2>Jumping the BitGenerator state<a class="headerlink" href="#jumping-the-bitgenerator-state" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">jumped</span></code> advances the state of the BitGenerator <em>as-if</em> a large number of
+random numbers have been drawn, and returns a new instance with this state.
+The specific number of draws varies by BitGenerator, and ranges from
+<span class="math notranslate nohighlight">\(2^{64}\)</span> to <span class="math notranslate nohighlight">\(2^{128}\)</span>.  Additionally, the <em>as-if</em> draws also depend
+on the size of the default random number produced by the specific BitGenerator.
+The BitGenerators that support <code class="docutils literal notranslate"><span class="pre">jumped</span></code>, along with the period of the
+BitGenerator, the size of the jump and the bits in the default unsigned random
+are listed below.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>BitGenerator</p></th>
+<th class="head"><p>Period</p></th>
+<th class="head"><p>Jump Size</p></th>
+<th class="head"><p>Bits per Draw</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="bit_generators/mt19937.html#numpy.random.MT19937" title="numpy.random.MT19937"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MT19937</span></code></a></p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{19937}-1\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{128}\)</span></p></td>
+<td><p>32</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="bit_generators/pcg64.html#numpy.random.PCG64" title="numpy.random.PCG64"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PCG64</span></code></a></p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{128}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(~2^{127}\)</span> (<a class="footnote-reference brackets" href="#id8" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>)</p></td>
+<td><p>64</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="bit_generators/pcg64dxsm.html#numpy.random.PCG64DXSM" title="numpy.random.PCG64DXSM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PCG64DXSM</span></code></a></p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{128}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(~2^{127}\)</span> (<a class="footnote-reference brackets" href="#id8" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>)</p></td>
+<td><p>64</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="bit_generators/philox.html#numpy.random.Philox" title="numpy.random.Philox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Philox</span></code></a></p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{256}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2^{128}\)</span></p></td>
+<td><p>64</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id8" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id6">1</a>,<a role="doc-backlink" href="#id7">2</a>)</span>
+<p>The jump size is <span class="math notranslate nohighlight">\((\phi-1)*2^{128}\)</span> where <span class="math notranslate nohighlight">\(\phi\)</span> is the
+golden ratio. As the jumps wrap around the period, the actual distances
+between neighboring streams will slowly grow smaller than the jump size,
+but using the golden ratio this way is a classic method of constructing
+a low-discrepancy sequence that spreads out the states around the period
+optimally. You will not be able to jump enough to make those distances
+small enough to overlap in your lifetime.</p>
+</aside>
+</aside>
+<p><code class="docutils literal notranslate"><span class="pre">jumped</span></code> can be used to produce long blocks which should be long enough to not
+overlap.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">secrets</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">PCG64</span>
+
+<span class="n">seed</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span>
+<span class="n">blocked_rng</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">PCG64</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">blocked_rng</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">jumped</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>When using <code class="docutils literal notranslate"><span class="pre">jumped</span></code>, one does have to take care not to jump to a stream that
+was already used. In the above example, one could not later use
+<code class="docutils literal notranslate"><span class="pre">blocked_rng[0].jumped()</span></code> as it would overlap with <code class="docutils literal notranslate"><span class="pre">blocked_rng[1]</span></code>. Like
+with the independent streams, if the main process here wants to split off 10
+more streams by jumping, then it needs to start with <code class="docutils literal notranslate"><span class="pre">range(10,</span> <span class="pre">20)</span></code>,
+otherwise it would recreate the same streams. On the other hand, if you
+carefully construct the streams, then you are guaranteed to have streams that
+do not overlap.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="compatibility.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Compatibility policy</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="multithreading.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Multithreaded generation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seedsequence-spawning"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SeedSequence</span></code> spawning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-of-integer-seeds">Sequence of integer seeds</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-streams">Independent streams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jumping-the-bitgenerator-state">Jumping the BitGenerator state</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

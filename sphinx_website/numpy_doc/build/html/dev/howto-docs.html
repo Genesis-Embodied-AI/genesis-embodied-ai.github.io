@@ -1,0 +1,1063 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>How to contribute to the NumPy documentation &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dev/howto-docs';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="NumPy project governance and decision-making" href="governance/governance.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="development_environment.html">Setting up and using your development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto_build_docs.html">Building the NumPy API and reference docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_workflow.html">Development workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_advanced_debugging.html">Advanced debugging tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reviewer_guidelines.html">Reviewer guidelines</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/neps/nep-0045-c_style_guide.html">NumPy C style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="depending_on_numpy.html">For downstream package authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing a version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governance/index.html">NumPy governance</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to contribute to the NumPy documentation</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Contributing to NumPy</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">How to...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="how-to-contribute-to-the-numpy-documentation">
+<span id="howto-docs"></span><h1>How to contribute to the NumPy documentation<a class="headerlink" href="#how-to-contribute-to-the-numpy-documentation" title="Link to this heading">#</a></h1>
+<p>This guide will help you decide what to contribute and how to submit it to the
+official NumPy documentation.</p>
+<section id="documentation-team-meetings">
+<h2>Documentation team meetings<a class="headerlink" href="#documentation-team-meetings" title="Link to this heading">#</a></h2>
+<p>The NumPy community has set a firm goal of improving its documentation. We
+hold regular documentation meetings on Zoom (dates are announced on the
+<a class="reference external" href="https://mail.python.org/mailman/listinfo/numpy-discussion">numpy-discussion mailing list</a>), and everyone
+is welcome. Reach out if you have questions or need
+someone to guide you through your first steps – we’re happy to help.
+Minutes are taken <a class="reference external" href="https://hackmd.io/oB_boakvRqKR-_2jRV-Qjg">on hackmd.io</a>
+and stored in the <a class="reference external" href="https://github.com/numpy/archive">NumPy Archive repository</a>.</p>
+</section>
+<section id="what-s-needed">
+<h2>What’s needed<a class="headerlink" href="#what-s-needed" title="Link to this heading">#</a></h2>
+<p>The <a class="reference internal" href="../index.html#numpy-docs-mainpage"><span class="std std-ref">NumPy Documentation</span></a> has the details covered.
+API reference documentation is generated directly from
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">docstrings</a> in the code when the
+documentation is <a class="reference internal" href="howto_build_docs.html#howto-build-docs"><span class="std std-ref">built</span></a>. Although we have mostly
+complete reference documentation for each function and class exposed to users,
+there is a lack of usage examples for some of them.</p>
+<p>What we lack are docs with broader scope – tutorials, how-tos, and
+explanations. Reporting defects is another way to contribute. We discuss both.</p>
+</section>
+<section id="contributing-fixes">
+<h2>Contributing fixes<a class="headerlink" href="#contributing-fixes" title="Link to this heading">#</a></h2>
+<p>We’re eager to hear about and fix doc defects. But to attack the biggest
+problems we end up having to defer or overlook some bug reports. Here are the
+best defects to go after.</p>
+<p>Top priority goes to <strong>technical inaccuracies</strong> – a docstring missing a
+parameter, a faulty description of a function/parameter/method, and so on.
+Other “structural” defects like broken links also get priority. All these fixes
+are easy to confirm and put in place. You can submit
+a <a class="reference external" href="https://numpy.org/devdocs/dev/index.html#devindex">pull request (PR)</a>
+with the fix, if you know how to do that; otherwise please <a class="reference external" href="https://github.com/numpy/numpy/issues">open an issue</a>.</p>
+<p><strong>Typos and misspellings</strong> fall on a lower rung; we welcome hearing about them
+but may not be able to fix them promptly. These too can be handled as pull
+requests or issues.</p>
+<p>Obvious <strong>wording</strong> mistakes (like leaving out a “not”) fall into the typo
+category, but other rewordings – even for grammar – require a judgment call,
+which raises the bar. Test the waters by first presenting the fix as an issue.</p>
+<p>Some functions/objects like numpy.ndarray.transpose, numpy.array etc. defined in
+C-extension modules have their docstrings defined separately in <a class="reference external" href="https://github.com/numpy/numpy/blob/main/numpy/_core/_add_newdocs.py">_add_newdocs.py</a></p>
+</section>
+<section id="contributing-new-pages">
+<h2>Contributing new pages<a class="headerlink" href="#contributing-new-pages" title="Link to this heading">#</a></h2>
+<p>Your frustrations using our documents are our best guide to what needs fixing.</p>
+<p>If you write a missing doc you join the front line of open source, but it’s
+a meaningful contribution just to let us know what’s missing. If you want to
+compose a doc, run your thoughts by the <a class="reference external" href="https://mail.python.org/mailman/listinfo/numpy-discussion">mailing list</a> for further
+ideas and feedback. If you want to alert us to a gap,
+<a class="reference external" href="https://github.com/numpy/numpy/issues">open an issue</a>. See
+<a class="reference external" href="https://github.com/numpy/numpy/issues/15760">this issue</a> for an example.</p>
+<p>If you’re looking for subjects, our formal roadmap for documentation is a
+<em>NumPy Enhancement Proposal (NEP)</em>,
+<a class="reference external" href="https://numpy.org/neps/nep-0044-restructuring-numpy-docs.html#nep44" title="(in NumPy Enhancement Proposals)"><span>NEP 44 — Restructuring the NumPy documentation</span></a>.
+It identifies areas where our docs need help and lists several
+additions we’d like to see, including <a class="reference internal" href="#numpy-tutorials"><span class="std std-ref">Jupyter notebooks</span></a>.</p>
+<section id="documentation-framework">
+<span id="tutorials-howtos-explanations"></span><h3>Documentation framework<a class="headerlink" href="#documentation-framework" title="Link to this heading">#</a></h3>
+<p>There are formulas for writing useful documents, and four formulas
+cover nearly everything. There are four formulas because there are four
+categories of document – <code class="docutils literal notranslate"><span class="pre">tutorial</span></code>, <code class="docutils literal notranslate"><span class="pre">how-to</span> <span class="pre">guide</span></code>, <code class="docutils literal notranslate"><span class="pre">explanation</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">reference</span></code>. The insight that docs divide up this way belongs to
+Daniele Procida and his <a class="reference external" href="https://diataxis.fr/">Diátaxis Framework</a>. When you
+begin a document or propose one, have in mind which of these types it will be.</p>
+</section>
+<section id="numpy-tutorials">
+<span id="id1"></span><h3>NumPy tutorials<a class="headerlink" href="#numpy-tutorials" title="Link to this heading">#</a></h3>
+<p>In addition to the documentation that is part of the NumPy source tree, you can
+submit content in Jupyter Notebook format to the
+<a class="reference external" href="https://numpy.org/numpy-tutorials">NumPy Tutorials</a> page. This
+set of tutorials and educational materials is meant to provide high-quality
+resources by the NumPy project, both for self-learning and for teaching classes
+with. These resources are developed in a separate GitHub repository,
+<a class="reference external" href="https://github.com/numpy/numpy-tutorials">numpy-tutorials</a>, where you can
+check out existing notebooks, open issues to suggest new topics or submit your
+own tutorials as pull requests.</p>
+</section>
+<section id="more-on-contributing">
+<span id="contributing"></span><h3>More on contributing<a class="headerlink" href="#more-on-contributing" title="Link to this heading">#</a></h3>
+<p>Don’t worry if English is not your first language, or if you can only come up
+with a rough draft. Open source is a community effort. Do your best – we’ll
+help fix issues.</p>
+<p>Images and real-life data make text more engaging and powerful, but be sure
+what you use is appropriately licensed and available. Here again, even a rough
+idea for artwork can be polished by others.</p>
+<p>For now, the only data formats accepted by NumPy are those also used by other
+Python scientific libraries like pandas, SciPy, or Matplotlib. We’re
+developing a package to accept more formats; contact us for details.</p>
+<p>NumPy documentation is kept in the source code tree. To get your document
+into the docbase you must download the tree, <a class="reference internal" href="howto_build_docs.html#howto-build-docs"><span class="std std-ref">build it</span></a>, and submit a pull request. If GitHub and pull requests
+are new to you, check our <a class="reference internal" href="index.html#devindex"><span class="std std-ref">Contributor Guide</span></a>.</p>
+<p>Our markup language is reStructuredText (rST), which is more elaborate than
+Markdown. Sphinx, the tool many Python projects use to build and link project
+documentation, converts the rST into HTML and other formats. For more on
+rST, see the <a class="reference external" href="https://docutils.sourceforge.io/docs/user/rst/quickref.html">Quick reStructuredText Guide</a> or the
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">reStructuredText Primer</a></p>
+</section>
+</section>
+<section id="contributing-indirectly">
+<h2>Contributing indirectly<a class="headerlink" href="#contributing-indirectly" title="Link to this heading">#</a></h2>
+<p>If you run across outside material that would be a useful addition to the
+NumPy docs, let us know by <a class="reference external" href="https://github.com/numpy/numpy/issues">opening an issue</a>.</p>
+<p>You don’t have to contribute here to contribute to NumPy. You’ve contributed
+if you write a tutorial on your blog, create a YouTube video, or answer questions
+on Stack Overflow and other sites.</p>
+</section>
+<section id="documentation-style">
+<span id="howto-document"></span><h2>Documentation style<a class="headerlink" href="#documentation-style" title="Link to this heading">#</a></h2>
+<section id="user-documentation">
+<span id="userdoc-guide"></span><h3>User documentation<a class="headerlink" href="#user-documentation" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>In general, we follow the
+<a class="reference external" href="https://developers.google.com/style">Google developer documentation style guide</a>
+for the User Guide.</p></li>
+<li><p>NumPy style governs cases where:</p>
+<ul class="simple">
+<li><p>Google has no guidance, or</p></li>
+<li><p>We prefer not to use the Google style</p></li>
+</ul>
+<p>Our current rules:</p>
+<ul class="simple">
+<li><p>We pluralize <em>index</em> as <em>indices</em> rather than
+<a class="reference external" href="https://developers.google.com/style/word-list#letter-i">indexes</a>,
+following the precedent of <a class="reference internal" href="../reference/generated/numpy.indices.html#numpy.indices" title="numpy.indices"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.indices</span></code></a>.</p></li>
+<li><p>For consistency we also pluralize <em>matrix</em> as <em>matrices</em>.</p></li>
+</ul>
+</li>
+<li><p>Grammatical issues inadequately addressed by the NumPy or Google rules are
+decided by the section on “Grammar and Usage” in the most recent edition of
+the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Chicago_Manual_of_Style">Chicago Manual of Style</a>.</p></li>
+<li><p>We welcome being
+<a class="reference external" href="https://github.com/numpy/numpy/issues">alerted</a> to cases
+we should add to the NumPy style rules.</p></li>
+</ul>
+</section>
+<section id="docstring-intro">
+<span id="id2"></span><h3>Docstrings<a class="headerlink" href="#docstring-intro" title="Link to this heading">#</a></h3>
+<p>When using <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> in combination with the
+NumPy conventions, you should use the <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> extension so that your
+docstrings will be handled correctly. For example, Sphinx will extract the
+<code class="docutils literal notranslate"><span class="pre">Parameters</span></code> section from your docstring and convert it into a field
+list.  Using <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> will also avoid the reStructuredText errors produced
+by plain Sphinx when it encounters NumPy docstring conventions like
+section headers (e.g. <code class="docutils literal notranslate"><span class="pre">-------------</span></code>) that sphinx does not expect to
+find in docstrings.</p>
+<p>It is available from:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pypi.python.org/pypi/numpydoc">numpydoc on PyPI</a></p></li>
+<li><p><a class="reference external" href="https://github.com/numpy/numpydoc/">numpydoc on GitHub</a></p></li>
+</ul>
+<p>Note that for documentation within NumPy, it is not necessary to do
+<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code> at the beginning of an example.</p>
+<p>Please use the <code class="docutils literal notranslate"><span class="pre">numpydoc</span></code> <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html#format" title="(in numpydoc v1.9.0rc0.dev0)"><span class="xref std std-ref">formatting standard</span></a> as
+shown in their <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/example.html#example" title="(in numpydoc v1.9.0rc0.dev0)"><span class="xref std std-ref">example</span></a>.</p>
+</section>
+<section id="documenting-c-c-code">
+<span id="doc-c-code"></span><h3>Documenting C/C++ code<a class="headerlink" href="#documenting-c-c-code" title="Link to this heading">#</a></h3>
+<p>NumPy uses <a class="reference external" href="https://www.doxygen.nl/index.html">Doxygen</a> to parse specially-formatted C/C++ comment blocks. This generates
+XML files, which are  converted by <a class="reference external" href="https://breathe.readthedocs.io/en/latest/">Breathe</a> into RST, which is used by Sphinx.</p>
+<p><strong>It takes three steps to complete the documentation process</strong>:</p>
+<section id="writing-the-comment-blocks">
+<h4>1. Writing the comment blocks<a class="headerlink" href="#writing-the-comment-blocks" title="Link to this heading">#</a></h4>
+<p>Although there is still no commenting style set to follow, the Javadoc
+is more preferable than the others due to the similarities with the current
+existing non-indexed comment blocks.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please see <a class="reference external" href="https://www.doxygen.nl/manual/docblocks.html">“Documenting the code”</a>.</p>
+</div>
+<p><strong>This is what Javadoc style looks like</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="n">This</span> <span class="n">a</span> <span class="n">simple</span> <span class="n">brief</span><span class="o">.</span>
+ <span class="o">*</span>
+ <span class="o">*</span> <span class="n">And</span> <span class="n">the</span> <span class="n">details</span> <span class="n">goes</span> <span class="n">here</span><span class="o">.</span>
+ <span class="o">*</span> <span class="n">Multi</span> <span class="n">lines</span> <span class="n">are</span> <span class="n">welcome</span><span class="o">.</span>
+ <span class="o">*</span>
+ <span class="o">*</span> <span class="nd">@param</span>  <span class="n">num</span>  <span class="n">leave</span> <span class="n">a</span> <span class="n">comment</span> <span class="k">for</span> <span class="n">parameter</span> <span class="n">num</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span>  <span class="nb">str</span>  <span class="n">leave</span> <span class="n">a</span> <span class="n">comment</span> <span class="k">for</span> <span class="n">the</span> <span class="n">second</span> <span class="n">parameter</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span>      <span class="n">leave</span> <span class="n">a</span> <span class="n">comment</span> <span class="k">for</span> <span class="n">the</span> <span class="n">returned</span> <span class="n">value</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">int</span> <span class="n">doxy_javadoc_example</span><span class="p">(</span><span class="nb">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="nb">str</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>And here is how it is rendered</strong>:</p>
+<p><strong>For line comment, you can use a triple forward slash. For example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span>  <span class="n">Template</span> <span class="n">to</span> <span class="n">represent</span> <span class="n">limbo</span> <span class="n">numbers</span><span class="o">.</span>
+ <span class="o">*</span>
+ <span class="o">*</span>  <span class="n">Specializations</span> <span class="k">for</span> <span class="n">integer</span> <span class="n">types</span> <span class="n">that</span> <span class="n">are</span> <span class="n">part</span> <span class="n">of</span> <span class="n">nowhere</span><span class="o">.</span>
+ <span class="o">*</span>  <span class="n">It</span> <span class="n">doesn</span><span class="s1">&#39;t support with any real types.</span>
+ <span class="o">*</span>
+ <span class="o">*</span>  <span class="nd">@param</span> <span class="n">Tp</span> <span class="n">Type</span> <span class="n">of</span> <span class="n">the</span> <span class="n">integer</span><span class="o">.</span> <span class="n">Required</span> <span class="n">to</span> <span class="n">be</span> <span class="n">an</span> <span class="n">integer</span> <span class="nb">type</span><span class="o">.</span>
+ <span class="o">*</span>  <span class="nd">@param</span> <span class="n">N</span>  <span class="n">Number</span> <span class="n">of</span> <span class="n">elements</span><span class="o">.</span>
+<span class="o">*/</span>
+<span class="n">template</span><span class="o">&lt;</span><span class="n">typename</span> <span class="n">Tp</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">DoxyLimbo</span> <span class="p">{</span>
+ <span class="n">public</span><span class="p">:</span>
+    <span class="o">///</span> <span class="n">Default</span> <span class="n">constructor</span><span class="o">.</span> <span class="n">Initialize</span> <span class="n">nothing</span><span class="o">.</span>
+    <span class="n">DoxyLimbo</span><span class="p">();</span>
+    <span class="o">///</span> <span class="n">Set</span> <span class="n">Default</span> <span class="n">behavior</span> <span class="k">for</span> <span class="n">copy</span> <span class="n">the</span> <span class="n">limbo</span><span class="o">.</span>
+    <span class="n">DoxyLimbo</span><span class="p">(</span><span class="n">const</span> <span class="n">DoxyLimbo</span><span class="o">&lt;</span><span class="n">Tp</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">l</span><span class="p">);</span>
+    <span class="o">///</span> <span class="n">Returns</span> <span class="n">the</span> <span class="n">raw</span> <span class="n">data</span> <span class="k">for</span> <span class="n">the</span> <span class="n">limbo</span><span class="o">.</span>
+    <span class="n">const</span> <span class="n">Tp</span> <span class="o">*</span><span class="n">data</span><span class="p">();</span>
+ <span class="n">protected</span><span class="p">:</span>
+    <span class="n">Tp</span> <span class="n">p_data</span><span class="p">[</span><span class="n">N</span><span class="p">];</span> <span class="o">///&lt;</span> <span class="n">Example</span> <span class="k">for</span> <span class="n">inline</span> <span class="n">comment</span><span class="o">.</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><strong>And here is how it is rendered</strong>:</p>
+<section id="common-doxygen-tags">
+<h5>Common Doxygen Tags:<a class="headerlink" href="#common-doxygen-tags" title="Link to this heading">#</a></h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more tags/commands, please take a look at <a class="reference external" href="https://www.doxygen.nl/manual/commands.html">https://www.doxygen.nl/manual/commands.html</a></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;brief</span></code></p>
+<p>Starts a paragraph that serves as a brief description. By default the first sentence
+of the documentation block is automatically treated as a brief description, since
+option <a class="reference external" href="https://www.doxygen.nl/manual/config.html#cfg_javadoc_autobrief">JAVADOC_AUTOBRIEF</a>
+is enabled within doxygen configurations.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;details</span></code></p>
+<p>Just like <code class="docutils literal notranslate"><span class="pre">&#64;brief</span></code> starts a brief description, <code class="docutils literal notranslate"><span class="pre">&#64;details</span></code> starts the detailed description.
+You can also start a new paragraph (blank line) then the <code class="docutils literal notranslate"><span class="pre">&#64;details</span></code> command is not needed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;param</span></code></p>
+<p>Starts a parameter description for a function parameter with name &lt;parameter-name&gt;,
+followed by a description of the parameter. The existence of the parameter is checked
+and a warning is given if the documentation of this (or any other) parameter is missing
+or not present in the function declaration or definition.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;return</span></code></p>
+<p>Starts a return value description for a function.
+Multiple adjacent <code class="docutils literal notranslate"><span class="pre">&#64;return</span></code> commands will be joined into a single paragraph.
+The <code class="docutils literal notranslate"><span class="pre">&#64;return</span></code> description ends when a blank line or some other sectioning command is encountered.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;code/&#64;endcode</span></code></p>
+<p>Starts/Ends a block of code. A code block is treated differently from ordinary text.
+It is interpreted as source code.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;rst/&#64;endrst</span></code></p>
+<p>Starts/Ends a block of reST markup.</p>
+</section>
+<section id="example">
+<h5>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h5>
+<p><strong>Take a look at the following example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="n">A</span> <span class="n">comment</span> <span class="n">block</span> <span class="n">contains</span> <span class="n">reST</span> <span class="n">markup</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@rst</span>
+ <span class="o">*</span> <span class="o">..</span> <span class="n">note</span><span class="p">::</span>
+ <span class="o">*</span>
+ <span class="o">*</span>   <span class="n">Thanks</span> <span class="n">to</span> <span class="n">Breathe_</span><span class="p">,</span> <span class="n">we</span> <span class="n">were</span> <span class="n">able</span> <span class="n">to</span> <span class="n">bring</span> <span class="n">it</span> <span class="n">to</span> <span class="n">Doxygen_</span>
+ <span class="o">*</span>
+ <span class="o">*</span> <span class="n">Some</span> <span class="n">code</span> <span class="n">example</span><span class="p">::</span>
+ <span class="o">*</span>
+ <span class="o">*</span>   <span class="nb">int</span> <span class="n">example</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+ <span class="o">*</span>       <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+ <span class="o">*</span>   <span class="p">}</span>
+ <span class="o">*</span> <span class="nd">@endrst</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">doxy_reST_example</span><span class="p">(</span><span class="n">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>And here is how it is rendered</strong>:</p>
+</section>
+</section>
+<section id="feeding-doxygen">
+<h4>2. Feeding Doxygen<a class="headerlink" href="#feeding-doxygen" title="Link to this heading">#</a></h4>
+<p>Not all headers files are collected automatically. You have to add the desired
+C/C++ header paths within the sub-config files of Doxygen.</p>
+<p>Sub-config files have the unique name <code class="docutils literal notranslate"><span class="pre">.doxyfile</span></code>, which you can usually find near
+directories that contain documented headers. You need to create a new config file if
+there’s not one located in a path close(2-depth) to the headers you want to add.</p>
+<p>Sub-config files can accept any of <a class="reference external" href="https://www.doxygen.nl/index.html">Doxygen</a> <a class="reference external" href="https://www.doxygen.nl/manual/config.html">configuration options</a>,
+but do not override or re-initialize any configuration option,
+rather only use the concatenation operator “+=”. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># to specify certain headers</span>
+<span class="n">INPUT</span> <span class="o">+=</span> <span class="nd">@CUR_DIR</span><span class="o">/</span><span class="n">header1</span><span class="o">.</span><span class="n">h</span> \
+         <span class="nd">@CUR_DIR</span><span class="o">/</span><span class="n">header2</span><span class="o">.</span><span class="n">h</span>
+<span class="c1"># to add all headers in certain path</span>
+<span class="n">INPUT</span> <span class="o">+=</span> <span class="nd">@CUR_DIR</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">headers</span>
+<span class="c1"># to define certain macros</span>
+<span class="n">PREDEFINED</span> <span class="o">+=</span> <span class="n">C_MACRO</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">=</span><span class="n">X</span>
+<span class="c1"># to enable certain branches</span>
+<span class="n">PREDEFINED</span> <span class="o">+=</span> <span class="n">NPY_HAVE_FEATURE</span> \
+              <span class="n">NPY_HAVE_FEATURE2</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>&#64;CUR_DIR is a template constant returns the current
+dir path of the sub-config file.</p>
+</div>
+</section>
+<section id="inclusion-directives">
+<h4>3. Inclusion directives<a class="headerlink" href="#inclusion-directives" title="Link to this heading">#</a></h4>
+<p><a class="reference external" href="https://breathe.readthedocs.io/en/latest/">Breathe</a> provides a wide range of custom directives to allow
+converting the documents generated by <a class="reference external" href="https://www.doxygen.nl/index.html">Doxygen</a> into reST files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information, please check out “<a class="reference external" href="https://breathe.readthedocs.io/en/latest/directives.html">Directives &amp; Config Variables</a>”</p>
+</div>
+<section id="common-directives">
+<h5>Common directives:<a class="headerlink" href="#common-directives" title="Link to this heading">#</a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">doxygenfunction</span></code></p>
+<p>This directive generates the appropriate output for a single function.
+The function name is required to be unique in the project.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">doxygenfunction</span><span class="p">::</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">name</span><span class="o">&gt;</span>
+    <span class="p">:</span><span class="n">outline</span><span class="p">:</span>
+    <span class="p">:</span><span class="n">no</span><span class="o">-</span><span class="n">link</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Checkout the <a class="reference external" href="https://breathe.readthedocs.io/en/latest/function.html#function-example">example</a>
+to see it in action.</p>
+<p><code class="docutils literal notranslate"><span class="pre">doxygenclass</span></code></p>
+<p>This directive generates the appropriate output for a single class.
+It takes the standard project, path, outline and no-link options and
+additionally the members, protected-members, private-members, undoc-members,
+membergroups and members-only options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">doxygenclass</span><span class="p">::</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">name</span><span class="o">&gt;</span>
+   <span class="p">:</span><span class="n">members</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+   <span class="p">:</span><span class="n">protected</span><span class="o">-</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">private</span><span class="o">-</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">undoc</span><span class="o">-</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">membergroups</span><span class="p">:</span> <span class="o">...</span>
+   <span class="p">:</span><span class="n">members</span><span class="o">-</span><span class="n">only</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">outline</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">no</span><span class="o">-</span><span class="n">link</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Checkout the <a class="reference external" href="https://breathe.readthedocs.io/en/latest/class.html#class-example">doxygenclass documentation</a>
+for more details and to see it in action.</p>
+<p><code class="docutils literal notranslate"><span class="pre">doxygennamespace</span></code></p>
+<p>This directive generates the appropriate output for the contents of a namespace.
+It takes the standard project, path, outline and no-link options and additionally the content-only,
+members, protected-members, private-members and undoc-members options.
+To reference a nested namespace, the full namespaced path must be provided,
+e.g. foo::bar for the bar namespace inside the foo namespace.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">doxygennamespace</span><span class="p">::</span> <span class="o">&lt;</span><span class="n">namespace</span><span class="o">&gt;</span>
+   <span class="p">:</span><span class="n">content</span><span class="o">-</span><span class="n">only</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">outline</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">protected</span><span class="o">-</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">private</span><span class="o">-</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">undoc</span><span class="o">-</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">no</span><span class="o">-</span><span class="n">link</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Checkout the <a class="reference external" href="https://breathe.readthedocs.io/en/latest/namespace.html#namespace-example">doxygennamespace documentation</a>
+for more details and to see it in action.</p>
+<p><code class="docutils literal notranslate"><span class="pre">doxygengroup</span></code></p>
+<p>This directive generates the appropriate output for the contents of a doxygen group.
+A doxygen group can be declared with specific doxygen markup in the source comments
+as covered in the doxygen <a class="reference external" href="https://www.doxygen.nl/manual/grouping.html">grouping documentation</a>.</p>
+<p>It takes the standard project, path, outline and no-link options and additionally the
+content-only, members, protected-members, private-members and undoc-members options.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">doxygengroup</span><span class="p">::</span> <span class="o">&lt;</span><span class="n">group</span> <span class="n">name</span><span class="o">&gt;</span>
+   <span class="p">:</span><span class="n">content</span><span class="o">-</span><span class="n">only</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">outline</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">protected</span><span class="o">-</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">private</span><span class="o">-</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">undoc</span><span class="o">-</span><span class="n">members</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">no</span><span class="o">-</span><span class="n">link</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">inner</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Checkout the <a class="reference external" href="https://breathe.readthedocs.io/en/latest/group.html#group-example">doxygengroup documentation</a>
+for more details and to see it in action.</p>
+</section>
+</section>
+</section>
+<section id="legacy-directive">
+<h3>Legacy directive<a class="headerlink" href="#legacy-directive" title="Link to this heading">#</a></h3>
+<p>If a function, module or API is in <em>legacy</em> mode, meaning that it is kept around
+for backwards compatibility reasons, but is not recommended to use in new code,
+you can use the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">legacy::</span></code> directive.</p>
+<p>By default, if used with no arguments, the legacy directive will generate the
+following output:</p>
+<div class="admonition-legacy admonition">
+<p class="admonition-title">Legacy</p>
+<p>This submodule is considered legacy and will no longer receive updates. This could also mean it will be removed in future NumPy versions.</p>
+</div>
+<p>We strongly recommend that you also add a custom message, such as a new API to
+replace the old one:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.. legacy::
+
+   For more details, see :ref:`distutils-status-migration`.
+</pre></div>
+</div>
+<p>This message will be appended to the default message and will create the
+following output:</p>
+<div class="admonition-legacy admonition">
+<p class="admonition-title">Legacy</p>
+<p>This submodule is considered legacy and will no longer receive updates. This could also mean it will be removed in future NumPy versions. For more details, see <a class="reference internal" href="../reference/distutils_status_migration.html#distutils-status-migration"><span class="std std-ref">Status of numpy.distutils and migration advice</span></a>.</p>
+</div>
+<p>Finally, if you want to mention a function, method (or any custom object)
+instead of a <em>submodule</em>, you can use an optional argument:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">legacy</span><span class="p">::</span> <span class="n">function</span>
+</pre></div>
+</div>
+<p>This will create the following output:</p>
+<div class="admonition-legacy admonition">
+<p class="admonition-title">Legacy</p>
+<p>This function is considered legacy and will no longer receive updates. This could also mean it will be removed in future NumPy versions.</p>
+</div>
+</section>
+</section>
+<section id="documentation-reading">
+<h2>Documentation reading<a class="headerlink" href="#documentation-reading" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The leading organization of technical writers,
+<a class="reference external" href="https://www.writethedocs.org/">Write the Docs</a>,
+holds conferences, hosts learning resources, and runs a Slack channel.</p></li>
+<li><p>“Every engineer is also a writer,” says Google’s
+<a class="reference external" href="https://developers.google.com/tech-writing">collection of technical writing resources</a>,
+which includes free online courses for developers in planning and writing
+documents.</p></li>
+<li><p><a class="reference external" href="https://software-carpentry.org/lessons">Software Carpentry’s</a> mission is
+teaching software to researchers. In addition to hosting the curriculum, the
+website explains how to present ideas effectively.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="governance/governance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">NumPy project governance and decision-making</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-team-meetings">Documentation team meetings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-needed">What’s needed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing-fixes">Contributing fixes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing-new-pages">Contributing new pages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-framework">Documentation framework</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-tutorials">NumPy tutorials</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-on-contributing">More on contributing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing-indirectly">Contributing indirectly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-style">Documentation style</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-documentation">User documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docstring-intro">Docstrings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#documenting-c-c-code">Documenting C/C++ code</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-the-comment-blocks">1. Writing the comment blocks</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#common-doxygen-tags">Common Doxygen Tags:</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feeding-doxygen">2. Feeding Doxygen</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inclusion-directives">3. Inclusion directives</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#common-directives">Common directives:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#legacy-directive">Legacy directive</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-reading">Documentation reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

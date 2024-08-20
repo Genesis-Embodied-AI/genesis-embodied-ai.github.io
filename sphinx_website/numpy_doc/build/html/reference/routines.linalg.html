@@ -1,0 +1,969 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Linear algebra (numpy.linalg) &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/routines.linalg';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="numpy.dot" href="generated/numpy.dot.html" />
+    <link rel="prev" title="numpy.fft.ifftshift" href="generated/numpy.fft.ifftshift.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 21, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="routines.html">Routines and objects by topic</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.array-creation.html">Array creation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.array-manipulation.html">Array manipulation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.bitwise.html">Bit-wise operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.strings.html">String functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.datetime.html">Datetime support functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.dtype.html">Data type routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.emath.html">Mathematical functions with automatic domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.err.html">Floating point error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.exceptions.html">Exceptions and Warnings (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.exceptions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.fft.html">Discrete Fourier Transform (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.fft</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.functional.html">Functional programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.io.html">Input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.indexing.html">Indexing routines</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Linear algebra (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.linalg</span></code>)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dot.html">numpy.dot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.multi_dot.html">numpy.linalg.multi_dot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.vdot.html">numpy.vdot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.vecdot.html">numpy.vecdot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.vecdot.html">numpy.linalg.vecdot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.inner.html">numpy.inner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.outer.html">numpy.outer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.matmul.html">numpy.matmul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.matmul.html">numpy.linalg.matmul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.tensordot.html">numpy.tensordot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.tensordot.html">numpy.linalg.tensordot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.einsum.html">numpy.einsum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.einsum_path.html">numpy.einsum_path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.matrix_power.html">numpy.linalg.matrix_power</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.kron.html">numpy.kron</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.cross.html">numpy.linalg.cross</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.cholesky.html">numpy.linalg.cholesky</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.outer.html">numpy.linalg.outer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.qr.html">numpy.linalg.qr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.svd.html">numpy.linalg.svd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.svdvals.html">numpy.linalg.svdvals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.eig.html">numpy.linalg.eig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.eigh.html">numpy.linalg.eigh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.eigvals.html">numpy.linalg.eigvals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.eigvalsh.html">numpy.linalg.eigvalsh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.norm.html">numpy.linalg.norm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.matrix_norm.html">numpy.linalg.matrix_norm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.vector_norm.html">numpy.linalg.vector_norm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.cond.html">numpy.linalg.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.det.html">numpy.linalg.det</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.matrix_rank.html">numpy.linalg.matrix_rank</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.slogdet.html">numpy.linalg.slogdet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.trace.html">numpy.trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.trace.html">numpy.linalg.trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.solve.html">numpy.linalg.solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.tensorsolve.html">numpy.linalg.tensorsolve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.lstsq.html">numpy.linalg.lstsq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.inv.html">numpy.linalg.inv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.pinv.html">numpy.linalg.pinv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.tensorinv.html">numpy.linalg.tensorinv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.diagonal.html">numpy.diagonal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.diagonal.html">numpy.linalg.diagonal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.matrix_transpose.html">numpy.linalg.matrix_transpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.linalg.LinAlgError.html">numpy.linalg.LinAlgError</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.logic.html">Logic functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.ma.html">Masked array operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.math.html">Mathematical functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.other.html">Miscellaneous routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.polynomials.html">Polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random/index.html">Random sampling (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.random</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.set.html">Set routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.sort.html">Sorting, searching, and counting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.statistics.html">Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.testing.html">Test support (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.testing</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.window.html">Window functions</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c-api/index.html">NumPy C-API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="module_structure.html" class="nav-link">NumPy’s module structure</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Linear...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="linear-algebra-numpy-linalg">
+<span id="module-numpy.linalg"></span><span id="routines-linalg"></span><h1>Linear algebra (<a class="reference internal" href="#module-numpy.linalg" title="numpy.linalg"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.linalg</span></code></a>)<a class="headerlink" href="#linear-algebra-numpy-linalg" title="Link to this heading">#</a></h1>
+<p>The NumPy linear algebra functions rely on BLAS and LAPACK to provide efficient
+low level implementations of standard linear algebra algorithms. Those
+libraries may be provided by NumPy itself using C versions of a subset of their
+reference implementations but, when possible, highly optimized libraries that
+take advantage of specialized processor functionality are preferred. Examples
+of such libraries are <a class="reference external" href="https://www.openblas.net/">OpenBLAS</a>, MKL (TM), and ATLAS. Because those libraries
+are multithreaded and processor dependent, environmental variables and external
+packages such as <a class="reference external" href="https://github.com/joblib/threadpoolctl">threadpoolctl</a> may be needed to control the number of threads
+or specify the processor architecture.</p>
+<p>The SciPy library also contains a <em class="xref py py-obj">linalg</em> submodule, and there is
+overlap in the functionality provided by the SciPy and NumPy submodules.  SciPy
+contains functions not found in <a class="reference internal" href="#module-numpy.linalg" title="numpy.linalg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.linalg</span></code></a>, such as functions related to
+LU decomposition and the Schur decomposition, multiple ways of calculating the
+pseudoinverse, and matrix transcendentals such as the matrix logarithm.  Some
+functions that exist in both have augmented functionality in <em class="xref py py-obj">scipy.linalg</em>.
+For example, <em class="xref py py-obj">scipy.linalg.eig</em> can take a second matrix argument for solving
+generalized eigenvalue problems.  Some functions in NumPy, however, have more
+flexible broadcasting options.  For example, <a class="reference internal" href="generated/numpy.linalg.solve.html#numpy.linalg.solve" title="numpy.linalg.solve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.linalg.solve</span></code></a> can handle
+“stacked” arrays, while <em class="xref py py-obj">scipy.linalg.solve</em> accepts only a single square
+array as its first argument.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The term <em>matrix</em> as it is used on this page indicates a 2d <a class="reference internal" href="generated/numpy.array.html#numpy.array" title="numpy.array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.array</span></code></a>
+object, and <em>not</em> a <a class="reference internal" href="generated/numpy.matrix.html#numpy.matrix" title="numpy.matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.matrix</span></code></a> object. The latter is no longer
+recommended, even for linear algebra. See
+<a class="reference internal" href="arrays.classes.html#matrix-objects"><span class="std std-ref">the matrix object documentation</span></a> for
+more information.</p>
+</div>
+<section id="the-operator">
+<h2>The <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> operator<a class="headerlink" href="#the-operator" title="Link to this heading">#</a></h2>
+<p>Introduced in NumPy 1.10.0, the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> operator is preferable to
+other methods when computing the matrix product between 2d arrays. The
+<a class="reference internal" href="generated/numpy.matmul.html#numpy.matmul" title="numpy.matmul"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.matmul</span></code></a> function implements the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> operator.</p>
+</section>
+<section id="matrix-and-vector-products">
+<h2>Matrix and vector products<a class="headerlink" href="#matrix-and-vector-products" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dot.html#numpy.dot" title="numpy.dot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dot</span></code></a>(a, b[, out])</p></td>
+<td><p>Dot product of two arrays.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.multi_dot.html#numpy.linalg.multi_dot" title="numpy.linalg.multi_dot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.multi_dot</span></code></a>(arrays, *[, out])</p></td>
+<td><p>Compute the dot product of two or more arrays in a single function call, while automatically selecting the fastest evaluation order.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.vdot.html#numpy.vdot" title="numpy.vdot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vdot</span></code></a>(a, b, /)</p></td>
+<td><p>Return the dot product of two vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.vecdot.html#numpy.vecdot" title="numpy.vecdot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vecdot</span></code></a>(x1, x2, /[, out, casting, order, ...])</p></td>
+<td><p>Vector dot product of two arrays.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.vecdot.html#numpy.linalg.vecdot" title="numpy.linalg.vecdot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.vecdot</span></code></a>(x1, x2, /, *[, axis])</p></td>
+<td><p>Computes the vector dot product.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.inner.html#numpy.inner" title="numpy.inner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inner</span></code></a>(a, b, /)</p></td>
+<td><p>Inner product of two arrays.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.outer.html#numpy.outer" title="numpy.outer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">outer</span></code></a>(a, b[, out])</p></td>
+<td><p>Compute the outer product of two vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.matmul.html#numpy.matmul" title="numpy.matmul"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matmul</span></code></a>(x1, x2, /[, out, casting, order, ...])</p></td>
+<td><p>Matrix product of two arrays.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.matmul.html#numpy.linalg.matmul" title="numpy.linalg.matmul"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.matmul</span></code></a>(x1, x2, /)</p></td>
+<td><p>Computes the matrix product.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.tensordot.html#numpy.tensordot" title="numpy.tensordot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensordot</span></code></a>(a, b[, axes])</p></td>
+<td><p>Compute tensor dot product along specified axes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.tensordot.html#numpy.linalg.tensordot" title="numpy.linalg.tensordot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.tensordot</span></code></a>(x1, x2, /, *[, axes])</p></td>
+<td><p>Compute tensor dot product along specified axes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.einsum.html#numpy.einsum" title="numpy.einsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">einsum</span></code></a>(subscripts, *operands[, out, dtype, ...])</p></td>
+<td><p>Evaluates the Einstein summation convention on the operands.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.einsum_path.html#numpy.einsum_path" title="numpy.einsum_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">einsum_path</span></code></a>(subscripts, *operands[, optimize])</p></td>
+<td><p>Evaluates the lowest cost contraction order for an einsum expression by considering the creation of intermediate arrays.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.matrix_power.html#numpy.linalg.matrix_power" title="numpy.linalg.matrix_power"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.matrix_power</span></code></a>(a, n)</p></td>
+<td><p>Raise a square matrix to the (integer) power <em class="xref py py-obj">n</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.kron.html#numpy.kron" title="numpy.kron"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kron</span></code></a>(a, b)</p></td>
+<td><p>Kronecker product of two arrays.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.cross.html#numpy.linalg.cross" title="numpy.linalg.cross"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.cross</span></code></a>(x1, x2, /, *[, axis])</p></td>
+<td><p>Returns the cross product of 3-element vectors.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="decompositions">
+<h2>Decompositions<a class="headerlink" href="#decompositions" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.cholesky.html#numpy.linalg.cholesky" title="numpy.linalg.cholesky"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.cholesky</span></code></a>(a, /, *[, upper])</p></td>
+<td><p>Cholesky decomposition.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.outer.html#numpy.linalg.outer" title="numpy.linalg.outer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.outer</span></code></a>(x1, x2, /)</p></td>
+<td><p>Compute the outer product of two vectors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.qr.html#numpy.linalg.qr" title="numpy.linalg.qr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.qr</span></code></a>(a[, mode])</p></td>
+<td><p>Compute the qr factorization of a matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.svd.html#numpy.linalg.svd" title="numpy.linalg.svd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.svd</span></code></a>(a[, full_matrices, compute_uv, ...])</p></td>
+<td><p>Singular Value Decomposition.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.svdvals.html#numpy.linalg.svdvals" title="numpy.linalg.svdvals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.svdvals</span></code></a>(x, /)</p></td>
+<td><p>Returns the singular values of a matrix (or a stack of matrices) <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="matrix-eigenvalues">
+<h2>Matrix eigenvalues<a class="headerlink" href="#matrix-eigenvalues" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.eig.html#numpy.linalg.eig" title="numpy.linalg.eig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.eig</span></code></a>(a)</p></td>
+<td><p>Compute the eigenvalues and right eigenvectors of a square array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.eigh.html#numpy.linalg.eigh" title="numpy.linalg.eigh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.eigh</span></code></a>(a[, UPLO])</p></td>
+<td><p>Return the eigenvalues and eigenvectors of a complex Hermitian (conjugate symmetric) or a real symmetric matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.eigvals.html#numpy.linalg.eigvals" title="numpy.linalg.eigvals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.eigvals</span></code></a>(a)</p></td>
+<td><p>Compute the eigenvalues of a general matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.eigvalsh.html#numpy.linalg.eigvalsh" title="numpy.linalg.eigvalsh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.eigvalsh</span></code></a>(a[, UPLO])</p></td>
+<td><p>Compute the eigenvalues of a complex Hermitian or real symmetric matrix.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="norms-and-other-numbers">
+<h2>Norms and other numbers<a class="headerlink" href="#norms-and-other-numbers" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.norm.html#numpy.linalg.norm" title="numpy.linalg.norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.norm</span></code></a>(x[, ord, axis, keepdims])</p></td>
+<td><p>Matrix or vector norm.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.matrix_norm.html#numpy.linalg.matrix_norm" title="numpy.linalg.matrix_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.matrix_norm</span></code></a>(x, /, *[, keepdims, ord])</p></td>
+<td><p>Computes the matrix norm of a matrix (or a stack of matrices) <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.vector_norm.html#numpy.linalg.vector_norm" title="numpy.linalg.vector_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.vector_norm</span></code></a>(x, /, *[, axis, ...])</p></td>
+<td><p>Computes the vector norm of a vector (or batch of vectors) <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.cond.html#numpy.linalg.cond" title="numpy.linalg.cond"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.cond</span></code></a>(x[, p])</p></td>
+<td><p>Compute the condition number of a matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.det.html#numpy.linalg.det" title="numpy.linalg.det"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.det</span></code></a>(a)</p></td>
+<td><p>Compute the determinant of an array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.matrix_rank.html#numpy.linalg.matrix_rank" title="numpy.linalg.matrix_rank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.matrix_rank</span></code></a>(A[, tol, hermitian, rtol])</p></td>
+<td><p>Return matrix rank of array using SVD method</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.slogdet.html#numpy.linalg.slogdet" title="numpy.linalg.slogdet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.slogdet</span></code></a>(a)</p></td>
+<td><p>Compute the sign and (natural) logarithm of the determinant of an array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.trace.html#numpy.trace" title="numpy.trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trace</span></code></a>(a[, offset, axis1, axis2, dtype, out])</p></td>
+<td><p>Return the sum along diagonals of the array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.trace.html#numpy.linalg.trace" title="numpy.linalg.trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.trace</span></code></a>(x, /, *[, offset, dtype])</p></td>
+<td><p>Returns the sum along the specified diagonals of a matrix (or a stack of matrices) <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="solving-equations-and-inverting-matrices">
+<h2>Solving equations and inverting matrices<a class="headerlink" href="#solving-equations-and-inverting-matrices" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.solve.html#numpy.linalg.solve" title="numpy.linalg.solve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.solve</span></code></a>(a, b)</p></td>
+<td><p>Solve a linear matrix equation, or system of linear scalar equations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.tensorsolve.html#numpy.linalg.tensorsolve" title="numpy.linalg.tensorsolve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.tensorsolve</span></code></a>(a, b[, axes])</p></td>
+<td><p>Solve the tensor equation <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">b</span></code> for x.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.lstsq.html#numpy.linalg.lstsq" title="numpy.linalg.lstsq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.lstsq</span></code></a>(a, b[, rcond])</p></td>
+<td><p>Return the least-squares solution to a linear matrix equation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.inv.html#numpy.linalg.inv" title="numpy.linalg.inv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.inv</span></code></a>(a)</p></td>
+<td><p>Compute the inverse of a matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.pinv.html#numpy.linalg.pinv" title="numpy.linalg.pinv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.pinv</span></code></a>(a[, rcond, hermitian, rtol])</p></td>
+<td><p>Compute the (Moore-Penrose) pseudo-inverse of a matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.tensorinv.html#numpy.linalg.tensorinv" title="numpy.linalg.tensorinv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.tensorinv</span></code></a>(a[, ind])</p></td>
+<td><p>Compute the 'inverse' of an N-dimensional array.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="other-matrix-operations">
+<h2>Other matrix operations<a class="headerlink" href="#other-matrix-operations" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.diagonal.html#numpy.diagonal" title="numpy.diagonal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diagonal</span></code></a>(a[, offset, axis1, axis2])</p></td>
+<td><p>Return specified diagonals.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.linalg.diagonal.html#numpy.linalg.diagonal" title="numpy.linalg.diagonal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.diagonal</span></code></a>(x, /, *[, offset])</p></td>
+<td><p>Returns specified diagonals of a matrix (or a stack of matrices) <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.matrix_transpose.html#numpy.linalg.matrix_transpose" title="numpy.linalg.matrix_transpose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.matrix_transpose</span></code></a>(x, /)</p></td>
+<td><p>Transposes a matrix (or a stack of matrices) <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.linalg.LinAlgError.html#numpy.linalg.LinAlgError" title="numpy.linalg.LinAlgError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linalg.LinAlgError</span></code></a></p></td>
+<td><p>Generic Python-exception-derived object raised by linalg functions.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="linear-algebra-on-several-matrices-at-once">
+<span id="routines-linalg-broadcasting"></span><h2>Linear algebra on several matrices at once<a class="headerlink" href="#linear-algebra-on-several-matrices-at-once" title="Link to this heading">#</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.8.0.</span></p>
+</div>
+<p>Several of the linear algebra routines listed above are able to
+compute results for several matrices at once, if they are stacked into
+the same array.</p>
+<p>This is indicated in the documentation via input parameter
+specifications such as <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">:</span> <span class="pre">(...,</span> <span class="pre">M,</span> <span class="pre">M)</span> <span class="pre">array_like</span></code>. This means that
+if for instance given an input array <code class="docutils literal notranslate"><span class="pre">a.shape</span> <span class="pre">==</span> <span class="pre">(N,</span> <span class="pre">M,</span> <span class="pre">M)</span></code>, it is
+interpreted as a “stack” of N matrices, each of size M-by-M. Similar
+specification applies to return values, for instance the determinant
+has <code class="docutils literal notranslate"><span class="pre">det</span> <span class="pre">:</span> <span class="pre">(...)</span></code> and will in this case return an array of shape
+<code class="docutils literal notranslate"><span class="pre">det(a).shape</span> <span class="pre">==</span> <span class="pre">(N,)</span></code>. This generalizes to linear algebra
+operations on higher-dimensional arrays: the last 1 or 2 dimensions of
+a multidimensional array are interpreted as vectors or matrices, as
+appropriate for each operation.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="generated/numpy.fft.ifftshift.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">numpy.fft.ifftshift</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="generated/numpy.dot.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">numpy.dot</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-operator">The <code class="docutils literal notranslate"><span class="pre">@</span></code> operator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-and-vector-products">Matrix and vector products</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decompositions">Decompositions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-eigenvalues">Matrix eigenvalues</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norms-and-other-numbers">Norms and other numbers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-equations-and-inverting-matrices">Solving equations and inverting matrices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-matrix-operations">Other matrix operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exceptions">Exceptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-algebra-on-several-matrices-at-once">Linear algebra on several matrices at once</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

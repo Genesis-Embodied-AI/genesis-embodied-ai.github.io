@@ -1,0 +1,815 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Advanced debugging tools &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dev/development_advanced_debugging';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Reviewer guidelines" href="reviewer_guidelines.html" />
+    <link rel="prev" title="Development workflow" href="development_workflow.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="development_environment.html">Setting up and using your development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto_build_docs.html">Building the NumPy API and reference docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_workflow.html">Development workflow</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Advanced debugging tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reviewer_guidelines.html">Reviewer guidelines</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/neps/nep-0045-c_style_guide.html">NumPy C style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="depending_on_numpy.html">For downstream package authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing a version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governance/index.html">NumPy governance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-docs.html">How to contribute to the NumPy documentation</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Contributing to NumPy</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Advanced...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="advanced-debugging-tools">
+<span id="advanced-debugging"></span><h1>Advanced debugging tools<a class="headerlink" href="#advanced-debugging-tools" title="Link to this heading">#</a></h1>
+<p>If you reached here, you want to dive into, or use, more advanced tooling.
+This is usually not necessary for first time contributors and most
+day-to-day development.
+These are used more rarely, for example close to a new NumPy release,
+or when a large or particular complex change was made.</p>
+<p>Since not all of these tools are used on a regular bases and only available
+on some systems, please expect differences, issues, or quirks;
+we will be happy to help if you get stuck and appreciate any improvements
+or suggestions to these workflows.</p>
+<section id="finding-c-errors-with-additional-tooling">
+<h2>Finding C errors with additional tooling<a class="headerlink" href="#finding-c-errors-with-additional-tooling" title="Link to this heading">#</a></h2>
+<p>Most development will not require more than a typical debugging toolchain
+as shown in <a class="reference internal" href="development_environment.html#debugging"><span class="std std-ref">Debugging</span></a>.
+But for example memory leaks can be particularly subtle or difficult to
+narrow down.</p>
+<p>We do not expect any of these tools to be run by most contributors.
+However, you can ensure that we can track down such issues more easily:</p>
+<ul class="simple">
+<li><p>Tests should cover all code paths, including error paths.</p></li>
+<li><p>Try to write short and simple tests. If you have a very complicated test
+consider creating an additional simpler test as well.
+This can be helpful, because often it is only easy to find which test
+triggers an issue and not which line of the test.</p></li>
+<li><p>Never use <code class="docutils literal notranslate"><span class="pre">np.empty</span></code> if data is read/used. <code class="docutils literal notranslate"><span class="pre">valgrind</span></code> will notice this
+and report an error. When you do not care about values, you can generate
+random values instead.</p></li>
+</ul>
+<p>This will help us catch any oversights before your change is released
+and means you do not have to worry about making reference counting errors,
+which can be intimidating.</p>
+<section id="python-debug-build">
+<h3>Python debug build<a class="headerlink" href="#python-debug-build" title="Link to this heading">#</a></h3>
+<p>Debug builds of Python are easily available for example via the system package
+manager on Linux systems, but are also available on other platforms, possibly in
+a less convenient format. If you cannot easily install a debug build of Python
+from a system package manager, you can build one yourself using <a class="reference external" href="https://github.com/pyenv/pyenv">pyenv</a>. For example, to install and globally
+activate a debug build of Python 3.10.8, one would do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="mf">3.10.8</span>
+<span class="n">pyenv</span> <span class="k">global</span> <span class="mf">3.10.8</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">pyenv</span> <span class="pre">install</span></code> builds Python from source, so you must ensure that
+Python’s dependencies are installed before building, see the pyenv documentation
+for platform-specific installation instructions. You can use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install
+Python dependencies you may need for your debugging session. If there is no
+debug wheel available on <em class="xref py py-obj">pypi,</em> you will need to build the dependencies from
+source and ensure that your dependencies are also compiled as debug builds.</p>
+<p>Often debug builds of Python name the Python executable <code class="docutils literal notranslate"><span class="pre">pythond</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">python</span></code>. To check if you have a debug build of Python installed, you can run
+e.g. <code class="docutils literal notranslate"><span class="pre">pythond</span> <span class="pre">-m</span> <span class="pre">sysconfig</span></code> to get the build configuration for the Python
+executable. A debug build will be built with debug compiler options in
+<code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">-Og</span></code>).</p>
+<p>Running the Numpy tests or an interactive terminal is usually as easy as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span><span class="mf">.8</span><span class="n">d</span> <span class="n">runtests</span><span class="o">.</span><span class="n">py</span>
+<span class="c1"># or</span>
+<span class="n">python3</span><span class="mf">.8</span><span class="n">d</span> <span class="n">runtests</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">ipython</span>
+</pre></div>
+</div>
+<p>and were already mentioned in <a class="reference internal" href="development_environment.html#debugging"><span class="std std-ref">Debugging</span></a>.</p>
+<p>A Python debug build will help:</p>
+<ul>
+<li><p>Find bugs which may otherwise cause random behaviour.
+One example is when an object is still used after it has been deleted.</p></li>
+<li><p>Python debug builds allows to check correct reference counting.
+This works using the additional commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">gettotalrefcount</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">getallocatedblocks</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Python debug builds allow easier debugging with gdb and other C debuggers.</p></li>
+</ul>
+<section id="use-together-with-pytest">
+<h4>Use together with <code class="docutils literal notranslate"><span class="pre">pytest</span></code><a class="headerlink" href="#use-together-with-pytest" title="Link to this heading">#</a></h4>
+<p>Running the test suite only with a debug python build will not find many
+errors on its own. An additional advantage of a debug build of Python is that
+it allows detecting memory leaks.</p>
+<p>A tool to make this easier is <a class="reference external" href="https://github.com/abalkin/pytest-leaks">pytest-leaks</a>, which can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.
+Unfortunately, <code class="docutils literal notranslate"><span class="pre">pytest</span></code> itself may leak memory, but good results can usually
+(currently) be achieved by removing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">add_np</span><span class="p">(</span><span class="n">doctest_namespace</span><span class="p">):</span>
+    <span class="n">doctest_namespace</span><span class="p">[</span><span class="s1">&#39;np&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">env_setup</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
+    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setenv</span><span class="p">(</span><span class="s1">&#39;PYTHONHASHSEED&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>from <code class="docutils literal notranslate"><span class="pre">numpy/conftest.py</span></code> (This may change with new <code class="docutils literal notranslate"><span class="pre">pytest-leaks</span></code> versions
+or <code class="docutils literal notranslate"><span class="pre">pytest</span></code> updates).</p>
+<p>This allows to run the test suite, or part of it, conveniently:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span><span class="mf">.8</span><span class="n">d</span> <span class="n">runtests</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">t</span> <span class="n">numpy</span><span class="o">/</span><span class="n">_core</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_multiarray</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span> <span class="o">-</span><span class="n">R2</span><span class="p">:</span><span class="mi">3</span> <span class="o">-</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">-R2:3</span></code> is the <code class="docutils literal notranslate"><span class="pre">pytest-leaks</span></code> command (see its documentation), the
+<code class="docutils literal notranslate"><span class="pre">-s</span></code> causes output to print and may be necessary (in some versions captured
+output was detected as a leak).</p>
+<p>Note that some tests are known (or even designed) to leak references, we try
+to mark them, but expect some false positives.</p>
+</section>
+</section>
+<section id="valgrind">
+<h3><code class="docutils literal notranslate"><span class="pre">valgrind</span></code><a class="headerlink" href="#valgrind" title="Link to this heading">#</a></h3>
+<p>Valgrind is a powerful tool to find certain memory access problems and should
+be run on complicated C code.
+Basic use of <code class="docutils literal notranslate"><span class="pre">valgrind</span></code> usually requires no more than:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PYTHONMALLOC</span><span class="o">=</span><span class="n">malloc</span> <span class="n">valgrind</span> <span class="n">python</span> <span class="n">runtests</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">PYTHONMALLOC=malloc</span></code> is necessary to avoid false positives from python
+itself.
+Depending on the system and valgrind version, you may see more false positives.
+<code class="docutils literal notranslate"><span class="pre">valgrind</span></code> supports “suppressions” to ignore some of these, and Python does
+have a suppression file (and even a compile time option) which may help if you
+find it necessary.</p>
+<p>Valgrind helps:</p>
+<ul>
+<li><p>Find use of uninitialized variables/memory.</p></li>
+<li><p>Detect memory access violations (reading or writing outside of allocated
+memory).</p></li>
+<li><p>Find <em>many</em> memory leaks. Note that for <em>most</em> leaks the python
+debug build approach (and <code class="docutils literal notranslate"><span class="pre">pytest-leaks</span></code>) is much more sensitive.
+The reason is that <code class="docutils literal notranslate"><span class="pre">valgrind</span></code> can only detect if memory is definitely
+lost. If:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="n">arr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Has incorrect reference counting for <code class="docutils literal notranslate"><span class="pre">dtype</span></code>, this is a bug, but valgrind
+cannot see it because <code class="docutils literal notranslate"><span class="pre">np.dtype(np.int64)</span></code> always returns the same object.
+However, not all dtypes are singletons, so this might leak memory for
+different input.
+In rare cases NumPy uses <code class="docutils literal notranslate"><span class="pre">malloc</span></code> and not the Python memory allocators
+which are invisible to the Python debug build.
+<code class="docutils literal notranslate"><span class="pre">malloc</span></code> should normally be avoided, but there are some exceptions
+(e.g. the <code class="docutils literal notranslate"><span class="pre">PyArray_Dims</span></code> structure is public API and cannot use the
+Python allocators.)</p>
+</li>
+</ul>
+<p>Even though using valgrind for memory leak detection is slow and less sensitive
+it can be a convenient: you can run most programs with valgrind without
+modification.</p>
+<p>Things to be aware of:</p>
+<ul class="simple">
+<li><p>Valgrind does not support the numpy <code class="docutils literal notranslate"><span class="pre">longdouble</span></code>, this means that tests
+will fail or be flagged errors that are completely fine.</p></li>
+<li><p>Expect some errors before and after running your NumPy code.</p></li>
+<li><p>Caches can mean that errors (specifically memory leaks) may not be detected
+or are only detect at a later, unrelated time.</p></li>
+</ul>
+<p>A big advantage of valgrind is that it has no requirements aside from valgrind
+itself (although you probably want to use debug builds for better tracebacks).</p>
+<section id="id1">
+<h4>Use together with <code class="docutils literal notranslate"><span class="pre">pytest</span></code><a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>You can run the test suite with valgrind which may be sufficient
+when you are only interested in a few tests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PYTHOMMALLOC</span><span class="o">=</span><span class="n">malloc</span> <span class="n">valgrind</span> <span class="n">python</span> <span class="n">runtests</span><span class="o">.</span><span class="n">py</span> \
+ <span class="o">-</span><span class="n">t</span> <span class="n">numpy</span><span class="o">/</span><span class="n">_core</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_multiarray</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span> <span class="o">--</span><span class="k">continue</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">collection</span><span class="o">-</span><span class="n">errors</span>
+</pre></div>
+</div>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">--continue-on-collection-errors</span></code>, which is currently necessary due to
+missing <code class="docutils literal notranslate"><span class="pre">longdouble</span></code> support causing failures (this will usually not be
+necessary if you do not run the full test suite).</p>
+<p>If you wish to detect memory leaks you will also require <code class="docutils literal notranslate"><span class="pre">--show-leak-kinds=definite</span></code>
+and possibly more valgrind options.  Just as for <code class="docutils literal notranslate"><span class="pre">pytest-leaks</span></code> certain
+tests are known to leak cause errors in valgrind and may or may not be marked
+as such.</p>
+<p>We have developed <a class="reference external" href="https://github.com/seberg/pytest-valgrind">pytest-valgrind</a> which:</p>
+<ul class="simple">
+<li><p>Reports errors for each test individually</p></li>
+<li><p>Narrows down memory leaks to individual tests (by default valgrind
+only checks for memory leaks after a program stops, which is very
+cumbersome).</p></li>
+</ul>
+<p>Please refer to its <code class="docutils literal notranslate"><span class="pre">README</span></code> for more information (it includes an example
+command for NumPy).</p>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="development_workflow.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Development workflow</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="reviewer_guidelines.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reviewer guidelines</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-c-errors-with-additional-tooling">Finding C errors with additional tooling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-debug-build">Python debug build</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#use-together-with-pytest">Use together with <code class="docutils literal notranslate"><span class="pre">pytest</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#valgrind"><code class="docutils literal notranslate"><span class="pre">valgrind</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Use together with <code class="docutils literal notranslate"><span class="pre">pytest</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

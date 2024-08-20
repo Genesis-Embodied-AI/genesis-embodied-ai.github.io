@@ -1,0 +1,872 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Using via scikit-build &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'f2py/buildtools/skbuild';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1 Migrating to meson" href="distutils-to-meson.html" />
+    <link rel="prev" title="Using via cmake" href="cmake.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user/whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user/basics.html">NumPy fundamentals</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user/numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/howtos_index.html">NumPy how-tos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../user/c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">F2PY user guide and reference manual</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../f2py-user.html">F2PY user guide</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../f2py-reference.html">F2PY reference manual</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../signature-file.html">Signature file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python-usage.html">Using F2PY bindings in Python</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">F2PY and build systems</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="distutils.html">Using via <code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.distutils</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="meson.html">Using via <code class="docutils literal notranslate"><span class="pre">meson</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cmake.html">Using via <code class="docutils literal notranslate"><span class="pre">cmake</span></code></a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">Using via <code class="docutils literal notranslate"><span class="pre">scikit-build</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="distutils-to-meson.html">1 Migrating to <code class="docutils literal notranslate"><span class="pre">meson</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/use_cases.html">Advanced F2PY use cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../advanced/boilerplating.html">Boilerplate reduction and templating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../f2py-testing.html">F2PY test suite</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../windows/index.html">F2PY and Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distutils-to-meson.html">1 Migrating to <code class="docutils literal notranslate"><span class="pre">meson</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/underthehood.html">Under-the-hood documentation for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/basics.interoperability.html">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../user/index.html" class="nav-link">NumPy user guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">F2PY and build systems</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Using via...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="using-via-scikit-build">
+<span id="f2py-skbuild"></span><h1>Using via <code class="docutils literal notranslate"><span class="pre">scikit-build</span></code><a class="headerlink" href="#using-via-scikit-build" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">scikit-build</span></code> provides two separate concepts geared towards the users of Python extension modules.</p>
+<ol class="arabic simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> replacement (legacy behaviour)</p></li>
+<li><p>A series of <code class="docutils literal notranslate"><span class="pre">cmake</span></code> modules with definitions which help building Python extensions</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to use <code class="docutils literal notranslate"><span class="pre">scikit-build</span></code>’s <code class="docutils literal notranslate"><span class="pre">cmake</span></code> modules to <a class="reference external" href="https://scikit-build.readthedocs.io/en/latest/cmake-modules/F2PY.html">bypass the
+cmake setup mechanism</a> completely, and to write targets which call <code class="docutils literal notranslate"><span class="pre">f2py</span>
+<span class="pre">-c</span></code>. This usage is <strong>not recommended</strong> since the point of these build system
+documents are to move away from the internal <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> methods.</p>
+</div>
+<p>For situations where no <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> replacements are required or wanted (i.e.
+if <code class="docutils literal notranslate"><span class="pre">wheels</span></code> are not needed), it is recommended to instead use the vanilla
+<code class="docutils literal notranslate"><span class="pre">cmake</span></code> setup described in <a class="reference internal" href="cmake.html#f2py-cmake"><span class="std std-ref">Using via cmake</span></a>.</p>
+<section id="fibonacci-walkthrough-f77">
+<h2>Fibonacci walkthrough (F77)<a class="headerlink" href="#fibonacci-walkthrough-f77" title="Link to this heading">#</a></h2>
+<p>We will consider the <code class="docutils literal notranslate"><span class="pre">fib</span></code>  example from <a class="reference internal" href="../f2py.getting-started.html#f2py-getting-started"><span class="std std-ref">Three ways to wrap - getting started</span></a> section.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="w"> </span><span class="k">FILE</span><span class="p">:</span><span class="w"> </span><span class="n">FIB1</span><span class="p">.</span><span class="n">F</span>
+<span class="w">      </span><span class="k">SUBROUTINE </span><span class="n">FIB</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">C</span>
+<span class="n">C</span><span class="w">     </span><span class="n">CALCULATE</span><span class="w"> </span><span class="n">FIRST</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="n">FIBONACCI</span><span class="w"> </span><span class="n">NUMBERS</span>
+<span class="n">C</span>
+<span class="w">      </span><span class="kt">INTEGER </span><span class="n">N</span>
+<span class="w">      </span><span class="kt">REAL</span><span class="o">*</span><span class="mi">8</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="w">      </span><span class="k">DO </span><span class="n">I</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span>
+<span class="w">         </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="n">I</span><span class="p">.</span><span class="n">EQ</span><span class="p">.</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="k">            </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0D0</span>
+<span class="w">         </span><span class="k">ELSEIF</span><span class="w"> </span><span class="p">(</span><span class="n">I</span><span class="p">.</span><span class="n">EQ</span><span class="p">.</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="k">            </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0D0</span>
+<span class="w">         </span><span class="k">ELSE </span>
+<span class="k">            </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="w">         </span><span class="k">ENDIF</span>
+<span class="k">      ENDDO</span>
+<span class="k">      END</span>
+<span class="n">C</span><span class="w"> </span><span class="k">END FILE </span><span class="n">FIB1</span><span class="p">.</span><span class="n">F</span>
+</pre></div>
+</div>
+<section id="cmake-modules-only">
+<h3><code class="docutils literal notranslate"><span class="pre">CMake</span></code> modules only<a class="headerlink" href="#cmake-modules-only" title="Link to this heading">#</a></h3>
+<p>Consider using the following <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c">### setup project ###</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.9</span><span class="p">)</span>
+
+<span class="nb">project</span><span class="p">(</span><span class="s">fibby</span>
+<span class="w">  </span><span class="s">VERSION</span><span class="w"> </span><span class="s">1.0</span>
+<span class="w">  </span><span class="s">DESCRIPTION</span><span class="w"> </span><span class="s2">&quot;FIB module&quot;</span>
+<span class="w">  </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">C</span><span class="w"> </span><span class="s">Fortran</span>
+<span class="w">  </span><span class="p">)</span>
+
+<span class="c"># Safety net</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">PROJECT_SOURCE_DIR</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s">PROJECT_BINARY_DIR</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">message</span><span class="p">(</span>
+<span class="w">    </span><span class="s">FATAL_ERROR</span>
+<span class="w">      </span><span class="s2">&quot;In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there.\n&quot;</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="c"># Ensure scikit-build modules</span>
+<span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">SKBUILD</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">find_package</span><span class="p">(</span><span class="s">PythonInterp</span><span class="w"> </span><span class="s">3.8</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="w">  </span><span class="c"># Kanged --&gt; https://github.com/Kitware/torch_liberator/blob/master/CMakeLists.txt</span>
+<span class="w">  </span><span class="c"># If skbuild is not the driver; include its utilities in CMAKE_MODULE_PATH</span>
+<span class="w">  </span><span class="nb">execute_process</span><span class="p">(</span>
+<span class="w">    </span><span class="s">COMMAND</span><span class="w"> </span><span class="s2">&quot;${PYTHON_EXECUTABLE}&quot;</span>
+<span class="w">    </span><span class="s">-c</span><span class="w"> </span><span class="s2">&quot;import os, skbuild; print(os.path.dirname(skbuild.__file__))&quot;</span>
+<span class="w">    </span><span class="s">OUTPUT_VARIABLE</span><span class="w"> </span><span class="s">SKBLD_DIR</span>
+<span class="w">    </span><span class="s">OUTPUT_STRIP_TRAILING_WHITESPACE</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="w">  </span><span class="nb">list</span><span class="p">(</span><span class="s">APPEND</span><span class="w"> </span><span class="s">CMAKE_MODULE_PATH</span><span class="w"> </span><span class="s2">&quot;${SKBLD_DIR}/resources/cmake&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">&quot;Looking in ${SKBLD_DIR}/resources/cmake for CMake modules&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="c"># scikit-build style includes</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">PythonExtensions</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span><span class="w"> </span><span class="c"># for ${PYTHON_EXTENSION_MODULE_SUFFIX}</span>
+
+<span class="c"># Grab the variables from a local Python installation</span>
+<span class="c"># NumPy headers</span>
+<span class="nb">execute_process</span><span class="p">(</span>
+<span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="s2">&quot;${PYTHON_EXECUTABLE}&quot;</span>
+<span class="w">  </span><span class="s">-c</span><span class="w"> </span><span class="s2">&quot;import numpy; print(numpy.get_include())&quot;</span>
+<span class="w">  </span><span class="s">OUTPUT_VARIABLE</span><span class="w"> </span><span class="s">NumPy_INCLUDE_DIRS</span>
+<span class="w">  </span><span class="s">OUTPUT_STRIP_TRAILING_WHITESPACE</span>
+<span class="p">)</span>
+<span class="c"># F2PY headers</span>
+<span class="nb">execute_process</span><span class="p">(</span>
+<span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="s2">&quot;${PYTHON_EXECUTABLE}&quot;</span>
+<span class="w">  </span><span class="s">-c</span><span class="w"> </span><span class="s2">&quot;import numpy.f2py; print(numpy.f2py.get_include())&quot;</span>
+<span class="w">  </span><span class="s">OUTPUT_VARIABLE</span><span class="w"> </span><span class="s">F2PY_INCLUDE_DIR</span>
+<span class="w">  </span><span class="s">OUTPUT_STRIP_TRAILING_WHITESPACE</span>
+<span class="p">)</span>
+
+<span class="c"># Prepping the module</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">f2py_module_name</span><span class="w"> </span><span class="s2">&quot;fibby&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">fortran_src_file</span><span class="w"> </span><span class="s2">&quot;${CMAKE_SOURCE_DIR}/fib1.f&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">f2py_module_c</span><span class="w"> </span><span class="s2">&quot;${f2py_module_name}module.c&quot;</span><span class="p">)</span>
+
+<span class="c"># Target for enforcing dependencies</span>
+<span class="nb">add_custom_target</span><span class="p">(</span><span class="s">genpyf</span>
+<span class="w">  </span><span class="s">DEPENDS</span><span class="w"> </span><span class="s2">&quot;${fortran_src_file}&quot;</span>
+<span class="p">)</span>
+<span class="nb">add_custom_command</span><span class="p">(</span>
+<span class="w">  </span><span class="s">OUTPUT</span><span class="w"> </span><span class="s2">&quot;${CMAKE_CURRENT_BINARY_DIR}/${f2py_module_c}&quot;</span>
+<span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nv">PYTHON_EXECUTABLE</span><span class="o">}</span><span class="w">  </span><span class="s">-m</span><span class="w"> </span><span class="s2">&quot;numpy.f2py&quot;</span>
+<span class="w">                   </span><span class="s2">&quot;${fortran_src_file}&quot;</span>
+<span class="w">                   </span><span class="s">-m</span><span class="w"> </span><span class="s2">&quot;fibby&quot;</span>
+<span class="w">                   </span><span class="s">--lower</span><span class="w"> </span><span class="c"># Important</span>
+<span class="w">  </span><span class="s">DEPENDS</span><span class="w"> </span><span class="s">fib1.f</span><span class="w"> </span><span class="c"># Fortran source</span>
+<span class="p">)</span>
+
+<span class="nb">add_library</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">MODULE</span>
+<span class="w">            </span><span class="s2">&quot;${f2py_module_name}module.c&quot;</span>
+<span class="w">            </span><span class="s2">&quot;${F2PY_INCLUDE_DIR}/fortranobject.c&quot;</span>
+<span class="w">            </span><span class="s2">&quot;${fortran_src_file}&quot;</span><span class="p">)</span>
+
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PUBLIC</span>
+<span class="w">                           </span><span class="o">${</span><span class="nv">F2PY_INCLUDE_DIR</span><span class="o">}</span>
+<span class="w">                           </span><span class="o">${</span><span class="nv">NumPy_INCLUDE_DIRS</span><span class="o">}</span>
+<span class="w">                           </span><span class="o">${</span><span class="nv">PYTHON_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">set_target_properties</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PROPERTIES</span><span class="w"> </span><span class="s">SUFFIX</span><span class="w"> </span><span class="s2">&quot;${PYTHON_EXTENSION_MODULE_SUFFIX}&quot;</span><span class="p">)</span>
+<span class="nb">set_target_properties</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PROPERTIES</span><span class="w"> </span><span class="s">PREFIX</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="c"># Linker fixes</span>
+<span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">UNIX</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">APPLE</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set_target_properties</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PROPERTIES</span>
+<span class="w">    </span><span class="s">LINK_FLAGS</span><span class="w">  </span><span class="s">&#39;-Wl,-dylib,-undefined,dynamic_lookup&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">else</span><span class="p">()</span>
+<span class="w">    </span><span class="nb">set_target_properties</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">PROPERTIES</span>
+<span class="w">  </span><span class="s">LINK_FLAGS</span><span class="w">  </span><span class="s">&#39;-Wl,--allow-shlib-undefined&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">endif</span><span class="p">()</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">add_dependencies</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">genpyf</span><span class="p">)</span>
+
+<span class="nb">install</span><span class="p">(</span><span class="s">TARGETS</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">DESTINATION</span><span class="w"> </span><span class="s">fibby</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Much of the logic is the same as in <a class="reference internal" href="cmake.html#f2py-cmake"><span class="std std-ref">Using via cmake</span></a>, however notably here the
+appropriate module suffix is generated via <code class="docutils literal notranslate"><span class="pre">sysconfig.get_config_var(&quot;SO&quot;)</span></code>.
+The resulting extension can be built and loaded in the standard workflow.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>.
+<span class="c1"># CMakeLists.txt fib1.f</span>
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build
+cmake<span class="w"> </span>--build<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import numpy as np; import fibby; a = np.zeros(9); fibby.fib(a); print (a)&quot;</span>
+<span class="c1"># [ 0.  1.  1.  2.  3.  5.  8. 13. 21.]</span>
+</pre></div>
+</div>
+</section>
+<section id="setuptools-replacement">
+<h3><code class="docutils literal notranslate"><span class="pre">setuptools</span></code> replacement<a class="headerlink" href="#setuptools-replacement" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>As of November 2021</strong></p>
+<p>The behavior described here of driving the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> build of a module is
+considered to be legacy behaviour and should not be depended on.</p>
+</div>
+<p>The utility of <code class="docutils literal notranslate"><span class="pre">scikit-build</span></code> lies in being able to drive the generation of
+more than extension modules, in particular a common usage pattern is the
+generation of Python distributables (for example for PyPI).</p>
+<p>The workflow with <code class="docutils literal notranslate"><span class="pre">scikit-build</span></code> straightforwardly supports such packaging requirements. Consider augmenting the project with a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> as defined:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skbuild</span> <span class="kn">import</span> <span class="n">setup</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fibby&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;a minimal example package (fortran version)&quot;</span><span class="p">,</span>
+    <span class="n">license</span><span class="o">=</span><span class="s2">&quot;MIT&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fibby&#39;</span><span class="p">],</span>
+    <span class="n">python_requires</span><span class="o">=</span><span class="s2">&quot;&gt;=3.7&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Along with a commensurate <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[build-system]</span>
+<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;setuptools&gt;=42&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wheel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;scikit-build&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;cmake&gt;=3.9&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;numpy&gt;=1.21&quot;</span><span class="p">]</span>
+<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;setuptools.build_meta&quot;</span>
+</pre></div>
+</div>
+<p>Together these can build the extension using <code class="docutils literal notranslate"><span class="pre">cmake</span></code> in tandem with other
+standard <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> outputs. Running <code class="docutils literal notranslate"><span class="pre">cmake</span></code> through <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> is
+mostly used when it is necessary to integrate with extension modules not built
+with <code class="docutils literal notranslate"><span class="pre">cmake</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>.
+<span class="c1"># CMakeLists.txt fib1.f pyproject.toml setup.py</span>
+python<span class="w"> </span>setup.py<span class="w"> </span>build_ext<span class="w"> </span>--inplace
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import numpy as np; import fibby.fibby; a = np.zeros(9); fibby.fibby.fib(a); print (a)&quot;</span>
+<span class="c1"># [ 0.  1.  1.  2.  3.  5.  8. 13. 21.]</span>
+</pre></div>
+</div>
+<p>Where we have modified the path to the module as <code class="docutils literal notranslate"><span class="pre">--inplace</span></code> places the
+extension module in a subfolder.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="cmake.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Using via <code class="docutils literal notranslate"><span class="pre">cmake</span></code></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="distutils-to-meson.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1 Migrating to <code class="docutils literal notranslate"><span class="pre">meson</span></code></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fibonacci-walkthrough-f77">Fibonacci walkthrough (F77)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmake-modules-only"><code class="docutils literal notranslate"><span class="pre">CMake</span></code> modules only</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setuptools-replacement"><code class="docutils literal notranslate"><span class="pre">setuptools</span></code> replacement</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

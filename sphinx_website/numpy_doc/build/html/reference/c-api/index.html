@@ -1,0 +1,766 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NumPy C-API &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="../../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/c-api/index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Python types and C-structures" href="types-and-structures.html" />
+    <link rel="prev" title="numpy.kaiser" href="../generated/numpy.kaiser.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../routines.html">Routines and objects by topic</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">NumPy C-API</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="types-and-structures.html">Python types and C-structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">System configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dtype.html">Data type API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html">Array API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html">Array iterator API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ufunc.html">ufunc API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generalized-ufuncs.html">Generalized universal function API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strings.html">NpyString API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coremath.html">NumPy core math library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datetimes.html">Datetime API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deprecations.html">C API deprecations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_memory.html">Memory management in NumPy</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">NumPy reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">NumPy C-API</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="numpy-c-api">
+<span id="c-api"></span><h1>NumPy C-API<a class="headerlink" href="#numpy-c-api" title="Link to this heading">#</a></h1>
+<div class="line-block">
+<div class="line">Beware of the man who won’t be bothered with details.</div>
+<div class="line">— <em>William Feather, Sr.</em></div>
+</div>
+<div class="line-block">
+<div class="line">The truth is out there.</div>
+<div class="line">— <em>Chris Carter, The X Files</em></div>
+</div>
+<p>NumPy provides a C-API to enable users to extend the system and get
+access to the array object for use in other routines. The best way to
+truly understand the C-API is to read the source code. If you are
+unfamiliar with (C) source code, however, this can be a daunting
+experience at first. Be assured that the task becomes easier with
+practice, and you may be surprised at how simple the C-code can be to
+understand. Even if you don’t think you can write C-code from scratch,
+it is much easier to understand and modify already-written source code
+than create it <em>de novo</em>.</p>
+<p>Python extensions are especially straightforward to understand because
+they all have a very similar structure. Admittedly, NumPy is not a
+trivial extension to Python, and may take a little more snooping to
+grasp. This is especially true because of the code-generation
+techniques, which simplify maintenance of very similar code, but can
+make the code a little less readable to beginners. Still, with a
+little persistence, the code can be opened to your understanding. It
+is my hope, that this guide to the C-API can assist in the process of
+becoming familiar with the compiled-level work that can be done with
+NumPy in order to squeeze that last bit of necessary speed out of your
+code.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="types-and-structures.html">Python types and C-structures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="types-and-structures.html#new-python-types-defined">New Python types defined</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types-and-structures.html#other-c-structures">Other C-structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types-and-structures.html#numpy-c-api-and-c-complex">NumPy C-API and C complex</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">System configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#data-type-sizes">Data type sizes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#platform-information">Platform information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#compiler-directives">Compiler directives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dtype.html">Data type API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dtype.html#enumerated-types">Enumerated types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dtype.html#defines">Defines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dtype.html#c-type-names">C-type names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dtype.html#printf-formatting">Printf formatting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="array.html">Array API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="array.html#array-structure-and-data-access">Array structure and data access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#creating-arrays">Creating arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#dealing-with-types">Dealing with types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#array-flags">Array flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#arraymethod-api">ArrayMethod API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#api-for-calling-array-methods">API for calling array methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#auxiliary-data-with-object-semantics">Auxiliary data with object semantics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#array-iterators">Array iterators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#broadcasting-multi-iterators">Broadcasting (multi-iterators)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#neighborhood-iterator">Neighborhood iterator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#array-scalars">Array scalars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#data-type-descriptors">Data-type descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#data-type-promotion-and-inspection">Data Type Promotion and Inspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#custom-data-types">Custom Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#conversion-utilities">Conversion utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#including-and-importing-the-c-api">Including and importing the C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="iterator.html">Array iterator API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html#array-iterator">Array iterator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html#iteration-example">Iteration example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html#multi-iteration-example">Multi-iteration example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html#multi-index-tracking-example">Multi index tracking example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html#iterator-data-types">Iterator data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html#construction-and-destruction">Construction and destruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html#functions-for-iteration">Functions for iteration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html#converting-from-previous-numpy-iterators">Converting from previous NumPy iterators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ufunc.html">ufunc API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ufunc.html#constants">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ufunc.html#macros">Macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ufunc.html#types">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ufunc.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ufunc.html#generic-functions">Generic functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ufunc.html#importing-the-api">Importing the API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generalized-ufuncs.html">Generalized universal function API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generalized-ufuncs.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generalized-ufuncs.html#details-of-signature">Details of signature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generalized-ufuncs.html#c-api-for-implementing-elementary-functions">C-API for implementing elementary functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generalized-ufuncs.html#customizing-core-dimension-size-processing">Customizing core dimension size processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="strings.html">NpyString API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="strings.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strings.html#types">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strings.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="coremath.html">NumPy core math library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coremath.html#floating-point-classification">Floating point classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coremath.html#useful-math-constants">Useful math constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coremath.html#low-level-floating-point-manipulation">Low-level floating point manipulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coremath.html#support-for-complex-numbers">Support for complex numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coremath.html#linking-against-the-core-math-library-in-an-extension">Linking against the core math library in an extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coremath.html#half-precision-functions">Half-precision functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datetimes.html">Datetime API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="datetimes.html#data-types">Data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datetimes.html#conversion-functions">Conversion functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deprecations.html">C API deprecations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deprecations.html#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deprecations.html#deprecation-mechanism-npy-no-deprecated-api">Deprecation mechanism NPY_NO_DEPRECATED_API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data_memory.html">Memory management in NumPy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_memory.html#historical-overview">Historical overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_memory.html#configurable-memory-routines-in-numpy-nep-49">Configurable memory routines in NumPy (NEP 49)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_memory.html#what-happens-when-deallocating-if-there-is-no-policy-set">What happens when deallocating if there is no policy set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_memory.html#example-of-memory-tracing-with-np-lib-tracemalloc-domain">Example of memory tracing with <code class="docutils literal notranslate"><span class="pre">np.lib.tracemalloc_domain</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../generated/numpy.kaiser.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">numpy.kaiser</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="types-and-structures.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python types and C-structures</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

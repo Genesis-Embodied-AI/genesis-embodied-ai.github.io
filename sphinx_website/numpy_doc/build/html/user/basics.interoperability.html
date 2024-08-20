@@ -1,0 +1,1137 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Interoperability with NumPy &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user/basics.interoperability';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Glossary" href="../glossary.html" />
+    <link rel="prev" title="Subclassing ndarray" href="basics.subclassing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="basics.html">NumPy fundamentals</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos_index.html">NumPy how-tos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../f2py/index.html">F2PY user guide and reference manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/underthehood.html">Under-the-hood documentation for developers</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">NumPy user guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Interoperabi...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="interoperability-with-numpy">
+<span id="basics-interoperability"></span><h1>Interoperability with NumPy<a class="headerlink" href="#interoperability-with-numpy" title="Link to this heading">#</a></h1>
+<p>NumPy’s ndarray objects provide both a high-level API for operations on
+array-structured data and a concrete implementation of the API based on
+<a class="reference internal" href="../reference/arrays.html#arrays"><span class="std std-ref">strided in-RAM storage</span></a>. While this API is powerful and fairly
+general, its concrete implementation has limitations. As datasets grow and NumPy
+becomes used in a variety of new environments and architectures, there are cases
+where the strided in-RAM storage strategy is inappropriate, which has caused
+different libraries to reimplement this API for their own uses. This includes
+GPU arrays (<a class="reference external" href="https://cupy.dev/">CuPy</a>), Sparse arrays (<em class="xref py py-obj">scipy.sparse</em>, <a class="reference external" href="https://sparse.pydata.org/">PyData/Sparse</a>)
+and parallel arrays (<a class="reference external" href="https://docs.dask.org/">Dask</a> arrays) as well as various NumPy-like implementations
+in deep learning frameworks, like <a class="reference external" href="https://www.tensorflow.org/">TensorFlow</a> and <a class="reference external" href="https://pytorch.org/">PyTorch</a>. Similarly, there are
+many projects that build on top of the NumPy API for labeled and indexed arrays
+(<a class="reference external" href="https://xarray.dev/">XArray</a>), automatic differentiation (<a class="reference external" href="https://jax.readthedocs.io/">JAX</a>), masked arrays (<a class="reference internal" href="../reference/maskedarray.generic.html#module-numpy.ma" title="numpy.ma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ma</span></code></a>),
+physical units (<a class="reference external" href="https://docs.astropy.org/en/stable/units/">astropy.units</a>, <a class="reference external" href="https://pint.readthedocs.io/">pint</a>, <a class="reference external" href="https://unyt.readthedocs.io/">unyt</a>), among others that add additional
+functionality on top of the NumPy API.</p>
+<p>Yet, users still want to work with these arrays using the familiar NumPy API and
+reuse existing code with minimal (ideally zero) porting overhead. With this
+goal in mind, various protocols are defined for implementations of
+multi-dimensional arrays with high-level APIs matching NumPy.</p>
+<p>Broadly speaking, there are three groups of features used for interoperability
+with NumPy:</p>
+<ol class="arabic simple">
+<li><p>Methods of turning a foreign object into an ndarray;</p></li>
+<li><p>Methods of deferring execution from a NumPy function to another array
+library;</p></li>
+<li><p>Methods that use NumPy functions and return an instance of a foreign object.</p></li>
+</ol>
+<p>We describe these features below.</p>
+<section id="using-arbitrary-objects-in-numpy">
+<h2>1. Using arbitrary objects in NumPy<a class="headerlink" href="#using-arbitrary-objects-in-numpy" title="Link to this heading">#</a></h2>
+<p>The first set of interoperability features from the NumPy API allows foreign
+objects to be treated as NumPy arrays whenever possible. When NumPy functions
+encounter a foreign object, they will try (in order):</p>
+<ol class="arabic simple">
+<li><p>The buffer protocol, described <a class="reference external" href="https://docs.python.org/3/c-api/buffer.html" title="(in Python v3.12)"><span class="xref std std-doc">in the Python C-API documentation</span></a>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">__array_interface__</span></code> protocol, described
+<a class="reference internal" href="../reference/arrays.interface.html#arrays-interface"><span class="std std-ref">in this page</span></a>. A precursor to Python’s buffer
+protocol, it defines a way to access the contents of a NumPy array from other
+C extensions.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">__array__()</span></code> method, which asks an arbitrary object to convert
+itself into an array.</p></li>
+</ol>
+<p>For both the buffer and the <code class="docutils literal notranslate"><span class="pre">__array_interface__</span></code> protocols, the object
+describes its memory layout and NumPy does everything else (zero-copy if
+possible). If that’s not possible, the object itself is responsible for
+returning a <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> from <code class="docutils literal notranslate"><span class="pre">__array__()</span></code>.</p>
+<p><a class="reference external" href="https://dmlc.github.io/dlpack/latest/index.html" title="(in DLPack)"><span class="xref std std-doc">DLPack</span></a> is yet another protocol to convert foreign objects
+to NumPy arrays in a language and device agnostic manner. NumPy doesn’t implicitly
+convert objects to ndarrays using DLPack. It provides the function
+<a class="reference internal" href="../reference/generated/numpy.from_dlpack.html#numpy.from_dlpack" title="numpy.from_dlpack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.from_dlpack</span></code></a> that accepts any object implementing the <code class="docutils literal notranslate"><span class="pre">__dlpack__</span></code> method
+and outputs a NumPy ndarray (which is generally a view of the input object’s data
+buffer). The <a class="reference external" href="https://dmlc.github.io/dlpack/latest/python_spec.html#python-spec" title="(in DLPack)"><span>Python Specification for DLPack</span></a> page explains the <code class="docutils literal notranslate"><span class="pre">__dlpack__</span></code> protocol
+in detail.</p>
+<section id="the-array-interface-protocol">
+<h3>The array interface protocol<a class="headerlink" href="#the-array-interface-protocol" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="../reference/arrays.interface.html#arrays-interface"><span class="std std-ref">array interface protocol</span></a> defines a way for
+array-like objects to reuse each other’s data buffers. Its implementation
+relies on the existence of the following attributes or methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__array_interface__</span></code>: a Python dictionary containing the shape, the
+element type, and optionally, the data buffer address and the strides of an
+array-like object;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__array__()</span></code>: a method returning the NumPy ndarray copy or a view of an
+array-like object;</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">__array_interface__</span></code> attribute can be inspected directly:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">__array_interface__</span>
+<span class="go">{&#39;data&#39;: (94708397920832, False), &#39;strides&#39;: None, &#39;descr&#39;: [(&#39;&#39;, &#39;&lt;f8&#39;)], &#39;typestr&#39;: &#39;&lt;f8&#39;, &#39;shape&#39;: (4,), &#39;version&#39;: 3}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">__array_interface__</span></code> attribute can also be used to manipulate the object
+data in place:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">wrapper</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">__array_interface__</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span>
+<span class="go">{&#39;data&#39;: (140497590272032, False), &#39;strides&#39;: None, &#39;descr&#39;: [(&#39;&#39;, &#39;&lt;i8&#39;)], &#39;typestr&#39;: &#39;&lt;i8&#39;, &#39;shape&#39;: (4,), &#39;version&#39;: 3}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">w</span><span class="o">.</span><span class="n">__array_interface__</span> <span class="o">=</span> <span class="n">buf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_arr</span>
+<span class="go">array([[1, 2],</span>
+<span class="go">       [3, 4]])</span>
+</pre></div>
+</div>
+<p>We can check that <code class="docutils literal notranslate"><span class="pre">arr</span></code> and <code class="docutils literal notranslate"><span class="pre">new_arr</span></code> share the same data buffer:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">new_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_arr</span>
+<span class="go">array([[1000,    2],</span>
+<span class="go">       [   3,    4]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span>
+<span class="go">array([1000, 2, 3, 4])</span>
+</pre></div>
+</div>
+</section>
+<section id="the-array-method">
+<span id="dunder-array-interface"></span><h3>The <code class="docutils literal notranslate"><span class="pre">__array__()</span></code> method<a class="headerlink" href="#the-array-method" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">__array__()</span></code> method ensures that any NumPy-like object (an array, any
+object exposing the array interface, an object whose <code class="docutils literal notranslate"><span class="pre">__array__()</span></code> method
+returns an array or any nested sequence) that implements it can be used as a
+NumPy array. If possible, this will mean using <code class="docutils literal notranslate"><span class="pre">__array__()</span></code> to create a NumPy
+ndarray view of the array-like object. Otherwise, this copies the data into a
+new ndarray object. This is not optimal, as coercing arrays into ndarrays may
+cause performance problems or create the need for copies and loss of metadata,
+as the original object and any attributes/behavior it may have had, is lost.</p>
+<p>The signature of the method should be <code class="docutils literal notranslate"><span class="pre">__array__(self,</span> <span class="pre">dtype=None,</span> <span class="pre">copy=None)</span></code>.
+If a passed <code class="docutils literal notranslate"><span class="pre">dtype</span></code> isn’t <code class="docutils literal notranslate"><span class="pre">None</span></code> and different than the object’s data type,
+a casting should happen to a specified type. If <code class="docutils literal notranslate"><span class="pre">copy</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, a copy
+should be made only if <code class="docutils literal notranslate"><span class="pre">dtype</span></code> argument enforces it. For <code class="docutils literal notranslate"><span class="pre">copy=True</span></code>, a copy
+should always be made, where <code class="docutils literal notranslate"><span class="pre">copy=False</span></code> should raise an exception if a copy
+is needed.</p>
+<p>If a class implements the old signature <code class="docutils literal notranslate"><span class="pre">__array__(self)</span></code>, for <code class="docutils literal notranslate"><span class="pre">np.array(a)</span></code>
+a warning will be raised saying that <code class="docutils literal notranslate"><span class="pre">dtype</span></code> and <code class="docutils literal notranslate"><span class="pre">copy</span></code> arguments are missing.</p>
+<p>To see an example of a custom array implementation including the use of
+<code class="docutils literal notranslate"><span class="pre">__array__()</span></code>, see <a class="reference internal" href="basics.dispatch.html#basics-dispatch"><span class="std std-ref">Writing custom array containers</span></a>.</p>
+</section>
+<section id="the-dlpack-protocol">
+<h3>The DLPack Protocol<a class="headerlink" href="#the-dlpack-protocol" title="Link to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://dmlc.github.io/dlpack/latest/index.html" title="(in DLPack)"><span class="xref std std-doc">DLPack</span></a> protocol defines a memory-layout of
+strided n-dimensional array objects. It offers the following syntax
+for data exchange:</p>
+<ol class="arabic simple">
+<li><p>A <a class="reference internal" href="../reference/generated/numpy.from_dlpack.html#numpy.from_dlpack" title="numpy.from_dlpack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.from_dlpack</span></code></a> function, which accepts (array) objects with a
+<code class="docutils literal notranslate"><span class="pre">__dlpack__</span></code> method and uses that method to construct a new array
+containing the data from <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__dlpack__(self,</span> <span class="pre">stream=None)</span></code> and <code class="docutils literal notranslate"><span class="pre">__dlpack_device__</span></code> methods on the
+array object, which will be called from within <code class="docutils literal notranslate"><span class="pre">from_dlpack</span></code>, to query
+what device the array is on (may be needed to pass in the correct
+stream, e.g. in the case of multiple GPUs) and to access the data.</p></li>
+</ol>
+<p>Unlike the buffer protocol, DLPack allows exchanging arrays containing data on
+devices other than the CPU (e.g. Vulkan or GPU). Since NumPy only supports CPU,
+it can only convert objects whose data exists on the CPU. But other libraries,
+like <a class="reference external" href="https://pytorch.org/">PyTorch</a> and <a class="reference external" href="https://cupy.dev/">CuPy</a>, may exchange data on GPU using this protocol.</p>
+</section>
+</section>
+<section id="operating-on-foreign-objects-without-converting">
+<h2>2. Operating on foreign objects without converting<a class="headerlink" href="#operating-on-foreign-objects-without-converting" title="Link to this heading">#</a></h2>
+<p>A second set of methods defined by the NumPy API allows us to defer the
+execution from a NumPy function to another array library.</p>
+<p>Consider the following function.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note that <a class="reference internal" href="../reference/generated/numpy.exp.html#numpy.exp" title="numpy.exp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.exp</span></code></a> is a <a class="reference internal" href="basics.ufuncs.html#ufuncs-basics"><span class="std std-ref">ufunc</span></a>, which means
+that it operates on ndarrays in an element-by-element fashion. On the other
+hand, <a class="reference internal" href="../reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.mean</span></code></a> operates along one of the array’s axes.</p>
+<p>We can apply <code class="docutils literal notranslate"><span class="pre">f</span></code> to a NumPy ndarray object directly:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">21.1977562209304</span>
+</pre></div>
+</div>
+<p>We would like this function to work equally well with any NumPy-like array
+object.</p>
+<p>NumPy allows a class to indicate that it would like to handle computations in a
+custom-defined way through the following interfaces:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code>: allows third-party objects to support and override
+<a class="reference internal" href="basics.ufuncs.html#ufuncs-basics"><span class="std std-ref">ufuncs</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__array_function__</span></code>: a catch-all for NumPy functionality that is not
+covered by the <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> protocol for universal functions.</p></li>
+</ul>
+<p>As long as foreign objects implement the <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> or
+<code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> protocols, it is possible to operate on them without the
+need for explicit conversion.</p>
+<section id="the-array-ufunc-protocol">
+<h3>The <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> protocol<a class="headerlink" href="#the-array-ufunc-protocol" title="Link to this heading">#</a></h3>
+<p>A <a class="reference internal" href="basics.ufuncs.html#ufuncs-basics"><span class="std std-ref">universal function (or ufunc for short)</span></a> is a
+“vectorized” wrapper for a function that takes a fixed number of specific inputs
+and produces a fixed number of specific outputs. The output of the ufunc (and
+its methods) is not necessarily a ndarray, if not all input arguments are
+ndarrays. Indeed, if any input defines an <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> method, control
+will be passed completely to that function, i.e., the ufunc is overridden. The
+<code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> method defined on that (non-ndarray) object has access to
+the NumPy ufunc. Because ufuncs have a well-defined structure, the foreign
+<code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> method may rely on ufunc attributes like <code class="docutils literal notranslate"><span class="pre">.at()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">.reduce()</span></code>, and others.</p>
+<p>A subclass can override what happens when executing NumPy ufuncs on it by
+overriding the default <code class="docutils literal notranslate"><span class="pre">ndarray.__array_ufunc__</span></code> method. This method is
+executed instead of the ufunc and should return either the result of the
+operation, or <code class="docutils literal notranslate"><span class="pre">NotImplemented</span></code> if the operation requested is not implemented.</p>
+</section>
+<section id="the-array-function-protocol">
+<h3>The <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> protocol<a class="headerlink" href="#the-array-function-protocol" title="Link to this heading">#</a></h3>
+<p>To achieve enough coverage of the NumPy API to support downstream projects,
+there is a need to go beyond <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> and implement a protocol that
+allows arguments of a NumPy function to take control and divert execution to
+another function (for example, a GPU or parallel implementation) in a way that
+is safe and consistent across projects.</p>
+<p>The semantics of <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> are very similar to <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code>,
+except the operation is specified by an arbitrary callable object rather than a
+ufunc instance and method. For more details, see <a class="reference external" href="https://numpy.org/neps/nep-0018-array-function-protocol.html#nep18" title="(in NumPy Enhancement Proposals)"><span>NEP 18 — A dispatch mechanism for NumPy’s high level array functions</span></a>.</p>
+</section>
+</section>
+<section id="returning-foreign-objects">
+<h2>3. Returning foreign objects<a class="headerlink" href="#returning-foreign-objects" title="Link to this heading">#</a></h2>
+<p>A third type of feature set is meant to use the NumPy function implementation
+and then convert the return value back into an instance of the foreign object.
+The <code class="docutils literal notranslate"><span class="pre">__array_finalize__</span></code> and <code class="docutils literal notranslate"><span class="pre">__array_wrap__</span></code> methods act behind the scenes
+to ensure that the return type of a NumPy function can be specified as needed.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">__array_finalize__</span></code> method is the mechanism that NumPy provides to allow
+subclasses to handle the various ways that new instances get created. This
+method is called whenever the system internally allocates a new array from an
+object which is a subclass (subtype) of the ndarray. It can be used to change
+attributes after construction, or to update meta-information from the “parent.”</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">__array_wrap__</span></code> method “wraps up the action” in the sense of allowing any
+object (such as user-defined functions) to set the type of its return value and
+update attributes and metadata. This can be seen as the opposite of the
+<code class="docutils literal notranslate"><span class="pre">__array__</span></code> method. At the end of every object that implements
+<code class="docutils literal notranslate"><span class="pre">__array_wrap__</span></code>, this method is called on the input object with the highest
+<em>array priority</em>, or the output object if one was specified. The
+<code class="docutils literal notranslate"><span class="pre">__array_priority__</span></code> attribute is used to determine what type of object to
+return in situations where there is more than one possibility for the Python
+type of the returned object. For example, subclasses may opt to use this method
+to transform the output array into an instance of the subclass and update
+metadata before returning the array to the user.</p>
+<p>For more information on these methods, see <a class="reference internal" href="basics.subclassing.html#basics-subclassing"><span class="std std-ref">Subclassing ndarray</span></a> and
+<a class="reference internal" href="c-info.beyond-basics.html#specific-array-subtyping"><span class="std std-ref">Specific features of ndarray sub-typing</span></a>.</p>
+</section>
+<section id="interoperability-examples">
+<h2>Interoperability examples<a class="headerlink" href="#interoperability-examples" title="Link to this heading">#</a></h2>
+<section id="example-pandas-series-objects">
+<h3>Example: Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects<a class="headerlink" href="#example-pandas-series-objects" title="Link to this heading">#</a></h3>
+<p>Consider the following:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+<span class="go">pandas.core.series.Series</span>
+</pre></div>
+</div>
+<p>Now, <code class="docutils literal notranslate"><span class="pre">ser</span></code> is <strong>not</strong> a ndarray, but because it
+<a class="reference external" href="https://pandas.pydata.org/docs/user_guide/dsintro.html#dataframe-interoperability-with-numpy-functions">implements the __array_ufunc__ protocol</a>,
+we can apply ufuncs to it as if it were a ndarray:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+<span class="go">   0     2.718282</span>
+<span class="go">   1     7.389056</span>
+<span class="go">   2    20.085537</span>
+<span class="go">   3    54.598150</span>
+<span class="go">   dtype: float64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+<span class="go">   0    0.841471</span>
+<span class="go">   1    0.909297</span>
+<span class="go">   2    0.141120</span>
+<span class="go">   3   -0.756802</span>
+<span class="go">   dtype: float64</span>
+</pre></div>
+</div>
+<p>We can even do operations with other ndarrays:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]))</span>
+<span class="go">   0     6</span>
+<span class="go">   1     8</span>
+<span class="go">   2    10</span>
+<span class="go">   3    12</span>
+<span class="go">   dtype: int64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+<span class="go">21.1977562209304</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="n">__array__</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">numpy.ndarray</span>
+</pre></div>
+</div>
+</section>
+<section id="example-pytorch-tensors">
+<h3>Example: PyTorch tensors<a class="headerlink" href="#example-pytorch-tensors" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://pytorch.org/">PyTorch</a> is an optimized tensor library for deep
+learning using GPUs and CPUs. PyTorch arrays are commonly called <em>tensors</em>.
+Tensors are similar to NumPy’s ndarrays, except that tensors can run on GPUs or
+other hardware accelerators. In fact, tensors and NumPy arrays can often share
+the same underlying memory, eliminating the need to copy data.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">x_np</span></code> and <code class="docutils literal notranslate"><span class="pre">x_tensor</span></code> are different kinds of objects:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_np</span>
+<span class="go">array([[1, 2],</span>
+<span class="go">       [3, 4]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_tensor</span>
+<span class="go">tensor([[1, 2],</span>
+<span class="go">        [3, 4]])</span>
+</pre></div>
+</div>
+<p>However, we can treat PyTorch tensors as NumPy arrays without the need for
+explicit conversion:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">)</span>
+<span class="go">tensor([[ 2.7183,  7.3891],</span>
+<span class="go">        [20.0855, 54.5982]], dtype=torch.float64)</span>
+</pre></div>
+</div>
+<p>Also, note that the return type of this function is compatible with the initial
+data type.</p>
+<div class="admonition-warning admonition">
+<p class="admonition-title">Warning</p>
+<p>While this mixing of ndarrays and tensors may be convenient, it is not
+recommended. It will not work for non-CPU tensors, and will have unexpected
+behavior in corner cases. Users should prefer explicitly converting the
+ndarray to a tensor.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>PyTorch does not implement <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> or <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code>.
+Under the hood, the <code class="docutils literal notranslate"><span class="pre">Tensor.__array__()</span></code> method returns a NumPy ndarray as
+a view of the tensor data buffer. See <a class="reference external" href="https://github.com/pytorch/pytorch/issues/24015">this issue</a> and the
+<a class="reference external" href="https://github.com/pytorch/pytorch/blob/master/torch/overrides.py">__torch_function__ implementation</a>
+for details.</p>
+</div>
+<p>Note also that we can see <code class="docutils literal notranslate"><span class="pre">__array_wrap__</span></code> in action here, even though
+<code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> is not a subclass of ndarray:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">tensor([0, 1, 2, 3])</span>
+</pre></div>
+</div>
+<p>PyTorch implements <code class="docutils literal notranslate"><span class="pre">__array_wrap__</span></code> to be able to get tensors back from NumPy
+functions, and we can modify it directly to control which type of objects are
+returned from these functions.</p>
+</section>
+<section id="example-cupy-arrays">
+<h3>Example: CuPy arrays<a class="headerlink" href="#example-cupy-arrays" title="Link to this heading">#</a></h3>
+<p>CuPy is a NumPy/SciPy-compatible array library for GPU-accelerated computing
+with Python. CuPy implements a subset of the NumPy interface by implementing
+<code class="docutils literal notranslate"><span class="pre">cupy.ndarray</span></code>, <a class="reference external" href="https://docs.cupy.dev/en/stable/reference/ndarray.html">a counterpart to NumPy ndarrays</a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cupy</span> <span class="k">as</span> <span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">cupy.ndarray</span></code> object implements the <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> interface. This
+enables NumPy ufuncs to be applied to CuPy arrays (this will defer operation to
+the matching CuPy CUDA/ROCm implementation of the ufunc):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x_gpu</span><span class="p">))</span>
+<span class="go">array(21.19775622)</span>
+</pre></div>
+</div>
+<p>Note that the return type of these operations is still consistent with the
+initial type:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+<span class="go">&lt;class &#39;cupy._core.core.ndarray&#39;&gt;</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.cupy.dev/en/stable/reference/ufunc.html">this page in the CuPy documentation for details</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cupy.ndarray</span></code> also implements the <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> interface, meaning
+it is possible to do operations such as</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qr_gpu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">a_gpu</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>CuPy implements many NumPy functions on <code class="docutils literal notranslate"><span class="pre">cupy.ndarray</span></code> objects, but not all.
+See <a class="reference external" href="https://docs.cupy.dev/en/stable/user_guide/difference.html">the CuPy documentation</a>
+for details.</p>
+</section>
+<section id="example-dask-arrays">
+<h3>Example: Dask arrays<a class="headerlink" href="#example-dask-arrays" title="Link to this heading">#</a></h3>
+<p>Dask is a flexible library for parallel computing in Python. Dask Array
+implements a subset of the NumPy ndarray interface using blocked algorithms,
+cutting up the large array into many small arrays. This allows computations on
+larger-than-memory arrays using multiple cores.</p>
+<p>Dask supports <code class="docutils literal notranslate"><span class="pre">__array__()</span></code> and <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">chunks</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="go">dask.array&lt;mean_agg-aggregate, shape=(), dtype=float64, chunksize=(), chunktype=numpy.ndarray&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+<span class="go">5.090097550553843</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dask is lazily evaluated, and the result from a computation isn’t computed
+until you ask for it by invoking <code class="docutils literal notranslate"><span class="pre">compute()</span></code>.</p>
+</div>
+<p>See <a class="reference external" href="https://docs.dask.org/en/stable/array.html">the Dask array documentation</a>
+and the <a class="reference external" href="https://docs.dask.org/en/stable/array.html#scope">scope of Dask arrays interoperability with NumPy arrays</a> for details.</p>
+</section>
+<section id="example-dlpack">
+<h3>Example: DLPack<a class="headerlink" href="#example-dlpack" title="Link to this heading">#</a></h3>
+<p>Several Python data science libraries implement the <code class="docutils literal notranslate"><span class="pre">__dlpack__</span></code> protocol.
+Among them are <a class="reference external" href="https://pytorch.org/">PyTorch</a> and <a class="reference external" href="https://cupy.dev/">CuPy</a>. A full list of libraries that implement
+this protocol can be found on
+<a class="reference external" href="https://dmlc.github.io/dlpack/latest/index.html" title="(in DLPack)"><span class="xref std std-doc">this page of DLPack documentation</span></a>.</p>
+<p>Convert a PyTorch CPU tensor to NumPy array:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_torch</span>
+<span class="go">tensor([0, 1, 2, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">x_torch</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_np</span>
+<span class="go">array([0, 1, 2, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># note that x_np is a view of x_torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_torch</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_torch</span>
+<span class="go">tensor([  0, 100,   2,   3,   4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_np</span>
+<span class="go">array([  0, 100,   2,   3,   4])</span>
+</pre></div>
+</div>
+<p>The imported arrays are read-only so writing or operating in-place will fail:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_np</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">ValueError</span>: <span class="n">assignment destination is read-only</span>
+</pre></div>
+</div>
+<p>A copy must be created in order to operate on the imported arrays in-place, but
+will mean duplicating the memory. Do not do this for very large arrays:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_np_copy</span> <span class="o">=</span> <span class="n">x_np</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_np_copy</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>  <span class="c1"># works</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that GPU tensors can’t be converted to NumPy arrays since NumPy doesn’t
+support GPU devices:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">x_torch</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">RuntimeError</span>: <span class="n">Unsupported device in DLTensor.</span>
+</pre></div>
+</div>
+<p>But, if both libraries support the device the data buffer is on, it is
+possible to use the <code class="docutils literal notranslate"><span class="pre">__dlpack__</span></code> protocol (e.g. <a class="reference external" href="https://pytorch.org/">PyTorch</a> and <a class="reference external" href="https://cupy.dev/">CuPy</a>):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_cupy</span> <span class="o">=</span> <span class="n">cupy</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">x_torch</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Similarly, a NumPy array can be converted to a PyTorch tensor:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_torch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Read-only arrays cannot be exported:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_np</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">x_np</span><span class="p">)</span>  
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+  File <span class="nb">&quot;.../site-packages/torch/utils/dlpack.py&quot;</span>, line <span class="m">63</span>, in <span class="n">from_dlpack</span>
+<span class="w">    </span><span class="n">dlpack</span> <span class="o">=</span> <span class="n">ext_tensor</span><span class="o">.</span><span class="n">__dlpack__</span><span class="p">()</span>
+<span class="gr">TypeError</span>: <span class="n">NumPy currently only supports dlpack for writeable arrays</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/arrays.interface.html#arrays-interface"><span class="std std-ref">The array interface protocol</span></a></p></li>
+<li><p><a class="reference internal" href="basics.dispatch.html#basics-dispatch"><span class="std std-ref">Writing custom array containers</span></a></p></li>
+<li><p><a class="reference internal" href="../reference/arrays.classes.html#special-attributes-and-methods"><span class="std std-ref">Special attributes and methods</span></a> (details on the <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> and
+<code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> protocols)</p></li>
+<li><p><a class="reference internal" href="basics.subclassing.html#basics-subclassing"><span class="std std-ref">Subclassing ndarray</span></a> (details on the <code class="docutils literal notranslate"><span class="pre">__array_wrap__</span></code> and
+<code class="docutils literal notranslate"><span class="pre">__array_finalize__</span></code> methods)</p></li>
+<li><p><a class="reference internal" href="c-info.beyond-basics.html#specific-array-subtyping"><span class="std std-ref">Specific features of ndarray sub-typing</span></a> (more details on the implementation of
+<code class="docutils literal notranslate"><span class="pre">__array_finalize__</span></code>, <code class="docutils literal notranslate"><span class="pre">__array_wrap__</span></code> and <code class="docutils literal notranslate"><span class="pre">__array_priority__</span></code>)</p></li>
+<li><p><a class="reference external" href="https://numpy.org/neps/roadmap.html" title="(in NumPy Enhancement Proposals)"><span class="xref std std-doc">NumPy roadmap: interoperability</span></a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/tutorials/beginner/blitz/tensor_tutorial.html#bridge-to-np-label">PyTorch documentation on the Bridge with NumPy</a></p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="basics.subclassing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Subclassing ndarray</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../glossary.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Glossary</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-arbitrary-objects-in-numpy">1. Using arbitrary objects in NumPy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-array-interface-protocol">The array interface protocol</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-array-method">The <code class="docutils literal notranslate"><span class="pre">__array__()</span></code> method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dlpack-protocol">The DLPack Protocol</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operating-on-foreign-objects-without-converting">2. Operating on foreign objects without converting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-array-ufunc-protocol">The <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> protocol</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-array-function-protocol">The <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> protocol</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#returning-foreign-objects">3. Returning foreign objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interoperability-examples">Interoperability examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-pandas-series-objects">Example: Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-pytorch-tensors">Example: PyTorch tensors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-cupy-arrays">Example: CuPy arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dask-arrays">Example: Dask arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-dlpack">Example: DLPack</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

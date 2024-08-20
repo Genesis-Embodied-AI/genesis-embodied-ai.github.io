@@ -1,0 +1,1058 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Using F2PY &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'f2py/usage';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="F2PY examples" href="f2py-examples.html" />
+    <link rel="prev" title="Three ways to wrap - getting started" href="f2py.getting-started.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.html">NumPy fundamentals</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/howtos_index.html">NumPy how-tos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">F2PY user guide and reference manual</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="f2py-user.html">F2PY user guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="f2py.getting-started.html">Three ways to wrap - getting started</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Using F2PY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="f2py-examples.html">F2PY examples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="f2py-reference.html">F2PY reference manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows/index.html">F2PY and Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildtools/distutils-to-meson.html">1 Migrating to <code class="docutils literal notranslate"><span class="pre">meson</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/underthehood.html">Under-the-hood documentation for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.interoperability.html">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user/index.html" class="nav-link">NumPy user guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="f2py-user.html" class="nav-link">F2PY user guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Using F2PY</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="using-f2py">
+<h1>Using F2PY<a class="headerlink" href="#using-f2py" title="Link to this heading">#</a></h1>
+<p>This page contains a reference to all command-line options for the <code class="docutils literal notranslate"><span class="pre">f2py</span></code>
+command, as well as a reference to internal functions of the <code class="docutils literal notranslate"><span class="pre">numpy.f2py</span></code>
+module.</p>
+<section id="using-f2py-as-a-command-line-tool">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">f2py</span></code> as a command-line tool<a class="headerlink" href="#using-f2py-as-a-command-line-tool" title="Link to this heading">#</a></h2>
+<p>When used as a command-line tool, <code class="docutils literal notranslate"><span class="pre">f2py</span></code> has three major modes, distinguished
+by the usage of <code class="docutils literal notranslate"><span class="pre">-c</span></code> and <code class="docutils literal notranslate"><span class="pre">-h</span></code> switches.</p>
+<section id="signature-file-generation">
+<h3>1. Signature file generation<a class="headerlink" href="#signature-file-generation" title="Link to this heading">#</a></h3>
+<p>To scan Fortran sources and generate a signature file, use</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>f2py<span class="w"> </span>-h<span class="w"> </span>&lt;filename.pyf&gt;<span class="w"> </span>&lt;options&gt;<span class="w"> </span>&lt;fortran<span class="w"> </span>files&gt;<span class="w">   </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span>only:<span class="w"> </span>&lt;fortran<span class="w"> </span>functions&gt;<span class="w">  </span>:<span class="w"> </span><span class="o">]</span><span class="w">                </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span>skip:<span class="w"> </span>&lt;fortran<span class="w"> </span>functions&gt;<span class="w">  </span>:<span class="w"> </span><span class="o">]]</span>...<span class="w">           </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[</span>&lt;fortran<span class="w"> </span>files&gt;<span class="w"> </span>...<span class="o">]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A Fortran source file can contain many routines, and it is often not
+necessary to allow all routines to be usable from Python. In such cases,
+either specify which routines should be wrapped (in the <code class="docutils literal notranslate"><span class="pre">only:</span> <span class="pre">..</span> <span class="pre">:</span></code> part)
+or which routines F2PY should ignore (in the <code class="docutils literal notranslate"><span class="pre">skip:</span> <span class="pre">..</span> <span class="pre">:</span></code> part).</p>
+<p>F2PY has no concept of a “per-file” <code class="docutils literal notranslate"><span class="pre">skip</span></code> or <code class="docutils literal notranslate"><span class="pre">only</span></code> list, so if functions
+are listed in <code class="docutils literal notranslate"><span class="pre">only</span></code>, no other functions will be taken from any other files.</p>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">&lt;filename.pyf&gt;</span></code> is specified as <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, then signatures are written to
+standard output instead of a file.</p>
+<p>Among other options (see below), the following can be used in this mode:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--overwrite-signature</span></code></dt><dd><p>Overwrites an existing signature file.</p>
+</dd>
+</dl>
+</section>
+<section id="extension-module-construction">
+<h3>2. Extension module construction<a class="headerlink" href="#extension-module-construction" title="Link to this heading">#</a></h3>
+<p>To construct an extension module, use</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>f2py<span class="w"> </span>-m<span class="w"> </span>&lt;modulename&gt;<span class="w"> </span>&lt;options&gt;<span class="w"> </span>&lt;fortran<span class="w"> </span>files&gt;<span class="w">   </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span>only:<span class="w"> </span>&lt;fortran<span class="w"> </span>functions&gt;<span class="w">  </span>:<span class="w"> </span><span class="o">]</span><span class="w">              </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span>skip:<span class="w"> </span>&lt;fortran<span class="w"> </span>functions&gt;<span class="w">  </span>:<span class="w"> </span><span class="o">]]</span>...<span class="w">          </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[</span>&lt;fortran<span class="w"> </span>files&gt;<span class="w"> </span>...<span class="o">]</span>
+</pre></div>
+</div>
+<p>The constructed extension module is saved as <code class="docutils literal notranslate"><span class="pre">&lt;modulename&gt;module.c</span></code> to the
+current directory.</p>
+<p>Here <code class="docutils literal notranslate"><span class="pre">&lt;fortran</span> <span class="pre">files&gt;</span></code> may also contain signature files. Among other options
+(see below), the following options can be used in this mode:</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">--debug-capi</span></code></dt><dd><p>Adds debugging hooks to the extension module. When using this extension
+module, various diagnostic information about the wrapper is written to the
+standard output, for example, the values of variables, the steps taken, etc.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-include'&lt;includefile&gt;'</span></code></dt><dd><p>Add a CPP <code class="docutils literal notranslate"><span class="pre">#include</span></code> statement to the extension module source.
+<code class="docutils literal notranslate"><span class="pre">&lt;includefile&gt;</span></code> should be given in one of the following forms</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="s">&quot;filename.ext&quot;</span>
+<span class="o">&lt;</span><span class="n">filename</span><span class="p">.</span><span class="n">ext</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The include statement is inserted just before the wrapper functions. This
+feature enables using arbitrary C functions (defined in <code class="docutils literal notranslate"><span class="pre">&lt;includefile&gt;</span></code>)
+in F2PY generated wrappers.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This option is deprecated. Use <code class="docutils literal notranslate"><span class="pre">usercode</span></code> statement to specify
+C code snippets directly in signature files.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--[no-]wrap-functions</span></code></dt><dd><p>Create Fortran subroutine wrappers to Fortran functions.
+<code class="docutils literal notranslate"><span class="pre">--wrap-functions</span></code> is default because it ensures maximum portability and
+compiler independence.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--[no-]freethreading-compatible</span></code></dt><dd><p>Create a module that declares it does or doesn’t require the GIL. The default
+is <code class="docutils literal notranslate"><span class="pre">--no-freethreading-compatible</span></code> for backwards compatibility. Inspect the
+fortran code you are wrapping for thread safety issues before passing
+<code class="docutils literal notranslate"><span class="pre">--freethreading-compatible</span></code>, as <code class="docutils literal notranslate"><span class="pre">f2py</span></code> does not analyze fortran code for
+thread safety issues.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--include-paths</span> <span class="pre">&quot;&lt;path1&gt;:&lt;path2&gt;...&quot;</span></code></dt><dd><p>Search include files from given directories.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The paths are to be separated by the correct operating system
+separator <a class="reference external" href="https://docs.python.org/3/library/os.html#os.pathsep" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">pathsep</span></code></a>, that is <code class="docutils literal notranslate"><span class="pre">:</span></code> on Linux / MacOS
+and <code class="docutils literal notranslate"><span class="pre">;</span></code> on Windows. In <code class="docutils literal notranslate"><span class="pre">CMake</span></code> this corresponds to using
+<code class="docutils literal notranslate"><span class="pre">$&lt;SEMICOLON&gt;</span></code>.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--help-link</span> <span class="pre">[&lt;list</span> <span class="pre">of</span> <span class="pre">resources</span> <span class="pre">names&gt;]</span></code></dt><dd><p>List system resources found by <code class="docutils literal notranslate"><span class="pre">numpy_distutils/system_info.py</span></code>. For
+example, try <code class="docutils literal notranslate"><span class="pre">f2py</span> <span class="pre">--help-link</span> <span class="pre">lapack_opt</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="building-a-module">
+<h3>3. Building a module<a class="headerlink" href="#building-a-module" title="Link to this heading">#</a></h3>
+<p>To build an extension module, use</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>f2py<span class="w"> </span>-c<span class="w"> </span>&lt;options&gt;<span class="w"> </span>&lt;fortran<span class="w"> </span>files&gt;<span class="w">       </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span>only:<span class="w"> </span>&lt;fortran<span class="w"> </span>functions&gt;<span class="w">  </span>:<span class="w"> </span><span class="o">]</span><span class="w">     </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span>skip:<span class="w"> </span>&lt;fortran<span class="w"> </span>functions&gt;<span class="w">  </span>:<span class="w"> </span><span class="o">]]</span>...<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[</span><span class="w"> </span>&lt;fortran/c<span class="w"> </span><span class="nb">source</span><span class="w"> </span>files&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>&lt;.o,<span class="w"> </span>.a,<span class="w"> </span>.so<span class="w"> </span>files&gt;<span class="w"> </span><span class="o">]</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">&lt;fortran</span> <span class="pre">files&gt;</span></code> contains a signature file, then the source for an
+extension module is constructed, all Fortran and C sources are compiled, and
+finally all object and library files are linked to the extension module
+<code class="docutils literal notranslate"><span class="pre">&lt;modulename&gt;.so</span></code> which is saved into the current directory.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">&lt;fortran</span> <span class="pre">files&gt;</span></code> does not contain a signature file, then an extension
+module is constructed by scanning all Fortran source codes for routine
+signatures, before proceeding to build the extension module.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>From Python 3.12 onwards, <code class="docutils literal notranslate"><span class="pre">distutils</span></code> has been removed. Use environment
+variables or native files to interact with <code class="docutils literal notranslate"><span class="pre">meson</span></code> instead. See its <a class="reference external" href="https://mesonbuild.com/howtox.html">FAQ</a> for more information.</p>
+</div>
+<p>Among other options (see below) and options described for previous modes, the following can be used.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.26.0: </span>There are now two separate build backends which can be used, <code class="docutils literal notranslate"><span class="pre">distutils</span></code>
+and <code class="docutils literal notranslate"><span class="pre">meson</span></code>. Users are <strong>strongly</strong> recommended to switch to <code class="docutils literal notranslate"><span class="pre">meson</span></code>
+since it is the default above Python <code class="docutils literal notranslate"><span class="pre">3.12</span></code>.</p>
+</div>
+</div>
+<p>Common build flags:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--backend</span> <span class="pre">&lt;backend_type&gt;</span></code></dt><dd><p>Specify the build backend for the compilation process.  The supported backends
+are <code class="docutils literal notranslate"><span class="pre">meson</span></code> and <code class="docutils literal notranslate"><span class="pre">distutils</span></code>.  If not specified, defaults to <code class="docutils literal notranslate"><span class="pre">distutils</span></code>.
+On Python 3.12 or higher, the default is <code class="docutils literal notranslate"><span class="pre">meson</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--f77flags=&lt;string&gt;</span></code></dt><dd><p>Specify F77 compiler flags</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--f90flags=&lt;string&gt;</span></code></dt><dd><p>Specify F90 compiler flags</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--debug</span></code></dt><dd><p>Compile with debugging information</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-l&lt;libname&gt;</span></code></dt><dd><p>Use the library <code class="docutils literal notranslate"><span class="pre">&lt;libname&gt;</span></code> when linking.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-D&lt;macro&gt;[=&lt;defn=1&gt;]</span></code></dt><dd><p>Define macro <code class="docutils literal notranslate"><span class="pre">&lt;macro&gt;</span></code> as <code class="docutils literal notranslate"><span class="pre">&lt;defn&gt;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-U&lt;macro&gt;</span></code></dt><dd><p>Define macro <code class="docutils literal notranslate"><span class="pre">&lt;macro&gt;</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-I&lt;dir&gt;</span></code></dt><dd><p>Append directory <code class="docutils literal notranslate"><span class="pre">&lt;dir&gt;</span></code> to the list of directories searched for include
+files.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-L&lt;dir&gt;</span></code></dt><dd><p>Add directory <code class="docutils literal notranslate"><span class="pre">&lt;dir&gt;</span></code> to the list of directories to be searched for
+<code class="docutils literal notranslate"><span class="pre">-l</span></code>.</p>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">meson</span></code> specific flags are:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--dep</span> <span class="pre">&lt;dependency&gt;</span></code> <strong>meson only</strong></dt><dd><p>Specify a meson dependency for the module. This may be passed multiple times
+for multiple dependencies. Dependencies are stored in a list for further
+processing. Example: <code class="docutils literal notranslate"><span class="pre">--dep</span> <span class="pre">lapack</span> <span class="pre">--dep</span> <span class="pre">scalapack</span></code> This will identify
+“lapack” and “scalapack” as dependencies and remove them from argv, leaving a
+dependencies list containing [“lapack”, “scalapack”].</p>
+</dd>
+</dl>
+<p>The older <code class="docutils literal notranslate"><span class="pre">distutils</span></code> flags are:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--help-fcompiler</span></code> <strong>no meson</strong></dt><dd><p>List the available Fortran compilers.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--fcompiler=&lt;Vendor&gt;</span></code> <strong>no meson</strong></dt><dd><p>Specify a Fortran compiler type by vendor.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--f77exec=&lt;path&gt;</span></code> <strong>no meson</strong></dt><dd><p>Specify the path to a F77 compiler</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--f90exec=&lt;path&gt;</span></code> <strong>no meson</strong></dt><dd><p>Specify the path to a F90 compiler</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--opt=&lt;string&gt;</span></code> <strong>no meson</strong></dt><dd><p>Specify optimization flags</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--arch=&lt;string&gt;</span></code> <strong>no meson</strong></dt><dd><p>Specify architecture specific optimization flags</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--noopt</span></code> <strong>no meson</strong></dt><dd><p>Compile without optimization flags</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--noarch</span></code> <strong>no meson</strong></dt><dd><p>Compile without arch-dependent optimization flags</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">link-&lt;resource&gt;</span></code> <strong>no meson</strong></dt><dd><p>Link the extension module with &lt;resource&gt; as defined by
+<code class="docutils literal notranslate"><span class="pre">numpy_distutils/system_info.py</span></code>. E.g. to link with optimized LAPACK
+libraries (vecLib on MacOSX, ATLAS elsewhere), use <code class="docutils literal notranslate"><span class="pre">--link-lapack_opt</span></code>.
+See also <code class="docutils literal notranslate"><span class="pre">--help-link</span></code> switch.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">f2py</span> <span class="pre">-c</span></code> option must be applied either to an existing <code class="docutils literal notranslate"><span class="pre">.pyf</span></code> file
+(plus the source/object/library files) or one must specify the
+<code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">&lt;modulename&gt;</span></code> option (plus the sources/object/library files). Use one of
+the following options:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>f2py<span class="w"> </span>-c<span class="w"> </span>-m<span class="w"> </span>fib1<span class="w"> </span>fib1.f
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>f2py<span class="w"> </span>-m<span class="w"> </span>fib1<span class="w"> </span>fib1.f<span class="w"> </span>-h<span class="w"> </span>fib1.pyf
+f2py<span class="w"> </span>-c<span class="w"> </span>fib1.pyf<span class="w"> </span>fib1.f
+</pre></div>
+</div>
+<p>For more information, see the <a class="reference external" href="https://docs.python.org/3/extending/building.html">Building C and C++ Extensions</a> Python
+documentation for details.</p>
+</div>
+<p>When building an extension module, a combination of the following macros may be
+required for non-gcc Fortran compilers:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>-DPREPEND_FORTRAN
+-DNO_APPEND_FORTRAN
+-DUPPERCASE_FORTRAN
+</pre></div>
+</div>
+<p>To test the performance of F2PY generated interfaces, use
+<code class="docutils literal notranslate"><span class="pre">-DF2PY_REPORT_ATEXIT</span></code>. Then a report of various timings is printed out at the
+exit of Python. This feature may not work on all platforms, and currently only
+Linux is supported.</p>
+<p>To see whether F2PY generated interface performs copies of array arguments, use
+<code class="docutils literal notranslate"><span class="pre">-DF2PY_REPORT_ON_ARRAY_COPY=&lt;int&gt;</span></code>. When the size of an array argument is
+larger than <code class="docutils literal notranslate"><span class="pre">&lt;int&gt;</span></code>, a message about the copying is sent to <code class="docutils literal notranslate"><span class="pre">stderr</span></code>.</p>
+</section>
+<section id="other-options">
+<h3>Other options<a class="headerlink" href="#other-options" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">&lt;modulename&gt;</span></code></dt><dd><p>Name of an extension module. Default is <code class="docutils literal notranslate"><span class="pre">untitled</span></code>.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Don’t use this option if a signature file (<code class="docutils literal notranslate"><span class="pre">*.pyf</span></code>) is used.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.26.3: </span>Will ignore <code class="docutils literal notranslate"><span class="pre">-m</span></code> if a <code class="docutils literal notranslate"><span class="pre">pyf</span></code> file is provided.</p>
+</div>
+</div>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--[no-]lower</span></code></dt><dd><p>Do [not] lower the cases in <code class="docutils literal notranslate"><span class="pre">&lt;fortran</span> <span class="pre">files&gt;</span></code>. By default, <code class="docutils literal notranslate"><span class="pre">--lower</span></code> is
+assumed with <code class="docutils literal notranslate"><span class="pre">-h</span></code> switch, and <code class="docutils literal notranslate"><span class="pre">--no-lower</span></code> without the <code class="docutils literal notranslate"><span class="pre">-h</span></code> switch.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-include&lt;header&gt;</span></code></dt><dd><p>Writes additional headers in the C wrapper, can be passed multiple times,
+generates #include &lt;header&gt; each time. Note that this is meant to be passed
+in single quotes and without spaces, for example <code class="docutils literal notranslate"><span class="pre">'-include&lt;stdbool.h&gt;'</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--build-dir</span> <span class="pre">&lt;dirname&gt;</span></code></dt><dd><p>All F2PY generated files are created in <code class="docutils literal notranslate"><span class="pre">&lt;dirname&gt;</span></code>. Default is
+<code class="docutils literal notranslate"><span class="pre">tempfile.mkdtemp()</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--f2cmap</span> <span class="pre">&lt;filename&gt;</span></code></dt><dd><p>Load Fortran-to-C <code class="docutils literal notranslate"><span class="pre">KIND</span></code> specifications from the given file.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--quiet</span></code></dt><dd><p>Run quietly.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--verbose</span></code></dt><dd><p>Run with extra verbosity.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--skip-empty-wrappers</span></code></dt><dd><p>Do not generate wrapper files unless required by the inputs.
+This is a backwards compatibility flag to restore pre 1.22.4 behavior.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-v</span></code></dt><dd><p>Print the F2PY version and exit.</p>
+</dd>
+</dl>
+<p>Execute <code class="docutils literal notranslate"><span class="pre">f2py</span></code> without any options to get an up-to-date list of available
+options.</p>
+</section>
+</section>
+<section id="python-module-numpy-f2py">
+<span id="id2"></span><h2>Python module <code class="docutils literal notranslate"><span class="pre">numpy.f2py</span></code><a class="headerlink" href="#python-module-numpy-f2py" title="Link to this heading">#</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.0.0: </span>There used to be a <code class="docutils literal notranslate"><span class="pre">f2py.compile</span></code> function, which was removed, users
+may wrap <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">numpy.f2py</span></code> via <code class="docutils literal notranslate"><span class="pre">subprocess.run</span></code> manually, and
+set environment variables to interact with <code class="docutils literal notranslate"><span class="pre">meson</span></code> as required.</p>
+</div>
+</div>
+<p>When using <code class="docutils literal notranslate"><span class="pre">numpy.f2py</span></code> as a module, the following functions can be invoked.</p>
+<p id="module-numpy.f2py">Fortran to Python Interface Generator.</p>
+<p>Copyright 1999 – 2011 Pearu Peterson all rights reserved.
+Copyright 2011 – present NumPy Developers.
+Permission to use, modify, and distribute this software is given under the terms
+of the NumPy License.</p>
+<p>NO WARRANTY IS EXPRESSED OR IMPLIED.  USE AT YOUR OWN RISK.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="numpy.f2py.get_include">
+<span class="sig-prename descclassname"><span class="pre">numpy.f2py.</span></span><span class="sig-name descname"><span class="pre">get_include</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/numpy/numpy/blob/v2.1.0/numpy/f2py/__init__.py#L26-L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numpy.f2py.get_include" title="Link to this definition">#</a></dt>
+<dd><p>Return the directory that contains the <code class="docutils literal notranslate"><span class="pre">fortranobject.c</span></code> and <code class="docutils literal notranslate"><span class="pre">.h</span></code> files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is not needed when building an extension with
+<a class="reference internal" href="../reference/distutils.html#module-numpy.distutils" title="numpy.distutils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.distutils</span></code></a> directly from <code class="docutils literal notranslate"><span class="pre">.f</span></code> and/or <code class="docutils literal notranslate"><span class="pre">.pyf</span></code> files
+in one go.</p>
+</div>
+<p>Python extension modules built with f2py-generated code need to use
+<code class="docutils literal notranslate"><span class="pre">fortranobject.c</span></code> as a source file, and include the <code class="docutils literal notranslate"><span class="pre">fortranobject.h</span></code>
+header. This function can be used to obtain the directory containing
+both of these files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>include_path</strong><span class="classifier">str</span></dt><dd><p>Absolute path to the directory containing <code class="docutils literal notranslate"><span class="pre">fortranobject.c</span></code> and
+<code class="docutils literal notranslate"><span class="pre">fortranobject.h</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../reference/generated/numpy.get_include.html#numpy.get_include" title="numpy.get_include"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.get_include</span></code></a></dt><dd><p>function that returns the numpy include directory</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.21.1.</span></p>
+</div>
+<p>Unless the build system you are using has specific support for f2py,
+building a Python extension using a <code class="docutils literal notranslate"><span class="pre">.pyf</span></code> signature file is a two-step
+process. For a module <code class="docutils literal notranslate"><span class="pre">mymod</span></code>:</p>
+<ul class="simple">
+<li><p>Step 1: run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">numpy.f2py</span> <span class="pre">mymod.pyf</span> <span class="pre">--quiet</span></code>. This
+generates <code class="docutils literal notranslate"><span class="pre">mymodmodule.c</span></code> and (if needed)
+<code class="docutils literal notranslate"><span class="pre">mymod-f2pywrappers.f</span></code> files next to <code class="docutils literal notranslate"><span class="pre">mymod.pyf</span></code>.</p></li>
+<li><p>Step 2: build your Python extension module. This requires the
+following source files:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">mymodmodule.c</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mymod-f2pywrappers.f</span></code> (if it was generated in Step 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fortranobject.c</span></code></p></li>
+</ul>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="numpy.f2py.run_main">
+<span class="sig-prename descclassname"><span class="pre">numpy.f2py.</span></span><span class="sig-name descname"><span class="pre">run_main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comline_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/numpy/numpy/blob/v2.1.0/numpy/f2py/f2py2e.py#L430-L515"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numpy.f2py.run_main" title="Link to this definition">#</a></dt>
+<dd><p>Equivalent to running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">f2py</span> <span class="o">&lt;</span><span class="n">args</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;args&gt;=string.join(&lt;list&gt;,'</span> <span class="pre">')</span></code>, but in Python.  Unless
+<code class="docutils literal notranslate"><span class="pre">-h</span></code> is used, this function returns a dictionary containing
+information on generated modules and their dependencies on source
+files.</p>
+<p>You cannot build extension modules with this function, that is,
+using <code class="docutils literal notranslate"><span class="pre">-c</span></code> is not allowed. Use the <code class="docutils literal notranslate"><span class="pre">compile</span></code> command instead.</p>
+<p class="rubric">Examples</p>
+<p>The command <code class="docutils literal notranslate"><span class="pre">f2py</span> <span class="pre">-m</span> <span class="pre">scalar</span> <span class="pre">scalar.f</span></code> can be executed from Python as
+follows.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy.f2py</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">f2py</span><span class="o">.</span><span class="n">run_main</span><span class="p">([</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span><span class="s1">&#39;scalar&#39;</span><span class="p">,</span><span class="s1">&#39;doc/source/f2py/scalar.f&#39;</span><span class="p">])</span>
+<span class="go">Reading fortran codes...</span>
+<span class="go">        Reading file &#39;doc/source/f2py/scalar.f&#39; (format:fix,strict)</span>
+<span class="go">Post-processing...</span>
+<span class="go">        Block: scalar</span>
+<span class="go">                        Block: FOO</span>
+<span class="go">Building modules...</span>
+<span class="go">        Building module &quot;scalar&quot;...</span>
+<span class="go">        Wrote C/API module &quot;scalar&quot; to file &quot;./scalarmodule.c&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="go">{&#39;scalar&#39;: {&#39;h&#39;: [&#39;/home/users/pearu/src_cvs/f2py/src/fortranobject.h&#39;],</span>
+<span class="go">	 &#39;csrc&#39;: [&#39;./scalarmodule.c&#39;, </span>
+<span class="go">                  &#39;/home/users/pearu/src_cvs/f2py/src/fortranobject.c&#39;]}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="automatic-extension-module-generation">
+<h2>Automatic extension module generation<a class="headerlink" href="#automatic-extension-module-generation" title="Link to this heading">#</a></h2>
+<p>If you want to distribute your f2py extension module, then you only
+need to include the .pyf file and the Fortran code. The distutils
+extensions in NumPy allow you to define an extension module entirely
+in terms of this interface file. A valid <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file allowing
+distribution of the <code class="docutils literal notranslate"><span class="pre">add.f</span></code> module (as part of the package
+<code class="docutils literal notranslate"><span class="pre">f2py_examples</span></code> so that it would be loaded as <code class="docutils literal notranslate"><span class="pre">f2py_examples.add</span></code>) is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">configuration</span><span class="p">(</span><span class="n">parent_package</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">top_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">numpy.distutils.misc_util</span> <span class="kn">import</span> <span class="n">Configuration</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="p">(</span><span class="s1">&#39;f2py_examples&#39;</span><span class="p">,</span><span class="n">parent_package</span><span class="p">,</span> <span class="n">top_path</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_extension</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;add.pyf&#39;</span><span class="p">,</span><span class="s1">&#39;add.f&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">config</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">numpy.distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+    <span class="n">setup</span><span class="p">(</span><span class="o">**</span><span class="n">configuration</span><span class="p">(</span><span class="n">top_path</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">todict</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Installation of the new package is easy using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>assuming you have the proper permissions to write to the main site-
+packages directory for the version of Python you are using. For the
+resulting package to work, you need to create a file named <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>
+(in the same directory as <code class="docutils literal notranslate"><span class="pre">add.pyf</span></code>). Notice the extension module is
+defined entirely in terms of the <code class="docutils literal notranslate"><span class="pre">add.pyf</span></code> and <code class="docutils literal notranslate"><span class="pre">add.f</span></code> files. The
+conversion of the .pyf file to a .c file is handled by <a class="reference internal" href="../reference/distutils.html#module-numpy.distutils" title="numpy.distutils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.distutils</span></code></a>.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="f2py.getting-started.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Three ways to wrap - getting started</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="f2py-examples.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">F2PY examples</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-f2py-as-a-command-line-tool">Using <code class="docutils literal notranslate"><span class="pre">f2py</span></code> as a command-line tool</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#signature-file-generation">1. Signature file generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extension-module-construction">2. Extension module construction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-module">3. Building a module</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-options">Other options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-module-numpy-f2py">Python module <code class="docutils literal notranslate"><span class="pre">numpy.f2py</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy.f2py.get_include"><code class="docutils literal notranslate"><span class="pre">get_include</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy.f2py.run_main"><code class="docutils literal notranslate"><span class="pre">run_main</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-extension-module-generation">Automatic extension module generation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

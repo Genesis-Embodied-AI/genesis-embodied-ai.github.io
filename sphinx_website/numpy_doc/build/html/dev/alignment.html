@@ -1,0 +1,775 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Memory alignment &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dev/alignment';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Byte-swapping" href="../user/byteswapping.html" />
+    <link rel="prev" title="NumPy C code explanations" href="internals.code-explanations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.html">NumPy fundamentals</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/howtos_index.html">NumPy how-tos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../f2py/index.html">F2PY user guide and reference manual</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="underthehood.html">Under-the-hood documentation for developers</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internals.html">Internal organization of NumPy arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals.code-explanations.html">NumPy C code explanations</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Memory alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/byteswapping.html">Byte-swapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/basics.dispatch.html">Writing custom array containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/basics.subclassing.html">Subclassing ndarray</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.interoperability.html">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user/index.html" class="nav-link">NumPy user guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="underthehood.html" class="nav-link">Under-the-hood documentation for developers</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Memory alignment</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="memory-alignment">
+<span id="alignment"></span><h1>Memory alignment<a class="headerlink" href="#memory-alignment" title="Link to this heading">#</a></h1>
+<section id="numpy-alignment-goals">
+<h2>NumPy alignment goals<a class="headerlink" href="#numpy-alignment-goals" title="Link to this heading">#</a></h2>
+<p>There are three use-cases related to memory alignment in NumPy (as of 1.14):</p>
+<ol class="arabic simple">
+<li><p>Creating <a class="reference internal" href="../glossary.html#term-structured-data-type"><span class="xref std std-term">structured datatypes</span></a> with
+<a class="reference internal" href="../glossary.html#term-field"><span class="xref std std-term">fields</span></a> aligned like in a C-struct.</p></li>
+<li><p>Speeding up copy operations by using <a class="reference internal" href="../reference/arrays.scalars.html#numpy.uint" title="numpy.uint"><code class="xref py py-class docutils literal notranslate"><span class="pre">uint</span></code></a> assignment in instead of
+<code class="docutils literal notranslate"><span class="pre">memcpy</span></code>.</p></li>
+<li><p>Guaranteeing safe aligned access for ufuncs/setitem/casting code.</p></li>
+</ol>
+<p>NumPy uses two different forms of alignment to achieve these goals:
+“True alignment” and “Uint alignment”.</p>
+<p>“True” alignment refers to the architecture-dependent alignment of an
+equivalent C-type in C. For example, in x64 systems <a class="reference internal" href="../reference/arrays.scalars.html#numpy.float64" title="numpy.float64"><code class="xref py py-attr docutils literal notranslate"><span class="pre">float64</span></code></a> is
+equivalent to <code class="docutils literal notranslate"><span class="pre">double</span></code> in C. On most systems, this has either an alignment of
+4 or 8 bytes (and this can be controlled in GCC by the option
+<code class="docutils literal notranslate"><span class="pre">malign-double</span></code>).  A variable is aligned in memory if its memory offset is a
+multiple of its alignment. On some systems (eg. sparc) memory alignment is
+required; on others, it gives a speedup.</p>
+<p>“Uint” alignment depends on the size of a datatype. It is defined to be the
+“True alignment” of the uint used by NumPy’s copy-code to copy the datatype, or
+undefined/unaligned if there is no equivalent uint. Currently, NumPy uses
+<code class="docutils literal notranslate"><span class="pre">uint8</span></code>, <code class="docutils literal notranslate"><span class="pre">uint16</span></code>, <code class="docutils literal notranslate"><span class="pre">uint32</span></code>, <code class="docutils literal notranslate"><span class="pre">uint64</span></code>, and <code class="docutils literal notranslate"><span class="pre">uint64</span></code> to copy data of
+size 1, 2, 4, 8, 16 bytes respectively, and all other sized datatypes cannot
+be uint-aligned.</p>
+<p>For example, on a (typical Linux x64 GCC) system, the NumPy <a class="reference internal" href="../reference/arrays.scalars.html#numpy.complex64" title="numpy.complex64"><code class="xref py py-attr docutils literal notranslate"><span class="pre">complex64</span></code></a>
+datatype is implemented as <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">{</span> <span class="pre">float</span> <span class="pre">real,</span> <span class="pre">imag;</span> <span class="pre">}</span></code>. This has “true”
+alignment of 4 and “uint” alignment of 8 (equal to the true alignment of
+<code class="docutils literal notranslate"><span class="pre">uint64</span></code>).</p>
+<dl>
+<dt>Some cases where uint and true alignment are different (default GCC Linux):</dt><dd><div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>arch</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>true-aln</p></th>
+<th class="head"><p>uint-aln</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>x86_64</p></td>
+<td><p>complex64</p></td>
+<td><p>4</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>x86_64</p></td>
+<td><p>float128</p></td>
+<td><p>16</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-even"><td><p>x86</p></td>
+<td><p>float96</p></td>
+<td><p>4</p></td>
+<td><p>-</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</dd>
+</dl>
+</section>
+<section id="variables-in-numpy-which-control-and-describe-alignment">
+<h2>Variables in NumPy which control and describe alignment<a class="headerlink" href="#variables-in-numpy-which-control-and-describe-alignment" title="Link to this heading">#</a></h2>
+<p>There are 4 relevant uses of the word <code class="docutils literal notranslate"><span class="pre">align</span></code> used in NumPy:</p>
+<ul class="simple">
+<li><p>The <a class="reference internal" href="../reference/generated/numpy.dtype.alignment.html#numpy.dtype.alignment" title="numpy.dtype.alignment"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype.alignment</span></code></a> attribute (<code class="docutils literal notranslate"><span class="pre">descr-&gt;alignment</span></code> in C). This is
+meant to reflect the “true alignment” of the type. It has arch-dependent
+default values for all datatypes, except for the structured types created
+with <code class="docutils literal notranslate"><span class="pre">align=True</span></code> as described below.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ALIGNED</span></code> flag of an ndarray, computed in <code class="docutils literal notranslate"><span class="pre">IsAligned</span></code> and checked
+by <a class="reference internal" href="../reference/c-api/array.html#c.PyArray_ISALIGNED" title="PyArray_ISALIGNED"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_ISALIGNED</span></code></a>. This is computed from
+<a class="reference internal" href="../reference/generated/numpy.dtype.alignment.html#numpy.dtype.alignment" title="numpy.dtype.alignment"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype.alignment</span></code></a>.
+It is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if every item in the array is at a memory location
+consistent with <a class="reference internal" href="../reference/generated/numpy.dtype.alignment.html#numpy.dtype.alignment" title="numpy.dtype.alignment"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype.alignment</span></code></a>, which is the case if the
+<code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">ptr</span></code> and all strides of the array are multiples of that alignment.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">align</span></code> keyword of the dtype constructor, which only affects
+<a class="reference internal" href="../user/basics.rec.html#structured-arrays"><span class="std std-ref">Structured arrays</span></a>. If the structure’s field offsets are not manually
+provided, NumPy determines offsets automatically. In that case,
+<code class="docutils literal notranslate"><span class="pre">align=True</span></code> pads the structure so that each field is “true” aligned in
+memory and sets <a class="reference internal" href="../reference/generated/numpy.dtype.alignment.html#numpy.dtype.alignment" title="numpy.dtype.alignment"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype.alignment</span></code></a> to be the largest of the field
+“true” alignments. This is like what C-structs usually do. Otherwise if
+offsets or itemsize were manually provided <code class="docutils literal notranslate"><span class="pre">align=True</span></code> simply checks that
+all the fields are “true” aligned and that the total itemsize is a multiple
+of the largest field alignment. In either case <a class="reference internal" href="../reference/generated/numpy.dtype.isalignedstruct.html#numpy.dtype.isalignedstruct" title="numpy.dtype.isalignedstruct"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype.isalignedstruct</span></code></a>
+is also set to True.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IsUintAligned</span></code> is used to determine if an ndarray is “uint aligned” in
+an analogous way to how <code class="docutils literal notranslate"><span class="pre">IsAligned</span></code> checks for true alignment.</p></li>
+</ul>
+</section>
+<section id="consequences-of-alignment">
+<h2>Consequences of alignment<a class="headerlink" href="#consequences-of-alignment" title="Link to this heading">#</a></h2>
+<p>Here is how the variables above are used:</p>
+<ol class="arabic simple">
+<li><p>Creating aligned structs: To know how to offset a field when
+<code class="docutils literal notranslate"><span class="pre">align=True</span></code>, NumPy looks up <code class="docutils literal notranslate"><span class="pre">field.dtype.alignment</span></code>. This includes
+fields that are nested structured arrays.</p></li>
+<li><p>Ufuncs: If the <code class="docutils literal notranslate"><span class="pre">ALIGNED</span></code> flag of an array is False, ufuncs will
+buffer/cast the array before evaluation. This is needed since ufunc inner
+loops access raw elements directly, which might fail on some archs if the
+elements are not true-aligned.</p></li>
+<li><p>Getitem/setitem/copyswap function: Similar to ufuncs, these functions
+generally have two code paths. If <code class="docutils literal notranslate"><span class="pre">ALIGNED</span></code> is False they will
+use a code path that buffers the arguments so they are true-aligned.</p></li>
+<li><p>Strided copy code: Here, “uint alignment” is used instead.  If the itemsize
+of an array is equal to 1, 2, 4, 8 or 16 bytes and the array is uint
+aligned then instead NumPy will do <code class="docutils literal notranslate"><span class="pre">*(uintN*)dst)</span> <span class="pre">=</span> <span class="pre">*(uintN*)src)</span></code> for
+appropriate N. Otherwise, NumPy copies by doing <code class="docutils literal notranslate"><span class="pre">memcpy(dst,</span> <span class="pre">src,</span> <span class="pre">N)</span></code>.</p></li>
+<li><p>Nditer code: Since this often calls the strided copy code, it must
+check for “uint alignment”.</p></li>
+<li><p>Cast code: This checks for “true” alignment, as it does
+<code class="docutils literal notranslate"><span class="pre">*dst</span> <span class="pre">=</span> <span class="pre">CASTFUNC(*src)</span></code> if aligned. Otherwise, it does
+<code class="docutils literal notranslate"><span class="pre">memmove(srcval,</span> <span class="pre">src);</span> <span class="pre">dstval</span> <span class="pre">=</span> <span class="pre">CASTFUNC(srcval);</span> <span class="pre">memmove(dst,</span> <span class="pre">dstval)</span></code>
+where dstval/srcval are aligned.</p></li>
+</ol>
+<p>Note that the strided-copy and strided-cast code are deeply intertwined and so
+any arrays being processed by them must be both uint and true aligned, even
+though the copy-code only needs uint alignment and the cast code only true
+alignment.  If there is ever a big rewrite of this code it would be good to
+allow them to use different alignments.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="internals.code-explanations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">NumPy C code explanations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../user/byteswapping.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Byte-swapping</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-alignment-goals">NumPy alignment goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-in-numpy-which-control-and-describe-alignment">Variables in NumPy which control and describe alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consequences-of-alignment">Consequences of alignment</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
