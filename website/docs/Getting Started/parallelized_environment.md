@@ -1,5 +1,6 @@
 ---
-sidebar_position: 1
+sidebar_position: 4
+title: "Parallelized Simulation"
 ---
 
 # Create a Page
