@@ -28,5 +28,5 @@ Compared to prior simulation platforms, here we highlight several key features o
 - 💥 A **unified** framework that supports various state-of-the-art physics solvers, modeling **a vast range of materials** and physical phenomena.
 - 📸 Fast and photo-realistic rendering.
 - ☝🏻 Physically-accurate and differentiable **tactile sensor**.
-- 🌌 Native support for ***[Generative Simulation](https://arxiv.org/abs/2305.10455)***, allowing **language-prompted data generation** of various modalities (*interactive scene*, *task*, *reward*, *assets*, *motion*, *policy*, *trajectory*, etc.).
+- 🌌 Native support for ***[Generative Simulation](https://arxiv.org/abs/2305.10455)***, allowing **language-prompted data generation** of various modalities (*interactive scene*, *task*, *reward*, *assets*, *motion*, *policy*, *trajectory*, *videos (physically accurate)*, etc.).
 

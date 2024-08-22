@@ -14,25 +14,14 @@ Genesis is designed to be *cross-platform*, supporting both *CPU* and *GPU* (bot
 ## Installation
 ### Genesis
 
-(Later)
-1. The main Genesis package is available via PyPI:
-```
-pip install genesis
-```
-2. Install [PyTorch](https://pytorch.org) (>=2.0.0) following the official instructions: https://pytorch.org/get-started/locally/.
-
-
-(Now)
 1. create conda env
 ```
 conda create -n genesis python=3.9
 conda activate genesis
 ```
 
-2. Install taichi and genesis.
-Note that at release time, taichi will be a dependency automatically handled. For now, since we rely on some features in the nightly version, let's install nightly manually.
+2. Install genesis. (will be distributed via pip in public release)
 ```
-pip install -i https://pypi.taichi.graphics/simple/ taichi-nightly
 pip install -e .
 ```
 
