@@ -1,0 +1,975 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Reading and writing files &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user/how-to-io';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to index ndarrays" href="how-to-index.html" />
+    <link rel="prev" title="How to write a NumPy how-to" href="how-to-how-to.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="basics.html">NumPy fundamentals</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="howtos_index.html">NumPy how-tos</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="how-to-how-to.html">How to write a NumPy how-to</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Reading and writing files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to-index.html">How to index <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarrays</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to-verify-bug.html">Verifying bugs and bug fixes in NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-to-partition.html">How to create arrays with regularly-spaced values</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../f2py/index.html">F2PY user guide and reference manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/underthehood.html">Under-the-hood documentation for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.interoperability.html">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">NumPy user guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="howtos_index.html" class="nav-link">NumPy how-tos</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Reading and...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <span class="target" id="how-to-io"></span><section id="reading-and-writing-files">
+<h1>Reading and writing files<a class="headerlink" href="#reading-and-writing-files" title="Link to this heading">#</a></h1>
+<p>This page tackles common applications; for the full collection of I/O
+routines, see <a class="reference internal" href="../reference/routines.io.html#routines-io"><span class="std std-ref">Input and output</span></a>.</p>
+<section id="reading-text-and-csv-files">
+<h2>Reading text and <a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> files<a class="headerlink" href="#reading-text-and-csv-files" title="Link to this heading">#</a></h2>
+<section id="with-no-missing-values">
+<h3>With no missing values<a class="headerlink" href="#with-no-missing-values" title="Link to this heading">#</a></h3>
+<p>Use <a class="reference internal" href="../reference/generated/numpy.loadtxt.html#numpy.loadtxt" title="numpy.loadtxt"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.loadtxt</span></code></a>.</p>
+</section>
+<section id="with-missing-values">
+<h3>With missing values<a class="headerlink" href="#with-missing-values" title="Link to this heading">#</a></h3>
+<p>Use <a class="reference internal" href="../reference/generated/numpy.genfromtxt.html#numpy.genfromtxt" title="numpy.genfromtxt"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.genfromtxt</span></code></a>.</p>
+<p><a class="reference internal" href="../reference/generated/numpy.genfromtxt.html#numpy.genfromtxt" title="numpy.genfromtxt"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.genfromtxt</span></code></a> will either</p>
+<ul class="simple">
+<li><p>return a <a class="reference internal" href="../reference/maskedarray.generic.html#maskedarray-generic"><span class="std std-ref">masked array</span></a>
+<strong>masking out missing values</strong> (if <code class="docutils literal notranslate"><span class="pre">usemask=True</span></code>), or</p></li>
+<li><p><strong>fill in the missing value</strong> with the value specified in
+<code class="docutils literal notranslate"><span class="pre">filling_values</span></code> (default is <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> for float, -1 for int).</p></li>
+</ul>
+<section id="with-non-whitespace-delimiters">
+<h4>With non-whitespace delimiters<a class="headerlink" href="#with-non-whitespace-delimiters" title="Link to this heading">#</a></h4>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;csv.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="go">1, 2, 3</span>
+<span class="go">4,, 6</span>
+<span class="go">7, 8, 9</span>
+</pre></div>
+</div>
+<section id="masked-array-output">
+<h5>Masked-array output<a class="headerlink" href="#masked-array-output" title="Link to this heading">#</a></h5>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;csv.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">usemask</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">masked_array(</span>
+<span class="go">  data=[[1.0, 2.0, 3.0],</span>
+<span class="go">        [4.0, --, 6.0],</span>
+<span class="go">        [7.0, 8.0, 9.0]],</span>
+<span class="go">  mask=[[False, False, False],</span>
+<span class="go">        [False,  True, False],</span>
+<span class="go">        [False, False, False]],</span>
+<span class="go">  fill_value=1e+20)</span>
+</pre></div>
+</div>
+</section>
+<section id="array-output">
+<h5>Array output<a class="headerlink" href="#array-output" title="Link to this heading">#</a></h5>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;csv.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="go">array([[ 1.,  2.,  3.],</span>
+<span class="go">       [ 4., nan,  6.],</span>
+<span class="go">       [ 7.,  8.,  9.]])</span>
+</pre></div>
+</div>
+</section>
+<section id="array-output-specified-fill-in-value">
+<h5>Array output, specified fill-in value<a class="headerlink" href="#array-output-specified-fill-in-value" title="Link to this heading">#</a></h5>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;csv.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">,</span> <span class="n">filling_values</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+<span class="go">array([[ 1,  2,  3],</span>
+<span class="go">       [ 4, 99,  6],</span>
+<span class="go">       [ 7,  8,  9]], dtype=int8)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="whitespace-delimited">
+<h4>Whitespace-delimited<a class="headerlink" href="#whitespace-delimited" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="../reference/generated/numpy.genfromtxt.html#numpy.genfromtxt" title="numpy.genfromtxt"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.genfromtxt</span></code></a> can also parse whitespace-delimited data files
+that have missing values if</p>
+<ul>
+<li><p><strong>Each field has a fixed width</strong>: Use the width as the <em class="xref py py-obj">delimiter</em> argument.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># File with width=4. The data does not have to be justified (for example,</span>
+<span class="c1"># the 2 in row 1), the last column can be less than width (for example, the 6</span>
+<span class="c1"># in row 2), and no delimiting character is required (for instance 8888 and 9</span>
+<span class="c1"># in row 3)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;fixedwidth.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="o">...</span>    <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="mi">1</span>   <span class="mi">2</span>      <span class="mi">3</span>
+<span class="mi">44</span>      <span class="mi">6</span>
+<span class="mi">7</span>   <span class="mi">88889</span>
+
+<span class="c1"># Showing spaces as ^</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="s2">&quot;^&quot;</span><span class="p">))</span>
+<span class="mi">1</span><span class="o">^^^</span><span class="mi">2</span><span class="o">^^^^^^</span><span class="mi">3</span>
+<span class="mi">44</span><span class="o">^^^^^^</span><span class="mi">6</span>
+<span class="mi">7</span><span class="o">^^^</span><span class="mi">88889</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;fixedwidth.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">array</span><span class="p">([[</span><span class="mf">1.000e+00</span><span class="p">,</span> <span class="mf">2.000e+00</span><span class="p">,</span> <span class="mf">3.000e+00</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">4.400e+01</span><span class="p">,</span>       <span class="n">nan</span><span class="p">,</span> <span class="mf">6.000e+00</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">7.000e+00</span><span class="p">,</span> <span class="mf">8.888e+03</span><span class="p">,</span> <span class="mf">9.000e+00</span><span class="p">]])</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>A special value (e.g. “x”) indicates a missing field</strong>: Use it as the
+<em class="xref py py-obj">missing_values</em> argument.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nan.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="go">1 2 3</span>
+<span class="go">44 x 6</span>
+<span class="go">7  8888 9</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;nan.txt&quot;</span><span class="p">,</span> <span class="n">missing_values</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="go">array([[1.000e+00, 2.000e+00, 3.000e+00],</span>
+<span class="go">       [4.400e+01,       nan, 6.000e+00],</span>
+<span class="go">       [7.000e+00, 8.888e+03, 9.000e+00]])</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>You want to skip the rows with missing values</strong>: Set
+<em class="xref py py-obj">invalid_raise=False</em>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;skip.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="go">1 2   3</span>
+<span class="go">44    6</span>
+<span class="go">7 888 9</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;skip.txt&quot;</span><span class="p">,</span> <span class="n">invalid_raise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  
+<span class="go">__main__:1: ConversionWarning: Some errors were detected !</span>
+<span class="go">    Line #2 (got 2 columns instead of 3)</span>
+<span class="go">array([[  1.,   2.,   3.],</span>
+<span class="go">       [  7., 888.,   9.]])</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>The delimiter whitespace character is different from the whitespace that
+indicates missing data</strong>. For instance, if columns are delimited by <code class="docutils literal notranslate"><span class="pre">\t</span></code>,
+then missing data will be recognized if it consists of one
+or more spaces.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;tabs.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">1       2       3</span>
+<span class="go">44              6</span>
+<span class="go">7       888     9</span>
+
+<span class="go"># Tabs vs. spaces</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;^&quot;</span><span class="p">))</span>
+<span class="go">1^2^3</span>
+<span class="go">44^ ^6</span>
+<span class="go">7^888^9</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;tabs.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">missing_values</span><span class="o">=</span><span class="s2">&quot; +&quot;</span><span class="p">)</span>
+<span class="go">array([[  1.,   2.,   3.],</span>
+<span class="go">       [ 44.,  nan,   6.],</span>
+<span class="go">       [  7., 888.,   9.]])</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="read-a-file-in-npy-or-npz-format">
+<h2>Read a file in .npy or .npz format<a class="headerlink" href="#read-a-file-in-npy-or-npz-format" title="Link to this heading">#</a></h2>
+<p>Choices:</p>
+<ul class="simple">
+<li><p>Use <a class="reference internal" href="../reference/generated/numpy.load.html#numpy.load" title="numpy.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.load</span></code></a>. It can read files generated by any of
+<a class="reference internal" href="../reference/generated/numpy.save.html#numpy.save" title="numpy.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save</span></code></a>, <a class="reference internal" href="../reference/generated/numpy.savez.html#numpy.savez" title="numpy.savez"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.savez</span></code></a>, or <a class="reference internal" href="../reference/generated/numpy.savez_compressed.html#numpy.savez_compressed" title="numpy.savez_compressed"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.savez_compressed</span></code></a>.</p></li>
+<li><p>Use memory mapping. See <a class="reference internal" href="../reference/generated/numpy.lib.format.open_memmap.html#numpy.lib.format.open_memmap" title="numpy.lib.format.open_memmap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.lib.format.open_memmap</span></code></a>.</p></li>
+</ul>
+</section>
+<section id="write-to-a-file-to-be-read-back-by-numpy">
+<h2>Write to a file to be read back by NumPy<a class="headerlink" href="#write-to-a-file-to-be-read-back-by-numpy" title="Link to this heading">#</a></h2>
+<section id="binary">
+<h3>Binary<a class="headerlink" href="#binary" title="Link to this heading">#</a></h3>
+<p>Use
+<a class="reference internal" href="../reference/generated/numpy.save.html#numpy.save" title="numpy.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save</span></code></a>, or to store multiple arrays <a class="reference internal" href="../reference/generated/numpy.savez.html#numpy.savez" title="numpy.savez"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.savez</span></code></a>
+or <a class="reference internal" href="../reference/generated/numpy.savez_compressed.html#numpy.savez_compressed" title="numpy.savez_compressed"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.savez_compressed</span></code></a>.</p>
+<p>For <a class="reference internal" href="#how-to-io-pickle-file"><span class="std std-ref">security and portability</span></a>, set
+<code class="docutils literal notranslate"><span class="pre">allow_pickle=False</span></code> unless the dtype contains Python objects, which
+requires pickling.</p>
+<p>Masked arrays <a class="reference internal" href="../reference/generated/numpy.ma.MaskedArray.tofile.html#numpy.ma.MaskedArray.tofile" title="numpy.ma.MaskedArray.tofile"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">can't</span> <span class="pre">currently</span> <span class="pre">be</span> <span class="pre">saved</span></code></a>,
+nor can other arbitrary array subclasses.</p>
+</section>
+<section id="human-readable">
+<h3>Human-readable<a class="headerlink" href="#human-readable" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="../reference/generated/numpy.save.html#numpy.save" title="numpy.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save</span></code></a> and <a class="reference internal" href="../reference/generated/numpy.savez.html#numpy.savez" title="numpy.savez"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.savez</span></code></a> create binary files. To <strong>write a
+human-readable file</strong>, use <a class="reference internal" href="../reference/generated/numpy.savetxt.html#numpy.savetxt" title="numpy.savetxt"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.savetxt</span></code></a>. The array can only be 1- or
+2-dimensional, and there’s no ` savetxtz` for multiple files.</p>
+</section>
+<section id="large-arrays">
+<h3>Large arrays<a class="headerlink" href="#large-arrays" title="Link to this heading">#</a></h3>
+<p>See <a class="reference internal" href="#how-to-io-large-arrays"><span class="std std-ref">Write or read large arrays</span></a>.</p>
+</section>
+</section>
+<section id="read-an-arbitrarily-formatted-binary-file-binary-blob">
+<h2>Read an arbitrarily formatted binary file (“binary blob”)<a class="headerlink" href="#read-an-arbitrarily-formatted-binary-file-binary-blob" title="Link to this heading">#</a></h2>
+<p>Use a <a class="reference internal" href="basics.rec.html"><span class="doc">structured array</span></a>.</p>
+<p><strong>Example:</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.wav</span></code> file header is a 44-byte block preceding <code class="docutils literal notranslate"><span class="pre">data_size</span></code> bytes of the
+actual sound data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chunk_id</span>         <span class="s2">&quot;RIFF&quot;</span>
+<span class="n">chunk_size</span>       <span class="mi">4</span><span class="o">-</span><span class="n">byte</span> <span class="n">unsigned</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">integer</span>
+<span class="nb">format</span>           <span class="s2">&quot;WAVE&quot;</span>
+<span class="n">fmt_id</span>           <span class="s2">&quot;fmt &quot;</span>
+<span class="n">fmt_size</span>         <span class="mi">4</span><span class="o">-</span><span class="n">byte</span> <span class="n">unsigned</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">integer</span>
+<span class="n">audio_fmt</span>        <span class="mi">2</span><span class="o">-</span><span class="n">byte</span> <span class="n">unsigned</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">integer</span>
+<span class="n">num_channels</span>     <span class="mi">2</span><span class="o">-</span><span class="n">byte</span> <span class="n">unsigned</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">integer</span>
+<span class="n">sample_rate</span>      <span class="mi">4</span><span class="o">-</span><span class="n">byte</span> <span class="n">unsigned</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">integer</span>
+<span class="n">byte_rate</span>        <span class="mi">4</span><span class="o">-</span><span class="n">byte</span> <span class="n">unsigned</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">integer</span>
+<span class="n">block_align</span>      <span class="mi">2</span><span class="o">-</span><span class="n">byte</span> <span class="n">unsigned</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">integer</span>
+<span class="n">bits_per_sample</span>  <span class="mi">2</span><span class="o">-</span><span class="n">byte</span> <span class="n">unsigned</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">integer</span>
+<span class="n">data_id</span>          <span class="s2">&quot;data&quot;</span>
+<span class="n">data_size</span>        <span class="mi">4</span><span class="o">-</span><span class="n">byte</span> <span class="n">unsigned</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">integer</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.wav</span></code> file header as a NumPy structured dtype:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wav_header_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;chunk_id&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span> <span class="c1"># flexible-sized scalar type, item size 4</span>
+    <span class="p">(</span><span class="s2">&quot;chunk_size&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u4&quot;</span><span class="p">),</span>    <span class="c1"># little-endian unsigned 32-bit integer</span>
+    <span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="s2">&quot;S4&quot;</span><span class="p">),</span>         <span class="c1"># 4-byte string, alternate spelling of (bytes, 4)</span>
+    <span class="p">(</span><span class="s2">&quot;fmt_id&quot;</span><span class="p">,</span> <span class="s2">&quot;S4&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;fmt_size&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u4&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;audio_fmt&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u2&quot;</span><span class="p">),</span>     <span class="c1">#</span>
+    <span class="p">(</span><span class="s2">&quot;num_channels&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u2&quot;</span><span class="p">),</span>  <span class="c1"># .. more of the same ...</span>
+    <span class="p">(</span><span class="s2">&quot;sample_rate&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u4&quot;</span><span class="p">),</span>   <span class="c1">#</span>
+    <span class="p">(</span><span class="s2">&quot;byte_rate&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u4&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;block_align&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u2&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;bits_per_sample&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u2&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;data_id&quot;</span><span class="p">,</span> <span class="s2">&quot;S4&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;data_size&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u4&quot;</span><span class="p">),</span>
+    <span class="c1">#</span>
+    <span class="c1"># the sound data itself cannot be represented here:</span>
+    <span class="c1"># it does not have a fixed size</span>
+<span class="p">])</span>
+
+<span class="n">header</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wave_header_dtype</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">.wav</span></code> example is for illustration; to read a <code class="docutils literal notranslate"><span class="pre">.wav</span></code> file in real
+life, use Python’s built-in module <a class="reference external" href="https://docs.python.org/3/library/wave.html#module-wave" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">wave</span></code></a>.</p>
+<p>(Adapted from Pauli Virtanen, <a class="reference external" href="https://scipy-lectures.org/advanced/advanced_numpy/index.html#advanced-numpy" title="(in Scipy lecture notes v2022.1)"><span>Advanced NumPy</span></a>, licensed
+under <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.)</p>
+</section>
+<section id="write-or-read-large-arrays">
+<span id="how-to-io-large-arrays"></span><h2>Write or read large arrays<a class="headerlink" href="#write-or-read-large-arrays" title="Link to this heading">#</a></h2>
+<p><strong>Arrays too large to fit in memory</strong> can be treated like ordinary in-memory
+arrays using memory mapping.</p>
+<ul>
+<li><p>Raw array data written with <a class="reference internal" href="../reference/generated/numpy.ndarray.tofile.html#numpy.ndarray.tofile" title="numpy.ndarray.tofile"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ndarray.tofile</span></code></a> or
+<a class="reference internal" href="../reference/generated/numpy.ndarray.tobytes.html#numpy.ndarray.tobytes" title="numpy.ndarray.tobytes"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ndarray.tobytes</span></code></a> can be read with <a class="reference internal" href="../reference/generated/numpy.memmap.html#numpy.memmap" title="numpy.memmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.memmap</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">memmap</span><span class="p">(</span><span class="s2">&quot;mydata/myarray.arr&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p>Files output by <a class="reference internal" href="../reference/generated/numpy.save.html#numpy.save" title="numpy.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save</span></code></a> (that is, using the numpy format) can be read
+using <a class="reference internal" href="../reference/generated/numpy.load.html#numpy.load" title="numpy.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.load</span></code></a> with the <code class="docutils literal notranslate"><span class="pre">mmap_mode</span></code> keyword argument:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">large_array</span><span class="p">[</span><span class="n">some_slice</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;path/to/small_array&quot;</span><span class="p">,</span> <span class="n">mmap_mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Memory mapping lacks features like data chunking and compression; more
+full-featured formats and libraries usable with NumPy include:</p>
+<ul class="simple">
+<li><p><strong>HDF5</strong>: <a class="reference external" href="https://www.h5py.org/">h5py</a> or <a class="reference external" href="https://www.pytables.org/">PyTables</a>.</p></li>
+<li><p><strong>Zarr</strong>: <a class="reference external" href="https://zarr.readthedocs.io/en/stable/tutorial.html#reading-and-writing-data">here</a>.</p></li>
+<li><p><strong>NetCDF</strong>: <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.netcdf_file.html#scipy.io.netcdf_file" title="(in SciPy v1.14.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipy.io.netcdf_file</span></code></a>.</p></li>
+</ul>
+<p>For tradeoffs among memmap, Zarr, and HDF5, see
+<a class="reference external" href="https://pythonspeed.com/articles/mmap-vs-zarr-hdf5/">pythonspeed.com</a>.</p>
+</section>
+<section id="write-files-for-reading-by-other-non-numpy-tools">
+<h2>Write files for reading by other (non-NumPy) tools<a class="headerlink" href="#write-files-for-reading-by-other-non-numpy-tools" title="Link to this heading">#</a></h2>
+<p>Formats for <strong>exchanging data</strong> with other tools include HDF5, Zarr, and
+NetCDF (see <a class="reference internal" href="#how-to-io-large-arrays"><span class="std std-ref">Write or read large arrays</span></a>).</p>
+</section>
+<section id="write-or-read-a-json-file">
+<h2>Write or read a JSON file<a class="headerlink" href="#write-or-read-a-json-file" title="Link to this heading">#</a></h2>
+<p>NumPy arrays and most NumPy scalars are <strong>not</strong> directly
+<a class="reference external" href="https://github.com/numpy/numpy/issues/12481">JSON serializable</a>.
+Instead, use a custom <a class="reference external" href="https://docs.python.org/3/library/json.html#json.JSONEncoder" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">json.JSONEncoder</span></code></a> for NumPy types, which can
+be found using your favorite search engine.</p>
+</section>
+<section id="save-restore-using-a-pickle-file">
+<span id="how-to-io-pickle-file"></span><h2>Save/restore using a pickle file<a class="headerlink" href="#save-restore-using-a-pickle-file" title="Link to this heading">#</a></h2>
+<p>Avoid when possible; <a class="reference external" href="https://docs.python.org/3/library/pickle.html" title="(in Python v3.12)"><span class="xref std std-doc">pickles</span></a> are not secure
+against erroneous or maliciously constructed data.</p>
+<p>Use <a class="reference internal" href="../reference/generated/numpy.save.html#numpy.save" title="numpy.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save</span></code></a> and <a class="reference internal" href="../reference/generated/numpy.load.html#numpy.load" title="numpy.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.load</span></code></a>.  Set <code class="docutils literal notranslate"><span class="pre">allow_pickle=False</span></code>,
+unless the array dtype includes Python objects, in which case pickling is
+required.</p>
+<p><a class="reference internal" href="../reference/generated/numpy.load.html#numpy.load" title="numpy.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.load</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pickle</span></code></a> submodule also support unpickling files
+created with NumPy 1.26.</p>
+</section>
+<section id="convert-from-a-pandas-dataframe-to-a-numpy-array">
+<h2>Convert from a pandas DataFrame to a NumPy array<a class="headerlink" href="#convert-from-a-pandas-dataframe-to-a-numpy-array" title="Link to this heading">#</a></h2>
+<p>See <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.to_numpy.html#pandas.Series.to_numpy" title="(in pandas v2.2.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.Series.to_numpy</span></code></a>.</p>
+</section>
+<section id="save-restore-using-tofile-and-fromfile">
+<h2>Save/restore using <a class="reference internal" href="../reference/generated/numpy.ndarray.tofile.html#numpy.ndarray.tofile" title="numpy.ndarray.tofile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tofile</span></code></a> and <a class="reference internal" href="../reference/generated/numpy.fromfile.html#numpy.fromfile" title="numpy.fromfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fromfile</span></code></a><a class="headerlink" href="#save-restore-using-tofile-and-fromfile" title="Link to this heading">#</a></h2>
+<p>In general, prefer <a class="reference internal" href="../reference/generated/numpy.save.html#numpy.save" title="numpy.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save</span></code></a> and <a class="reference internal" href="../reference/generated/numpy.load.html#numpy.load" title="numpy.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.load</span></code></a>.</p>
+<p><a class="reference internal" href="../reference/generated/numpy.ndarray.tofile.html#numpy.ndarray.tofile" title="numpy.ndarray.tofile"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ndarray.tofile</span></code></a> and <a class="reference internal" href="../reference/generated/numpy.fromfile.html#numpy.fromfile" title="numpy.fromfile"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.fromfile</span></code></a> lose information on
+endianness and precision and so are unsuitable for anything but scratch
+storage.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="how-to-how-to.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">How to write a NumPy how-to</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="how-to-index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">How to index <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarrays</span></code></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-text-and-csv-files">Reading text and CSV files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-no-missing-values">With no missing values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-missing-values">With missing values</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#with-non-whitespace-delimiters">With non-whitespace delimiters</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-array-output">Masked-array output</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#array-output">Array output</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#array-output-specified-fill-in-value">Array output, specified fill-in value</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#whitespace-delimited">Whitespace-delimited</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-a-file-in-npy-or-npz-format">Read a file in .npy or .npz format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-to-a-file-to-be-read-back-by-numpy">Write to a file to be read back by NumPy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary">Binary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-readable">Human-readable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#large-arrays">Large arrays</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-an-arbitrarily-formatted-binary-file-binary-blob">Read an arbitrarily formatted binary file (“binary blob”)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-or-read-large-arrays">Write or read large arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-files-for-reading-by-other-non-numpy-tools">Write files for reading by other (non-NumPy) tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-or-read-a-json-file">Write or read a JSON file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-restore-using-a-pickle-file">Save/restore using a pickle file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-from-a-pandas-dataframe-to-a-numpy-array">Convert from a pandas DataFrame to a NumPy array</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-restore-using-tofile-and-fromfile">Save/restore using <code class="xref py py-obj docutils literal notranslate"><span class="pre">tofile</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">fromfile</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

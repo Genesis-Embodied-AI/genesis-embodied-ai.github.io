@@ -1,0 +1,1012 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Building from source &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'building/index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Compiler selection and customizing a build" href="compilers_and_options.html" />
+    <link rel="prev" title="Testing the numpy.i typemaps" href="../reference/swig.testing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="compilers_and_options.html">Compiler selection and customizing a build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blas_lapack.html">BLAS and LAPACK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cross_compilation.html">Cross compilation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redistributable_binaries.html">Building redistributable binaries</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="understanding_meson.html">Understanding Meson</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introspecting_a_build.html">Introspecting build steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils_equivalents.html">Meson and <code class="docutils literal notranslate"><span class="pre">distutils</span></code> ways of doing things</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Building from source</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="building-from-source">
+<span id="id1"></span><h1>Building from source<a class="headerlink" href="#building-from-source" title="Link to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are only trying to install NumPy, we recommend using binaries - see
+<a class="reference external" href="https://numpy.org/install">Installation</a> for details on that.</p>
+</div>
+<p>Building NumPy from source requires setting up system-level dependencies
+(compilers, BLAS/LAPACK libraries, etc.) first, and then invoking a build. The
+build may be done in order to install NumPy for local usage, develop NumPy
+itself, or build redistributable binary packages. And it may be desired to
+customize aspects of how the build is done. This guide will cover all these
+aspects. In addition, it provides background information on how the NumPy build
+works, and links to up-to-date guides for generic Python build &amp; packaging
+documentation that is relevant.</p>
+<section id="system-level-dependencies">
+<span id="system-level"></span><h2>System-level dependencies<a class="headerlink" href="#system-level-dependencies" title="Link to this heading">#</a></h2>
+<p>NumPy uses compiled code for speed, which means you need compilers and some
+other system-level (i.e, non-Python / non-PyPI) dependencies to build it on
+your system.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using Conda, you can skip the steps in this section - with the
+exception of installing compilers for Windows or the Apple Developer Tools
+for macOS. All other dependencies will be installed automatically by the
+<code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">environment.yml</span></code> command.</p>
+</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="linux" for="sd-tab-item-0">
+Linux</label><div class="sd-tab-content docutils">
+<p>If you want to use the system Python and <code class="docutils literal notranslate"><span class="pre">pip</span></code>, you will need:</p>
+<ul class="simple">
+<li><p>C and C++ compilers (typically GCC).</p></li>
+<li><p>Python header files (typically a package named <code class="docutils literal notranslate"><span class="pre">python3-dev</span></code> or
+<code class="docutils literal notranslate"><span class="pre">python3-devel</span></code>)</p></li>
+<li><p>BLAS and LAPACK libraries. <a class="reference external" href="https://github.com/OpenMathLib/OpenBLAS/">OpenBLAS</a>
+is the NumPy default; other variants include Apple Accelerate,
+<a class="reference external" href="https://software.intel.com/en-us/intel-mkl">MKL</a>,
+<a class="reference external" href="http://math-atlas.sourceforge.net/">ATLAS</a> and
+<a class="reference external" href="https://www.netlib.org/lapack/index.html">Netlib</a> (or “Reference”)
+BLAS and LAPACK.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> for dependency detection.</p></li>
+<li><p>A Fortran compiler is needed only for running the <code class="docutils literal notranslate"><span class="pre">f2py</span></code> tests. The
+instructions below include a Fortran compiler, however you can safely
+leave it out.</p></li>
+</ul>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Debian/Ubuntu Linux</label><div class="sd-tab-content docutils">
+<p>To install NumPy build requirements, you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">gcc</span> <span class="n">g</span><span class="o">++</span> <span class="n">gfortran</span> <span class="n">libopenblas</span><span class="o">-</span><span class="n">dev</span> <span class="n">liblapack</span><span class="o">-</span><span class="n">dev</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>Alternatively, you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">build</span><span class="o">-</span><span class="n">dep</span> <span class="n">numpy</span>
+</pre></div>
+</div>
+<p>This command installs whatever is needed to build NumPy, with the
+advantage that new dependencies or updates to required versions are
+handled by the package managers.</p>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Fedora</label><div class="sd-tab-content docutils">
+<p>To install NumPy build requirements, you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dnf</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">gfortran</span> <span class="n">python3</span><span class="o">-</span><span class="n">devel</span> <span class="n">openblas</span><span class="o">-</span><span class="n">devel</span> <span class="n">lapack</span><span class="o">-</span><span class="n">devel</span> <span class="n">pkgconfig</span>
+</pre></div>
+</div>
+<p>Alternatively, you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dnf</span> <span class="n">builddep</span> <span class="n">numpy</span>
+</pre></div>
+</div>
+<p>This command installs whatever is needed to build NumPy, with the
+advantage that new dependencies or updates to required versions are
+handled by the package managers.</p>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+CentOS/RHEL</label><div class="sd-tab-content docutils">
+<p>To install NumPy build requirements, you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">gfortran</span> <span class="n">python3</span><span class="o">-</span><span class="n">devel</span> <span class="n">openblas</span><span class="o">-</span><span class="n">devel</span> <span class="n">lapack</span><span class="o">-</span><span class="n">devel</span> <span class="n">pkgconfig</span>
+</pre></div>
+</div>
+<p>Alternatively, you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span><span class="o">-</span><span class="n">builddep</span> <span class="n">numpy</span>
+</pre></div>
+</div>
+<p>This command installs whatever is needed to build NumPy, with the
+advantage that new dependencies or updates to required versions are
+handled by the package managers.</p>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+Arch</label><div class="sd-tab-content docutils">
+<p>To install NumPy build requirements, you can do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">pacman</span> <span class="o">-</span><span class="n">S</span> <span class="n">gcc</span><span class="o">-</span><span class="n">fortran</span> <span class="n">openblas</span> <span class="n">pkgconf</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="macos" for="sd-tab-item-1">
+macOS</label><div class="sd-tab-content docutils">
+<p>Install Apple Developer Tools. An easy way to do this is to
+<a class="reference external" href="https://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line">open a terminal window</a>,
+enter the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
+</pre></div>
+</div>
+<p>and follow the prompts. Apple Developer Tools includes Git, the Clang C/C++
+compilers, and other development utilities that may be required.</p>
+<p>Do <em>not</em> use the macOS system Python. Instead, install Python
+with <a class="reference external" href="https://www.python.org/downloads/">the python.org installer</a> or
+with a package manager like Homebrew, MacPorts or Fink.</p>
+<p>On macOS &gt;=13.3, the easiest build option is to use Accelerate, which is
+already installed and will be automatically used by default.</p>
+<p>On older macOS versions you need a different BLAS library, most likely
+OpenBLAS, plus pkg-config to detect OpenBLAS. These are easiest to install
+with <a class="reference external" href="https://brew.sh/">Homebrew</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">openblas</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">gfortran</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="windows" for="sd-tab-item-2">
+Windows</label><div class="sd-tab-content docutils">
+<p>On Windows, the use of a Fortran compiler is more tricky than on other
+platforms, because MSVC does not support Fortran, and gfortran and MSVC
+can’t be used together. If you don’t need to run the <code class="docutils literal notranslate"><span class="pre">f2py</span></code> tests, simply
+using MSVC is easiest. Otherwise, you will need one of these sets of
+compilers:</p>
+<ol class="arabic simple">
+<li><p>MSVC + Intel Fortran (<code class="docutils literal notranslate"><span class="pre">ifort</span></code>)</p></li>
+<li><p>Intel compilers (<code class="docutils literal notranslate"><span class="pre">icc</span></code>, <code class="docutils literal notranslate"><span class="pre">ifort</span></code>)</p></li>
+<li><p>Mingw-w64 compilers (<code class="docutils literal notranslate"><span class="pre">gcc</span></code>, <code class="docutils literal notranslate"><span class="pre">g++</span></code>, <code class="docutils literal notranslate"><span class="pre">gfortran</span></code>)</p></li>
+</ol>
+<p>Compared to macOS and Linux, building NumPy on Windows is a little more
+difficult, due to the need to set up these compilers. It is not possible to
+just call a one-liner on the command prompt as you would on other
+platforms.</p>
+<p>First, install Microsoft Visual Studio - the 2019 Community Edition or any
+newer version will work (see the
+<a class="reference external" href="https://visualstudio.microsoft.com/downloads/">Visual Studio download site</a>).
+This is needed even if you use the MinGW-w64 or Intel compilers, in order
+to ensure you have the Windows Universal C Runtime (the other components of
+Visual Studio are not needed when using Mingw-w64, and can be deselected if
+desired, to save disk space).</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+MSVC</label><div class="sd-tab-content docutils">
+<p>The MSVC installer does not put the compilers on the system path, and
+the install location may change. To query the install location, MSVC
+comes with a <code class="docutils literal notranslate"><span class="pre">vswhere.exe</span></code> command-line utility. And to make the
+C/C++ compilers available inside the shell you are using, you need to
+run a <code class="docutils literal notranslate"><span class="pre">.bat</span></code> file for the correct bitness and architecture (e.g., for
+64-bit Intel CPUs, use <code class="docutils literal notranslate"><span class="pre">vcvars64.bat</span></code>).</p>
+<p>For detailed guidance, see <a class="reference external" href="https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=msvc-170">Use the Microsoft C++ toolset from the command line</a>.</p>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
+Intel</label><div class="sd-tab-content docutils">
+<p>Similar to MSVC, the Intel compilers are designed to be used with an
+activation script (<code class="docutils literal notranslate"><span class="pre">Intel\oneAPI\setvars.bat</span></code>) that you run in the
+shell you are using. This makes the compilers available on the path.
+For detailed guidance, see
+<a class="reference external" href="https://www.intel.com/content/www/us/en/docs/oneapi-hpc-toolkit/get-started-guide-windows/2023-1/overview.html">Get Started with the Intel® oneAPI HPC Toolkit for Windows</a>.</p>
+</div>
+<input id="sd-tab-item-9" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-9">
+MinGW-w64</label><div class="sd-tab-content docutils">
+<p>There are several sources of binaries for MinGW-w64. We recommend the
+RTools versions, which can be installed with Chocolatey (see
+Chocolatey install instructions <a class="reference external" href="https://chocolatey.org/install">here</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">choco</span> <span class="n">install</span> <span class="n">rtools</span> <span class="o">-</span><span class="n">y</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">progress</span> <span class="o">--</span><span class="n">force</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="mf">4.0.0.20220206</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Compilers should be on the system path (i.e., the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment
+variable should contain the directory in which the compiler executables
+can be found) in order to be found, with the exception of MSVC which
+will be found automatically if and only if there are no other compilers
+on the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. You can use any shell (e.g., Powershell, <code class="docutils literal notranslate"><span class="pre">cmd</span></code> or
+Git Bash) to invoke a build. To check that this is the case, try
+invoking a Fortran compiler in the shell you use (e.g., <code class="docutils literal notranslate"><span class="pre">gfortran</span>
+<span class="pre">--version</span></code> or <code class="docutils literal notranslate"><span class="pre">ifort</span> <span class="pre">--version</span></code>).</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using a conda environment it is possible that the environment
+creation will not work due to an outdated Fortran compiler. If that
+happens, remove the <code class="docutils literal notranslate"><span class="pre">compilers</span></code> entry from <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and
+try again. The Fortran compiler should be installed as described in
+this section.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="building-numpy-from-source">
+<h2>Building NumPy from source<a class="headerlink" href="#building-numpy-from-source" title="Link to this heading">#</a></h2>
+<p>If you want to only install NumPy from source once and not do any development
+work, then the recommended way to build and install is to use <code class="docutils literal notranslate"><span class="pre">pip</span></code>.
+Otherwise, conda is recommended.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don’t have a conda installation yet, we recommend using
+<a class="reference external" href="https://github.com/conda-forge/miniforge#mambaforge">Mambaforge</a>; any conda flavor will work though.</p>
+</div>
+<section id="building-from-source-to-use-numpy">
+<h3>Building from source to use NumPy<a class="headerlink" href="#building-from-source-to-use-numpy" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="conda" for="sd-tab-item-10">
+Conda env</label><div class="sd-tab-content docutils">
+<p>If you are using a conda environment, <code class="docutils literal notranslate"><span class="pre">pip</span></code> is still the tool you use to
+invoke a from-source build of NumPy. It is important to always use the
+<code class="docutils literal notranslate"><span class="pre">--no-build-isolation</span></code> flag to the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> command, to avoid
+building against a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> wheel from PyPI. In order for that to work you
+must first install the remaining build dependencies into the conda
+environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Either install all NumPy dev dependencies into a fresh conda environment</span>
+<span class="n">mamba</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+
+<span class="c1"># Or, install only the required build dependencies</span>
+<span class="n">mamba</span> <span class="n">install</span> <span class="n">python</span> <span class="n">numpy</span> <span class="n">cython</span> <span class="n">compilers</span> <span class="n">openblas</span> <span class="n">meson</span><span class="o">-</span><span class="n">python</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span>
+
+<span class="c1"># To build the latest stable release:</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">isolation</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">binary</span> <span class="n">numpy</span>
+
+<span class="c1"># To build a development version, you need a local clone of the NumPy git repository:</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">numpy</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">init</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">isolation</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="pip" for="sd-tab-item-11">
+Virtual env or system Python</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># To build the latest stable release:</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">binary</span> <span class="n">numpy</span>
+
+<span class="c1"># To build a development version, you need a local clone of the NumPy git repository:</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">numpy</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">init</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="building-from-source-for-numpy-development">
+<span id="the-spin-interface"></span><h3>Building from source for NumPy development<a class="headerlink" href="#building-from-source-for-numpy-development" title="Link to this heading">#</a></h3>
+<p>If you want to build from source in order to work on NumPy itself, first clone
+the NumPy repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">numpy</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">init</span>
+</pre></div>
+</div>
+<p>Then you want to do the following:</p>
+<ol class="arabic simple">
+<li><p>Create a dedicated development environment (virtual environment or conda
+environment),</p></li>
+<li><p>Install all needed dependencies (<em>build</em>, and also <em>test</em>, <em>doc</em> and
+<em>optional</em> dependencies),</p></li>
+<li><p>Build NumPy with the <code class="docutils literal notranslate"><span class="pre">spin</span></code> developer interface.</p></li>
+</ol>
+<p>Step (3) is always the same, steps (1) and (2) are different between conda and
+virtual environments:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="conda" for="sd-tab-item-12">
+Conda env</label><div class="sd-tab-content docutils">
+<p>To create a <code class="docutils literal notranslate"><span class="pre">numpy-dev</span></code> development environment with every required and
+optional dependency installed, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">mamba</span> <span class="n">activate</span> <span class="n">numpy</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-13" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="pip" for="sd-tab-item-13">
+Virtual env or system Python</label><div class="sd-tab-content docutils">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are many tools to manage virtual environments, like <code class="docutils literal notranslate"><span class="pre">venv</span></code>,
+<code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>/<code class="docutils literal notranslate"><span class="pre">virtualenvwrapper</span></code>, <code class="docutils literal notranslate"><span class="pre">pyenv</span></code>/<code class="docutils literal notranslate"><span class="pre">pyenv-virtualenv</span></code>,
+Poetry, PDM, Hatch, and more. Here we use the basic <code class="docutils literal notranslate"><span class="pre">venv</span></code> tool that
+is part of the Python stdlib. You can use any other tool; all we need is
+an activated Python environment.</p>
+</div>
+<p>Create and activate a virtual environment in a new directory named <code class="docutils literal notranslate"><span class="pre">venv</span></code> (
+note that the exact activation command may be different based on your OS and shell
+- see <a class="reference external" href="https://docs.python.org/3/library/venv.html#how-venvs-work">“How venvs work”</a>
+in the <code class="docutils literal notranslate"><span class="pre">venv</span></code> docs).</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-14" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="linux" for="sd-tab-item-14">
+Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">venv</span>
+<span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-15" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="macos" for="sd-tab-item-15">
+macOS</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">venv</span>
+<span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-16" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="windows" for="sd-tab-item-16">
+Windows</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">venv</span>
+<span class="o">.</span>\<span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">activate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then install the Python-level dependencies from PyPI with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">/</span><span class="n">all_requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To build NumPy in an activated development environment, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spin</span> <span class="n">build</span>
+</pre></div>
+</div>
+<p>This will install NumPy inside the repository (by default in a
+<code class="docutils literal notranslate"><span class="pre">build-install</span></code> directory). You can then run tests (<code class="docutils literal notranslate"><span class="pre">spin</span> <span class="pre">test</span></code>),
+drop into IPython (<code class="docutils literal notranslate"><span class="pre">spin</span> <span class="pre">ipython</span></code>), or take other development steps
+like build the html documentation or running benchmarks. The <code class="docutils literal notranslate"><span class="pre">spin</span></code>
+interface is self-documenting, so please see <code class="docutils literal notranslate"><span class="pre">spin</span> <span class="pre">--help</span></code> and
+<code class="docutils literal notranslate"><span class="pre">spin</span> <span class="pre">&lt;subcommand&gt;</span> <span class="pre">--help</span></code> for detailed guidance.</p>
+<div class="admonition-ide-support-editable-installs admonition" id="meson-editable-installs">
+<p class="admonition-title">IDE support &amp; editable installs</p>
+<p>While the <code class="docutils literal notranslate"><span class="pre">spin</span></code> interface is our recommended way of working on NumPy,
+it has one limitation: because of the custom install location, NumPy
+installed using <code class="docutils literal notranslate"><span class="pre">spin</span></code> will not be recognized automatically within an
+IDE (e.g., for running a script via a “run” button, or setting breakpoints
+visually). This will work better with an <em>in-place build</em> (or “editable
+install”).</p>
+<p>Editable installs are supported. It is important to understand that <strong>you
+may use either an editable install or ``spin`` in a given repository clone,
+but not both</strong>. If you use editable installs, you have to use <code class="docutils literal notranslate"><span class="pre">pytest</span></code>
+and other development tools directly instead of using <code class="docutils literal notranslate"><span class="pre">spin</span></code>.</p>
+<p>To use an editable install, ensure you start from a clean repository (run
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clean</span> <span class="pre">-xdf</span></code> if you’ve built with <code class="docutils literal notranslate"><span class="pre">spin</span></code> before) and have all
+dependencies set up correctly as described higher up on this page. Then
+do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: the --no-build-isolation is important!</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">isolation</span>
+
+<span class="c1"># To run the tests for, e.g., the `numpy.linalg` module:</span>
+<span class="n">pytest</span> <span class="n">numpy</span><span class="o">/</span><span class="n">linalg</span>
+</pre></div>
+</div>
+<p>When making changes to NumPy code, including to compiled code, there is no
+need to manually rebuild or reinstall. NumPy is automatically rebuilt each
+time NumPy is imported by the Python interpreter; see the <a class="reference external" href="https://mesonbuild.com/meson-python/">meson-python</a>
+documentation on editable installs for more details on how that works under
+the hood.</p>
+<p>When you run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clean</span> <span class="pre">-xdf</span></code>, which removes the built extension modules,
+remember to also uninstall NumPy with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">numpy</span></code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that editable installs are fundamentally incomplete installs.
+Their only guarantee is that <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span></code> works - so they are
+suitable for working on NumPy itself, and for working on pure Python
+packages that depend on NumPy. Headers, entrypoints, and other such
+things may not be available from an editable install.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="customizing-builds">
+<h2>Customizing builds<a class="headerlink" href="#customizing-builds" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compilers_and_options.html">Compiler selection and customizing a build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blas_lapack.html">BLAS and LAPACK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cross_compilation.html">Cross compilation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redistributable_binaries.html">Building redistributable binaries</a></li>
+</ul>
+</div>
+</section>
+<section id="background-information">
+<h2>Background information<a class="headerlink" href="#background-information" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="understanding_meson.html">Understanding Meson</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introspecting_a_build.html">Introspecting build steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils_equivalents.html">Meson and <code class="docutils literal notranslate"><span class="pre">distutils</span></code> ways of doing things</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../reference/swig.testing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Testing the numpy.i typemaps</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="compilers_and_options.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Compiler selection and customizing a build</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-level-dependencies">System-level dependencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-numpy-from-source">Building NumPy from source</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-from-source-to-use-numpy">Building from source to use NumPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-from-source-for-numpy-development">Building from source for NumPy development</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-builds">Customizing builds</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-information">Background information</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

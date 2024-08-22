@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Setting up and using your development environment &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dev/development_environment';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Building the NumPy API and reference docs" href="howto_build_docs.html" />
+    <link rel="prev" title="Contributing to NumPy" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Setting up and using your development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto_build_docs.html">Building the NumPy API and reference docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_workflow.html">Development workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_advanced_debugging.html">Advanced debugging tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reviewer_guidelines.html">Reviewer guidelines</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/neps/nep-0045-c_style_guide.html">NumPy C style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="depending_on_numpy.html">For downstream package authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing a version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governance/index.html">NumPy governance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-docs.html">How to contribute to the NumPy documentation</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Contributing to NumPy</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Setting up...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="setting-up-and-using-your-development-environment">
+<span id="development-environment"></span><h1>Setting up and using your development environment<a class="headerlink" href="#setting-up-and-using-your-development-environment" title="Link to this heading">#</a></h1>
+<section id="recommended-development-setup">
+<span id="id1"></span><h2>Recommended development setup<a class="headerlink" href="#recommended-development-setup" title="Link to this heading">#</a></h2>
+<p>Since NumPy contains parts written in C and Cython that need to be
+compiled before use, make sure you have the necessary compilers and Python
+development headers installed - see <a class="reference internal" href="../building/index.html#building-from-source"><span class="std std-ref">Building from source</span></a>. Building
+NumPy as of version <code class="docutils literal notranslate"><span class="pre">2.0</span></code> requires C11 and C++17 compliant compilers.</p>
+<p>Having compiled code also means that importing NumPy from the development
+sources needs some additional steps, which are explained below.  For the rest
+of this chapter we assume that you have set up your git repo as described in
+<a class="reference external" href="https://scikit-image.org/docs/stable/gitwash/index.html#using-git" title="(in skimage v0.24.0)"><span>Working with scikit-image source code</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are having trouble building NumPy from source or setting up your
+local development environment, you can try to build NumPy with GitHub
+Codespaces. It allows you to create the correct development environment
+right in your browser, reducing the need to install local development
+environments and deal with incompatible dependencies.</p>
+<p>If you have good internet connectivity and want a temporary set-up, it is
+often faster to work on NumPy in a Codespaces environment. For documentation
+on how to get started with Codespaces, see
+<a class="reference external" href="https://docs.github.com/en/codespaces">the Codespaces docs</a>.
+When creating a codespace for the <code class="docutils literal notranslate"><span class="pre">numpy/numpy</span></code> repository, the default
+2-core machine type works; 4-core will build and work a bit faster (but of
+course at a cost of halving your number of free usage hours). Once your
+codespace has started, you can run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">numpy-dev</span></code> and your
+development environment is completely set up - you can then follow the
+relevant parts of the NumPy documentation to build, test, develop, write
+docs, and contribute to NumPy.</p>
+</div>
+</section>
+<section id="using-virtual-environments">
+<h2>Using virtual environments<a class="headerlink" href="#using-virtual-environments" title="Link to this heading">#</a></h2>
+<p>A frequently asked question is “How do I set up a development version of NumPy
+in parallel to a released version that I use to do my job/research?”.</p>
+<p>One simple way to achieve this is to install the released version in
+site-packages, by using pip or conda for example, and set
+up the development version in a virtual environment.</p>
+<p>If you use conda, we recommend creating a separate virtual environment for
+numpy development using the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file in the root of the repo
+(this will create the environment and install all development dependencies at
+once):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda env create -f environment.yml  # `mamba` works too for this command
+$ conda activate numpy-dev
+</pre></div>
+</div>
+<p>If you installed Python some other way than conda, first install
+<a class="reference external" href="https://virtualenv.pypa.io/">virtualenv</a> (optionally use <a class="reference external" href="https://doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a>), then create your
+virtualenv (named <code class="docutils literal notranslate"><span class="pre">numpy-dev</span></code> here), activate it, and install all project
+dependencies with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ virtualenv numpy-dev
+$ source numpy-dev/bin/activate # activate virtual environment
+$ python -m pip install -r requirements/all_requirements.txt
+</pre></div>
+</div>
+<p>Now, whenever you want to switch to the virtual environment, you can use the
+command <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">numpy-dev/bin/activate</span></code>, and <code class="docutils literal notranslate"><span class="pre">deactivate</span></code> to exit from the
+virtual environment and back to your previous shell.</p>
+</section>
+<section id="building-from-source">
+<h2>Building from source<a class="headerlink" href="#building-from-source" title="Link to this heading">#</a></h2>
+<p>See <a class="reference internal" href="../building/index.html#building-from-source"><span class="std std-ref">Building from source</span></a>.</p>
+</section>
+<section id="testing-builds">
+<span id="id2"></span><h2>Testing builds<a class="headerlink" href="#testing-builds" title="Link to this heading">#</a></h2>
+<p>Before running the tests, first install the test dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -r requirements/test_requirements.txt
+$ python -m pip install asv # only for running benchmarks
+</pre></div>
+</div>
+<p>To build the development version of NumPy and run tests, spawn
+interactive shells with the Python import paths properly set up etc., use the
+<a class="reference external" href="https://github.com/scientific-python/spin">spin</a> utility. To run tests, do
+one of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ spin test -v
+$ spin test numpy/random  # to run the tests in a specific module
+$ spin test -v -t numpy/_core/tests/test_nditer.py::test_iter_c_order
+</pre></div>
+</div>
+<p>This builds NumPy first, so the first time it may take a few minutes.</p>
+<p>You can also use <code class="docutils literal notranslate"><span class="pre">spin</span> <span class="pre">bench</span></code> for benchmarking. See <code class="docutils literal notranslate"><span class="pre">spin</span> <span class="pre">--help</span></code> for more
+command line options.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the above commands result in <code class="docutils literal notranslate"><span class="pre">RuntimeError:</span> <span class="pre">Cannot</span> <span class="pre">parse</span> <span class="pre">version</span> <span class="pre">0+untagged.xxxxx</span></code>,
+run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">upstream</span> <span class="pre">main</span> <span class="pre">--tags</span></code>.</p>
+</div>
+<p>Additional arguments may be forwarded to <code class="docutils literal notranslate"><span class="pre">pytest</span></code> by passing the extra
+arguments after a bare <code class="docutils literal notranslate"><span class="pre">--</span></code>. For example, to run a test method with the
+<code class="docutils literal notranslate"><span class="pre">--pdb</span></code> flag forwarded to the target, run the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ spin test -t numpy/tests/test_scripts.py::test_f2py -- --pdb
+</pre></div>
+</div>
+<p>You can also  <a class="reference external" href="https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests">match test names using python operators</a> by passing the <code class="docutils literal notranslate"><span class="pre">-k</span></code>
+argument to pytest:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ spin test -v -t numpy/_core/tests/test_multiarray.py -- -k &quot;MatMul and not vector&quot;
+</pre></div>
+</div>
+<p>To run “doctests” – to check that the code examples in the documentation is correct –
+use the <em class="xref py py-obj">check-docs</em> spin command. It relies on the <em class="xref py py-obj">scipy-docs</em> package, which
+provides several additional features on top of the standard library <code class="docutils literal notranslate"><span class="pre">doctest</span></code>
+package. Install <code class="docutils literal notranslate"><span class="pre">scipy-doctest</span></code> and run one of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ spin check-docs -v
+$ spin check-docs numpy/linalg
+$ spin check-docs -v -- -k &#39;det and not slogdet&#39;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that all tests of NumPy should pass before committing your changes.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some of the tests in the test suite require a large amount of
+memory, and are skipped if your system does not have enough.</p>
+</div>
+</section>
+<section id="other-build-options">
+<h2>Other build options<a class="headerlink" href="#other-build-options" title="Link to this heading">#</a></h2>
+<p>For more options including selecting compilers, setting custom compiler flags
+and controlling parallelism, see <a class="reference external" href="https://docs.scipy.org/doc/scipy/building/compilers_and_options.html" title="(in SciPy v1.14.1)"><span>Compiler selection and customizing a build</span></a>
+(from the SciPy documentation.)</p>
+</section>
+<section id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Link to this heading">#</a></h2>
+<p>Besides using <code class="docutils literal notranslate"><span class="pre">spin</span></code>, there are various ways to run the tests.  Inside
+the interpreter, tests can be run like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>   <span class="c1"># Also run tests marked as slow</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># Additionally print test name/file</span>
+
+<span class="go">An example of a successful test :</span>
+<span class="go">``4686 passed, 362 skipped, 9 xfailed, 5 warnings in 213.99 seconds``</span>
+</pre></div>
+</div>
+<p>Or a similar way from the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -c &quot;import numpy as np; np.test()&quot;
+</pre></div>
+</div>
+<p>Tests can also be run with <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">numpy</span></code>, however then the NumPy-specific
+plugin is not found which causes strange side effects.</p>
+<p>Running individual test files can be useful; it’s much faster than running the
+whole test suite or that of a whole module (example: <code class="docutils literal notranslate"><span class="pre">np.random.test()</span></code>).
+This can be done with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python path_to_testfile/test_file.py
+</pre></div>
+</div>
+<p>That also takes extra arguments, like <code class="docutils literal notranslate"><span class="pre">--pdb</span></code> which drops you into the Python
+debugger when a test fails or an exception is raised.</p>
+<p>Running tests with <a class="reference external" href="https://tox.readthedocs.io/">tox</a> is also supported.  For example, to build NumPy and
+run the test suite with Python 3.9, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tox -e py39
+</pre></div>
+</div>
+<p>For more extensive information, see <a class="reference internal" href="../reference/testing.html#testing-guidelines"><span class="std std-ref">Testing guidelines</span></a>.</p>
+<p>Note: do not run the tests from the root directory of your numpy git repo without <code class="docutils literal notranslate"><span class="pre">spin</span></code>,
+that will result in strange test errors.</p>
+</section>
+<section id="running-linting">
+<h2>Running linting<a class="headerlink" href="#running-linting" title="Link to this heading">#</a></h2>
+<p>Lint checks can be performed on newly added lines of Python code.</p>
+<p>Install all dependent packages using pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -r requirements/linter_requirements.txt
+</pre></div>
+</div>
+<p>To run lint checks before committing new code, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python tools/linter.py
+</pre></div>
+</div>
+<p>To check all changes in newly added Python code of current branch with target branch, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python tools/linter.py --branch main
+</pre></div>
+</div>
+<p>If there are no errors, the script exits with no message. In case of errors,
+check the error message for details:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python tools/linter.py --branch main
+./numpy/_core/tests/test_scalarmath.py:34:5: E303 too many blank lines (3)
+1       E303 too many blank lines (3)
+</pre></div>
+</div>
+<p>It is advisable to run lint checks before pushing commits to a remote branch
+since the linter runs as part of the CI pipeline.</p>
+<p>For more details on Style Guidelines:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">Python Style Guide</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/neps/nep-0045-c_style_guide.html#nep45" title="(in NumPy Enhancement Proposals)"><span>NEP 45 — C style guide</span></a></p></li>
+</ul>
+</section>
+<section id="rebuilding-cleaning-the-workspace">
+<h2>Rebuilding &amp; cleaning the workspace<a class="headerlink" href="#rebuilding-cleaning-the-workspace" title="Link to this heading">#</a></h2>
+<p>Rebuilding NumPy after making changes to compiled code can be done with the
+same build command as you used previously - only the changed files will be
+re-built.  Doing a full build, which sometimes is necessary, requires cleaning
+the workspace first.  The standard way of doing this is (<em>note: deletes any
+uncommitted files!</em>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clean -xdf
+</pre></div>
+</div>
+<p>When you want to discard all changes and go back to the last commit in the
+repo, use one of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git checkout .
+$ git reset --hard
+</pre></div>
+</div>
+</section>
+<section id="debugging">
+<span id="id3"></span><h2>Debugging<a class="headerlink" href="#debugging" title="Link to this heading">#</a></h2>
+<p>Another frequently asked question is “How do I debug C code inside NumPy?”.
+First, ensure that you have gdb installed on your system with the Python
+extensions (often the default on Linux). You can see which version of
+Python is running inside gdb to verify your setup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">python</span>
+<span class="o">&gt;</span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">&gt;</span><span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">)</span>
+<span class="o">&gt;</span><span class="n">end</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">(</span><span class="n">major</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">micro</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">releaselevel</span><span class="o">=</span><span class="s1">&#39;final&#39;</span><span class="p">,</span> <span class="n">serial</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Most python builds do not include debug symbols and are built with compiler
+optimizations enabled. To get the best debugging experience using a debug build
+of Python is encouraged, see <a class="reference internal" href="development_advanced_debugging.html#advanced-debugging"><span class="std std-ref">Advanced debugging tools</span></a>.</p>
+<p>In terms of debugging, NumPy also needs to be built in a debug mode. You need to use
+<code class="docutils literal notranslate"><span class="pre">debug</span></code> build type and disable optimizations to make sure <code class="docutils literal notranslate"><span class="pre">-O0</span></code> flag is used
+during object building. Note that NumPy should NOT be installed in your environment
+before you build with the <code class="docutils literal notranslate"><span class="pre">spin</span> <span class="pre">build</span></code> command.</p>
+<p>To generate source-level debug information within the build process run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ spin build --clean -- -Dbuildtype=debug -Ddisable-optimization=true
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In case you are using conda environment be aware that conda sets <code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code>
+and <code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code> automatically, and they will include the <code class="docutils literal notranslate"><span class="pre">-O2</span></code> flag by default.
+You can safely use <code class="docutils literal notranslate"><span class="pre">unset</span> <span class="pre">CFLAGS</span> <span class="pre">&amp;&amp;</span> <span class="pre">unset</span> <span class="pre">CXXFLAGS</span></code> to avoid them or provide them
+at the beginning of the <code class="docutils literal notranslate"><span class="pre">spin</span></code> command: <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O0</span> <span class="pre">-g&quot;</span> <span class="pre">CXXFLAGS=&quot;-O0</span> <span class="pre">-g&quot;</span></code>.
+Alternatively, to take control of these variables more permanently, you can create
+<code class="docutils literal notranslate"><span class="pre">env_vars.sh</span></code> file in the <code class="docutils literal notranslate"><span class="pre">&lt;path-to-conda-envs&gt;/numpy-dev/etc/conda/activate.d</span></code>
+directory. In this file you can export <code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> and <code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code> variables.
+For complete instructions please refer to
+<a class="reference external" href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#saving-environment-variables">https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#saving-environment-variables</a>.</p>
+</div>
+<p>Next you need to write a Python script that invokes the C code whose execution
+you want to debug. For instance <code class="docutils literal notranslate"><span class="pre">mytest.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that your test file needs to be outside the NumPy clone you have. Now, you can
+run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ spin gdb /path/to/mytest.py
+</pre></div>
+</div>
+<p>In case you are using clang toolchain:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ spin lldb /path/to/mytest.py
+</pre></div>
+</div>
+<p>And then in the debugger:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="k">break</span> <span class="n">array_empty_like</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">run</span>
+</pre></div>
+</div>
+<p>lldb counterpart:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">lldb</span><span class="p">)</span> <span class="nb">breakpoint</span> <span class="nb">set</span> <span class="o">--</span><span class="n">name</span> <span class="n">array_empty_like</span>
+<span class="p">(</span><span class="n">lldb</span><span class="p">)</span> <span class="n">run</span>
+</pre></div>
+</div>
+<p>The execution will now stop at the corresponding C function and you can step
+through it as usual. A number of useful Python-specific commands are available.
+For example to see where in the Python code you are, use <code class="docutils literal notranslate"><span class="pre">py-list</span></code>, to see the
+python traceback, use <code class="docutils literal notranslate"><span class="pre">py-bt</span></code>.  For more details, see
+<a class="reference external" href="https://wiki.python.org/moin/DebuggingWithGdb">DebuggingWithGdb</a>. Here are some commonly used commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">list</span></code>: List specified function or line.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">next</span></code>: Step program, proceeding through subroutine calls.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">step</span></code>: Continue program being debugged, after signal or breakpoint.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">print</span></code>: Print value of expression EXP.</p></li>
+</ul>
+<p>Rich support for Python debugging requires that the <code class="docutils literal notranslate"><span class="pre">python-gdb.py</span></code> script
+distributed with Python is installed in a path where gdb can find it. If you
+installed your Python build from your system package manager, you likely do
+not need to manually do anything. However, if you built Python from source,
+you will likely need to create a <code class="docutils literal notranslate"><span class="pre">.gdbinit</span></code> file in your home directory
+pointing gdb at the location of your Python installation. For example, a
+version of python installed via <a class="reference external" href="https://github.com/pyenv/pyenv">pyenv</a>
+needs a <code class="docutils literal notranslate"><span class="pre">.gdbinit</span></code> file with the following contents:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>add-auto-load-safe-path ~/.pyenv
+</pre></div>
+</div>
+<p>Building NumPy with a Python built with debug support (on Linux distributions
+typically packaged as <code class="docutils literal notranslate"><span class="pre">python-dbg</span></code>) is highly recommended.</p>
+</section>
+<section id="understanding-the-code-getting-started">
+<h2>Understanding the code &amp; getting started<a class="headerlink" href="#understanding-the-code-getting-started" title="Link to this heading">#</a></h2>
+<p>The best strategy to better understand the code base is to pick something you
+want to change and start reading the code to figure out how it works. When in
+doubt, you can ask questions on the mailing list. It is perfectly okay if your
+pull requests aren’t perfect, the community is always happy to help. As a
+volunteer project, things do sometimes get dropped and it’s totally fine to
+ping us if something has sat without a response for about two to four weeks.</p>
+<p>So go ahead and pick something that annoys or confuses you about NumPy,
+experiment with the code, hang around for discussions or go through the
+reference documents to try to fix it. Things will fall in place and soon
+you’ll have a pretty good understanding of the project as a whole. Good Luck!</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Contributing to NumPy</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="howto_build_docs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Building the NumPy API and reference docs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-development-setup">Recommended development setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-virtual-environments">Using virtual environments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-from-source">Building from source</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-builds">Testing builds</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-build-options">Other build options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-tests">Running tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-linting">Running linting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rebuilding-cleaning-the-workspace">Rebuilding &amp; cleaning the workspace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">Debugging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-code-getting-started">Understanding the code &amp; getting started</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
