@@ -1,0 +1,1436 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data type objects (dtype) &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/arrays.dtypes';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="numpy.dtype" href="generated/numpy.dtype.html" />
+    <link rel="prev" title="numpy.number.__class_getitem__" href="generated/numpy.number.__class_getitem__.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="arrays.html">Array objects</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="arrays.ndarray.html">The N-dimensional array (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.scalars.html">Scalars</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Data type objects (<code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code>)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.html">numpy.dtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.type.html">numpy.dtype.type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.kind.html">numpy.dtype.kind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.char.html">numpy.dtype.char</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.num.html">numpy.dtype.num</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.str.html">numpy.dtype.str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.name.html">numpy.dtype.name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.itemsize.html">numpy.dtype.itemsize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.byteorder.html">numpy.dtype.byteorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.fields.html">numpy.dtype.fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.names.html">numpy.dtype.names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.subdtype.html">numpy.dtype.subdtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.shape.html">numpy.dtype.shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.hasobject.html">numpy.dtype.hasobject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.flags.html">numpy.dtype.flags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.isbuiltin.html">numpy.dtype.isbuiltin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.isnative.html">numpy.dtype.isnative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.descr.html">numpy.dtype.descr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.alignment.html">numpy.dtype.alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.base.html">numpy.dtype.base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.metadata.html">numpy.dtype.metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.newbyteorder.html">numpy.dtype.newbyteorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.__reduce__.html">numpy.dtype.__reduce__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.__setstate__.html">numpy.dtype.__setstate__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.__class_getitem__.html">numpy.dtype.__class_getitem__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.__ge__.html">numpy.dtype.__ge__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.__gt__.html">numpy.dtype.__gt__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.__le__.html">numpy.dtype.__le__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.dtype.__lt__.html">numpy.dtype.__lt__</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.promotion.html">Data type promotion in NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.nditer.html">Iterating over arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.classes.html">Standard array subclasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maskedarray.html">Masked arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.interface.html">The array interface protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.datetime.html">Datetimes and timedeltas</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="routines.html">Routines and objects by topic</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c-api/index.html">NumPy C-API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="arrays.html" class="nav-link">Array objects</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Data type...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="data-type-objects-dtype">
+<span id="arrays-dtypes"></span><h1>Data type objects (<a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>)<a class="headerlink" href="#data-type-objects-dtype" title="Link to this heading">#</a></h1>
+<p>A data type object (an instance of <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.dtype</span></code></a> class)
+describes how the bytes in the fixed-size block of memory
+corresponding to an array item should be interpreted. It describes the
+following aspects of the data:</p>
+<ol class="arabic simple">
+<li><p>Type of the data (integer, float, Python object, etc.)</p></li>
+<li><p>Size of the data (how many bytes is in <em>e.g.</em> the integer)</p></li>
+<li><p>Byte order of the data (<a class="reference internal" href="../glossary.html#term-little-endian"><span class="xref std std-term">little-endian</span></a> or <a class="reference internal" href="../glossary.html#term-big-endian"><span class="xref std std-term">big-endian</span></a>)</p></li>
+<li><p>If the data type is <a class="reference internal" href="../glossary.html#term-structured-data-type"><span class="xref std std-term">structured data type</span></a>, an aggregate of other
+data types, (<em>e.g.</em>, describing an array item consisting of
+an integer and a float),</p>
+<ol class="arabic simple">
+<li><p>what are the names of the “<a class="reference internal" href="../glossary.html#term-field"><span class="xref std std-term">fields</span></a>” of the structure,
+by which they can be <a class="reference internal" href="../user/basics.indexing.html#arrays-indexing-fields"><span class="std std-ref">accessed</span></a>,</p></li>
+<li><p>what is the data-type of each <a class="reference internal" href="../glossary.html#term-field"><span class="xref std std-term">field</span></a>, and</p></li>
+<li><p>which part of the memory block each field takes.</p></li>
+</ol>
+</li>
+<li><p>If the data type is a sub-array, what is its shape and data type.</p></li>
+</ol>
+<p id="index-0">To describe the type of scalar data, there are several <a class="reference internal" href="arrays.scalars.html#arrays-scalars-built-in"><span class="std std-ref">built-in
+scalar types</span></a> in NumPy for various precision
+of integers, floating-point numbers, <em>etc</em>. An item extracted from an
+array, <em>e.g.</em>, by indexing, will be a Python object whose type is the
+scalar type associated with the data type of the array.</p>
+<p>Note that the scalar types are not <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a> objects, even though
+they can be used in place of one whenever a data type specification is
+needed in NumPy.</p>
+<p id="index-1">Structured data types are formed by creating a data type whose
+<a class="reference internal" href="../glossary.html#term-field"><span class="xref std std-term">field</span></a> contain other data types. Each field has a name by
+which it can be <a class="reference internal" href="../user/basics.indexing.html#arrays-indexing-fields"><span class="std std-ref">accessed</span></a>. The parent data
+type should be of sufficient size to contain all its fields; the
+parent is nearly always based on the <a class="reference internal" href="arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-class docutils literal notranslate"><span class="pre">void</span></code></a> type which allows
+an arbitrary item size. Structured data types may also contain nested
+structured sub-array data types in their fields.</p>
+<p id="index-2">Finally, a data type can describe items that are themselves arrays of
+items of another data type. These sub-arrays must, however, be of a
+fixed size.</p>
+<p>If an array is created using a data-type describing a sub-array,
+the dimensions of the sub-array are appended to the shape
+of the array when the array is created. Sub-arrays in a field of a
+structured type behave differently, see <a class="reference internal" href="../user/basics.indexing.html#arrays-indexing-fields"><span class="std std-ref">Field access</span></a>.</p>
+<p>Sub-arrays always have a C-contiguous memory layout.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>A simple data type containing a 32-bit big-endian integer:
+(see <a class="reference internal" href="#arrays-dtypes-constructing"><span class="std std-ref">Specifying and constructing data types</span></a> for details on construction)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&gt;i4&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span><span class="o">.</span><span class="n">byteorder</span>
+<span class="go">&#39;&gt;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span><span class="o">.</span><span class="n">itemsize</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;int32&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The corresponding array scalar type is <a class="reference internal" href="arrays.scalars.html#numpy.int32" title="numpy.int32"><code class="xref py py-class docutils literal notranslate"><span class="pre">int32</span></code></a>.</p>
+</div>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>A structured data type containing a 16-character string (in field ‘name’)
+and a sub-array of two 64-bit floating-point number (in field ‘grades’):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;grades&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,))])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="go">dtype(&#39;&lt;U16&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span><span class="p">[</span><span class="s1">&#39;grades&#39;</span><span class="p">]</span>
+<span class="go">dtype((&#39;&lt;f8&#39;, (2,)))</span>
+</pre></div>
+</div>
+<p>Items of an array of this data type are wrapped in an <a class="reference internal" href="arrays.scalars.html#arrays-scalars"><span class="std std-ref">array
+scalar</span></a> type that also has two fields:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="s1">&#39;Sarah&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">))],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">(&#39;John&#39;, [6., 7.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;grades&#39;</span><span class="p">]</span>
+<span class="go">array([6.,  7.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">&lt;class &#39;numpy.void&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;grades&#39;</span><span class="p">])</span>
+<span class="go">&lt;class &#39;numpy.ndarray&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<section id="specifying-and-constructing-data-types">
+<span id="arrays-dtypes-constructing"></span><h2>Specifying and constructing data types<a class="headerlink" href="#specifying-and-constructing-data-types" title="Link to this heading">#</a></h2>
+<p>Whenever a data-type is required in a NumPy function or method, either
+a <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a> object or something that can be converted to one can
+be supplied.  Such conversions are done by the <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>
+constructor:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype</span></code></a>(dtype[, align, copy])</p></td>
+<td><p>Create a data type object.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>What can be converted to a data-type object is described below:</p>
+<dl>
+<dt><a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a> object</dt><dd><p id="index-3">Used as-is.</p>
+</dd>
+<dt>None</dt><dd><p id="index-4">The default data type: <a class="reference internal" href="arrays.scalars.html#numpy.float64" title="numpy.float64"><code class="xref py py-class docutils literal notranslate"><span class="pre">float64</span></code></a>.</p>
+</dd>
+</dl>
+<dl id="index-5">
+<dt>Array-scalar types</dt><dd><p>The 24 built-in <a class="reference internal" href="arrays.scalars.html#arrays-scalars-built-in"><span class="std std-ref">array scalar type objects</span></a> all convert to an associated data-type object.
+This is true for their sub-classes as well.</p>
+<p>Note that not all data-type information can be supplied with a
+type-object: for example, <a class="reference internal" href="arrays.scalars.html#numpy.flexible" title="numpy.flexible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flexible</span></code></a> data-types have
+a default <em>itemsize</em> of 0, and require an explicitly given size
+to be useful.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>      <span class="c1"># 32-bit integer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> <span class="c1"># 128-bit complex floating-point number</span>
+</pre></div>
+</div>
+</div>
+</dd>
+<dt>Generic types</dt><dd><p>The generic hierarchical type objects convert to corresponding
+type objects according to the associations:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="arrays.scalars.html#numpy.number" title="numpy.number"><code class="xref py py-class docutils literal notranslate"><span class="pre">number</span></code></a>, <a class="reference internal" href="arrays.scalars.html#numpy.inexact" title="numpy.inexact"><code class="xref py py-class docutils literal notranslate"><span class="pre">inexact</span></code></a>, <a class="reference internal" href="arrays.scalars.html#numpy.floating" title="numpy.floating"><code class="xref py py-class docutils literal notranslate"><span class="pre">floating</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.float64" title="numpy.float64"><code class="xref py py-class docutils literal notranslate"><span class="pre">float64</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="arrays.scalars.html#numpy.complexfloating" title="numpy.complexfloating"><code class="xref py py-class docutils literal notranslate"><span class="pre">complexfloating</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.complex128" title="numpy.complex128"><code class="xref py py-class docutils literal notranslate"><span class="pre">complex128</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="arrays.scalars.html#numpy.integer" title="numpy.integer"><code class="xref py py-class docutils literal notranslate"><span class="pre">integer</span></code></a>, <a class="reference internal" href="arrays.scalars.html#numpy.signedinteger" title="numpy.signedinteger"><code class="xref py py-class docutils literal notranslate"><span class="pre">signedinteger</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.int_" title="numpy.int_"><code class="xref py py-class docutils literal notranslate"><span class="pre">int_</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="arrays.scalars.html#numpy.unsignedinteger" title="numpy.unsignedinteger"><code class="xref py py-class docutils literal notranslate"><span class="pre">unsignedinteger</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.uint" title="numpy.uint"><code class="xref py py-class docutils literal notranslate"><span class="pre">uint</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="arrays.scalars.html#numpy.generic" title="numpy.generic"><code class="xref py py-class docutils literal notranslate"><span class="pre">generic</span></code></a>, <a class="reference internal" href="arrays.scalars.html#numpy.flexible" title="numpy.flexible"><code class="xref py py-class docutils literal notranslate"><span class="pre">flexible</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-class docutils literal notranslate"><span class="pre">void</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.19: </span>This conversion of generic scalar types is deprecated.
+This is because it can be unexpected in a context such as
+<code class="docutils literal notranslate"><span class="pre">arr.astype(dtype=np.floating)</span></code>, which casts an array of <code class="docutils literal notranslate"><span class="pre">float32</span></code>
+to an array of <code class="docutils literal notranslate"><span class="pre">float64</span></code>, even though <code class="docutils literal notranslate"><span class="pre">float32</span></code> is a subdtype of
+<code class="docutils literal notranslate"><span class="pre">np.floating</span></code>.</p>
+</div>
+</dd>
+<dt>Built-in Python types</dt><dd><p>Several python types are equivalent to a corresponding
+array scalar when used to generate a <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a> object:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.int_" title="numpy.int_"><code class="xref py py-class docutils literal notranslate"><span class="pre">int_</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="arrays.scalars.html#numpy.bool" title="numpy.bool"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.bool_" title="numpy.bool_"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool_</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.float64" title="numpy.float64"><code class="xref py py-class docutils literal notranslate"><span class="pre">float64</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">complex</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.complex128" title="numpy.complex128"><code class="xref py py-class docutils literal notranslate"><span class="pre">complex128</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.bytes_" title="numpy.bytes_"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes_</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.str_" title="numpy.str_"><code class="xref py py-class docutils literal notranslate"><span class="pre">str_</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#memoryview" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">memoryview</span></code></a></p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-class docutils literal notranslate"><span class="pre">void</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>(all others)</p></td>
+<td><p><a class="reference internal" href="arrays.scalars.html#numpy.object_" title="numpy.object_"><code class="xref py py-class docutils literal notranslate"><span class="pre">object_</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">str_</span></code> corresponds to UCS4 encoded unicode strings.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>   <span class="c1"># Python-compatible floating-point number</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>     <span class="c1"># Python-compatible integer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>  <span class="c1"># Python object</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All other types map to <code class="docutils literal notranslate"><span class="pre">object_</span></code> for convenience. Code should expect
+that such types may map to a specific (new) dtype in the future.</p>
+</div>
+</dd>
+<dt>Types with <code class="docutils literal notranslate"><span class="pre">.dtype</span></code></dt><dd><p>Any type object with a <code class="docutils literal notranslate"><span class="pre">dtype</span></code> attribute: The attribute will be
+accessed and used directly. The attribute must return something
+that is convertible into a dtype object.</p>
+</dd>
+</dl>
+<p id="index-6">Several kinds of strings can be converted. Recognized strings can be
+prepended with <code class="docutils literal notranslate"><span class="pre">'&gt;'</span></code> (<a class="reference internal" href="../glossary.html#term-big-endian"><span class="xref std std-term">big-endian</span></a>), <code class="docutils literal notranslate"><span class="pre">'&lt;'</span></code>
+(<a class="reference internal" href="../glossary.html#term-little-endian"><span class="xref std std-term">little-endian</span></a>), or <code class="docutils literal notranslate"><span class="pre">'='</span></code> (hardware-native, the default), to
+specify the byte order.</p>
+<dl>
+<dt>One-character strings</dt><dd><p>Each built-in data-type has a character code
+(the updated Numeric typecodes), that uniquely identifies it.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>  <span class="c1"># byte, native byte order</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&gt;H&#39;</span><span class="p">)</span> <span class="c1"># big-endian unsigned short</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;&lt;f&#39;</span><span class="p">)</span> <span class="c1"># little-endian single-precision float</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>  <span class="c1"># double-precision floating-point number</span>
+</pre></div>
+</div>
+</div>
+</dd>
+<dt>Array-protocol type strings (see <a class="reference internal" href="arrays.interface.html#arrays-interface"><span class="std std-ref">The array interface protocol</span></a>)</dt><dd><p>The first character specifies the kind of data and the remaining
+characters specify the number of bytes per item, except for Unicode,
+where it is interpreted as the number of characters.  The item size
+must correspond to an existing type, or an error will be raised.  The
+supported kinds are</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'?'</span></code></p></td>
+<td><p>boolean</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'b'</span></code></p></td>
+<td><p>(signed) byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'B'</span></code></p></td>
+<td><p>unsigned byte</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'i'</span></code></p></td>
+<td><p>(signed) integer</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'u'</span></code></p></td>
+<td><p>unsigned integer</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'f'</span></code></p></td>
+<td><p>floating-point</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'c'</span></code></p></td>
+<td><p>complex-floating point</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'m'</span></code></p></td>
+<td><p>timedelta</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'M'</span></code></p></td>
+<td><p>datetime</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'O'</span></code></p></td>
+<td><p>(Python) objects</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'S'</span></code>, <code class="docutils literal notranslate"><span class="pre">'a'</span></code></p></td>
+<td><p>zero-terminated bytes (not recommended)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'U'</span></code></p></td>
+<td><p>Unicode string</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'V'</span></code></p></td>
+<td><p>raw data (<a class="reference internal" href="arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-class docutils literal notranslate"><span class="pre">void</span></code></a>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;i4&#39;</span><span class="p">)</span>   <span class="c1"># 32-bit signed integer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;f8&#39;</span><span class="p">)</span>   <span class="c1"># 64-bit floating-point number</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;c16&#39;</span><span class="p">)</span>  <span class="c1"># 128-bit complex floating-point number</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;S25&#39;</span><span class="p">)</span>  <span class="c1"># 25-length zero-terminated bytes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;U25&#39;</span><span class="p">)</span>  <span class="c1"># 25-character string</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition-note-on-string-types admonition" id="string-dtype-note">
+<p class="admonition-title">Note on string types</p>
+<p>For backward compatibility with existing code originally written to support
+Python 2, <code class="docutils literal notranslate"><span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">a</span></code> typestrings are zero-terminated bytes.
+For unicode strings, use <code class="docutils literal notranslate"><span class="pre">U</span></code>, <a class="reference internal" href="arrays.scalars.html#numpy.str_" title="numpy.str_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.str_</span></code></a>.  For signed bytes that do not
+need zero-termination <code class="docutils literal notranslate"><span class="pre">b</span></code> or <code class="docutils literal notranslate"><span class="pre">i1</span></code> can be used.</p>
+</div>
+</dd>
+<dt>String with comma-separated fields</dt><dd><p>A short-hand notation for specifying the format of a structured data type is
+a comma-separated string of basic formats.</p>
+<p>A basic format in this context is an optional shape specifier
+followed by an array-protocol type string. Parenthesis are required
+on the shape if it has more than one dimension. NumPy allows a modification
+on the format in that any string that can uniquely identify the
+type can be used to specify the data-type in a field.
+The generated data-type fields are named <code class="docutils literal notranslate"><span class="pre">'f0'</span></code>, <code class="docutils literal notranslate"><span class="pre">'f1'</span></code>, …,
+<code class="docutils literal notranslate"><span class="pre">'f&lt;N-1&gt;'</span></code> where N (&gt;1) is the number of comma-separated basic
+formats in the string. If the optional shape specifier is provided,
+then the data-type for the corresponding field describes a sub-array.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<ul>
+<li><p>field named <code class="docutils literal notranslate"><span class="pre">f0</span></code> containing a 32-bit integer</p></li>
+<li><p>field named <code class="docutils literal notranslate"><span class="pre">f1</span></code> containing a 2 x 3 sub-array
+of 64-bit floating-point numbers</p></li>
+<li><p>field named <code class="docutils literal notranslate"><span class="pre">f2</span></code> containing a 32-bit floating-point number</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;i4, (2,3)f8, f4&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>field named <code class="docutils literal notranslate"><span class="pre">f0</span></code> containing a 3-character string</p></li>
+<li><p>field named <code class="docutils literal notranslate"><span class="pre">f1</span></code> containing a sub-array of shape (3,)
+containing 64-bit unsigned integers</p></li>
+<li><p>field named <code class="docutils literal notranslate"><span class="pre">f2</span></code> containing a 3 x 4 sub-array
+containing 10-character strings</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;S3, 3u8, (3,4)S10&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</dd>
+<dt>Type strings</dt><dd><p>Any string name of a NumPy dtype, e.g.:</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;uint32&#39;</span><span class="p">)</span>   <span class="c1"># 32-bit unsigned integer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>  <span class="c1"># 64-bit floating-point number</span>
+</pre></div>
+</div>
+</div>
+</dd>
+</dl>
+<dl id="index-7">
+<dt><code class="docutils literal notranslate"><span class="pre">(flexible_dtype,</span> <span class="pre">itemsize)</span></code></dt><dd><p>The first argument must be an object that is converted to a
+zero-sized flexible data-type object, the second argument is
+an integer providing the desired itemsize.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">void</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># 10-byte wide data block</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">((</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>   <span class="c1"># 10-character unicode string</span>
+</pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">(fixed_dtype,</span> <span class="pre">shape)</span></code></dt><dd><p id="index-8">The first argument is any object that can be converted into a
+fixed-size data-type object. The second argument is the desired
+shape of this type. If the shape parameter is 1, then the
+data-type object used to be equivalent to fixed dtype. This behaviour is
+deprecated since NumPy 1.17 and will raise an error in the future.
+If <em>shape</em> is a tuple, then the new dtype defines a sub-array of the given
+shape.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>          <span class="c1"># 2 x 2 integer sub-array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">((</span><span class="s1">&#39;i4, (2,3)f8, f4&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span> <span class="c1"># 2 x 3 structured sub-array</span>
+</pre></div>
+</div>
+</div>
+</dd>
+</dl>
+<dl id="index-9">
+<dt><code class="docutils literal notranslate"><span class="pre">[(field_name,</span> <span class="pre">field_dtype,</span> <span class="pre">field_shape),</span> <span class="pre">...]</span></code></dt><dd><p><em>obj</em> should be a list of fields where each field is described by a
+tuple of length 2 or 3. (Equivalent to the <code class="docutils literal notranslate"><span class="pre">descr</span></code> item in the
+<a class="reference internal" href="arrays.interface.html#object.__array_interface__" title="object.__array_interface__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__array_interface__</span></code></a> attribute.)</p>
+<p>The first element, <em>field_name</em>, is the field name (if this is
+<code class="docutils literal notranslate"><span class="pre">''</span></code> then a standard field name, <code class="docutils literal notranslate"><span class="pre">'f#'</span></code>, is assigned).  The
+field name may also be a 2-tuple of strings where the first string
+is either a “title” (which may be any string or unicode string) or
+meta-data for the field which can be any object, and the second
+string is the “name” which must be a valid Python identifier.</p>
+<p>The second element, <em>field_dtype</em>, can be anything that can be
+interpreted as a data-type.</p>
+<p>The optional third element <em>field_shape</em> contains the shape if this
+field represents an array of the data-type in the second
+element. Note that a 3-tuple with a third argument equal to 1 is
+equivalent to a 2-tuple.</p>
+<p>This style does not accept <em>align</em> in the <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>
+constructor as it is assumed that all of the memory is accounted
+for by the array interface description.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>Data-type with fields <code class="docutils literal notranslate"><span class="pre">big</span></code> (big-endian 32-bit integer) and
+<code class="docutils literal notranslate"><span class="pre">little</span></code> (little-endian 32-bit integer):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s1">&#39;big&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;i4&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;little&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;i4&#39;</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>Data-type with fields <code class="docutils literal notranslate"><span class="pre">R</span></code>, <code class="docutils literal notranslate"><span class="pre">G</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">A</span></code>, each being an
+unsigned 8-bit integer:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span><span class="s1">&#39;u1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;u1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;u1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;u1&#39;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</dd>
+</dl>
+<dl id="index-10">
+<dt><code class="docutils literal notranslate"><span class="pre">{'names':</span> <span class="pre">...,</span> <span class="pre">'formats':</span> <span class="pre">...,</span> <span class="pre">'offsets':</span> <span class="pre">...,</span> <span class="pre">'titles':</span> <span class="pre">...,</span> <span class="pre">'itemsize':</span> <span class="pre">...}</span></code></dt><dd><p>This style has two required and three optional keys.  The <em>names</em>
+and <em>formats</em> keys are required. Their respective values are
+equal-length lists with the field names and the field formats.
+The field names must be strings and the field formats can be any
+object accepted by <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a> constructor.</p>
+<p>When the optional keys <em>offsets</em> and <em>titles</em> are provided,
+their values must each be lists of the same length as the <em>names</em>
+and <em>formats</em> lists. The <em>offsets</em> value is a list of byte offsets
+(limited to <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_int" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ctypes.c_int</span></code></a>) for each field, while the <em>titles</em> value is a
+list of titles for each field (<code class="docutils literal notranslate"><span class="pre">None</span></code> can be used if no title is
+desired for that field). The <em>titles</em> can be any object, but when a
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> object will add another entry to the
+fields dictionary keyed by the title and referencing the same
+field tuple which will contain the title as an additional tuple
+member.</p>
+<p>The <em>itemsize</em> key allows the total size of the dtype to be
+set, and must be an integer large enough so all the fields
+are within the dtype. If the dtype being constructed is aligned,
+the <em>itemsize</em> must also be divisible by the struct alignment. Total dtype
+<em>itemsize</em> is limited to <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_int" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ctypes.c_int</span></code></a>.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>Data type with fields <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">g</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code>, each being
+an 8-bit unsigned integer:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">({</span><span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">],</span>
+<span class="gp">... </span>               <span class="s1">&#39;formats&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p>Data type with fields <code class="docutils literal notranslate"><span class="pre">r</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> (with the given titles),
+both being 8-bit unsigned integers, the first at byte position
+0 from the start of the field and the second at position 2:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">({</span><span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="s1">&#39;formats&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;u1&#39;</span><span class="p">,</span> <span class="s1">&#39;u1&#39;</span><span class="p">],</span>
+<span class="gp">... </span>               <span class="s1">&#39;offsets&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>               <span class="s1">&#39;titles&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Red pixel&#39;</span><span class="p">,</span> <span class="s1">&#39;Blue pixel&#39;</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">{'field1':</span> <span class="pre">...,</span> <span class="pre">'field2':</span> <span class="pre">...,</span> <span class="pre">...}</span></code></dt><dd><p>This usage is discouraged, because it is ambiguous with the
+other dict-based construction method. If you have a field
+called ‘names’ and a field called ‘formats’ there will be
+a conflict.</p>
+<p>This style allows passing in the <a class="reference internal" href="generated/numpy.dtype.fields.html#numpy.dtype.fields" title="numpy.dtype.fields"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fields</span></code></a>
+attribute of a data-type object.</p>
+<p><em>obj</em> should contain string or unicode keys that refer to
+<code class="docutils literal notranslate"><span class="pre">(data-type,</span> <span class="pre">offset)</span></code> or <code class="docutils literal notranslate"><span class="pre">(data-type,</span> <span class="pre">offset,</span> <span class="pre">title)</span></code> tuples.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>Data type containing field <code class="docutils literal notranslate"><span class="pre">col1</span></code> (10-character string at
+byte position 0), <code class="docutils literal notranslate"><span class="pre">col2</span></code> (32-bit float at byte position 10),
+and <code class="docutils literal notranslate"><span class="pre">col3</span></code> (integers at byte position 14):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">({</span><span class="s1">&#39;col1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;U10&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;col2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="gp">... </span>               <span class="s1">&#39;col3&#39;</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="mi">14</span><span class="p">)})</span>
+</pre></div>
+</div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">(base_dtype,</span> <span class="pre">new_dtype)</span></code></dt><dd><p>In NumPy 1.7 and later, this form allows <em class="xref py py-obj">base_dtype</em> to be interpreted as
+a structured dtype. Arrays created with this dtype will have underlying
+dtype <em class="xref py py-obj">base_dtype</em> but will have fields and flags taken from <em class="xref py py-obj">new_dtype</em>.
+This is useful for creating custom structured dtypes, as done in
+<a class="reference internal" href="arrays.classes.html#arrays-classes-rec"><span class="std std-ref">record arrays</span></a>.</p>
+<p>This form also makes it possible to specify struct dtypes with overlapping
+fields, functioning like the ‘union’ type in C. This usage is discouraged,
+however, and the union mechanism is preferred.</p>
+<p>Both arguments must be convertible to data-type objects with the same total
+size.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>32-bit integer, whose first two bytes are interpreted as an integer
+via field <code class="docutils literal notranslate"><span class="pre">real</span></code>, and the following two bytes via field <code class="docutils literal notranslate"><span class="pre">imag</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,{</span><span class="s1">&#39;real&#39;</span><span class="p">:(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span><span class="s1">&#39;imag&#39;</span><span class="p">:(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}))</span>
+</pre></div>
+</div>
+<p>32-bit integer, which is interpreted as consisting of a sub-array
+of shape <code class="docutils literal notranslate"><span class="pre">(4,)</span></code> containing 8-bit integers:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>32-bit integer, containing fields <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">g</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code> that
+interpret the 4 bytes in the integer as four unsigned integers:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">((</span><span class="s1">&#39;i4&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;u1&#39;</span><span class="p">),(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;u1&#39;</span><span class="p">),(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;u1&#39;</span><span class="p">),(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;u1&#39;</span><span class="p">)]))</span>
+</pre></div>
+</div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="checking-the-data-type">
+<h2>Checking the data type<a class="headerlink" href="#checking-the-data-type" title="Link to this heading">#</a></h2>
+<p>When checking for a specific data type, use <code class="docutils literal notranslate"><span class="pre">==</span></code> comparison.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<p>As opposed to Python types, a comparison using <code class="docutils literal notranslate"><span class="pre">is</span></code> should not be used.</p>
+<p>First, NumPy treats data type specifications (everything that can be passed to
+the <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a> constructor) as equivalent to the data type object itself.
+This equivalence can only be handled through <code class="docutils literal notranslate"><span class="pre">==</span></code>, not through <code class="docutils literal notranslate"><span class="pre">is</span></code>.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>A <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a> object is equal to all data type specifications that are
+equivalent to it.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">float</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;float64&quot;</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;d&quot;</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<p>Second, there is no guarantee that data type objects are singletons.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>Do not use <code class="docutils literal notranslate"><span class="pre">is</span></code> because data type objects may or may not be singletons.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="dtype">
+<h2><a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a><a class="headerlink" href="#dtype" title="Link to this heading">#</a></h2>
+<p>NumPy data type descriptions are instances of the <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a> class.</p>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h3>
+<p>The type of the data is described by the following <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>  attributes:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.type.html#numpy.dtype.type" title="numpy.dtype.type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.type</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.kind.html#numpy.dtype.kind" title="numpy.dtype.kind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.kind</span></code></a></p></td>
+<td><p>A character code (one of 'biufcmMOSUV') identifying the general kind of data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.char.html#numpy.dtype.char" title="numpy.dtype.char"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.char</span></code></a></p></td>
+<td><p>A unique character code for each of the 21 different built-in types.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.num.html#numpy.dtype.num" title="numpy.dtype.num"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.num</span></code></a></p></td>
+<td><p>A unique number for each of the 21 different built-in types.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.str.html#numpy.dtype.str" title="numpy.dtype.str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.str</span></code></a></p></td>
+<td><p>The array-protocol typestring of this data-type object.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Size of the data is in turn described by:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.name.html#numpy.dtype.name" title="numpy.dtype.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.name</span></code></a></p></td>
+<td><p>A bit-width name for this data-type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.itemsize.html#numpy.dtype.itemsize" title="numpy.dtype.itemsize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.itemsize</span></code></a></p></td>
+<td><p>The element size of this data-type object.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Endianness of this data:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.byteorder.html#numpy.dtype.byteorder" title="numpy.dtype.byteorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.byteorder</span></code></a></p></td>
+<td><p>A character indicating the byte-order of this data-type object.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Information about sub-data-types in a <a class="reference internal" href="../glossary.html#term-structured-data-type"><span class="xref std std-term">structured data type</span></a>:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.fields.html#numpy.dtype.fields" title="numpy.dtype.fields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.fields</span></code></a></p></td>
+<td><p>Dictionary of named fields defined for this data type, or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.names.html#numpy.dtype.names" title="numpy.dtype.names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.names</span></code></a></p></td>
+<td><p>Ordered list of field names, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if there are no fields.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For data types that describe sub-arrays:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.subdtype.html#numpy.dtype.subdtype" title="numpy.dtype.subdtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.subdtype</span></code></a></p></td>
+<td><p>Tuple <code class="docutils literal notranslate"><span class="pre">(item_dtype,</span> <span class="pre">shape)</span></code> if this <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype</span></code></a> describes a sub-array, and None otherwise.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.shape.html#numpy.dtype.shape" title="numpy.dtype.shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.shape</span></code></a></p></td>
+<td><p>Shape tuple of the sub-array if this data type describes a sub-array, and <code class="docutils literal notranslate"><span class="pre">()</span></code> otherwise.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Attributes providing additional information:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.hasobject.html#numpy.dtype.hasobject" title="numpy.dtype.hasobject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.hasobject</span></code></a></p></td>
+<td><p>Boolean indicating whether this dtype contains any reference-counted objects in any fields or sub-dtypes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.flags.html#numpy.dtype.flags" title="numpy.dtype.flags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.flags</span></code></a></p></td>
+<td><p>Bit-flags describing how this data type is to be interpreted.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.isbuiltin.html#numpy.dtype.isbuiltin" title="numpy.dtype.isbuiltin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.isbuiltin</span></code></a></p></td>
+<td><p>Integer indicating how this dtype relates to the built-in dtypes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.isnative.html#numpy.dtype.isnative" title="numpy.dtype.isnative"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.isnative</span></code></a></p></td>
+<td><p>Boolean indicating whether the byte order of this dtype is native to the platform.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.descr.html#numpy.dtype.descr" title="numpy.dtype.descr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.descr</span></code></a></p></td>
+<td><p><em class="xref py py-obj">__array_interface__</em> description of the data-type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.alignment.html#numpy.dtype.alignment" title="numpy.dtype.alignment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.alignment</span></code></a></p></td>
+<td><p>The required alignment (bytes) of this data-type according to the compiler.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.base.html#numpy.dtype.base" title="numpy.dtype.base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.base</span></code></a></p></td>
+<td><p>Returns dtype for the base element of the subarrays, regardless of their dimension or shape.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Metadata attached by the user:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.metadata.html#numpy.dtype.metadata" title="numpy.dtype.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.metadata</span></code></a></p></td>
+<td><p>Either <code class="docutils literal notranslate"><span class="pre">None</span></code> or a readonly dictionary of metadata (mappingproxy).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h3>
+<p>Data types have the following method for changing the byte order:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.newbyteorder.html#numpy.dtype.newbyteorder" title="numpy.dtype.newbyteorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.newbyteorder</span></code></a>([new_order])</p></td>
+<td><p>Return a new dtype with a different byte order.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The following methods implement the pickle protocol:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.__reduce__.html#numpy.dtype.__reduce__" title="numpy.dtype.__reduce__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.__reduce__</span></code></a></p></td>
+<td><p>Helper for pickle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.__setstate__.html#numpy.dtype.__setstate__" title="numpy.dtype.__setstate__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.__setstate__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Utility method for typing:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.__class_getitem__.html#numpy.dtype.__class_getitem__" title="numpy.dtype.__class_getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.__class_getitem__</span></code></a>(item, /)</p></td>
+<td><p>Return a parametrized wrapper around the <a class="reference internal" href="generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype</span></code></a> type.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Comparison operations:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.__ge__.html#numpy.dtype.__ge__" title="numpy.dtype.__ge__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.__ge__</span></code></a>(value, /)</p></td>
+<td><p>Return self&gt;=value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.__gt__.html#numpy.dtype.__gt__" title="numpy.dtype.__gt__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.__gt__</span></code></a>(value, /)</p></td>
+<td><p>Return self&gt;value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.dtype.__le__.html#numpy.dtype.__le__" title="numpy.dtype.__le__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.__le__</span></code></a>(value, /)</p></td>
+<td><p>Return self&lt;=value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.dtype.__lt__.html#numpy.dtype.__lt__" title="numpy.dtype.__lt__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.__lt__</span></code></a>(value, /)</p></td>
+<td><p>Return self&lt;value.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="generated/numpy.number.__class_getitem__.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">numpy.number.__class_getitem__</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="generated/numpy.dtype.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">numpy.dtype</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifying-and-constructing-data-types">Specifying and constructing data types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-the-data-type">Checking the data type</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">Methods</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

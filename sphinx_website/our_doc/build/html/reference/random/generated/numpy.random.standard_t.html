@@ -1,0 +1,908 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>numpy.random.standard_t &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="../../../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/random/generated/numpy.random.standard_t';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="numpy.random.triangular" href="numpy.random.triangular.html" />
+    <link rel="prev" title="numpy.random.standard_normal" href="numpy.random.standard_normal.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../../../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../routines.html">Routines and objects by topic</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.array-creation.html">Array creation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.array-manipulation.html">Array manipulation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.bitwise.html">Bit-wise operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.strings.html">String functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.datetime.html">Datetime support functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.dtype.html">Data type routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.emath.html">Mathematical functions with automatic domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.err.html">Floating point error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.exceptions.html">Exceptions and Warnings (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.exceptions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.fft.html">Discrete Fourier Transform (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.fft</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.functional.html">Functional programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.io.html">Input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.indexing.html">Indexing routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.linalg.html">Linear algebra (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.linalg</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.logic.html">Logic functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.ma.html">Masked array operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.math.html">Mathematical functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.other.html">Miscellaneous routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.polynomials.html">Polynomials</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">Random sampling (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.random</span></code>)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../generator.html">Random <code class="docutils literal notranslate"><span class="pre">Generator</span></code></a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="../legacy.html">Legacy Generator (RandomState)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.get_state.html">numpy.random.RandomState.get_state</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.set_state.html">numpy.random.RandomState.set_state</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.seed.html">numpy.random.RandomState.seed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.rand.html">numpy.random.RandomState.rand</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.randn.html">numpy.random.RandomState.randn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.randint.html">numpy.random.RandomState.randint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.random_integers.html">numpy.random.RandomState.random_integers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.random_sample.html">numpy.random.RandomState.random_sample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.choice.html">numpy.random.RandomState.choice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.bytes.html">numpy.random.RandomState.bytes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.shuffle.html">numpy.random.RandomState.shuffle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.permutation.html">numpy.random.RandomState.permutation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.beta.html">numpy.random.RandomState.beta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.binomial.html">numpy.random.RandomState.binomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.chisquare.html">numpy.random.RandomState.chisquare</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.dirichlet.html">numpy.random.RandomState.dirichlet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.exponential.html">numpy.random.RandomState.exponential</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.f.html">numpy.random.RandomState.f</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.gamma.html">numpy.random.RandomState.gamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.geometric.html">numpy.random.RandomState.geometric</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.gumbel.html">numpy.random.RandomState.gumbel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.hypergeometric.html">numpy.random.RandomState.hypergeometric</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.laplace.html">numpy.random.RandomState.laplace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.logistic.html">numpy.random.RandomState.logistic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.lognormal.html">numpy.random.RandomState.lognormal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.logseries.html">numpy.random.RandomState.logseries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.multinomial.html">numpy.random.RandomState.multinomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.multivariate_normal.html">numpy.random.RandomState.multivariate_normal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.negative_binomial.html">numpy.random.RandomState.negative_binomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.noncentral_chisquare.html">numpy.random.RandomState.noncentral_chisquare</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.noncentral_f.html">numpy.random.RandomState.noncentral_f</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.normal.html">numpy.random.RandomState.normal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.pareto.html">numpy.random.RandomState.pareto</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.poisson.html">numpy.random.RandomState.poisson</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.power.html">numpy.random.RandomState.power</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.rayleigh.html">numpy.random.RandomState.rayleigh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.standard_cauchy.html">numpy.random.RandomState.standard_cauchy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.standard_exponential.html">numpy.random.RandomState.standard_exponential</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.standard_gamma.html">numpy.random.RandomState.standard_gamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.standard_normal.html">numpy.random.RandomState.standard_normal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.standard_t.html">numpy.random.RandomState.standard_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.triangular.html">numpy.random.RandomState.triangular</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.uniform.html">numpy.random.RandomState.uniform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.vonmises.html">numpy.random.RandomState.vonmises</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.wald.html">numpy.random.RandomState.wald</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.weibull.html">numpy.random.RandomState.weibull</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.RandomState.zipf.html">numpy.random.RandomState.zipf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.beta.html">numpy.random.beta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.binomial.html">numpy.random.binomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.bytes.html">numpy.random.bytes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.chisquare.html">numpy.random.chisquare</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.choice.html">numpy.random.choice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.dirichlet.html">numpy.random.dirichlet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.exponential.html">numpy.random.exponential</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.f.html">numpy.random.f</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.gamma.html">numpy.random.gamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.geometric.html">numpy.random.geometric</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.get_state.html">numpy.random.get_state</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.gumbel.html">numpy.random.gumbel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.hypergeometric.html">numpy.random.hypergeometric</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.laplace.html">numpy.random.laplace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.logistic.html">numpy.random.logistic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.lognormal.html">numpy.random.lognormal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.logseries.html">numpy.random.logseries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.multinomial.html">numpy.random.multinomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.multivariate_normal.html">numpy.random.multivariate_normal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.negative_binomial.html">numpy.random.negative_binomial</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.noncentral_chisquare.html">numpy.random.noncentral_chisquare</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.noncentral_f.html">numpy.random.noncentral_f</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.normal.html">numpy.random.normal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.pareto.html">numpy.random.pareto</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.permutation.html">numpy.random.permutation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.poisson.html">numpy.random.poisson</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.power.html">numpy.random.power</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.rand.html">numpy.random.rand</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.randint.html">numpy.random.randint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.randn.html">numpy.random.randn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.random.html">numpy.random.random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.random_integers.html">numpy.random.random_integers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.random_sample.html">numpy.random.random_sample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.ranf.html">numpy.random.ranf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.rayleigh.html">numpy.random.rayleigh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.sample.html">numpy.random.sample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.seed.html">numpy.random.seed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.set_state.html">numpy.random.set_state</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.shuffle.html">numpy.random.shuffle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.standard_cauchy.html">numpy.random.standard_cauchy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.standard_exponential.html">numpy.random.standard_exponential</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.standard_gamma.html">numpy.random.standard_gamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.standard_normal.html">numpy.random.standard_normal</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">numpy.random.standard_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.triangular.html">numpy.random.triangular</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.uniform.html">numpy.random.uniform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.vonmises.html">numpy.random.vonmises</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.wald.html">numpy.random.wald</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.weibull.html">numpy.random.weibull</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.random.zipf.html">numpy.random.zipf</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../bit_generators/index.html">Bit generators</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../upgrading-pcg64.html">Upgrading PCG64 with PCG64DXSM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../compatibility.html">Compatibility policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../parallel.html">Parallel Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multithreading.html">Multithreaded Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../new-or-different.html">What’s new or different</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../performance.html">Comparing Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../c-api.html">C API for random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../extending.html">Examples of using Numba, Cython, CFFI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.set.html">Set routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.sort.html">Sorting, searching, and counting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.statistics.html">Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.testing.html">Test support (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.testing</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../routines.window.html">Window functions</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../c-api/index.html">NumPy C-API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../legacy.html" class="nav-link">Legacy random generation</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">numpy.random...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="numpy-random-standard-t">
+<h1>numpy.random.standard_t<a class="headerlink" href="#numpy-random-standard-t" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="numpy.random.standard_t">
+<span class="sig-prename descclassname"><span class="pre">random.</span></span><span class="sig-name descname"><span class="pre">standard_t</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#numpy.random.standard_t" title="Link to this definition">#</a></dt>
+<dd><p>Draw samples from a standard Student’s t distribution with <em class="xref py py-obj">df</em> degrees
+of freedom.</p>
+<p>A special case of the hyperbolic distribution.  As <em class="xref py py-obj">df</em> gets
+large, the result resembles that of the standard normal
+distribution (<a class="reference internal" href="numpy.random.standard_normal.html#numpy.random.standard_normal" title="numpy.random.standard_normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">standard_normal</span></code></a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>New code should use the <a class="reference internal" href="numpy.random.Generator.standard_t.html#numpy.random.Generator.standard_t" title="numpy.random.Generator.standard_t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">standard_t</span></code></a>
+method of a <a class="reference internal" href="../generator.html#numpy.random.Generator" title="numpy.random.Generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Generator</span></code></a> instance instead;
+please see the <a class="reference internal" href="../index.html#random-quick-start"><span class="std std-ref">Quick start</span></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>df</strong><span class="classifier">float or array_like of floats</span></dt><dd><p>Degrees of freedom, must be &gt; 0.</p>
+</dd>
+<dt><strong>size</strong><span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  If size is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default),
+a single value is returned if <code class="docutils literal notranslate"><span class="pre">df</span></code> is a scalar.  Otherwise,
+<code class="docutils literal notranslate"><span class="pre">np.array(df).size</span></code> samples are drawn.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>out</strong><span class="classifier">ndarray or scalar</span></dt><dd><p>Drawn samples from the parameterized standard Student’s t distribution.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="numpy.random.Generator.standard_t.html#numpy.random.Generator.standard_t" title="numpy.random.Generator.standard_t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random.Generator.standard_t</span></code></a></dt><dd><p>which should be used for new code.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>The probability density function for the t distribution is</p>
+<div class="math notranslate nohighlight">
+\[P(x, df) = \frac{\Gamma(\frac{df+1}{2})}{\sqrt{\pi df}
+\Gamma(\frac{df}{2})}\Bigl( 1+\frac{x^2}{df} \Bigr)^{-(df+1)/2}\]</div>
+<p>The t test is based on an assumption that the data come from a
+Normal distribution. The t test provides a way to test whether
+the sample mean (that is the mean calculated from the data) is
+a good estimate of the true mean.</p>
+<p>The derivation of the t-distribution was first published in
+1908 by William Gosset while working for the Guinness Brewery
+in Dublin. Due to proprietary issues, he had to publish under
+a pseudonym, and so he used the name Student.</p>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r755c9bae090e-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
+<p>Dalgaard, Peter, “Introductory Statistics With R”,
+Springer, 2002.</p>
+</div>
+<div class="citation" id="r755c9bae090e-2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<p>Wikipedia, “Student’s t-distribution”
+<a class="reference external" href="https://en.wikipedia.org/wiki/Student's_t-distribution">https://en.wikipedia.org/wiki/Student’s_t-distribution</a></p>
+</div>
+</div>
+<p class="rubric">Examples</p>
+<p>From Dalgaard page 83 <a class="reference internal" href="#r755c9bae090e-1" id="id3">[1]</a>, suppose the daily energy intake for 11
+women in kilojoules (kJ) is:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">intake</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5260.</span><span class="p">,</span> <span class="mi">5470</span><span class="p">,</span> <span class="mi">5640</span><span class="p">,</span> <span class="mi">6180</span><span class="p">,</span> <span class="mi">6390</span><span class="p">,</span> <span class="mi">6515</span><span class="p">,</span> <span class="mi">6805</span><span class="p">,</span> <span class="mi">7515</span><span class="p">,</span> \
+<span class="gp">... </span>                   <span class="mi">7515</span><span class="p">,</span> <span class="mi">8230</span><span class="p">,</span> <span class="mi">8770</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Does their energy intake deviate systematically from the recommended
+value of 7725 kJ? Our null hypothesis will be the absence of deviation,
+and the alternate hypothesis will be the presence of an effect that could be
+either positive or negative, hence making our test 2-tailed.</p>
+<p>Because we are estimating the mean and we have N=11 values in our sample,
+we have N-1=10 degrees of freedom. We set our significance level to 95% and 
+compute the t statistic using the empirical mean and empirical standard 
+deviation of our intake. We use a ddof of 1 to base the computation of our 
+empirical standard deviation on an unbiased estimate of the variance (note:
+the final estimate is not unbiased due to the concave nature of the square 
+root).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intake</span><span class="p">)</span>
+<span class="go">6753.636363636364</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intake</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">1142.1232221373727</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intake</span><span class="p">)</span><span class="o">-</span><span class="mi">7725</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">intake</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intake</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">-2.8207540608310198</span>
+</pre></div>
+</div>
+<p>We draw 1000000 samples from Student’s t distribution with the adequate
+degrees of freedom.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_t</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Does our t statistic land in one of the two critical regions found at 
+both tails of the distribution?</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="go">0.018318  #random &lt; 0.05, statistic is in critical region</span>
+</pre></div>
+</div>
+<p>The probability value for this 2-tailed test is about 1.83%, which is 
+lower than the 5% pre-determined significance threshold.</p>
+<p>Therefore, the probability of observing values as extreme as our intake
+conditionally on the null hypothesis being true is too low, and we reject 
+the null hypothesis of no deviation.</p>
+<figure class="align-default">
+<img alt="../../../_images/numpy-random-standard_t-1.png" class="plot-directive" src="../../../_images/numpy-random-standard_t-1.png" />
+</figure>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="numpy.random.standard_normal.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">numpy.random.standard_normal</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="numpy.random.triangular.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">numpy.random.triangular</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy.random.standard_t"><code class="docutils literal notranslate"><span class="pre">random.standard_t</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,888 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Working with Arrays of Strings And Bytes &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user/basics.strings';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Structured arrays" href="basics.rec.html" />
+    <link rel="prev" title="Copies and views" href="basics.copies.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="basics.html">NumPy fundamentals</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basics.creation.html">Array creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.indexing.html">Indexing on <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarrays</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.io.html">I/O with NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.types.html">Data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.broadcasting.html">Broadcasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.copies.html">Copies and views</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Working with Arrays of Strings And Bytes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.rec.html">Structured arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>) basics</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos_index.html">NumPy how-tos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../f2py/index.html">F2PY user guide and reference manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/underthehood.html">Under-the-hood documentation for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.interoperability.html">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">NumPy user guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="basics.html" class="nav-link">NumPy fundamentals</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Working...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="working-with-arrays-of-strings-and-bytes">
+<span id="basics-strings"></span><h1>Working with Arrays of Strings And Bytes<a class="headerlink" href="#working-with-arrays-of-strings-and-bytes" title="Link to this heading">#</a></h1>
+<p>While NumPy is primarily a numerical library, it is often convenient
+to work with NumPy arrays of strings or bytes. The two most common
+use cases are:</p>
+<ul class="simple">
+<li><p>Working with data loaded or memory-mapped from a data file,
+where one or more of the fields in the data is a string or
+bytestring, and the maximum length of the field is known
+ahead of time. This often is used for a name or label field.</p></li>
+<li><p>Using NumPy indexing and broadcasting with arrays of Python
+strings of unknown length, which may or may not have data
+defined for every value.</p></li>
+</ul>
+<p>For the first use case, NumPy provides the fixed-width <a class="reference internal" href="../reference/arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.void</span></code></a>,
+<a class="reference internal" href="../reference/arrays.scalars.html#numpy.str_" title="numpy.str_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.str_</span></code></a> and <a class="reference internal" href="../reference/arrays.scalars.html#numpy.bytes_" title="numpy.bytes_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.bytes_</span></code></a> data types. For the second use case,
+numpy provides <a class="reference internal" href="../reference/routines.dtypes.html#numpy.dtypes.StringDType" title="numpy.dtypes.StringDType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.dtypes.StringDType</span></code></a>. Below we describe how to
+work with both fixed-width and variable-width string arrays, how to
+convert between the two representations, and provide some advice for
+most efficiently working with string data in NumPy.</p>
+<section id="fixed-width-data-types">
+<h2>Fixed-width data types<a class="headerlink" href="#fixed-width-data-types" title="Link to this heading">#</a></h2>
+<p>Before NumPy 2.0, the fixed-width <a class="reference internal" href="../reference/arrays.scalars.html#numpy.str_" title="numpy.str_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.str_</span></code></a>, <a class="reference internal" href="../reference/arrays.scalars.html#numpy.bytes_" title="numpy.bytes_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.bytes_</span></code></a>, and
+<a class="reference internal" href="../reference/arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.void</span></code></a> data types were the only types available for working
+with strings and bytestrings in NumPy. For this reason, they are used
+as the default dtype for strings and bytestrings, respectively:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">])</span>
+<span class="go">array([&#39;hello&#39;, &#39;world&#39;], dtype=&#39;&lt;U5&#39;)</span>
+</pre></div>
+</div>
+<p>Here the detected data type is <code class="docutils literal notranslate"><span class="pre">'&lt;U5'</span></code>, or little-endian unicode
+string data, with a maximum length of 5 unicode code points.</p>
+<p>Similarly for bytestrings:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">b</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;world&quot;</span><span class="p">])</span>
+<span class="go">array([b&#39;hello&#39;, b&#39;world&#39;], dtype=&#39;|S5&#39;)</span>
+</pre></div>
+</div>
+<p>Since this is a one-byte encoding, the byteorder is <em class="xref py py-obj">‘|’</em> (not
+applicable), and the data type detected is a maximum 5 character
+bytestring.</p>
+<p>You can also use <a class="reference internal" href="../reference/arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.void</span></code></a> to represent bytestrings:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="sa">b</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;world&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">void</span><span class="p">)</span>
+<span class="go">array([b&#39;\x68\x65\x6C\x6C\x6F&#39;, b&#39;\x77\x6F\x72\x6C\x64&#39;], dtype=&#39;|V5&#39;)</span>
+</pre></div>
+</div>
+<p>This is most useful when working with byte streams that are not well
+represented as bytestrings, and instead are better thought of as
+collections of 8-bit integers.</p>
+</section>
+<section id="variable-width-strings">
+<span id="stringdtype"></span><h2>Variable-width strings<a class="headerlink" href="#variable-width-strings" title="Link to this heading">#</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 2.0.</span></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="../reference/routines.dtypes.html#numpy.dtypes.StringDType" title="numpy.dtypes.StringDType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.dtypes.StringDType</span></code></a> is a new addition to NumPy, implemented
+using the new support in NumPy for flexible user-defined data
+types and is not as extensively tested in production workflows as
+the older NumPy data types.</p>
+</div>
+<p>Often, real-world string data does not have a predictable length. In
+these cases it is awkward to use fixed-width strings, since storing
+all the data without truncation requires knowing the length of the
+longest string one would like to store in the array before the array
+is created.</p>
+<p>To support situations like this, NumPy provides
+<a class="reference internal" href="../reference/routines.dtypes.html#numpy.dtypes.StringDType" title="numpy.dtypes.StringDType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.dtypes.StringDType</span></code></a>, which stores variable-width string data
+in a UTF-8 encoding in a NumPy array:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy.dtypes</span> <span class="kn">import</span> <span class="n">StringDType</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;this is a longer string&quot;</span><span class="p">,</span> <span class="s2">&quot;short string&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">StringDType</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span>
+<span class="go">array([&#39;this is a longer string&#39;, &#39;short string&#39;], dtype=StringDType())</span>
+</pre></div>
+</div>
+<p>Note that unlike fixed-width strings, <code class="docutils literal notranslate"><span class="pre">StringDType</span></code> is not parameterized by
+the maximum length of an array element, arbitrarily long or short strings can
+live in the same array without needing to reserve storage for padding bytes in
+the short strings.</p>
+<p>Also note that unlike fixed-width strings and most other NumPy data
+types, <code class="docutils literal notranslate"><span class="pre">StringDType</span></code> does not store the string data in the “main”
+<code class="docutils literal notranslate"><span class="pre">ndarray</span></code> data buffer. Instead, the array buffer is used to store
+metadata about where the string data are stored in memory. This
+difference means that code expecting the array buffer to contain
+string data will not function correctly, and will need to be updated
+to support <code class="docutils literal notranslate"><span class="pre">StringDType</span></code>.</p>
+<section id="missing-data-support">
+<h3>Missing data support<a class="headerlink" href="#missing-data-support" title="Link to this heading">#</a></h3>
+<p>Often string datasets are not complete, and a special label is needed
+to indicate that a value is missing. By default <code class="docutils literal notranslate"><span class="pre">StringDType</span></code> does
+not have any special support for missing values, besides the fact
+that empty strings are used to populate empty arrays:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">StringDType</span><span class="p">())</span>
+<span class="go">array([&#39;&#39;, &#39;&#39;, &#39;&#39;], dtype=StringDType())</span>
+</pre></div>
+</div>
+<p>Optionally, you can pass create an instance of <code class="docutils literal notranslate"><span class="pre">StringDType</span></code> with
+support for missing values by passing <code class="docutils literal notranslate"><span class="pre">na_object</span></code> as a keyword
+argument for the initializer:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">StringDType</span><span class="p">(</span><span class="n">na_object</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;this array has&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;as an entry&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span>
+<span class="go">array([&#39;this array has&#39;, None, &#39;as an entry&#39;],</span>
+<span class="go">      dtype=StringDType(na_object=None))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">na_object</span></code> can be any arbitrary python object.
+Common choices are <a class="reference internal" href="../reference/constants.html#numpy.nan" title="numpy.nan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.nan</span></code></a>, <code class="docutils literal notranslate"><span class="pre">float('nan')</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, an object
+specifically intended to represent missing data like <code class="docutils literal notranslate"><span class="pre">pandas.NA</span></code>,
+or a (hopefully) unique string like <code class="docutils literal notranslate"><span class="pre">&quot;__placeholder__&quot;</span></code>.</p>
+<p>NumPy has special handling for NaN-like sentinels and string
+sentinels.</p>
+<section id="nan-like-missing-data-sentinels">
+<h4>NaN-like Missing Data Sentinels<a class="headerlink" href="#nan-like-missing-data-sentinels" title="Link to this heading">#</a></h4>
+<p>A NaN-like sentinel returns itself as the result of arithmetic
+operations. This includes the python <code class="docutils literal notranslate"><span class="pre">nan</span></code> float and the Pandas
+missing data sentinel <code class="docutils literal notranslate"><span class="pre">pd.NA</span></code>. NaN-like sentinels inherit these
+behaviors in string operations. This means that, for example, the
+result of addition with any other string is the sentinel:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">StringDType</span><span class="p">(</span><span class="n">na_object</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">+</span> <span class="n">arr</span>
+<span class="go">array([&#39;hellohello&#39;, nan, &#39;worldworld&#39;], dtype=StringDType(na_object=nan))</span>
+</pre></div>
+</div>
+<p>Following the behavior of <code class="docutils literal notranslate"><span class="pre">nan</span></code> in float arrays, NaN-like sentinels
+sort to the end of the array:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="go">array([&#39;hello&#39;, &#39;world&#39;, nan], dtype=StringDType(na_object=nan))</span>
+</pre></div>
+</div>
+</section>
+<section id="string-missing-data-sentinels">
+<h4>String Missing Data Sentinels<a class="headerlink" href="#string-missing-data-sentinels" title="Link to this heading">#</a></h4>
+<p>A string missing data value is an instance of <code class="docutils literal notranslate"><span class="pre">str</span></code> or subtype of <code class="docutils literal notranslate"><span class="pre">str</span></code>. If
+such an array is passed to a string operation or a cast, “missing” entries are
+treated as if they have a value given by the string sentinel. Comparison
+operations similarly use the sentinel value directly for missing entries.</p>
+</section>
+<section id="other-sentinels">
+<h4>Other Sentinels<a class="headerlink" href="#other-sentinels" title="Link to this heading">#</a></h4>
+<p>Other objects, such as <code class="docutils literal notranslate"><span class="pre">None</span></code> are also supported as missing data
+sentinels. If any missing data are present in an array using such a
+sentinel, then string operations will raise an error:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">StringDType</span><span class="p">(</span><span class="n">na_object</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;this array has&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;as an entry&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;&lt;&#39; not supported between instances of &#39;NoneType&#39; and &#39;str&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="coercing-non-strings">
+<h3>Coercing Non-strings<a class="headerlink" href="#coercing-non-strings" title="Link to this heading">#</a></h3>
+<p>By default, non-string data are coerced to strings:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="nb">object</span><span class="p">(),</span> <span class="mf">3.4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">StringDType</span><span class="p">())</span>
+<span class="go">array([&#39;1&#39;, &#39;&lt;object object at 0x7faa2497dde0&gt;&#39;, &#39;3.4&#39;], dtype=StringDType())</span>
+</pre></div>
+</div>
+<p>If this behavior is not desired, an instance of the DType can be created that
+disables string coercion by setting <code class="docutils literal notranslate"><span class="pre">coerce=False</span></code> in the initializer:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="nb">object</span><span class="p">(),</span> <span class="mf">3.4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">StringDType</span><span class="p">(</span><span class="n">coerce</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">StringDType only allows string data when string coercion is disabled.</span>
+</pre></div>
+</div>
+<p>This allows strict data validation in the same pass over the data NumPy uses to
+create the array. Setting <code class="docutils literal notranslate"><span class="pre">coerce=True</span></code> recovers the default behavior allowing
+coercion to strings.</p>
+</section>
+<section id="casting-to-and-from-fixed-width-strings">
+<h3>Casting To and From Fixed-Width Strings<a class="headerlink" href="#casting-to-and-from-fixed-width-strings" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">StringDType</span></code> supports round-trip casts between <a class="reference internal" href="../reference/arrays.scalars.html#numpy.str_" title="numpy.str_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.str_</span></code></a>,
+<a class="reference internal" href="../reference/arrays.scalars.html#numpy.bytes_" title="numpy.bytes_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.bytes_</span></code></a>, and <a class="reference internal" href="../reference/arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.void</span></code></a>. Casting to a fixed-width string is
+most useful when strings need to be memory-mapped in an ndarray or
+when a fixed-width string is needed for reading and writing to a
+columnar data format with a known maximum string length.</p>
+<p>In all cases, casting to a fixed-width string requires specifying the
+maximum allowed string length:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">StringDType</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">)</span>  
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">Casting from StringDType to a fixed-width dtype with an</span>
+<span class="x">unspecified size is not currently supported, specify an explicit</span>
+<span class="x">size for the output dtype instead.</span>
+
+<span class="x">The above exception was the direct cause of the following</span>
+<span class="x">exception:</span>
+
+<span class="x">TypeError: cannot cast dtype StringDType() to &lt;class &#39;numpy.dtypes.StrDType&#39;&gt;.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;U5&quot;</span><span class="p">)</span>
+<span class="go">array([&#39;hello&#39;, &#39;world&#39;], dtype=&#39;&lt;U5&#39;)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../reference/arrays.scalars.html#numpy.bytes_" title="numpy.bytes_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.bytes_</span></code></a> cast is most useful for string data that is known
+to contain only ASCII characters, as characters outside this range
+cannot be represented in a single byte in the UTF-8 encoding and are
+rejected.</p>
+<p>Any valid unicode string can be cast to <a class="reference internal" href="../reference/arrays.scalars.html#numpy.str_" title="numpy.str_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.str_</span></code></a>, although
+since <a class="reference internal" href="../reference/arrays.scalars.html#numpy.str_" title="numpy.str_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.str_</span></code></a> uses a 32-bit UCS4 encoding for all characters,
+this will often waste memory for real-world textual data that can be
+well-represented by a more memory-efficient encoding.</p>
+<p>Additionally, any valid unicode string can be cast to <a class="reference internal" href="../reference/arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.void</span></code></a>,
+storing the UTF-8 bytes directly in the output array:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">StringDType</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;V5&quot;</span><span class="p">)</span>
+<span class="go">array([b&#39;\x68\x65\x6C\x6C\x6F&#39;, b&#39;\x77\x6F\x72\x6C\x64&#39;], dtype=&#39;|V5&#39;)</span>
+</pre></div>
+</div>
+<p>Care must be taken to ensure that the output array has enough space
+for the UTF-8 bytes in the string, since the size of a UTF-8
+bytestream in bytes is not necessarily the same as the number of
+characters in the string.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="basics.copies.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Copies and views</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="basics.rec.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Structured arrays</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixed-width-data-types">Fixed-width data types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-width-strings">Variable-width strings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data-support">Missing data support</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nan-like-missing-data-sentinels">NaN-like Missing Data Sentinels</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#string-missing-data-sentinels">String Missing Data Sentinels</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#other-sentinels">Other Sentinels</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coercing-non-strings">Coercing Non-strings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#casting-to-and-from-fixed-width-strings">Casting To and From Fixed-Width Strings</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

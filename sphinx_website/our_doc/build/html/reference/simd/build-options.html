@@ -1,0 +1,1453 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>CPU build options &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/simd/build-options';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="How does the CPU dispatcher work?" href="how-it-works.html" />
+    <link rel="prev" title="CPU/SIMD optimizations" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../routines.html">Routines and objects by topic</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../c-api/index.html">NumPy C-API</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">CPU/SIMD optimizations</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">CPU build options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how-it-works.html">How does the CPU dispatcher work?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">CPU/SIMD optimizations</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">CPU build options</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="cpu-build-options">
+<h1>CPU build options<a class="headerlink" href="#cpu-build-options" title="Link to this heading">#</a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h2>
+<p>The following options are mainly used to change the default behavior of optimizations
+that target certain CPU features:</p>
+<ul>
+<li><dl>
+<dt><code class="docutils literal notranslate"><span class="pre">cpu-baseline</span></code>: minimal set of required CPU features.</dt><dd><p>Default value is <code class="docutils literal notranslate"><span class="pre">min</span></code> which provides the minimum CPU features that can
+safely run on a wide range of platforms within the processor family.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>During the runtime, NumPy modules will fail to load if any of specified features
+are not supported by the target CPU (raises Python runtime error).</p>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><code class="docutils literal notranslate"><span class="pre">cpu-dispatch</span></code>: dispatched set of additional CPU features.</dt><dd><p>Default value is <code class="docutils literal notranslate"><span class="pre">max</span> <span class="pre">-xop</span> <span class="pre">-fma4</span></code> which enables all CPU
+features, except for AMD legacy features (in case of X86).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>During the runtime, NumPy modules will skip any specified features
+that are not available in the target CPU.</p>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<p>These options are accessible at build time by passing setup arguments to meson-python
+via the build frontend (e.g., <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">build</span></code>).
+They accept a set of <a class="reference internal" href="#opt-supported-features"><span class="std std-ref">CPU features</span></a>
+or groups of features that gather several features or
+<a class="reference internal" href="#opt-special-options"><span class="std std-ref">special options</span></a> that
+perform a series of procedures.</p>
+<p>To customize CPU/build options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;avx2 fma3&quot;</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="s2">&quot;max&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<p>In general, the default settings tend to not impose certain CPU features that
+may not be available on some older processors. Raising the ceiling of the
+baseline features will often improve performance and may also reduce
+binary size.</p>
+<p>The following are the most common scenarios that may require changing
+the default settings:</p>
+<section id="i-am-building-numpy-for-my-local-use">
+<h3>I am building NumPy for my local use<a class="headerlink" href="#i-am-building-numpy-for-my-local-use" title="Link to this heading">#</a></h3>
+<p>And I do not intend to export the build to other users or target a
+different CPU than what the host has.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">native</span></code> for baseline, or manually specify the CPU features in case of option
+<code class="docutils literal notranslate"><span class="pre">native</span></code> isn’t supported by your platform:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;native&quot;</span>
+</pre></div>
+</div>
+<p>Building NumPy with extra CPU features isn’t necessary for this case,
+since all supported features are already defined within the baseline features:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;native&quot;</span> \
+<span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="s2">&quot;none&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A fatal error will be raised if <code class="docutils literal notranslate"><span class="pre">native</span></code> isn’t supported by the host platform.</p>
+</div>
+</section>
+<section id="i-do-not-want-to-support-the-old-processors-of-the-x86-architecture">
+<h3>I do not want to support the old processors of the x86 architecture<a class="headerlink" href="#i-do-not-want-to-support-the-old-processors-of-the-x86-architecture" title="Link to this heading">#</a></h3>
+<p>Since most of the CPUs nowadays support at least <code class="docutils literal notranslate"><span class="pre">AVX</span></code>, <code class="docutils literal notranslate"><span class="pre">F16C</span></code> features, you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;avx f16c&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">cpu-baseline</span></code> force combine all implied features, so there’s no need
+to add SSE features.</p>
+</div>
+</section>
+<section id="i-m-facing-the-same-case-above-but-with-ppc64-architecture">
+<h3>I’m facing the same case above but with ppc64 architecture<a class="headerlink" href="#i-m-facing-the-same-case-above-but-with-ppc64-architecture" title="Link to this heading">#</a></h3>
+<p>Then raise the ceiling of the baseline features to Power8:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;vsx2&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="having-issues-with-avx512-features">
+<h3>Having issues with AVX512 features?<a class="headerlink" href="#having-issues-with-avx512-features" title="Link to this heading">#</a></h3>
+<p>You may have some reservations about including of <code class="docutils literal notranslate"><span class="pre">AVX512</span></code> or
+any other CPU feature and you want to exclude from the dispatched features:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="s2">&quot;max -avx512f -avx512cd </span><span class="se">\</span>
+<span class="s2">-avx512_knl -avx512_knm -avx512_skx -avx512_clx -avx512_cnl -avx512_icl&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="supported-features">
+<span id="opt-supported-features"></span><h2>Supported features<a class="headerlink" href="#supported-features" title="Link to this heading">#</a></h2>
+<p>The names of the features can express one feature or a group of features,
+as shown in the following tables supported depend on the lowest interest:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following features may not be supported by all compilers,
+also some compilers may produce different set of implied features
+when it comes to features like <code class="docutils literal notranslate"><span class="pre">AVX512</span></code>, <code class="docutils literal notranslate"><span class="pre">AVX2</span></code>, and <code class="docutils literal notranslate"><span class="pre">FMA3</span></code>.
+See <a class="reference internal" href="#opt-platform-differences"><span class="std std-ref">Platform differences</span></a> for more details.</p>
+</div>
+<section id="on-x86">
+<h3>On x86<a class="headerlink" href="#on-x86" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table table-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Implies</p></th>
+<th class="head"><p>Gathers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE2</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SSE2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SSE3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SSSE3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SSE41</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">POPCNT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SSE42</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVX</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">XOP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FMA4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">F16C</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FMA3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AVX2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVX512F</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code> <code class="docutils literal notranslate"><span class="pre">FMA3</span></code> <code class="docutils literal notranslate"><span class="pre">AVX2</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AVX512CD</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code> <code class="docutils literal notranslate"><span class="pre">FMA3</span></code> <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512F</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVX512_KNL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code> <code class="docutils literal notranslate"><span class="pre">FMA3</span></code> <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512F</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512CD</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVX512ER</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512PF</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AVX512_KNM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code> <code class="docutils literal notranslate"><span class="pre">FMA3</span></code> <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512F</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512CD</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_KNL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVX5124FMAPS</span></code> <code class="docutils literal notranslate"><span class="pre">AVX5124VNNIW</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512VPOPCNTDQ</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVX512_SKX</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code> <code class="docutils literal notranslate"><span class="pre">FMA3</span></code> <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512F</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512CD</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVX512VL</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512BW</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512DQ</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AVX512_CLX</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code> <code class="docutils literal notranslate"><span class="pre">FMA3</span></code> <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512F</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512CD</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_SKX</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVX512VNNI</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVX512_CNL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code> <code class="docutils literal notranslate"><span class="pre">FMA3</span></code> <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512F</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512CD</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_SKX</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVX512IFMA</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512VBMI</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AVX512_ICL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code> <code class="docutils literal notranslate"><span class="pre">FMA3</span></code> <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512F</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512CD</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_SKX</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_CLX</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_CNL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVX512VBMI2</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512BITALG</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512VPOPCNTDQ</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVX512_SPR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSSE3</span></code> <code class="docutils literal notranslate"><span class="pre">SSE41</span></code> <code class="docutils literal notranslate"><span class="pre">POPCNT</span></code> <code class="docutils literal notranslate"><span class="pre">SSE42</span></code> <code class="docutils literal notranslate"><span class="pre">AVX</span></code> <code class="docutils literal notranslate"><span class="pre">F16C</span></code> <code class="docutils literal notranslate"><span class="pre">FMA3</span></code> <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512F</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512CD</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_SKX</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_CLX</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_CNL</span></code> <code class="docutils literal notranslate"><span class="pre">AVX512_ICL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVX512FP16</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="on-ibm-power-big-endian">
+<h3>On IBM/POWER big-endian<a class="headerlink" href="#on-ibm-power-big-endian" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table table-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Implies</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VSX</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VSX2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VSX</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VSX3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VSX</span></code> <code class="docutils literal notranslate"><span class="pre">VSX2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VSX4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VSX</span></code> <code class="docutils literal notranslate"><span class="pre">VSX2</span></code> <code class="docutils literal notranslate"><span class="pre">VSX3</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="on-ibm-power-little-endian">
+<h3>On IBM/POWER little-endian<a class="headerlink" href="#on-ibm-power-little-endian" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table table-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Implies</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VSX</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VSX2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VSX2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VSX</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VSX3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VSX</span></code> <code class="docutils literal notranslate"><span class="pre">VSX2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VSX4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VSX</span></code> <code class="docutils literal notranslate"><span class="pre">VSX2</span></code> <code class="docutils literal notranslate"><span class="pre">VSX3</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="on-armv7-a32">
+<h3>On ARMv7/A32<a class="headerlink" href="#on-armv7-a32" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table table-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Implies</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ASIMDHP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ASIMDDP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ASIMDFHM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMD</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMDHP</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="on-armv8-a64">
+<h3>On ARMv8/A64<a class="headerlink" href="#on-armv8-a64" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table table-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Implies</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ASIMDHP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ASIMDDP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ASIMDFHM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMD</span></code> <code class="docutils literal notranslate"><span class="pre">ASIMDHP</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="on-ibm-zsystem-s390x">
+<h3>On IBM/ZSYSTEM(S390X)<a class="headerlink" href="#on-ibm-zsystem-s390x" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table table-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Implies</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VX</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VXE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VX</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VXE2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VX</span></code> <code class="docutils literal notranslate"><span class="pre">VXE</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="special-options">
+<span id="opt-special-options"></span><h2>Special options<a class="headerlink" href="#special-options" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code>: enable no features.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NATIVE</span></code>: Enables all CPU features that supported by the host CPU,
+this operation is based on the compiler flags (<code class="docutils literal notranslate"><span class="pre">-march=native</span></code>, <code class="docutils literal notranslate"><span class="pre">-xHost</span></code>, <code class="docutils literal notranslate"><span class="pre">/QxHost</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MIN</span></code>: Enables the minimum CPU features that can safely run on a wide range of platforms:</p>
+<div class="pst-scrollable-table-container"><table class="table table-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>For Arch</p></th>
+<th class="head"><p>Implies</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>x86 (32-bit mode)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>x86_64</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SSE</span></code> <code class="docutils literal notranslate"><span class="pre">SSE2</span></code> <code class="docutils literal notranslate"><span class="pre">SSE3</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>IBM/POWER (big-endian mode)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>IBM/POWER (little-endian mode)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VSX</span></code> <code class="docutils literal notranslate"><span class="pre">VSX2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>ARMHF</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>ARM64 A.K. AARCH64</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NEON</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_FP16</span></code> <code class="docutils literal notranslate"><span class="pre">NEON_VFPV4</span></code>
+<code class="docutils literal notranslate"><span class="pre">ASIMD</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>IBM/ZSYSTEM(S390X)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MAX</span></code>: Enables all supported CPU features by the compiler and platform.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Operators-/+</span></code>: remove or add features, useful with options <code class="docutils literal notranslate"><span class="pre">MAX</span></code>, <code class="docutils literal notranslate"><span class="pre">MIN</span></code> and <code class="docutils literal notranslate"><span class="pre">NATIVE</span></code>.</p></li>
+</ul>
+</section>
+<section id="behaviors">
+<h2>Behaviors<a class="headerlink" href="#behaviors" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>CPU features and other options are case-insensitive, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="s2">&quot;SSE41 avx2 FMA3&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>The order of the requested optimizations doesn’t matter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="s2">&quot;SSE41 AVX2 FMA3&quot;</span>
+<span class="c1"># equivalent to</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="s2">&quot;FMA3 AVX2 SSE41&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Either commas or spaces or ‘+’ can be used as a separator,
+for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="s2">&quot;avx2 avx512f&quot;</span>
+<span class="c1"># or</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="n">avx2</span><span class="p">,</span><span class="n">avx512f</span>
+<span class="c1"># or</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="s2">&quot;avx2+avx512f&quot;</span>
+</pre></div>
+</div>
+<p>all works but arguments should be enclosed in quotes or escaped
+by backslash if any spaces are used.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu-baseline</span></code> combines all implied CPU features, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="n">sse42</span>
+<span class="c1"># equivalent to</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;sse sse2 sse3 ssse3 sse41 popcnt sse42&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu-baseline</span></code> will be treated as “native” if compiler native flag
+<code class="docutils literal notranslate"><span class="pre">-march=native</span></code> or <code class="docutils literal notranslate"><span class="pre">-xHost</span></code> or <code class="docutils literal notranslate"><span class="pre">/QxHost</span></code> is enabled through environment variable
+<code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-march=native&quot;</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+<span class="c1"># is equivalent to</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="n">native</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu-baseline</span></code> escapes any specified features that aren’t supported
+by the target platform or compiler rather than raising fatal errors.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since <code class="docutils literal notranslate"><span class="pre">cpu-baseline</span></code> combines all implied features, the maximum
+supported of implied features will be enabled rather than escape all of them.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Requesting `AVX2,FMA3` but the compiler only support **SSE** features</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;avx2 fma3&quot;</span>
+<span class="c1"># is equivalent to</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;sse sse2 sse3 ssse3 sse41 popcnt sse42&quot;</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu-dispatch</span></code> does not combain any of implied CPU features,
+so you must add them unless you want to disable one or all of them:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only dispatches AVX2 and FMA3</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="n">avx2</span><span class="p">,</span><span class="n">fma3</span>
+<span class="c1"># Dispatches AVX and SSE features</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">dispatch</span><span class="o">=</span><span class="n">ssse3</span><span class="p">,</span><span class="n">sse41</span><span class="p">,</span><span class="n">sse42</span><span class="p">,</span><span class="n">avx</span><span class="p">,</span><span class="n">avx2</span><span class="p">,</span><span class="n">fma3</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu-dispatch</span></code> escapes any specified baseline features and also escapes
+any features not supported by the target platform or compiler without raising
+fatal errors.</p></li>
+</ul>
+<p>Eventually, you should always check the final report through the build log
+to verify the enabled features. See <a class="reference internal" href="#opt-build-report"><span class="std std-ref">Build report</span></a> for more details.</p>
+</section>
+<section id="platform-differences">
+<span id="opt-platform-differences"></span><h2>Platform differences<a class="headerlink" href="#platform-differences" title="Link to this heading">#</a></h2>
+<p>Some exceptional conditions force us to link some features together when it come to
+certain compilers or architectures, resulting in the impossibility of building them separately.</p>
+<p>These conditions can be divided into two parts, as follows:</p>
+<p><strong>Architectural compatibility</strong></p>
+<p>The need to align certain CPU features that are assured to be supported by
+successive generations of the same architecture, some cases:</p>
+<ul class="simple">
+<li><p>On ppc64le <code class="docutils literal notranslate"><span class="pre">VSX(ISA</span> <span class="pre">2.06)</span></code> and <code class="docutils literal notranslate"><span class="pre">VSX2(ISA</span> <span class="pre">2.07)</span></code> both imply one another since the
+first generation that supports little-endian mode is Power-8`(ISA 2.07)`</p></li>
+<li><p>On AArch64 <code class="docutils literal notranslate"><span class="pre">NEON</span> <span class="pre">NEON_FP16</span> <span class="pre">NEON_VFPV4</span> <span class="pre">ASIMD</span></code> implies each other since they are part of the
+hardware baseline.</p></li>
+</ul>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># On ARMv8/A64, specify NEON is going to enable Advanced SIMD</span>
+<span class="c1"># and all predecessor extensions</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="n">neon</span>
+<span class="c1"># which is equivalent to</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;neon neon_fp16 neon_vfpv4 asimd&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please take a deep look at <a class="reference internal" href="#opt-supported-features"><span class="std std-ref">Supported features</span></a>,
+in order to determine the features that imply one another.</p>
+</div>
+<p><strong>Compilation compatibility</strong></p>
+<p>Some compilers don’t provide independent support for all CPU features. For instance
+<strong>Intel</strong>’s compiler doesn’t provide separated flags for <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> and <code class="docutils literal notranslate"><span class="pre">FMA3</span></code>,
+it makes sense since all Intel CPUs that comes with <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> also support <code class="docutils literal notranslate"><span class="pre">FMA3</span></code>,
+but this approach is incompatible with other <strong>x86</strong> CPUs from <strong>AMD</strong> or <strong>VIA</strong>.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify AVX2 will force enables FMA3 on Intel compilers</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="n">avx2</span>
+<span class="c1"># which is equivalent to</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span> <span class="o">--</span><span class="n">wheel</span> <span class="o">-</span><span class="n">Csetup</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">Dcpu</span><span class="o">-</span><span class="n">baseline</span><span class="o">=</span><span class="s2">&quot;avx2 fma3&quot;</span>
+</pre></div>
+</div>
+<p>The following tables only show the differences imposed by some compilers from the
+general context that been shown in the <a class="reference internal" href="#opt-supported-features"><span class="std std-ref">Supported features</span></a> tables:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Features names with strikeout represent the unsupported CPU features.</p>
+</div>
+<style>
+    .enabled-feature {color:green; font-weight:bold;}
+    .disabled-feature {color:red; text-decoration: line-through;}
+</style><section id="on-x86-intel-compiler">
+<h3>On x86::Intel Compiler<a class="headerlink" href="#on-x86-intel-compiler" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table table-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Implies</p></th>
+<th class="head"><p>Gathers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FMA3</p></td>
+<td><p>SSE SSE2 SSE3 SSSE3 SSE41 POPCNT SSE42 AVX F16C <span class="enabled-feature">AVX2</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>AVX2</p></td>
+<td><p>SSE SSE2 SSE3 SSSE3 SSE41 POPCNT SSE42 AVX F16C <span class="enabled-feature">FMA3</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>AVX512F</p></td>
+<td><p>SSE SSE2 SSE3 SSSE3 SSE41 POPCNT SSE42 AVX F16C FMA3 AVX2 <span class="enabled-feature">AVX512CD</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><span class="disabled-feature">XOP</span></p></td>
+<td><p><span class="disabled-feature">SSE</span> <span class="disabled-feature">SSE2</span> <span class="disabled-feature">SSE3</span> <span class="disabled-feature">SSSE3</span> <span class="disabled-feature">SSE41</span> <span class="disabled-feature">POPCNT</span> <span class="disabled-feature">SSE42</span> <span class="disabled-feature">AVX</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><span class="disabled-feature">FMA4</span></p></td>
+<td><p><span class="disabled-feature">SSE</span> <span class="disabled-feature">SSE2</span> <span class="disabled-feature">SSE3</span> <span class="disabled-feature">SSSE3</span> <span class="disabled-feature">SSE41</span> <span class="disabled-feature">POPCNT</span> <span class="disabled-feature">SSE42</span> <span class="disabled-feature">AVX</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><span class="disabled-feature">AVX512_SPR</span></p></td>
+<td><p><span class="disabled-feature">SSE</span> <span class="disabled-feature">SSE2</span> <span class="disabled-feature">SSE3</span> <span class="disabled-feature">SSSE3</span> <span class="disabled-feature">SSE41</span> <span class="disabled-feature">POPCNT</span> <span class="disabled-feature">SSE42</span> <span class="disabled-feature">AVX</span> <span class="disabled-feature">F16C</span> <span class="disabled-feature">FMA3</span> <span class="disabled-feature">AVX2</span> <span class="disabled-feature">AVX512F</span> <span class="disabled-feature">AVX512CD</span> <span class="disabled-feature">AVX512_SKX</span> <span class="disabled-feature">AVX512_CLX</span> <span class="disabled-feature">AVX512_CNL</span> <span class="disabled-feature">AVX512_ICL</span></p></td>
+<td><p><span class="disabled-feature">AVX512FP16</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="on-x86-microsoft-visual-c-c">
+<h3>On x86::Microsoft Visual C/C++<a class="headerlink" href="#on-x86-microsoft-visual-c-c" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table table-left">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Implies</p></th>
+<th class="head"><p>Gathers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FMA3</p></td>
+<td><p>SSE SSE2 SSE3 SSSE3 SSE41 POPCNT SSE42 AVX F16C <span class="enabled-feature">AVX2</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>AVX2</p></td>
+<td><p>SSE SSE2 SSE3 SSSE3 SSE41 POPCNT SSE42 AVX F16C <span class="enabled-feature">FMA3</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>AVX512F</p></td>
+<td><p>SSE SSE2 SSE3 SSSE3 SSE41 POPCNT SSE42 AVX F16C FMA3 AVX2 <span class="enabled-feature">AVX512CD</span> <span class="enabled-feature">AVX512_SKX</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>AVX512CD</p></td>
+<td><p>SSE SSE2 SSE3 SSSE3 SSE41 POPCNT SSE42 AVX F16C FMA3 AVX2 AVX512F <span class="enabled-feature">AVX512_SKX</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><span class="disabled-feature">AVX512_KNL</span></p></td>
+<td><p><span class="disabled-feature">SSE</span> <span class="disabled-feature">SSE2</span> <span class="disabled-feature">SSE3</span> <span class="disabled-feature">SSSE3</span> <span class="disabled-feature">SSE41</span> <span class="disabled-feature">POPCNT</span> <span class="disabled-feature">SSE42</span> <span class="disabled-feature">AVX</span> <span class="disabled-feature">F16C</span> <span class="disabled-feature">FMA3</span> <span class="disabled-feature">AVX2</span> <span class="disabled-feature">AVX512F</span> <span class="disabled-feature">AVX512CD</span></p></td>
+<td><p><span class="disabled-feature">AVX512ER</span> <span class="disabled-feature">AVX512PF</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="disabled-feature">AVX512_KNM</span></p></td>
+<td><p><span class="disabled-feature">SSE</span> <span class="disabled-feature">SSE2</span> <span class="disabled-feature">SSE3</span> <span class="disabled-feature">SSSE3</span> <span class="disabled-feature">SSE41</span> <span class="disabled-feature">POPCNT</span> <span class="disabled-feature">SSE42</span> <span class="disabled-feature">AVX</span> <span class="disabled-feature">F16C</span> <span class="disabled-feature">FMA3</span> <span class="disabled-feature">AVX2</span> <span class="disabled-feature">AVX512F</span> <span class="disabled-feature">AVX512CD</span> <span class="disabled-feature">AVX512_KNL</span></p></td>
+<td><p><span class="disabled-feature">AVX5124FMAPS</span> <span class="disabled-feature">AVX5124VNNIW</span> <span class="disabled-feature">AVX512VPOPCNTDQ</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="disabled-feature">AVX512_SPR</span></p></td>
+<td><p><span class="disabled-feature">SSE</span> <span class="disabled-feature">SSE2</span> <span class="disabled-feature">SSE3</span> <span class="disabled-feature">SSSE3</span> <span class="disabled-feature">SSE41</span> <span class="disabled-feature">POPCNT</span> <span class="disabled-feature">SSE42</span> <span class="disabled-feature">AVX</span> <span class="disabled-feature">F16C</span> <span class="disabled-feature">FMA3</span> <span class="disabled-feature">AVX2</span> <span class="disabled-feature">AVX512F</span> <span class="disabled-feature">AVX512CD</span> <span class="disabled-feature">AVX512_SKX</span> <span class="disabled-feature">AVX512_CLX</span> <span class="disabled-feature">AVX512_CNL</span> <span class="disabled-feature">AVX512_ICL</span></p></td>
+<td><p><span class="disabled-feature">AVX512FP16</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="build-report">
+<span id="opt-build-report"></span><h2>Build report<a class="headerlink" href="#build-report" title="Link to this heading">#</a></h2>
+<p>In most cases, the CPU build options do not produce any fatal errors that lead to hanging the build.
+Most of the errors that may appear in the build log serve as heavy warnings due to the lack of some
+expected CPU features by the compiler.</p>
+<p>So we strongly recommend checking the final report log, to be aware of what kind of CPU features
+are enabled and what are not.</p>
+<p>You can find the final report of CPU optimizations at the end of the build log,
+and here is how it looks on x86_64/gcc:</p>
+<style>#build-report .highlight-bash pre{max-height:450px; overflow-y: scroll;}</style><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">########### EXT COMPILER OPTIMIZATION ###########</span>
+Platform<span class="w">      </span>:
+<span class="w">  </span>Architecture:<span class="w"> </span>x64
+<span class="w">  </span>Compiler<span class="w">    </span>:<span class="w"> </span>gcc
+
+CPU<span class="w"> </span>baseline<span class="w">  </span>:
+<span class="w">  </span>Requested<span class="w">   </span>:<span class="w"> </span><span class="s1">&#39;min&#39;</span>
+<span class="w">  </span>Enabled<span class="w">     </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3
+<span class="w">  </span>Flags<span class="w">       </span>:<span class="w"> </span>-msse<span class="w"> </span>-msse2<span class="w"> </span>-msse3
+<span class="w">  </span>Extra<span class="w"> </span>checks:<span class="w"> </span>none
+
+CPU<span class="w"> </span>dispatch<span class="w">  </span>:
+<span class="w">  </span>Requested<span class="w">   </span>:<span class="w"> </span><span class="s1">&#39;max -xop -fma4&#39;</span>
+<span class="w">  </span>Enabled<span class="w">     </span>:<span class="w"> </span>SSSE3<span class="w"> </span>SSE41<span class="w"> </span>POPCNT<span class="w"> </span>SSE42<span class="w"> </span>AVX<span class="w"> </span>F16C<span class="w"> </span>FMA3<span class="w"> </span>AVX2<span class="w"> </span>AVX512F<span class="w"> </span>AVX512CD<span class="w"> </span>AVX512_KNL<span class="w"> </span>AVX512_KNM<span class="w"> </span>AVX512_SKX<span class="w"> </span>AVX512_CLX<span class="w"> </span>AVX512_CNL<span class="w"> </span>AVX512_ICL
+<span class="w">  </span>Generated<span class="w">   </span>:
+<span class="w">              </span>:
+<span class="w">  </span>SSE41<span class="w">       </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3<span class="w"> </span>SSSE3
+<span class="w">  </span>Flags<span class="w">       </span>:<span class="w"> </span>-msse<span class="w"> </span>-msse2<span class="w"> </span>-msse3<span class="w"> </span>-mssse3<span class="w"> </span>-msse4.1
+<span class="w">  </span>Extra<span class="w"> </span>checks:<span class="w"> </span>none
+<span class="w">  </span>Detect<span class="w">      </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3<span class="w"> </span>SSSE3<span class="w"> </span>SSE41
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_arithmetic.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>numpy/_core/src/umath/_umath_tests.dispatch.c
+<span class="w">              </span>:
+<span class="w">  </span>SSE42<span class="w">       </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3<span class="w"> </span>SSSE3<span class="w"> </span>SSE41<span class="w"> </span>POPCNT
+<span class="w">  </span>Flags<span class="w">       </span>:<span class="w"> </span>-msse<span class="w"> </span>-msse2<span class="w"> </span>-msse3<span class="w"> </span>-mssse3<span class="w"> </span>-msse4.1<span class="w"> </span>-mpopcnt<span class="w"> </span>-msse4.2
+<span class="w">  </span>Extra<span class="w"> </span>checks:<span class="w"> </span>none
+<span class="w">  </span>Detect<span class="w">      </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3<span class="w"> </span>SSSE3<span class="w"> </span>SSE41<span class="w"> </span>POPCNT<span class="w"> </span>SSE42
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/_simd/_simd.dispatch.c
+<span class="w">              </span>:
+<span class="w">  </span>AVX2<span class="w">        </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3<span class="w"> </span>SSSE3<span class="w"> </span>SSE41<span class="w"> </span>POPCNT<span class="w"> </span>SSE42<span class="w"> </span>AVX<span class="w"> </span>F16C
+<span class="w">  </span>Flags<span class="w">       </span>:<span class="w"> </span>-msse<span class="w"> </span>-msse2<span class="w"> </span>-msse3<span class="w"> </span>-mssse3<span class="w"> </span>-msse4.1<span class="w"> </span>-mpopcnt<span class="w"> </span>-msse4.2<span class="w"> </span>-mavx<span class="w"> </span>-mf16c<span class="w"> </span>-mavx2
+<span class="w">  </span>Extra<span class="w"> </span>checks:<span class="w"> </span>none
+<span class="w">  </span>Detect<span class="w">      </span>:<span class="w"> </span>AVX<span class="w"> </span>F16C<span class="w"> </span>AVX2
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_arithm_fp.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_arithmetic.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>numpy/_core/src/umath/_umath_tests.dispatch.c
+<span class="w">              </span>:
+<span class="w">  </span><span class="o">(</span>FMA3<span class="w"> </span>AVX2<span class="o">)</span><span class="w"> </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3<span class="w"> </span>SSSE3<span class="w"> </span>SSE41<span class="w"> </span>POPCNT<span class="w"> </span>SSE42<span class="w"> </span>AVX<span class="w"> </span>F16C
+<span class="w">  </span>Flags<span class="w">       </span>:<span class="w"> </span>-msse<span class="w"> </span>-msse2<span class="w"> </span>-msse3<span class="w"> </span>-mssse3<span class="w"> </span>-msse4.1<span class="w"> </span>-mpopcnt<span class="w"> </span>-msse4.2<span class="w"> </span>-mavx<span class="w"> </span>-mf16c<span class="w"> </span>-mfma<span class="w"> </span>-mavx2
+<span class="w">  </span>Extra<span class="w"> </span>checks:<span class="w"> </span>none
+<span class="w">  </span>Detect<span class="w">      </span>:<span class="w"> </span>AVX<span class="w"> </span>F16C<span class="w"> </span>FMA3<span class="w"> </span>AVX2
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/_simd/_simd.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_exponent_log.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_trigonometric.dispatch.c
+<span class="w">              </span>:
+<span class="w">  </span>AVX512F<span class="w">     </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3<span class="w"> </span>SSSE3<span class="w"> </span>SSE41<span class="w"> </span>POPCNT<span class="w"> </span>SSE42<span class="w"> </span>AVX<span class="w"> </span>F16C<span class="w"> </span>FMA3<span class="w"> </span>AVX2
+<span class="w">  </span>Flags<span class="w">       </span>:<span class="w"> </span>-msse<span class="w"> </span>-msse2<span class="w"> </span>-msse3<span class="w"> </span>-mssse3<span class="w"> </span>-msse4.1<span class="w"> </span>-mpopcnt<span class="w"> </span>-msse4.2<span class="w"> </span>-mavx<span class="w"> </span>-mf16c<span class="w"> </span>-mfma<span class="w"> </span>-mavx2<span class="w"> </span>-mavx512f
+<span class="w">  </span>Extra<span class="w"> </span>checks:<span class="w"> </span>AVX512F_REDUCE
+<span class="w">  </span>Detect<span class="w">      </span>:<span class="w"> </span>AVX512F
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/_simd/_simd.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_arithm_fp.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_arithmetic.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_exponent_log.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_trigonometric.dispatch.c
+<span class="w">              </span>:
+<span class="w">  </span>AVX512_SKX<span class="w">  </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3<span class="w"> </span>SSSE3<span class="w"> </span>SSE41<span class="w"> </span>POPCNT<span class="w"> </span>SSE42<span class="w"> </span>AVX<span class="w"> </span>F16C<span class="w"> </span>FMA3<span class="w"> </span>AVX2<span class="w"> </span>AVX512F<span class="w"> </span>AVX512CD
+<span class="w">  </span>Flags<span class="w">       </span>:<span class="w"> </span>-msse<span class="w"> </span>-msse2<span class="w"> </span>-msse3<span class="w"> </span>-mssse3<span class="w"> </span>-msse4.1<span class="w"> </span>-mpopcnt<span class="w"> </span>-msse4.2<span class="w"> </span>-mavx<span class="w"> </span>-mf16c<span class="w"> </span>-mfma<span class="w"> </span>-mavx2<span class="w"> </span>-mavx512f<span class="w"> </span>-mavx512cd<span class="w"> </span>-mavx512vl<span class="w"> </span>-mavx512bw<span class="w"> </span>-mavx512dq
+<span class="w">  </span>Extra<span class="w"> </span>checks:<span class="w"> </span>AVX512BW_MASK<span class="w"> </span>AVX512DQ_MASK
+<span class="w">  </span>Detect<span class="w">      </span>:<span class="w"> </span>AVX512_SKX
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/_simd/_simd.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_arithmetic.dispatch.c
+<span class="w">              </span>:<span class="w"> </span>build/src.linux-x86_64-3.9/numpy/_core/src/umath/loops_exponent_log.dispatch.c
+CCompilerOpt.cache_flush<span class="o">[</span><span class="m">804</span><span class="o">]</span><span class="w"> </span>:<span class="w"> </span>write<span class="w"> </span>cache<span class="w"> </span>to<span class="w"> </span>path<span class="w"> </span>-&gt;<span class="w"> </span>/home/seiko/work/repos/numpy/build/temp.linux-x86_64-3.9/ccompiler_opt_cache_ext.py
+
+<span class="c1">########### CLIB COMPILER OPTIMIZATION ###########</span>
+Platform<span class="w">      </span>:
+<span class="w">  </span>Architecture:<span class="w"> </span>x64
+<span class="w">  </span>Compiler<span class="w">    </span>:<span class="w"> </span>gcc
+
+CPU<span class="w"> </span>baseline<span class="w">  </span>:
+<span class="w">  </span>Requested<span class="w">   </span>:<span class="w"> </span><span class="s1">&#39;min&#39;</span>
+<span class="w">  </span>Enabled<span class="w">     </span>:<span class="w"> </span>SSE<span class="w"> </span>SSE2<span class="w"> </span>SSE3
+<span class="w">  </span>Flags<span class="w">       </span>:<span class="w"> </span>-msse<span class="w"> </span>-msse2<span class="w"> </span>-msse3
+<span class="w">  </span>Extra<span class="w"> </span>checks:<span class="w"> </span>none
+
+CPU<span class="w"> </span>dispatch<span class="w">  </span>:
+<span class="w">  </span>Requested<span class="w">   </span>:<span class="w"> </span><span class="s1">&#39;max -xop -fma4&#39;</span>
+<span class="w">  </span>Enabled<span class="w">     </span>:<span class="w"> </span>SSSE3<span class="w"> </span>SSE41<span class="w"> </span>POPCNT<span class="w"> </span>SSE42<span class="w"> </span>AVX<span class="w"> </span>F16C<span class="w"> </span>FMA3<span class="w"> </span>AVX2<span class="w"> </span>AVX512F<span class="w"> </span>AVX512CD<span class="w"> </span>AVX512_KNL<span class="w"> </span>AVX512_KNM<span class="w"> </span>AVX512_SKX<span class="w"> </span>AVX512_CLX<span class="w"> </span>AVX512_CNL<span class="w"> </span>AVX512_ICL
+<span class="w">  </span>Generated<span class="w">   </span>:<span class="w"> </span>none
+</pre></div>
+</div>
+<p>There is a separate report for each of <code class="docutils literal notranslate"><span class="pre">build_ext</span></code> and <code class="docutils literal notranslate"><span class="pre">build_clib</span></code>
+that includes several sections, and each section has several values, representing the following:</p>
+<p><strong>Platform</strong>:</p>
+<ul class="simple">
+<li><p><span class="enabled-feature">Architecture</span>: The architecture name of target CPU. It should be one of
+<code class="docutils literal notranslate"><span class="pre">x86</span></code>, <code class="docutils literal notranslate"><span class="pre">x64</span></code>, <code class="docutils literal notranslate"><span class="pre">ppc64</span></code>, <code class="docutils literal notranslate"><span class="pre">ppc64le</span></code>, <code class="docutils literal notranslate"><span class="pre">armhf</span></code>, <code class="docutils literal notranslate"><span class="pre">aarch64</span></code>, <code class="docutils literal notranslate"><span class="pre">s390x</span></code> or <code class="docutils literal notranslate"><span class="pre">unknown</span></code>.</p></li>
+<li><p><span class="enabled-feature">Compiler</span>: The compiler name. It should be one of
+gcc, clang, msvc, icc, iccw or unix-like.</p></li>
+</ul>
+<p><strong>CPU baseline</strong>:</p>
+<ul class="simple">
+<li><p><span class="enabled-feature">Requested</span>: The specific features and options to <code class="docutils literal notranslate"><span class="pre">cpu-baseline</span></code> as-is.</p></li>
+<li><p><span class="enabled-feature">Enabled</span>: The final set of enabled CPU features.</p></li>
+<li><p><span class="enabled-feature">Flags</span>: The compiler flags that were used to all NumPy C/C++ sources
+during the compilation except for temporary sources that have been used for generating
+the binary objects of dispatched features.</p></li>
+<li><p><span class="enabled-feature">Extra checks</span>: list of internal checks that activate certain functionality
+or intrinsics related to the enabled features, useful for debugging when it comes
+to developing SIMD kernels.</p></li>
+</ul>
+<p><strong>CPU dispatch</strong>:</p>
+<ul class="simple">
+<li><p><span class="enabled-feature">Requested</span>: The specific features and options to <code class="docutils literal notranslate"><span class="pre">cpu-dispatch</span></code> as-is.</p></li>
+<li><p><span class="enabled-feature">Enabled</span>: The final set of enabled CPU features.</p></li>
+<li><p><span class="enabled-feature">Generated</span>: At the beginning of the next row of this property,
+the features for which optimizations have been generated are shown in the
+form of several sections with similar properties explained as follows:</p>
+<ul>
+<li><p><span class="enabled-feature">One or multiple dispatched feature</span>: The implied CPU features.</p></li>
+<li><p><span class="enabled-feature">Flags</span>: The compiler flags that been used for these features.</p></li>
+<li><p><span class="enabled-feature">Extra checks</span>: Similar to the baseline but for these dispatched features.</p></li>
+<li><p><span class="enabled-feature">Detect</span>: Set of CPU features that need be detected in runtime in order to
+execute the generated optimizations.</p></li>
+<li><p>The lines that come after the above property and end with a ‘:’ on a separate line,
+represent the paths of c/c++ sources that define the generated optimizations.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="runtime-dispatch">
+<span id="runtime-simd-dispatch"></span><h2>Runtime dispatch<a class="headerlink" href="#runtime-dispatch" title="Link to this heading">#</a></h2>
+<p>Importing NumPy triggers a scan of the available CPU features from the set
+of dispatchable features. This can be further restricted by setting the
+environment variable <code class="docutils literal notranslate"><span class="pre">NPY_DISABLE_CPU_FEATURES</span></code> to a comma-, tab-, or
+space-separated list of features to disable. This will raise an error if
+parsing fails or if the feature was not enabled. For instance, on <code class="docutils literal notranslate"><span class="pre">x86_64</span></code>
+this will disable <code class="docutils literal notranslate"><span class="pre">AVX2</span></code> and <code class="docutils literal notranslate"><span class="pre">FMA3</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NPY_DISABLE_CPU_FEATURES</span><span class="o">=</span><span class="s2">&quot;AVX2,FMA3&quot;</span>
+</pre></div>
+</div>
+<p>If the feature is not available, a warning will be emitted.</p>
+</section>
+<section id="tracking-dispatched-functions">
+<h2>Tracking dispatched functions<a class="headerlink" href="#tracking-dispatched-functions" title="Link to this heading">#</a></h2>
+<p>Discovering which CPU targets are enabled for different optimized functions is achievable
+through the Python function <code class="docutils literal notranslate"><span class="pre">numpy.lib.introspect.opt_func_info</span></code>.
+This function offers the flexibility of applying filters using two optional arguments:
+one for refining function names and the other for specifying data types in the signatures.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">&gt;&gt;</span> <span class="n">func_info</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">introspect</span><span class="o">.</span><span class="n">opt_func_info</span><span class="p">(</span><span class="n">func_name</span><span class="o">=</span><span class="s1">&#39;add|abs&#39;</span><span class="p">,</span> <span class="n">signature</span><span class="o">=</span><span class="s1">&#39;float64|complex64&#39;</span><span class="p">)</span>
+ <span class="o">&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">func_info</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+ <span class="p">{</span>
+   <span class="s2">&quot;absolute&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;dd&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;current&quot;</span><span class="p">:</span> <span class="s2">&quot;SSE41&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;available&quot;</span><span class="p">:</span> <span class="s2">&quot;SSE41 baseline(SSE SSE2 SSE3)&quot;</span>
+     <span class="p">},</span>
+     <span class="s2">&quot;Ff&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;current&quot;</span><span class="p">:</span> <span class="s2">&quot;FMA3__AVX2&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;available&quot;</span><span class="p">:</span> <span class="s2">&quot;AVX512F FMA3__AVX2 baseline(SSE SSE2 SSE3)&quot;</span>
+     <span class="p">},</span>
+     <span class="s2">&quot;Dd&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;current&quot;</span><span class="p">:</span> <span class="s2">&quot;FMA3__AVX2&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;available&quot;</span><span class="p">:</span> <span class="s2">&quot;AVX512F FMA3__AVX2 baseline(SSE SSE2 SSE3)&quot;</span>
+     <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;add&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;ddd&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;current&quot;</span><span class="p">:</span> <span class="s2">&quot;FMA3__AVX2&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;available&quot;</span><span class="p">:</span> <span class="s2">&quot;FMA3__AVX2 baseline(SSE SSE2 SSE3)&quot;</span>
+     <span class="p">},</span>
+     <span class="s2">&quot;FFF&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;current&quot;</span><span class="p">:</span> <span class="s2">&quot;FMA3__AVX2&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;available&quot;</span><span class="p">:</span> <span class="s2">&quot;FMA3__AVX2 baseline(SSE SSE2 SSE3)&quot;</span>
+     <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">CPU/SIMD optimizations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="how-it-works.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">How does the CPU dispatcher work?</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick start</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-am-building-numpy-for-my-local-use">I am building NumPy for my local use</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-do-not-want-to-support-the-old-processors-of-the-x86-architecture">I do not want to support the old processors of the x86 architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-m-facing-the-same-case-above-but-with-ppc64-architecture">I’m facing the same case above but with ppc64 architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#having-issues-with-avx512-features">Having issues with AVX512 features?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-features">Supported features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-x86">On x86</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-ibm-power-big-endian">On IBM/POWER big-endian</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-ibm-power-little-endian">On IBM/POWER little-endian</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-armv7-a32">On ARMv7/A32</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-armv8-a64">On ARMv8/A64</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-ibm-zsystem-s390x">On IBM/ZSYSTEM(S390X)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-options">Special options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#behaviors">Behaviors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#platform-differences">Platform differences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-x86-intel-compiler">On x86::Intel Compiler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-x86-microsoft-visual-c-c">On x86::Microsoft Visual C/C++</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-report">Build report</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#runtime-dispatch">Runtime dispatch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-dispatched-functions">Tracking dispatched functions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

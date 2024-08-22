@@ -1,0 +1,704 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>BLAS and LAPACK &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'building/blas_lapack';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cross compilation" href="cross_compilation.html" />
+    <link rel="prev" title="Compiler selection and customizing a build" href="compilers_and_options.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="compilers_and_options.html">Compiler selection and customizing a build</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">BLAS and LAPACK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cross_compilation.html">Cross compilation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redistributable_binaries.html">Building redistributable binaries</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="understanding_meson.html">Understanding Meson</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introspecting_a_build.html">Introspecting build steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils_equivalents.html">Meson and <code class="docutils literal notranslate"><span class="pre">distutils</span></code> ways of doing things</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Building from source</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">BLAS and LAPACK</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="blas-and-lapack">
+<span id="building-blas-and-lapack"></span><h1>BLAS and LAPACK<a class="headerlink" href="#blas-and-lapack" title="Link to this heading">#</a></h1>
+<section id="default-behavior-for-blas-and-lapack-selection">
+<span id="blas-lapack-selection"></span><h2>Default behavior for BLAS and LAPACK selection<a class="headerlink" href="#default-behavior-for-blas-and-lapack-selection" title="Link to this heading">#</a></h2>
+<p>When a NumPy build is invoked, BLAS and LAPACK library detection happens
+automatically. The build system will attempt to locate a suitable library,
+and try a number of known libraries in a certain order - most to least
+performant. A typical order is: MKL, Accelerate, OpenBLAS, FlexiBLAS, BLIS,
+plain <code class="docutils literal notranslate"><span class="pre">libblas</span></code>/<code class="docutils literal notranslate"><span class="pre">liblapack</span></code>. This may vary per platform or over releases.
+That order, and which libraries are tried, can be changed through the
+<code class="docutils literal notranslate"><span class="pre">blas-order</span></code> and <code class="docutils literal notranslate"><span class="pre">lapack-order</span></code> build options, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install . -Csetup-args=-Dblas-order=openblas,mkl,blis -Csetup-args=-Dlapack-order=openblas,mkl,lapack
+</pre></div>
+</div>
+<p>The first suitable library that is found will be used. In case no suitable
+library is found, the NumPy build will print a warning and then use (slow!)
+NumPy-internal fallback routines. In order to disallow use of those slow routines,
+the <code class="docutils literal notranslate"><span class="pre">allow-noblas</span></code> build option can be used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install . -Csetup-args=-Dallow-noblas=false
+</pre></div>
+</div>
+<p>By default the LP64 (32-bit integer) interface to BLAS and LAPACK will be used.
+For building against the ILP64 (64-bit integer) interface, one must use the
+<code class="docutils literal notranslate"><span class="pre">use-ilp64</span></code> build option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install . -Csetup-args=-Duse-ilp64=true
+</pre></div>
+</div>
+</section>
+<section id="selecting-specific-blas-and-lapack-libraries">
+<span id="accelerated-blas-lapack-libraries"></span><h2>Selecting specific BLAS and LAPACK libraries<a class="headerlink" href="#selecting-specific-blas-and-lapack-libraries" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">blas</span></code> and <code class="docutils literal notranslate"><span class="pre">lapack</span></code> build options are set to “auto” by default, which
+means trying all known libraries. If you want to use a specific library, you
+can set these build options to the library name (typically the lower-case name
+that <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> expects). For example, to select plain <code class="docutils literal notranslate"><span class="pre">libblas</span></code> and
+<code class="docutils literal notranslate"><span class="pre">liblapack</span></code> (this is typically Netlib BLAS/LAPACK on Linux distros, and can
+be dynamically switched between implementations on conda-forge), use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ # for a development build
+$ spin build -C-Dblas=blas -C-Dlapack=lapack
+
+$ # to build and install a wheel
+$ python -m build -Csetup-args=-Dblas=blas -Csetup-args=-Dlapack=lapack
+$ pip install dist/numpy*.whl
+
+$ # Or, with pip&gt;=23.1, this works too:
+$ python -m pip install . -Csetup-args=-Dblas=blas -Csetup-args=-Dlapack=lapack
+</pre></div>
+</div>
+<p>Other options that should work (as long as they’re installed with
+<code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> support; otherwise they may still be detected but things are
+inherently more fragile) include <code class="docutils literal notranslate"><span class="pre">openblas</span></code>, <code class="docutils literal notranslate"><span class="pre">mkl</span></code>, <code class="docutils literal notranslate"><span class="pre">accelerate</span></code>,
+<code class="docutils literal notranslate"><span class="pre">atlas</span></code> and <code class="docutils literal notranslate"><span class="pre">blis</span></code>.</p>
+</section>
+<section id="using-pkg-config-to-detect-libraries-in-a-nonstandard-location">
+<h2>Using pkg-config to detect libraries in a nonstandard location<a class="headerlink" href="#using-pkg-config-to-detect-libraries-in-a-nonstandard-location" title="Link to this heading">#</a></h2>
+<p>The way BLAS and LAPACK detection works under the hood is that Meson tries
+to discover the specified libraries first with <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code>, and then
+with CMake. If all you have is a standalone shared library file (e.g.,
+<code class="docutils literal notranslate"><span class="pre">armpl_lp64.so</span></code> in <code class="docutils literal notranslate"><span class="pre">/a/random/path/lib/</span></code> and a corresponding header
+file in <code class="docutils literal notranslate"><span class="pre">/a/random/path/include/</span></code>), then what you have to do is craft
+your own pkg-config file. It should have a matching name (so in this
+example, <code class="docutils literal notranslate"><span class="pre">armpl_lp64.pc</span></code>) and may be located anywhere. The
+<code class="docutils literal notranslate"><span class="pre">PKG_CONFIG_PATH</span></code> environment variable should be set to point to the
+location of the <code class="docutils literal notranslate"><span class="pre">.pc</span></code> file. The contents of that file should be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>libdir=/path/to/library-dir      # e.g., /a/random/path/lib
+includedir=/path/to/include-dir  # e.g., /a/random/path/include
+version=1.2.3                    # set to actual version
+extralib=-lm -lpthread -lgfortran   # if needed, the flags to link in dependencies
+Name: armpl_lp64
+Description: ArmPL - Arm Performance Libraries
+Version: ${version}
+Libs: -L${libdir} -larmpl_lp64      # linker flags
+Libs.private: ${extralib}
+Cflags: -I${includedir}
+</pre></div>
+</div>
+<p>To check that this works as expected, you should be able to run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pkg-config --libs armpl_lp64
+-L/path/to/library-dir -larmpl_lp64
+$ pkg-config --cflags armpl_lp64
+-I/path/to/include-dir
+</pre></div>
+</div>
+</section>
+<section id="full-list-of-blas-and-lapack-related-build-options">
+<h2>Full list of BLAS and LAPACK related build options<a class="headerlink" href="#full-list-of-blas-and-lapack-related-build-options" title="Link to this heading">#</a></h2>
+<p>BLAS and LAPACK are complex dependencies. Some libraries have more options that
+are exposed via build options (see <code class="docutils literal notranslate"><span class="pre">meson_options.txt</span></code> in the root of the
+repo for all of NumPy’s build options).</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">blas</span></code>: name of the BLAS library to use (default: <code class="docutils literal notranslate"><span class="pre">auto</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lapack</span></code>: name of the LAPACK library to use (default: <code class="docutils literal notranslate"><span class="pre">auto</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allow-noblas</span></code>: whether or not to allow building without external
+BLAS/LAPACK libraries (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">blas-order</span></code>: order of BLAS libraries to try detecting (default may vary per platform),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lapack-order</span></code>: order of LAPACK libraries to try detecting,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">use-ilp64</span></code>: whether to use the ILP64 interface (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">blas-symbol-suffix</span></code>: the symbol suffix to use for the detected libraries (default: <code class="docutils literal notranslate"><span class="pre">auto</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mkl-threading</span></code>: which MKL threading layer to use, one of <code class="docutils literal notranslate"><span class="pre">seq</span></code>,
+<code class="docutils literal notranslate"><span class="pre">iomp</span></code>, <code class="docutils literal notranslate"><span class="pre">gomp</span></code>, <code class="docutils literal notranslate"><span class="pre">tbb</span></code> (default: <code class="docutils literal notranslate"><span class="pre">auto</span></code>).</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="compilers_and_options.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Compiler selection and customizing a build</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cross_compilation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Cross compilation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#default-behavior-for-blas-and-lapack-selection">Default behavior for BLAS and LAPACK selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-specific-blas-and-lapack-libraries">Selecting specific BLAS and LAPACK libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pkg-config-to-detect-libraries-in-a-nonstandard-location">Using pkg-config to detect libraries in a nonstandard location</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-list-of-blas-and-lapack-related-build-options">Full list of BLAS and LAPACK related build options</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

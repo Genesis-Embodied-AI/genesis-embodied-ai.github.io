@@ -1,0 +1,783 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>numpy.char.chararray.islower &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/generated/numpy.char.chararray.islower';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="numpy.char.chararray.isnumeric" href="numpy.char.chararray.isnumeric.html" />
+    <link rel="prev" title="numpy.char.chararray.isdigit" href="numpy.char.chararray.isdigit.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../module_structure.html">NumPy’s module structure</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../routines.exceptions.html">numpy.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.fft.html">numpy.fft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.linalg.html">numpy.linalg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.polynomials-package.html">numpy.polynomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../random/index.html">numpy.random</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.strings.html">numpy.strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.testing.html">numpy.testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">numpy.typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.ctypeslib.html">numpy.ctypeslib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.dtypes.html">numpy.dtypes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.emath.html">numpy.emath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.lib.html">numpy.lib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.rec.html">numpy.rec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.version.html">numpy.version</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../routines.char.html">numpy.char</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.add.html">numpy.char.add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.multiply.html">numpy.char.multiply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.mod.html">numpy.char.mod</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.capitalize.html">numpy.char.capitalize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.center.html">numpy.char.center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.decode.html">numpy.char.decode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.encode.html">numpy.char.encode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.expandtabs.html">numpy.char.expandtabs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.join.html">numpy.char.join</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.ljust.html">numpy.char.ljust</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.lower.html">numpy.char.lower</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.lstrip.html">numpy.char.lstrip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.partition.html">numpy.char.partition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.replace.html">numpy.char.replace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.rjust.html">numpy.char.rjust</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.rpartition.html">numpy.char.rpartition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.rsplit.html">numpy.char.rsplit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.rstrip.html">numpy.char.rstrip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.split.html">numpy.char.split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.splitlines.html">numpy.char.splitlines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.strip.html">numpy.char.strip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.swapcase.html">numpy.char.swapcase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.title.html">numpy.char.title</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.translate.html">numpy.char.translate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.upper.html">numpy.char.upper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.zfill.html">numpy.char.zfill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.equal.html">numpy.char.equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.not_equal.html">numpy.char.not_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.greater_equal.html">numpy.char.greater_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.less_equal.html">numpy.char.less_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.greater.html">numpy.char.greater</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.less.html">numpy.char.less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.compare_chararrays.html">numpy.char.compare_chararrays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.count.html">numpy.char.count</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.endswith.html">numpy.char.endswith</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.find.html">numpy.char.find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.index.html">numpy.char.index</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.isalpha.html">numpy.char.isalpha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.isalnum.html">numpy.char.isalnum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.isdecimal.html">numpy.char.isdecimal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.isdigit.html">numpy.char.isdigit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.islower.html">numpy.char.islower</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.isnumeric.html">numpy.char.isnumeric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.isspace.html">numpy.char.isspace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.istitle.html">numpy.char.istitle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.isupper.html">numpy.char.isupper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.rfind.html">numpy.char.rfind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.rindex.html">numpy.char.rindex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.startswith.html">numpy.char.startswith</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.str_len.html">numpy.char.str_len</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.array.html">numpy.char.array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.char.asarray.html">numpy.char.asarray</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="numpy.char.chararray.html">numpy.char.chararray</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.astype.html">numpy.char.chararray.astype</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.argsort.html">numpy.char.chararray.argsort</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.copy.html">numpy.char.chararray.copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.count.html">numpy.char.chararray.count</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.decode.html">numpy.char.chararray.decode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.dump.html">numpy.char.chararray.dump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.dumps.html">numpy.char.chararray.dumps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.encode.html">numpy.char.chararray.encode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.endswith.html">numpy.char.chararray.endswith</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.expandtabs.html">numpy.char.chararray.expandtabs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.fill.html">numpy.char.chararray.fill</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.find.html">numpy.char.chararray.find</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.flatten.html">numpy.char.chararray.flatten</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.getfield.html">numpy.char.chararray.getfield</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.index.html">numpy.char.chararray.index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.isalnum.html">numpy.char.chararray.isalnum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.isalpha.html">numpy.char.chararray.isalpha</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.isdecimal.html">numpy.char.chararray.isdecimal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.isdigit.html">numpy.char.chararray.isdigit</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">numpy.char.chararray.islower</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.isnumeric.html">numpy.char.chararray.isnumeric</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.isspace.html">numpy.char.chararray.isspace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.istitle.html">numpy.char.chararray.istitle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.isupper.html">numpy.char.chararray.isupper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.item.html">numpy.char.chararray.item</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.join.html">numpy.char.chararray.join</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.ljust.html">numpy.char.chararray.ljust</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.lower.html">numpy.char.chararray.lower</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.lstrip.html">numpy.char.chararray.lstrip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.nonzero.html">numpy.char.chararray.nonzero</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.put.html">numpy.char.chararray.put</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.ravel.html">numpy.char.chararray.ravel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.repeat.html">numpy.char.chararray.repeat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.replace.html">numpy.char.chararray.replace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.reshape.html">numpy.char.chararray.reshape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.resize.html">numpy.char.chararray.resize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.rfind.html">numpy.char.chararray.rfind</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.rindex.html">numpy.char.chararray.rindex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.rjust.html">numpy.char.chararray.rjust</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.rsplit.html">numpy.char.chararray.rsplit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.rstrip.html">numpy.char.chararray.rstrip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.searchsorted.html">numpy.char.chararray.searchsorted</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.setfield.html">numpy.char.chararray.setfield</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.setflags.html">numpy.char.chararray.setflags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.sort.html">numpy.char.chararray.sort</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.split.html">numpy.char.chararray.split</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.splitlines.html">numpy.char.chararray.splitlines</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.squeeze.html">numpy.char.chararray.squeeze</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.startswith.html">numpy.char.chararray.startswith</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.strip.html">numpy.char.chararray.strip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.swapaxes.html">numpy.char.chararray.swapaxes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.swapcase.html">numpy.char.chararray.swapcase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.take.html">numpy.char.chararray.take</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.title.html">numpy.char.chararray.title</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.tofile.html">numpy.char.chararray.tofile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.tolist.html">numpy.char.chararray.tolist</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.tostring.html">numpy.char.chararray.tostring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.translate.html">numpy.char.chararray.translate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.transpose.html">numpy.char.chararray.transpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.upper.html">numpy.char.chararray.upper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.view.html">numpy.char.chararray.view</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.char.chararray.zfill.html">numpy.char.chararray.zfill</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../distutils.html">numpy.distutils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../f2py/index.html">numpy.f2py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.ma.html">numpy.ma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.matlib.html">numpy.matlib</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../routines.html">Routines and objects by topic</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../c-api/index.html">NumPy C-API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="numpy.char.chararray.html" class="nav-link">numpy.char.chararray</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">numpy.char.c...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="numpy-char-chararray-islower">
+<h1>numpy.char.chararray.islower<a class="headerlink" href="#numpy-char-chararray-islower" title="Link to this heading">#</a></h1>
+<p>method</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="numpy.char.chararray.islower">
+<span class="sig-prename descclassname"><span class="pre">char.chararray.</span></span><span class="sig-name descname"><span class="pre">islower</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/numpy/numpy/blob/v2.1.0/numpy/_core/defchararray.py#L882-L893"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numpy.char.chararray.islower" title="Link to this definition">#</a></dt>
+<dd><p>Returns true for each element if all cased characters in the
+string are lowercase and there is at least one cased character,
+false otherwise.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="numpy.char.islower.html#numpy.char.islower" title="numpy.char.islower"><code class="xref py py-obj docutils literal notranslate"><span class="pre">char.islower</span></code></a></dt><dd></dd>
+</dl>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="numpy.char.chararray.isdigit.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">numpy.char.chararray.isdigit</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="numpy.char.chararray.isnumeric.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">numpy.char.chararray.isnumeric</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy.char.chararray.islower"><code class="docutils literal notranslate"><span class="pre">char.chararray.islower</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

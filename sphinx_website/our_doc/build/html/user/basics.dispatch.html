@@ -1,0 +1,941 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Writing custom array containers &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user/basics.dispatch';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Subclassing ndarray" href="basics.subclassing.html" />
+    <link rel="prev" title="Byte-swapping" href="byteswapping.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="basics.html">NumPy fundamentals</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos_index.html">NumPy how-tos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../f2py/index.html">F2PY user guide and reference manual</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../dev/underthehood.html">Under-the-hood documentation for developers</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../dev/internals.html">Internal organization of NumPy arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/internals.code-explanations.html">NumPy C code explanations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/alignment.html">Memory alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="byteswapping.html">Byte-swapping</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Writing custom array containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.subclassing.html">Subclassing ndarray</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.interoperability.html">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">NumPy user guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../dev/underthehood.html" class="nav-link">Under-the-hood documentation for developers</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Writing...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="writing-custom-array-containers">
+<span id="basics-dispatch"></span><h1>Writing custom array containers<a class="headerlink" href="#writing-custom-array-containers" title="Link to this heading">#</a></h1>
+<p>Numpy’s dispatch mechanism, introduced in numpy version v1.16 is the
+recommended approach for writing custom N-dimensional array containers that are
+compatible with the numpy API and provide custom implementations of numpy
+functionality. Applications include <a class="reference external" href="http://dask.pydata.org">dask</a> arrays, an
+N-dimensional array distributed across multiple nodes, and <a class="reference external" href="https://docs-cupy.chainer.org/en/stable/">cupy</a> arrays, an N-dimensional array on
+a GPU.</p>
+<p>To get a feel for writing custom array containers, we’ll begin with a simple
+example that has rather narrow utility but illustrates the concepts involved.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">DiagonalArray</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="n">N</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_i</span> <span class="o">=</span> <span class="n">value</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(N=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="si">}</span><span class="s2">, value=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_i</span><span class="si">}</span><span class="s2">)&quot;</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">copy</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="s2">&quot;`copy=False` isn&#39;t supported. A copy is always created.&quot;</span>
+<span class="gp">... </span>            <span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our custom array can be instantiated like:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">DiagonalArray</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span>
+<span class="go">DiagonalArray(N=5, value=1)</span>
+</pre></div>
+</div>
+<p>We can convert to a numpy array using <a class="reference internal" href="../reference/generated/numpy.array.html#numpy.array" title="numpy.array"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.array</span></code></a> or
+<a class="reference internal" href="../reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.asarray</span></code></a>, which will call its <code class="docutils literal notranslate"><span class="pre">__array__</span></code> method to obtain a
+standard <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="go">array([[1., 0., 0., 0., 0.],</span>
+<span class="go">       [0., 1., 0., 0., 0.],</span>
+<span class="go">       [0., 0., 1., 0., 0.],</span>
+<span class="go">       [0., 0., 0., 1., 0.],</span>
+<span class="go">       [0., 0., 0., 0., 1.]])</span>
+</pre></div>
+</div>
+<p>If we operate on <code class="docutils literal notranslate"><span class="pre">arr</span></code> with a numpy function, numpy will again use the
+<code class="docutils literal notranslate"><span class="pre">__array__</span></code> interface to convert it to an array and then apply the function
+in the usual way.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">array([[2., 0., 0., 0., 0.],</span>
+<span class="go">       [0., 2., 0., 0., 0.],</span>
+<span class="go">       [0., 0., 2., 0., 0.],</span>
+<span class="go">       [0., 0., 0., 2., 0.],</span>
+<span class="go">       [0., 0., 0., 0., 2.]])</span>
+</pre></div>
+</div>
+<p>Notice that the return type is a standard <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">&lt;class &#39;numpy.ndarray&#39;&gt;</span>
+</pre></div>
+</div>
+<p>How can we pass our custom array type through this function? Numpy allows a
+class to indicate that it would like to handle computations in a custom-defined
+way through the interfaces <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> and <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code>. Let’s
+take one at a time, starting with <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code>. This method covers
+<a class="reference internal" href="../reference/ufuncs.html#ufuncs"><span class="std std-ref">Universal functions (ufunc)</span></a>, a class of functions that includes, for example,
+<a class="reference internal" href="../reference/generated/numpy.multiply.html#numpy.multiply" title="numpy.multiply"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.multiply</span></code></a> and <a class="reference internal" href="../reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.sin</span></code></a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> receives:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ufunc</span></code>, a function like <code class="docutils literal notranslate"><span class="pre">numpy.multiply</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>, a string, differentiating between <code class="docutils literal notranslate"><span class="pre">numpy.multiply(...)</span></code> and
+variants like <code class="docutils literal notranslate"><span class="pre">numpy.multiply.outer</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.multiply.accumulate</span></code>, and so
+on.  For the common case, <code class="docutils literal notranslate"><span class="pre">numpy.multiply(...)</span></code>, <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">==</span> <span class="pre">'__call__'</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span></code>, which could be a mixture of different types</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kwargs</span></code>, keyword arguments passed to the function</p></li>
+</ul>
+<p>For this example we will only handle the method <code class="docutils literal notranslate"><span class="pre">__call__</span></code></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">DiagonalArray</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="n">N</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_i</span> <span class="o">=</span> <span class="n">value</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(N=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="si">}</span><span class="s2">, value=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_i</span><span class="si">}</span><span class="s2">)&quot;</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">copy</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="s2">&quot;`copy=False` isn&#39;t supported. A copy is always created.&quot;</span>
+<span class="gp">... </span>            <span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__array_ufunc__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;__call__&#39;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">N</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">... </span>            <span class="n">scalars</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">... </span>            <span class="k">for</span> <span class="nb">input</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">Number</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="n">scalars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="gp">... </span>                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="n">scalars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">_i</span><span class="p">)</span>
+<span class="gp">... </span>                    <span class="k">if</span> <span class="n">N</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="k">if</span> <span class="n">N</span> <span class="o">!=</span> <span class="nb">input</span><span class="o">.</span><span class="n">_N</span><span class="p">:</span>
+<span class="gp">... </span>                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;inconsistent sizes&quot;</span><span class="p">)</span>
+<span class="gp">... </span>                    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="n">N</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">_N</span>
+<span class="gp">... </span>                <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">(</span><span class="o">*</span><span class="n">scalars</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">NotImplemented</span>
+</pre></div>
+</div>
+<p>Now our custom array type passes through numpy functions.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">DiagonalArray</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">DiagonalArray(N=5, value=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">DiagonalArray(N=5, value=4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="go">DiagonalArray(N=5, value=0.8414709848078965)</span>
+</pre></div>
+</div>
+<p>At this point <code class="docutils literal notranslate"><span class="pre">arr</span> <span class="pre">+</span> <span class="pre">3</span></code> does not work.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">unsupported operand type(s) for +: &#39;DiagonalArray&#39; and &#39;int&#39;</span>
+</pre></div>
+</div>
+<p>To support it, we need to define the Python interfaces <code class="docutils literal notranslate"><span class="pre">__add__</span></code>, <code class="docutils literal notranslate"><span class="pre">__lt__</span></code>,
+and so on to dispatch to the corresponding ufunc. We can achieve this
+conveniently by inheriting from the mixin
+<a class="reference internal" href="../reference/generated/numpy.lib.mixins.NDArrayOperatorsMixin.html#numpy.lib.mixins.NDArrayOperatorsMixin" title="numpy.lib.mixins.NDArrayOperatorsMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDArrayOperatorsMixin</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy.lib.mixins</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">DiagonalArray</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">mixins</span><span class="o">.</span><span class="n">NDArrayOperatorsMixin</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="n">N</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_i</span> <span class="o">=</span> <span class="n">value</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(N=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="si">}</span><span class="s2">, value=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_i</span><span class="si">}</span><span class="s2">)&quot;</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">copy</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="s2">&quot;`copy=False` isn&#39;t supported. A copy is always created.&quot;</span>
+<span class="gp">... </span>            <span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__array_ufunc__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;__call__&#39;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">N</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">... </span>            <span class="n">scalars</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">... </span>            <span class="k">for</span> <span class="nb">input</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">Number</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="n">scalars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="gp">... </span>                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="n">scalars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">_i</span><span class="p">)</span>
+<span class="gp">... </span>                    <span class="k">if</span> <span class="n">N</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="k">if</span> <span class="n">N</span> <span class="o">!=</span> <span class="nb">input</span><span class="o">.</span><span class="n">_N</span><span class="p">:</span>
+<span class="gp">... </span>                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;inconsistent sizes&quot;</span><span class="p">)</span>
+<span class="gp">... </span>                    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="n">N</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">_N</span>
+<span class="gp">... </span>                <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">(</span><span class="o">*</span><span class="n">scalars</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">NotImplemented</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">DiagonalArray</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="go">DiagonalArray(N=5, value=4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="go">DiagonalArray(N=5, value=True)</span>
+</pre></div>
+</div>
+<p>Now let’s tackle <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code>. We’ll create dict that maps numpy
+functions to our custom variants.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">HANDLED_FUNCTIONS</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">DiagonalArray</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">mixins</span><span class="o">.</span><span class="n">NDArrayOperatorsMixin</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="n">N</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_i</span> <span class="o">=</span> <span class="n">value</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(N=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="si">}</span><span class="s2">, value=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_i</span><span class="si">}</span><span class="s2">)&quot;</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">copy</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="s2">&quot;`copy=False` isn&#39;t supported. A copy is always created.&quot;</span>
+<span class="gp">... </span>            <span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__array_ufunc__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;__call__&#39;</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">N</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">... </span>            <span class="n">scalars</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">... </span>            <span class="k">for</span> <span class="nb">input</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="c1"># In this case we accept only scalar numbers or DiagonalArrays.</span>
+<span class="gp">... </span>                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">Number</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="n">scalars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="gp">... </span>                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="n">scalars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">_i</span><span class="p">)</span>
+<span class="gp">... </span>                    <span class="k">if</span> <span class="n">N</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="k">if</span> <span class="n">N</span> <span class="o">!=</span> <span class="nb">input</span><span class="o">.</span><span class="n">_N</span><span class="p">:</span>
+<span class="gp">... </span>                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;inconsistent sizes&quot;</span><span class="p">)</span>
+<span class="gp">... </span>                    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="n">N</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">_N</span>
+<span class="gp">... </span>                <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">(</span><span class="o">*</span><span class="n">scalars</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__array_function__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">func</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">HANDLED_FUNCTIONS</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">... </span>        <span class="c1"># Note: this allows subclasses that don&#39;t override</span>
+<span class="gp">... </span>        <span class="c1"># __array_function__ to handle DiagonalArray objects.</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">issubclass</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">types</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="bp">NotImplemented</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">HANDLED_FUNCTIONS</span><span class="p">[</span><span class="n">func</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>A convenient pattern is to define a decorator <code class="docutils literal notranslate"><span class="pre">implements</span></code> that can be used
+to add functions to <code class="docutils literal notranslate"><span class="pre">HANDLED_FUNCTIONS</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">implements</span><span class="p">(</span><span class="n">np_function</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="s2">&quot;Register an __array_function__ implementation for DiagonalArray objects.&quot;</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="n">HANDLED_FUNCTIONS</span><span class="p">[</span><span class="n">np_function</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span>
+<span class="gp">... </span>       <span class="k">return</span> <span class="n">func</span>
+<span class="gp">... </span>   <span class="k">return</span> <span class="n">decorator</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>Now we write implementations of numpy functions for <code class="docutils literal notranslate"><span class="pre">DiagonalArray</span></code>.
+For completeness, to support the usage <code class="docutils literal notranslate"><span class="pre">arr.sum()</span></code> add a method <code class="docutils literal notranslate"><span class="pre">sum</span></code> that
+calls <code class="docutils literal notranslate"><span class="pre">numpy.sum(self)</span></code>, and the same for <code class="docutils literal notranslate"><span class="pre">mean</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@implements</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="s2">&quot;Implementation of np.sum for DiagonalArray objects&quot;</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">arr</span><span class="o">.</span><span class="n">_i</span> <span class="o">*</span> <span class="n">arr</span><span class="o">.</span><span class="n">_N</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@implements</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="s2">&quot;Implementation of np.mean for DiagonalArray objects&quot;</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">arr</span><span class="o">.</span><span class="n">_i</span> <span class="o">/</span> <span class="n">arr</span><span class="o">.</span><span class="n">_N</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">DiagonalArray</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="go">0.2</span>
+</pre></div>
+</div>
+<p>If the user tries to use any numpy functions not included in
+<code class="docutils literal notranslate"><span class="pre">HANDLED_FUNCTIONS</span></code>, a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> will be raised by numpy, indicating that
+this operation is not supported. For example, concatenating two
+<code class="docutils literal notranslate"><span class="pre">DiagonalArrays</span></code> does not produce another diagonal array, so it is not
+supported.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">arr</span><span class="p">,</span> <span class="n">arr</span><span class="p">])</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">no implementation found for &#39;numpy.concatenate&#39; on types that implement __array_function__: [&lt;class &#39;__main__.DiagonalArray&#39;&gt;]</span>
+</pre></div>
+</div>
+<p>Additionally, our implementations of <code class="docutils literal notranslate"><span class="pre">sum</span></code> and <code class="docutils literal notranslate"><span class="pre">mean</span></code> do not accept the
+optional arguments that numpy’s implementation does.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">sum() got an unexpected keyword argument &#39;axis&#39;</span>
+</pre></div>
+</div>
+<p>The user always has the option of converting to a normal <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> with
+<a class="reference internal" href="../reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.asarray</span></code></a> and using standard numpy from there.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)])</span>
+<span class="go">array([[1., 0., 0., 0., 0.],</span>
+<span class="go">       [0., 1., 0., 0., 0.],</span>
+<span class="go">       [0., 0., 1., 0., 0.],</span>
+<span class="go">       [0., 0., 0., 1., 0.],</span>
+<span class="go">       [0., 0., 0., 0., 1.],</span>
+<span class="go">       [1., 0., 0., 0., 0.],</span>
+<span class="go">       [0., 1., 0., 0., 0.],</span>
+<span class="go">       [0., 0., 1., 0., 0.],</span>
+<span class="go">       [0., 0., 0., 1., 0.],</span>
+<span class="go">       [0., 0., 0., 0., 1.]])</span>
+</pre></div>
+</div>
+<p>The implementation of <code class="docutils literal notranslate"><span class="pre">DiagonalArray</span></code> in this example only handles the
+<code class="docutils literal notranslate"><span class="pre">np.sum</span></code> and <code class="docutils literal notranslate"><span class="pre">np.mean</span></code> functions for brevity. Many other functions in the
+Numpy API are also available to wrap and a full-fledged custom array container
+can explicitly support all functions that Numpy makes available to wrap.</p>
+<p>Numpy provides some utilities to aid testing of custom array containers that
+implement the <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> and <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> protocols in the
+<code class="docutils literal notranslate"><span class="pre">numpy.testing.overrides</span></code> namespace.</p>
+<p>To check if a Numpy function can be overridden via <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code>, you can
+use <a class="reference internal" href="../reference/generated/numpy.testing.overrides.allows_array_ufunc_override.html#numpy.testing.overrides.allows_array_ufunc_override" title="numpy.testing.overrides.allows_array_ufunc_override"><code class="xref py py-func docutils literal notranslate"><span class="pre">allows_array_ufunc_override</span></code></a>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy.testing.overrides</span> <span class="kn">import</span> <span class="n">allows_array_ufunc_override</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">allows_array_ufunc_override</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Similarly, you can check if a function can be overridden via
+<code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> using
+<a class="reference internal" href="../reference/generated/numpy.testing.overrides.allows_array_function_override.html#numpy.testing.overrides.allows_array_function_override" title="numpy.testing.overrides.allows_array_function_override"><code class="xref py py-func docutils literal notranslate"><span class="pre">allows_array_function_override</span></code></a>.</p>
+<p>Lists of every overridable function in the Numpy API are also available via
+<a class="reference internal" href="../reference/generated/numpy.testing.overrides.get_overridable_numpy_array_functions.html#numpy.testing.overrides.get_overridable_numpy_array_functions" title="numpy.testing.overrides.get_overridable_numpy_array_functions"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_overridable_numpy_array_functions</span></code></a> for
+functions that support the <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> protocol and
+<a class="reference internal" href="../reference/generated/numpy.testing.overrides.get_overridable_numpy_ufuncs.html#numpy.testing.overrides.get_overridable_numpy_ufuncs" title="numpy.testing.overrides.get_overridable_numpy_ufuncs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_overridable_numpy_ufuncs</span></code></a> for functions that
+support the <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> protocol. Both functions return sets of
+functions that are present in the Numpy public API. User-defined ufuncs or
+ufuncs defined in other libraries that depend on Numpy are not present in
+these sets.</p>
+<p>Refer to the <a class="reference external" href="https://github.com/dask/dask">dask source code</a> and
+<a class="reference external" href="https://github.com/cupy/cupy">cupy source code</a>  for more fully-worked
+examples of custom array containers.</p>
+<p>See also <a class="reference external" href="https://numpy.org/neps/nep-0018-array-function-protocol.html" title="(in NumPy Enhancement Proposals)"><span class="xref std std-doc">NEP 18</span></a>.</p>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="byteswapping.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Byte-swapping</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="basics.subclassing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Subclassing ndarray</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

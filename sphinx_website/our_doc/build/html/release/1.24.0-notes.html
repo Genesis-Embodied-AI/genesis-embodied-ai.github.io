@@ -1,0 +1,1266 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NumPy 1.24 Release Notes &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'release/1.24.0-notes';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="NumPy 1.23.5 Release Notes" href="1.23.5-notes.html" />
+    <link rel="prev" title="NumPy 1.24.1 Release Notes" href="1.24.1-notes.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.html">NumPy fundamentals</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/howtos_index.html">NumPy how-tos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../f2py/index.html">F2PY user guide and reference manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/underthehood.html">Under-the-hood documentation for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.interoperability.html">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../release.html">Release notes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2.2.0-notes.html">2.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.1.0-notes.html">2.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.0.1-notes.html">2.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.0.0-notes.html">2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.26.4-notes.html">1.26.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.26.3-notes.html">1.26.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.26.2-notes.html">1.26.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.26.1-notes.html">1.26.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.26.0-notes.html">1.26.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.25.2-notes.html">1.25.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.25.1-notes.html">1.25.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.25.0-notes.html">1.25.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.24.4-notes.html">1.24.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.24.3-notes.html">1.24.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.24.2-notes.html">1.24.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.24.1-notes.html">1.24.1</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.24.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.23.5-notes.html">1.23.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.23.4-notes.html">1.23.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.23.3-notes.html">1.23.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.23.2-notes.html">1.23.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.23.1-notes.html">1.23.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.23.0-notes.html">1.23.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.22.4-notes.html">1.22.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.22.3-notes.html">1.22.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.22.2-notes.html">1.22.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.22.1-notes.html">1.22.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.22.0-notes.html">1.22.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.21.6-notes.html">1.21.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.21.5-notes.html">1.21.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.21.4-notes.html">1.21.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.21.3-notes.html">1.21.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.21.2-notes.html">1.21.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.21.1-notes.html">1.21.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.21.0-notes.html">1.21.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.20.3-notes.html">1.20.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.20.2-notes.html">1.20.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.20.1-notes.html">1.20.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.20.0-notes.html">1.20.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.19.5-notes.html">1.19.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.19.4-notes.html">1.19.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.19.3-notes.html">1.19.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.19.2-notes.html">1.19.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.19.1-notes.html">1.19.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.19.0-notes.html">1.19.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.18.5-notes.html">1.18.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.18.4-notes.html">1.18.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.18.3-notes.html">1.18.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.18.2-notes.html">1.18.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.18.1-notes.html">1.18.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.18.0-notes.html">1.18.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.17.5-notes.html">1.17.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.17.4-notes.html">1.17.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.17.3-notes.html">1.17.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.17.2-notes.html">1.17.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.17.1-notes.html">1.17.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.17.0-notes.html">1.17.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.16.6-notes.html">1.16.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.16.5-notes.html">1.16.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.16.4-notes.html">1.16.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.16.3-notes.html">1.16.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.16.2-notes.html">1.16.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.16.1-notes.html">1.16.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.16.0-notes.html">1.16.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.15.4-notes.html">1.15.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.15.3-notes.html">1.15.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.15.2-notes.html">1.15.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.15.1-notes.html">1.15.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.15.0-notes.html">1.15.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.14.6-notes.html">1.14.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.14.5-notes.html">1.14.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.14.4-notes.html">1.14.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.14.3-notes.html">1.14.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.14.2-notes.html">1.14.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.14.1-notes.html">1.14.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.14.0-notes.html">1.14.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.13.3-notes.html">1.13.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.13.2-notes.html">1.13.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.13.1-notes.html">1.13.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.13.0-notes.html">1.13.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.12.1-notes.html">1.12.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.12.0-notes.html">1.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.11.3-notes.html">1.11.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.11.2-notes.html">1.11.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.11.1-notes.html">1.11.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.11.0-notes.html">1.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.10.4-notes.html">1.10.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.10.3-notes.html">1.10.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.10.2-notes.html">1.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.10.1-notes.html">1.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.10.0-notes.html">1.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.9.2-notes.html">1.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.9.1-notes.html">1.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.9.0-notes.html">1.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.8.2-notes.html">1.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.8.1-notes.html">1.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.8.0-notes.html">1.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.7.2-notes.html">1.7.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.7.1-notes.html">1.7.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.7.0-notes.html">1.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.6.2-notes.html">1.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.6.1-notes.html">1.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.6.0-notes.html">1.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.5.0-notes.html">1.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.4.0-notes.html">1.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1.3.0-notes.html">1.3.0</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user/index.html" class="nav-link">NumPy user guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../release.html" class="nav-link">Release notes</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">NumPy 1.24...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="numpy-1-24-release-notes">
+<h1>NumPy 1.24 Release Notes<a class="headerlink" href="#numpy-1-24-release-notes" title="Link to this heading">#</a></h1>
+<p>The NumPy 1.24.0 release continues the ongoing work to improve the handling and
+promotion of dtypes, increase the execution speed, and clarify the
+documentation.  There are also a large number of new and expired deprecations
+due to changes in promotion and cleanups. This might be called a deprecation
+release. Highlights are</p>
+<ul class="simple">
+<li><p>Many new deprecations, check them out.</p></li>
+<li><p>Many expired deprecations,</p></li>
+<li><p>New F2PY features and fixes.</p></li>
+<li><p>New “dtype” and “casting” keywords for stacking functions.</p></li>
+</ul>
+<p>See below for the details,</p>
+<p>This release supports Python versions 3.8-3.11.</p>
+<section id="deprecations">
+<h2>Deprecations<a class="headerlink" href="#deprecations" title="Link to this heading">#</a></h2>
+<section id="deprecate-fastcopyandtranspose-and-pyarray-copyandtranspose">
+<h3>Deprecate fastCopyAndTranspose and PyArray_CopyAndTranspose<a class="headerlink" href="#deprecate-fastcopyandtranspose-and-pyarray-copyandtranspose" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">numpy.fastCopyAndTranspose</span></code> function has been deprecated. Use the
+corresponding copy and transpose methods directly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The underlying C function <code class="docutils literal notranslate"><span class="pre">PyArray_CopyAndTranspose</span></code> has also been deprecated
+from the NumPy C-API.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22313">gh-22313</a>)</p>
+</section>
+<section id="conversion-of-out-of-bound-python-integers">
+<h3>Conversion of out-of-bound Python integers<a class="headerlink" href="#conversion-of-out-of-bound-python-integers" title="Link to this heading">#</a></h3>
+<p>Attempting a conversion from a Python integer to a NumPy value will now always
+check whether the result can be represented by NumPy.  This means the following
+examples will fail in the future and give a <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> now:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3000</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Many of these did succeed before.  Such code was mainly useful for unsigned
+integers with negative values such as <code class="docutils literal notranslate"><span class="pre">np.uint8(-1)</span></code> giving
+<code class="docutils literal notranslate"><span class="pre">np.iinfo(np.uint8).max</span></code>.</p>
+<p>Note that conversion between NumPy integers is unaffected, so that
+<code class="docutils literal notranslate"><span class="pre">np.array(-1).astype(np.uint8)</span></code> continues to work and use C integer overflow
+logic.  For negative values, it will also work to view the array:
+<code class="docutils literal notranslate"><span class="pre">np.array(-1,</span> <span class="pre">dtype=np.int8).view(np.uint8)</span></code>.
+In some cases, using <code class="docutils literal notranslate"><span class="pre">np.iinfo(np.uint8).max</span></code> or <code class="docutils literal notranslate"><span class="pre">val</span> <span class="pre">%</span> <span class="pre">2**8</span></code> may also
+work well.</p>
+<p>In rare cases input data may mix both negative values and very large unsigned
+values (i.e. <code class="docutils literal notranslate"><span class="pre">-1</span></code> and <code class="docutils literal notranslate"><span class="pre">2**63</span></code>).  There it is unfortunately necessary
+to use <code class="docutils literal notranslate"><span class="pre">%</span></code> on the Python value or use signed or unsigned conversion
+depending on whether negative values are expected.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22385">gh-22385</a>)</p>
+</section>
+<section id="deprecate-msort">
+<h3>Deprecate <code class="docutils literal notranslate"><span class="pre">msort</span></code><a class="headerlink" href="#deprecate-msort" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">numpy.msort</span></code> function is deprecated. Use <code class="docutils literal notranslate"><span class="pre">np.sort(a,</span> <span class="pre">axis=0)</span></code> instead.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22456">gh-22456</a>)</p>
+</section>
+<section id="np-str0-and-similar-are-now-deprecated">
+<h3><code class="docutils literal notranslate"><span class="pre">np.str0</span></code> and similar are now deprecated<a class="headerlink" href="#np-str0-and-similar-are-now-deprecated" title="Link to this heading">#</a></h3>
+<p>The scalar type aliases ending in a 0 bit size: <code class="docutils literal notranslate"><span class="pre">np.object0</span></code>, <code class="docutils literal notranslate"><span class="pre">np.str0</span></code>,
+<code class="docutils literal notranslate"><span class="pre">np.bytes0</span></code>, <code class="docutils literal notranslate"><span class="pre">np.void0</span></code>, <code class="docutils literal notranslate"><span class="pre">np.int0</span></code>, <code class="docutils literal notranslate"><span class="pre">np.uint0</span></code> as well as <code class="docutils literal notranslate"><span class="pre">np.bool8</span></code>
+are now deprecated and will eventually be removed.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22607">gh-22607</a>)</p>
+</section>
+</section>
+<section id="expired-deprecations">
+<h2>Expired deprecations<a class="headerlink" href="#expired-deprecations" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">normed</span></code> keyword argument has been removed from
+<em class="xref py py-obj">np.histogram</em>, <em class="xref py py-obj">np.histogram2d</em>, and <em class="xref py py-obj">np.histogramdd</em>.
+Use <code class="docutils literal notranslate"><span class="pre">density</span></code> instead.  If <code class="docutils literal notranslate"><span class="pre">normed</span></code> was passed by
+position, <code class="docutils literal notranslate"><span class="pre">density</span></code> is now used.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21645">gh-21645</a>)</p>
+</li>
+<li><p>Ragged array creation will now always raise a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> unless
+<code class="docutils literal notranslate"><span class="pre">dtype=object</span></code> is passed.  This includes very deeply nested sequences.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22004">gh-22004</a>)</p>
+</li>
+<li><p>Support for Visual Studio 2015 and earlier has been removed.</p></li>
+<li><p>Support for the Windows Interix POSIX interop layer has been removed.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22139">gh-22139</a>)</p>
+</li>
+<li><p>Support for Cygwin &lt; 3.3 has been removed.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22159">gh-22159</a>)</p>
+</li>
+<li><p>The mini() method of <code class="docutils literal notranslate"><span class="pre">np.ma.MaskedArray</span></code> has been removed. Use either
+<code class="docutils literal notranslate"><span class="pre">np.ma.MaskedArray.min()</span></code> or <code class="docutils literal notranslate"><span class="pre">np.ma.minimum.reduce()</span></code>.</p></li>
+<li><p>The single-argument form of <code class="docutils literal notranslate"><span class="pre">np.ma.minimum</span></code> and <code class="docutils literal notranslate"><span class="pre">np.ma.maximum</span></code> has been
+removed. Use <code class="docutils literal notranslate"><span class="pre">np.ma.minimum.reduce()</span></code> or <code class="docutils literal notranslate"><span class="pre">np.ma.maximum.reduce()</span></code>
+instead.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22228">gh-22228</a>)</p>
+</li>
+<li><p>Passing dtype instances other than the canonical (mainly native byte-order)
+ones to <code class="docutils literal notranslate"><span class="pre">dtype=</span></code> or <code class="docutils literal notranslate"><span class="pre">signature=</span></code> in ufuncs will now raise a
+<code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.  We recommend passing the strings <code class="docutils literal notranslate"><span class="pre">&quot;int8&quot;</span></code> or scalar types
+<code class="docutils literal notranslate"><span class="pre">np.int8</span></code> since the byte-order, datetime/timedelta unit, etc. are never
+enforced.  (Initially deprecated in NumPy 1.21.)</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22540">gh-22540</a>)</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">dtype=</span></code> argument to comparison ufuncs is now applied correctly.  That
+means that only <code class="docutils literal notranslate"><span class="pre">bool</span></code> and <code class="docutils literal notranslate"><span class="pre">object</span></code> are valid values and <code class="docutils literal notranslate"><span class="pre">dtype=object</span></code>
+is enforced.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22541">gh-22541</a>)</p>
+</li>
+<li><p>The deprecation for the aliases <code class="docutils literal notranslate"><span class="pre">np.object</span></code>, <code class="docutils literal notranslate"><span class="pre">np.bool</span></code>, <code class="docutils literal notranslate"><span class="pre">np.float</span></code>,
+<code class="docutils literal notranslate"><span class="pre">np.complex</span></code>, <code class="docutils literal notranslate"><span class="pre">np.str</span></code>, and <code class="docutils literal notranslate"><span class="pre">np.int</span></code> is expired (introduces NumPy
+1.20).  Some of these will now give a FutureWarning in addition to raising an
+error since they will be mapped to the NumPy scalars in the future.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22607">gh-22607</a>)</p>
+</li>
+</ul>
+</section>
+<section id="compatibility-notes">
+<h2>Compatibility notes<a class="headerlink" href="#compatibility-notes" title="Link to this heading">#</a></h2>
+<section id="array-fill-scalar-may-behave-slightly-different">
+<h3><code class="docutils literal notranslate"><span class="pre">array.fill(scalar)</span></code> may behave slightly different<a class="headerlink" href="#array-fill-scalar-may-behave-slightly-different" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">numpy.ndarray.fill</span></code> may in some cases behave slightly different now due to
+the fact that the logic is aligned with item assignment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># with any dtype/value</span>
+<span class="n">arr</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">scalar</span><span class="p">)</span>
+<span class="c1"># is now identical to:</span>
+<span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">scalar</span>
+</pre></div>
+</div>
+<p>Previously casting may have produced slightly different answers when using
+values that could not be represented in the target <code class="docutils literal notranslate"><span class="pre">dtype</span></code> or when the target
+had <code class="docutils literal notranslate"><span class="pre">object</span></code> dtype.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/20924">gh-20924</a>)</p>
+</section>
+<section id="subarray-to-object-cast-now-copies">
+<h3>Subarray to object cast now copies<a class="headerlink" href="#subarray-to-object-cast-now-copies" title="Link to this heading">#</a></h3>
+<p>Casting a dtype that includes a subarray to an object will now ensure a copy of
+the subarray.  Previously an unsafe view was returned:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="n">subarray_fields</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">subarray</span> <span class="o">=</span> <span class="n">subarray_fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># &quot;f&quot; field</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">may_share_memory</span><span class="p">(</span><span class="n">subarray</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Is now always false.  While previously it was true for the specific cast.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21925">gh-21925</a>)</p>
+</section>
+<section id="returned-arrays-respect-uniqueness-of-dtype-kwarg-objects">
+<h3>Returned arrays respect uniqueness of dtype kwarg objects<a class="headerlink" href="#returned-arrays-respect-uniqueness-of-dtype-kwarg-objects" title="Link to this heading">#</a></h3>
+<p>When the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword argument is used with <a class="reference internal" href="../reference/generated/numpy.array.html#numpy.array" title="numpy.array"><code class="xref py py-func docutils literal notranslate"><span class="pre">array</span></code></a> or
+<a class="reference internal" href="../reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray"><code class="xref py py-func docutils literal notranslate"><span class="pre">asarray</span></code></a>, the dtype of the returned array now always exactly
+matches the dtype provided by the caller.</p>
+<p>In some cases this change means that a <em>view</em> rather than the input array is
+returned.  The following is an example for this on 64bit Linux where <code class="docutils literal notranslate"><span class="pre">long</span></code>
+and <code class="docutils literal notranslate"><span class="pre">longlong</span></code> are the same precision but different <code class="docutils literal notranslate"><span class="pre">dtypes</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;long&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;longlong&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">new_dtype</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">is</span> <span class="n">new_dtype</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span> <span class="ow">is</span> <span class="n">arr</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Before the change, the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> did not match because <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">is</span> <span class="pre">arr</span></code> was
+<code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21995">gh-21995</a>)</p>
+</section>
+<section id="dlpack-export-raises-buffererror">
+<h3>DLPack export raises <code class="docutils literal notranslate"><span class="pre">BufferError</span></code><a class="headerlink" href="#dlpack-export-raises-buffererror" title="Link to this heading">#</a></h3>
+<p>When an array buffer cannot be exported via DLPack a <code class="docutils literal notranslate"><span class="pre">BufferError</span></code> is now
+always raised where previously <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> or <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> was raised.
+This allows falling back to the buffer protocol or <code class="docutils literal notranslate"><span class="pre">__array_interface__</span></code> when
+DLPack was tried first.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22542">gh-22542</a>)</p>
+</section>
+<section id="numpy-builds-are-no-longer-tested-on-gcc-6">
+<h3>NumPy builds are no longer tested on GCC-6<a class="headerlink" href="#numpy-builds-are-no-longer-tested-on-gcc-6" title="Link to this heading">#</a></h3>
+<p>Ubuntu 18.04 is deprecated for GitHub actions and GCC-6 is not available on
+Ubuntu 20.04, so builds using that compiler are no longer tested. We still test
+builds using GCC-7 and GCC-8.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22598">gh-22598</a>)</p>
+</section>
+</section>
+<section id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Link to this heading">#</a></h2>
+<section id="new-attribute-symbol-added-to-polynomial-classes">
+<h3>New attribute <code class="docutils literal notranslate"><span class="pre">symbol</span></code> added to polynomial classes<a class="headerlink" href="#new-attribute-symbol-added-to-polynomial-classes" title="Link to this heading">#</a></h3>
+<p>The polynomial classes in the <code class="docutils literal notranslate"><span class="pre">numpy.polynomial</span></code> package have a new
+<code class="docutils literal notranslate"><span class="pre">symbol</span></code> attribute which is used to represent the indeterminate of the
+polynomial.  This can be used to change the value of the variable when
+printing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polynomial</span><span class="o">.</span><span class="n">Polynomial</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">P_y</span><span class="p">)</span>
+<span class="go">1.0 + 0.0·y¹ - 1.0·y²</span>
+</pre></div>
+</div>
+<p>Note that the polynomial classes only support 1D polynomials, so operations
+that involve polynomials with different symbols are disallowed when the result
+would be multivariate:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polynomial</span><span class="o">.</span><span class="n">Polynomial</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># default symbol is &quot;x&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">P_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polynomial</span><span class="o">.</span><span class="n">Polynomial</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">P</span> <span class="o">*</span> <span class="n">P_z</span>
+<span class="go">Traceback (most recent call last)</span>
+<span class="go">   ...</span>
+<span class="go">ValueError: Polynomial symbols differ</span>
+</pre></div>
+</div>
+<p>The symbol can be any valid Python identifier. The default is <code class="docutils literal notranslate"><span class="pre">symbol=x</span></code>,
+consistent with existing behavior.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/16154">gh-16154</a>)</p>
+</section>
+<section id="f2py-support-for-fortran-character-strings">
+<h3>F2PY support for Fortran <code class="docutils literal notranslate"><span class="pre">character</span></code> strings<a class="headerlink" href="#f2py-support-for-fortran-character-strings" title="Link to this heading">#</a></h3>
+<p>F2PY now supports wrapping Fortran functions with:</p>
+<ul class="simple">
+<li><p>character (e.g. <code class="docutils literal notranslate"><span class="pre">character</span> <span class="pre">x</span></code>)</p></li>
+<li><p>character array (e.g. <code class="docutils literal notranslate"><span class="pre">character,</span> <span class="pre">dimension(n)</span> <span class="pre">::</span> <span class="pre">x</span></code>)</p></li>
+<li><p>character string (e.g. <code class="docutils literal notranslate"><span class="pre">character(len=10)</span> <span class="pre">x</span></code>)</p></li>
+<li><p>and character string array (e.g. <code class="docutils literal notranslate"><span class="pre">character(len=10),</span> <span class="pre">dimension(n,</span> <span class="pre">m)</span> <span class="pre">::</span> <span class="pre">x</span></code>)</p></li>
+</ul>
+<p>arguments, including passing Python unicode strings as Fortran character string
+arguments.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/19388">gh-19388</a>)</p>
+</section>
+<section id="new-function-np-show-runtime">
+<h3>New function <code class="docutils literal notranslate"><span class="pre">np.show_runtime</span></code><a class="headerlink" href="#new-function-np-show-runtime" title="Link to this heading">#</a></h3>
+<p>A new function <code class="docutils literal notranslate"><span class="pre">numpy.show_runtime</span></code> has been added to display the runtime
+information of the machine in addition to <code class="docutils literal notranslate"><span class="pre">numpy.show_config</span></code> which displays
+the build-related information.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21468">gh-21468</a>)</p>
+</section>
+<section id="strict-option-for-testing-assert-array-equal">
+<h3><code class="docutils literal notranslate"><span class="pre">strict</span></code> option for <code class="docutils literal notranslate"><span class="pre">testing.assert_array_equal</span></code><a class="headerlink" href="#strict-option-for-testing-assert-array-equal" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">strict</span></code> option is now available for <code class="docutils literal notranslate"><span class="pre">testing.assert_array_equal</span></code>.
+Setting <code class="docutils literal notranslate"><span class="pre">strict=True</span></code> will disable the broadcasting behaviour for scalars and
+ensure that input arrays have the same data type.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21595">gh-21595</a>)</p>
+</section>
+<section id="new-parameter-equal-nan-added-to-np-unique">
+<h3>New parameter <code class="docutils literal notranslate"><span class="pre">equal_nan</span></code> added to <code class="docutils literal notranslate"><span class="pre">np.unique</span></code><a class="headerlink" href="#new-parameter-equal-nan-added-to-np-unique" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">np.unique</span></code> was changed in 1.21 to treat all <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values as equal and
+return a single <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. Setting <code class="docutils literal notranslate"><span class="pre">equal_nan=False</span></code> will restore pre-1.21
+behavior to treat <code class="docutils literal notranslate"><span class="pre">NaNs</span></code> as unique. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21623">gh-21623</a>)</p>
+</section>
+<section id="casting-and-dtype-keyword-arguments-for-numpy-stack">
+<h3><code class="docutils literal notranslate"><span class="pre">casting</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword arguments for <code class="docutils literal notranslate"><span class="pre">numpy.stack</span></code><a class="headerlink" href="#casting-and-dtype-keyword-arguments-for-numpy-stack" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">casting</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword arguments are now available for
+<code class="docutils literal notranslate"><span class="pre">numpy.stack</span></code>.  To use them, write <code class="docutils literal notranslate"><span class="pre">np.stack(...,</span> <span class="pre">dtype=None,</span>
+<span class="pre">casting='same_kind')</span></code>.</p>
+</section>
+<section id="casting-and-dtype-keyword-arguments-for-numpy-vstack">
+<h3><code class="docutils literal notranslate"><span class="pre">casting</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword arguments for <code class="docutils literal notranslate"><span class="pre">numpy.vstack</span></code><a class="headerlink" href="#casting-and-dtype-keyword-arguments-for-numpy-vstack" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">casting</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword arguments are now available for
+<code class="docutils literal notranslate"><span class="pre">numpy.vstack</span></code>.  To use them, write <code class="docutils literal notranslate"><span class="pre">np.vstack(...,</span> <span class="pre">dtype=None,</span>
+<span class="pre">casting='same_kind')</span></code>.</p>
+</section>
+<section id="casting-and-dtype-keyword-arguments-for-numpy-hstack">
+<h3><code class="docutils literal notranslate"><span class="pre">casting</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword arguments for <code class="docutils literal notranslate"><span class="pre">numpy.hstack</span></code><a class="headerlink" href="#casting-and-dtype-keyword-arguments-for-numpy-hstack" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">casting</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword arguments are now available for
+<code class="docutils literal notranslate"><span class="pre">numpy.hstack</span></code>.  To use them, write <code class="docutils literal notranslate"><span class="pre">np.hstack(...,</span> <span class="pre">dtype=None,</span>
+<span class="pre">casting='same_kind')</span></code>.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21627">gh-21627</a>)</p>
+</section>
+<section id="the-bit-generator-underlying-the-singleton-randomstate-can-be-changed">
+<h3>The bit generator underlying the singleton RandomState can be changed<a class="headerlink" href="#the-bit-generator-underlying-the-singleton-randomstate-can-be-changed" title="Link to this heading">#</a></h3>
+<p>The singleton <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> instance exposed in the <code class="docutils literal notranslate"><span class="pre">numpy.random</span></code> module
+is initialized at startup with the <code class="docutils literal notranslate"><span class="pre">MT19937</span></code> bit generator. The new function
+<code class="docutils literal notranslate"><span class="pre">set_bit_generator</span></code> allows the default bit generator to be replaced with a
+user-provided bit generator. This function has been introduced to provide a
+method allowing seamless integration of a high-quality, modern bit generator in
+new code with existing code that makes use of the singleton-provided random
+variate generating functions. The companion function <code class="docutils literal notranslate"><span class="pre">get_bit_generator</span></code>
+returns the current bit generator being used by the singleton <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>.
+This is provided to simplify restoring the original source of randomness if
+required.</p>
+<p>The preferred method to generate reproducible random numbers is to use a modern
+bit generator in an instance of <code class="docutils literal notranslate"><span class="pre">Generator</span></code>. The function <code class="docutils literal notranslate"><span class="pre">default_rng</span></code>
+simplifies instantiation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">3728973198</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rg</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The same bit generator can then be shared with the singleton instance so that
+calling functions in the <code class="docutils literal notranslate"><span class="pre">random</span></code> module will use the same bit generator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">orig_bit_gen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_bit_generator</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_bit_generator</span><span class="p">(</span><span class="n">rg</span><span class="o">.</span><span class="n">bit_generator</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The swap is permanent (until reversed) and so any call to functions in the
+<code class="docutils literal notranslate"><span class="pre">random</span></code> module will use the new bit generator. The original can be restored
+if required for code to run correctly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_bit_generator</span><span class="p">(</span><span class="n">orig_bit_gen</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21976">gh-21976</a>)</p>
+</section>
+<section id="np-void-now-has-a-dtype-argument">
+<h3><code class="docutils literal notranslate"><span class="pre">np.void</span></code> now has a <code class="docutils literal notranslate"><span class="pre">dtype</span></code> argument<a class="headerlink" href="#np-void-now-has-a-dtype-argument" title="Link to this heading">#</a></h3>
+<p>NumPy now allows constructing structured void scalars directly by
+passing the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> argument to <code class="docutils literal notranslate"><span class="pre">np.void</span></code>.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22316">gh-22316</a>)</p>
+</section>
+</section>
+<section id="improvements">
+<h2>Improvements<a class="headerlink" href="#improvements" title="Link to this heading">#</a></h2>
+<section id="f2py-improvements">
+<h3>F2PY Improvements<a class="headerlink" href="#f2py-improvements" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The generated extension modules don’t use the deprecated NumPy-C API anymore</p></li>
+<li><p>Improved <code class="docutils literal notranslate"><span class="pre">f2py</span></code> generated exception messages</p></li>
+<li><p>Numerous bug and <code class="docutils literal notranslate"><span class="pre">flake8</span></code> warning fixes</p></li>
+<li><p>various CPP macros that one can use within C-expressions of signature files
+are prefixed with <code class="docutils literal notranslate"><span class="pre">f2py_</span></code>. For example, one should use <code class="docutils literal notranslate"><span class="pre">f2py_len(x)</span></code>
+instead of <code class="docutils literal notranslate"><span class="pre">len(x)</span></code></p></li>
+<li><p>A new construct <code class="docutils literal notranslate"><span class="pre">character(f2py_len=...)</span></code> is introduced to support
+returning assumed length character strings (e.g. <code class="docutils literal notranslate"><span class="pre">character(len=*)</span></code>) from
+wrapper functions</p></li>
+</ul>
+<p>A hook to support rewriting <code class="docutils literal notranslate"><span class="pre">f2py</span></code> internal data structures after reading all
+its input files is introduced. This is required, for instance, for BC of SciPy
+support where character arguments are treated as character strings arguments in
+<code class="docutils literal notranslate"><span class="pre">C</span></code> expressions.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/19388">gh-19388</a>)</p>
+</section>
+<section id="ibm-zsystems-vector-extension-facility-simd">
+<h3>IBM zSystems Vector Extension Facility (SIMD)<a class="headerlink" href="#ibm-zsystems-vector-extension-facility-simd" title="Link to this heading">#</a></h3>
+<p>Added support for SIMD extensions of zSystem (z13, z14, z15), through the
+universal intrinsics interface. This support leads to performance improvements
+for all SIMD kernels implemented using the universal intrinsics, including the
+following operations: rint, floor, trunc, ceil, sqrt, absolute, square,
+reciprocal, tanh, sin, cos, equal, not_equal, greater, greater_equal, less,
+less_equal, maximum, minimum, fmax, fmin, argmax, argmin, add, subtract,
+multiply, divide.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/20913">gh-20913</a>)</p>
+</section>
+<section id="numpy-now-gives-floating-point-errors-in-casts">
+<h3>NumPy now gives floating point errors in casts<a class="headerlink" href="#numpy-now-gives-floating-point-errors-in-casts" title="Link to this heading">#</a></h3>
+<p>In most cases, NumPy previously did not give floating point warnings or errors
+when these happened during casts.  For examples, casts like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2e300</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>  <span class="c1"># overflow for float32</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Should now generally give floating point warnings.  These warnings should warn
+that floating point overflow occurred.  For errors when converting floating
+point values to integers users should expect invalid value warnings.</p>
+<p>Users can modify the behavior of these warnings using <code class="docutils literal notranslate"><span class="pre">np.errstate</span></code>.</p>
+<p>Note that for float to int casts, the exact warnings that are given may
+be platform dependent.  For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">arr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>May give a result equivalent to (the intermediate cast means no warning is
+given):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>May return an undefined result, with a warning set:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">RuntimeWarning</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">value</span> <span class="n">encountered</span> <span class="ow">in</span> <span class="n">cast</span>
+</pre></div>
+</div>
+<p>The precise behavior is subject to the C99 standard and its implementation in
+both software and hardware.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21437">gh-21437</a>)</p>
+</section>
+<section id="f2py-supports-the-value-attribute">
+<h3>F2PY supports the value attribute<a class="headerlink" href="#f2py-supports-the-value-attribute" title="Link to this heading">#</a></h3>
+<p>The Fortran standard requires that variables declared with the <code class="docutils literal notranslate"><span class="pre">value</span></code>
+attribute must be passed by value instead of reference. F2PY now supports this
+use pattern correctly. So <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in),</span> <span class="pre">value</span> <span class="pre">::</span> <span class="pre">x</span></code> in Fortran codes
+will have correct wrappers generated.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21807">gh-21807</a>)</p>
+</section>
+<section id="added-pickle-support-for-third-party-bitgenerators">
+<h3>Added pickle support for third-party BitGenerators<a class="headerlink" href="#added-pickle-support-for-third-party-bitgenerators" title="Link to this heading">#</a></h3>
+<p>The pickle format for bit generators was extended to allow each bit generator
+to supply its own constructor when during pickling. Previous  versions of NumPy
+only supported unpickling <code class="docutils literal notranslate"><span class="pre">Generator</span></code> instances created with one of the core
+set of bit generators supplied with NumPy. Attempting to unpickle a
+<code class="docutils literal notranslate"><span class="pre">Generator</span></code> that used a third-party bit generators would fail since the
+constructor used during the unpickling was only aware of the bit generators
+included in NumPy.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22014">gh-22014</a>)</p>
+</section>
+<section id="arange-now-explicitly-fails-with-dtype-str">
+<h3>arange() now explicitly fails with dtype=str<a class="headerlink" href="#arange-now-explicitly-fails-with-dtype-str" title="Link to this heading">#</a></h3>
+<p>Previously, the <code class="docutils literal notranslate"><span class="pre">np.arange(n,</span> <span class="pre">dtype=str)</span></code> function worked for <code class="docutils literal notranslate"><span class="pre">n=1</span></code> and
+<code class="docutils literal notranslate"><span class="pre">n=2</span></code>, but would raise a non-specific exception message for other values of
+<code class="docutils literal notranslate"><span class="pre">n</span></code>. Now, it raises a <em class="xref py py-obj">TypeError</em> informing that <code class="docutils literal notranslate"><span class="pre">arange</span></code> does not support
+string dtypes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="go">Traceback (most recent call last)</span>
+<span class="go">   ...</span>
+<span class="go">TypeError: arange() not supported for inputs with DType &lt;class &#39;numpy.dtype[str_]&#39;&gt;.</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22055">gh-22055</a>)</p>
+</section>
+<section id="numpy-typing-protocols-are-now-runtime-checkable">
+<h3><code class="docutils literal notranslate"><span class="pre">numpy.typing</span></code> protocols are now runtime checkable<a class="headerlink" href="#numpy-typing-protocols-are-now-runtime-checkable" title="Link to this heading">#</a></h3>
+<p>The protocols used in <code class="docutils literal notranslate"><span class="pre">numpy.typing.ArrayLike</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.typing.DTypeLike</span></code>
+are now properly marked as runtime checkable, making them easier to use for
+runtime type checkers.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22357">gh-22357</a>)</p>
+</section>
+</section>
+<section id="performance-improvements-and-changes">
+<h2>Performance improvements and changes<a class="headerlink" href="#performance-improvements-and-changes" title="Link to this heading">#</a></h2>
+<section id="faster-version-of-np-isin-and-np-in1d-for-integer-arrays">
+<h3>Faster version of <code class="docutils literal notranslate"><span class="pre">np.isin</span></code> and <code class="docutils literal notranslate"><span class="pre">np.in1d</span></code> for integer arrays<a class="headerlink" href="#faster-version-of-np-isin-and-np-in1d-for-integer-arrays" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">np.in1d</span></code> (used by <code class="docutils literal notranslate"><span class="pre">np.isin</span></code>) can now switch to a faster algorithm (up to
+&gt;10x faster) when it is passed two integer arrays.  This is often automatically
+used, but you can use <code class="docutils literal notranslate"><span class="pre">kind=&quot;sort&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">kind=&quot;table&quot;</span></code> to force the old or
+new method, respectively.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/12065">gh-12065</a>)</p>
+</section>
+<section id="faster-comparison-operators">
+<h3>Faster comparison operators<a class="headerlink" href="#faster-comparison-operators" title="Link to this heading">#</a></h3>
+<p>The comparison functions (<code class="docutils literal notranslate"><span class="pre">numpy.equal</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.not_equal</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.less</span></code>,
+<code class="docutils literal notranslate"><span class="pre">numpy.less_equal</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.greater</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.greater_equal</span></code>) are now
+much faster as they are now vectorized with universal intrinsics. For a CPU
+with SIMD extension AVX512BW, the performance gain is up to 2.57x, 1.65x and
+19.15x for integer, float and boolean data types, respectively (with N=50000).</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21483">gh-21483</a>)</p>
+</section>
+</section>
+<section id="changes">
+<h2>Changes<a class="headerlink" href="#changes" title="Link to this heading">#</a></h2>
+<section id="better-reporting-of-integer-division-overflow">
+<h3>Better reporting of integer division overflow<a class="headerlink" href="#better-reporting-of-integer-division-overflow" title="Link to this heading">#</a></h3>
+<p>Integer division overflow of scalars and arrays used to provide a
+<code class="docutils literal notranslate"><span class="pre">RuntimeWarning</span></code> and the return value was undefined leading to crashes at
+rare occasions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span> <span class="o">//</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&lt;stdin&gt;:1: RuntimeWarning: divide by zero encountered in floor_divide</span>
+<span class="go">array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=int32)</span>
+</pre></div>
+</div>
+<p>Integer division overflow now returns the input dtype’s minimum value and raise
+the following <code class="docutils literal notranslate"><span class="pre">RuntimeWarning</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span> <span class="o">//</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&lt;stdin&gt;:1: RuntimeWarning: overflow encountered in floor_divide</span>
+<span class="go">array([-2147483648, -2147483648, -2147483648, -2147483648, -2147483648,</span>
+<span class="go">       -2147483648, -2147483648, -2147483648, -2147483648, -2147483648],</span>
+<span class="go">      dtype=int32)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/21506">gh-21506</a>)</p>
+</section>
+<section id="masked-invalid-now-modifies-the-mask-in-place">
+<h3><code class="docutils literal notranslate"><span class="pre">masked_invalid</span></code> now modifies the mask in-place<a class="headerlink" href="#masked-invalid-now-modifies-the-mask-in-place" title="Link to this heading">#</a></h3>
+<p>When used with <code class="docutils literal notranslate"><span class="pre">copy=False</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.ma.masked_invalid</span></code> now modifies the
+input masked array in-place.  This makes it behave identically to
+<code class="docutils literal notranslate"><span class="pre">masked_where</span></code> and better matches the documentation.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22046">gh-22046</a>)</p>
+</section>
+<section id="nditer-npyiter-allows-all-allocating-all-operands">
+<h3><code class="docutils literal notranslate"><span class="pre">nditer</span></code>/<code class="docutils literal notranslate"><span class="pre">NpyIter</span></code> allows all allocating all operands<a class="headerlink" href="#nditer-npyiter-allows-all-allocating-all-operands" title="Link to this heading">#</a></h3>
+<p>The NumPy iterator available through <code class="docutils literal notranslate"><span class="pre">np.nditer</span></code> in Python and as <code class="docutils literal notranslate"><span class="pre">NpyIter</span></code>
+in C now supports allocating all arrays.  The iterator shape defaults to <code class="docutils literal notranslate"><span class="pre">()</span></code>
+in this case.  The operands dtype must be provided, since a “common dtype”
+cannot be inferred from the other inputs.</p>
+<p>(<a class="reference external" href="https://github.com/numpy/numpy/pull/22457">gh-22457</a>)</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="1.24.1-notes.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">NumPy 1.24.1 Release Notes</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1.23.5-notes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">NumPy 1.23.5 Release Notes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecations">Deprecations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecate-fastcopyandtranspose-and-pyarray-copyandtranspose">Deprecate fastCopyAndTranspose and PyArray_CopyAndTranspose</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-of-out-of-bound-python-integers">Conversion of out-of-bound Python integers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecate-msort">Deprecate <code class="docutils literal notranslate"><span class="pre">msort</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#np-str0-and-similar-are-now-deprecated"><code class="docutils literal notranslate"><span class="pre">np.str0</span></code> and similar are now deprecated</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expired-deprecations">Expired deprecations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compatibility-notes">Compatibility notes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#array-fill-scalar-may-behave-slightly-different"><code class="docutils literal notranslate"><span class="pre">array.fill(scalar)</span></code> may behave slightly different</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subarray-to-object-cast-now-copies">Subarray to object cast now copies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#returned-arrays-respect-uniqueness-of-dtype-kwarg-objects">Returned arrays respect uniqueness of dtype kwarg objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dlpack-export-raises-buffererror">DLPack export raises <code class="docutils literal notranslate"><span class="pre">BufferError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-builds-are-no-longer-tested-on-gcc-6">NumPy builds are no longer tested on GCC-6</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-features">New Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-attribute-symbol-added-to-polynomial-classes">New attribute <code class="docutils literal notranslate"><span class="pre">symbol</span></code> added to polynomial classes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f2py-support-for-fortran-character-strings">F2PY support for Fortran <code class="docutils literal notranslate"><span class="pre">character</span></code> strings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-function-np-show-runtime">New function <code class="docutils literal notranslate"><span class="pre">np.show_runtime</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strict-option-for-testing-assert-array-equal"><code class="docutils literal notranslate"><span class="pre">strict</span></code> option for <code class="docutils literal notranslate"><span class="pre">testing.assert_array_equal</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-parameter-equal-nan-added-to-np-unique">New parameter <code class="docutils literal notranslate"><span class="pre">equal_nan</span></code> added to <code class="docutils literal notranslate"><span class="pre">np.unique</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#casting-and-dtype-keyword-arguments-for-numpy-stack"><code class="docutils literal notranslate"><span class="pre">casting</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword arguments for <code class="docutils literal notranslate"><span class="pre">numpy.stack</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#casting-and-dtype-keyword-arguments-for-numpy-vstack"><code class="docutils literal notranslate"><span class="pre">casting</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword arguments for <code class="docutils literal notranslate"><span class="pre">numpy.vstack</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#casting-and-dtype-keyword-arguments-for-numpy-hstack"><code class="docutils literal notranslate"><span class="pre">casting</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> keyword arguments for <code class="docutils literal notranslate"><span class="pre">numpy.hstack</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bit-generator-underlying-the-singleton-randomstate-can-be-changed">The bit generator underlying the singleton RandomState can be changed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#np-void-now-has-a-dtype-argument"><code class="docutils literal notranslate"><span class="pre">np.void</span></code> now has a <code class="docutils literal notranslate"><span class="pre">dtype</span></code> argument</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#improvements">Improvements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f2py-improvements">F2PY Improvements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ibm-zsystems-vector-extension-facility-simd">IBM zSystems Vector Extension Facility (SIMD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-now-gives-floating-point-errors-in-casts">NumPy now gives floating point errors in casts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f2py-supports-the-value-attribute">F2PY supports the value attribute</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#added-pickle-support-for-third-party-bitgenerators">Added pickle support for third-party BitGenerators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arange-now-explicitly-fails-with-dtype-str">arange() now explicitly fails with dtype=str</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-typing-protocols-are-now-runtime-checkable"><code class="docutils literal notranslate"><span class="pre">numpy.typing</span></code> protocols are now runtime checkable</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-improvements-and-changes">Performance improvements and changes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#faster-version-of-np-isin-and-np-in1d-for-integer-arrays">Faster version of <code class="docutils literal notranslate"><span class="pre">np.isin</span></code> and <code class="docutils literal notranslate"><span class="pre">np.in1d</span></code> for integer arrays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#faster-comparison-operators">Faster comparison operators</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changes">Changes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#better-reporting-of-integer-division-overflow">Better reporting of integer division overflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-invalid-now-modifies-the-mask-in-place"><code class="docutils literal notranslate"><span class="pre">masked_invalid</span></code> now modifies the mask in-place</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nditer-npyiter-allows-all-allocating-all-operands"><code class="docutils literal notranslate"><span class="pre">nditer</span></code>/<code class="docutils literal notranslate"><span class="pre">NpyIter</span></code> allows all allocating all operands</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

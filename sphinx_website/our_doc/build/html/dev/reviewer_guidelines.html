@@ -1,0 +1,806 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Reviewer guidelines &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dev/reviewer_guidelines';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="../benchmarking.html" />
+    <link rel="prev" title="Advanced debugging tools" href="development_advanced_debugging.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="development_environment.html">Setting up and using your development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto_build_docs.html">Building the NumPy API and reference docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_workflow.html">Development workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_advanced_debugging.html">Advanced debugging tools</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Reviewer guidelines</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/neps/nep-0045-c_style_guide.html">NumPy C style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="depending_on_numpy.html">For downstream package authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing a version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governance/index.html">NumPy governance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-docs.html">How to contribute to the NumPy documentation</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Contributing to NumPy</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Reviewer guidelines</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="reviewer-guidelines">
+<span id="id1"></span><h1>Reviewer guidelines<a class="headerlink" href="#reviewer-guidelines" title="Link to this heading">#</a></h1>
+<p>Reviewing open pull requests (PRs) helps move the project forward. We encourage
+people outside the project to get involved as well; it’s a great way to get
+familiar with the codebase.</p>
+<section id="who-can-be-a-reviewer">
+<h2>Who can be a reviewer?<a class="headerlink" href="#who-can-be-a-reviewer" title="Link to this heading">#</a></h2>
+<p>Reviews can come from outside the NumPy team – we welcome contributions from
+domain experts (for instance, <em class="xref py py-obj">linalg</em> or <em class="xref py py-obj">fft</em>) or maintainers of other
+projects. You do not need to be a NumPy maintainer (a NumPy team member with
+permission to merge a PR) to review.</p>
+<p>If we do not know you yet, consider introducing yourself in <a class="reference external" href="https://numpy.org/community/">the mailing list or
+Slack</a> before you start reviewing pull requests.</p>
+</section>
+<section id="communication-guidelines">
+<h2>Communication guidelines<a class="headerlink" href="#communication-guidelines" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Every PR, good or bad, is an act of generosity. Opening with a positive
+comment will help the author feel rewarded, and your subsequent remarks may be
+heard more clearly. You may feel good also.</p></li>
+<li><p>Begin if possible with the large issues, so the author knows they’ve been
+understood. Resist the temptation to immediately go line by line, or to open
+with small pervasive issues.</p></li>
+<li><p>You are the face of the project, and NumPy some time ago decided <a class="reference external" href="https://numpy.org/code-of-conduct/">the kind of
+project it will be</a>: open, empathetic,
+welcoming, friendly and patient. Be <a class="reference external" href="https://youtu.be/tzFWz5fiVKU?t=49m30s">kind</a> to contributors.</p></li>
+<li><p>Do not let perfect be the enemy of the good, particularly for documentation.
+If you find yourself making many small suggestions, or being too nitpicky on
+style or grammar, consider merging the current PR when all important concerns
+are addressed. Then, either push a commit directly (if you are a maintainer)
+or open a follow-up PR yourself.</p></li>
+<li><p>If you need help writing replies in reviews, check out some
+<a class="reference internal" href="#saved-replies"><span class="std std-ref">standard replies for reviewing</span></a>.</p></li>
+</ul>
+</section>
+<section id="reviewer-checklist">
+<h2>Reviewer checklist<a class="headerlink" href="#reviewer-checklist" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Is the intended behavior clear under all conditions? Some things to watch:</dt><dd><ul>
+<li><p>What happens with unexpected inputs like empty arrays or nan/inf values?</p></li>
+<li><p>Are axis or shape arguments tested to be <em class="xref py py-obj">int</em> or <em class="xref py py-obj">tuples</em>?</p></li>
+<li><p>Are unusual <em class="xref py py-obj">dtypes</em> tested if a function supports those?</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Should variable names be improved for clarity or consistency?</p></li>
+<li><p>Should comments be added, or rather removed as unhelpful or extraneous?</p></li>
+<li><p>Does the documentation follow the <a class="reference internal" href="howto-docs.html#howto-document"><span class="std std-ref">NumPy guidelines</span></a>? Are
+the docstrings properly formatted?</p></li>
+<li><p>Does the code follow NumPy’s <a class="reference internal" href="index.html#stylistic-guidelines"><span class="std std-ref">Stylistic Guidelines</span></a>?</p></li>
+<li><p>If you are a maintainer, and it is not obvious from the PR description, add a
+short explanation of what a branch did to the merge message and, if closing an
+issue, also add “Closes gh-123” where 123 is the issue number.</p></li>
+<li><p>For code changes, at least one maintainer (i.e. someone with commit rights)
+should review and approve a pull request. If you are the first to review a
+PR and approve of the changes use the GitHub <a class="reference external" href="https://help.github.com/articles/reviewing-changes-in-pull-requests/">approve review</a> tool
+to mark it as such. If a PR is straightforward, for example it’s a clearly
+correct bug fix, it can be merged straight away. If it’s more complex or
+changes public API, please leave it open for at least a couple of days so
+other maintainers get a chance to review.</p></li>
+<li><p>If you are a subsequent reviewer on an already approved PR, please use the
+same review method as for a new PR (focus on the larger issues, resist the
+temptation to add only a few nitpicks).  If you have commit rights and think
+no more review is needed, merge the PR.</p></li>
+</ul>
+<section id="for-maintainers">
+<h3>For maintainers<a class="headerlink" href="#for-maintainers" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Make sure all automated CI tests pass before merging a PR, and that the
+<a class="reference internal" href="index.html#building-docs"><span class="std std-ref">documentation builds</span></a> without any errors.</p></li>
+<li><p>In case of merge conflicts, ask the PR submitter to <a class="reference internal" href="development_workflow.html#rebasing-on-main"><span class="std std-ref">rebase on main</span></a>.</p></li>
+<li><p>For PRs that add new features or are in some way complex, wait at least a day
+or two before merging it. That way, others get a chance to comment before the
+code goes in. Consider adding it to the release notes.</p></li>
+<li><p>When merging contributions, a committer is responsible for ensuring that those
+meet the requirements outlined in the <a class="reference internal" href="index.html#guidelines"><span class="std std-ref">Development process guidelines</span></a> for NumPy. Also, check that new features and backwards
+compatibility breaks were discussed on the <a class="reference external" href="https://mail.python.org/mailman/listinfo/numpy-discussion">numpy-discussion mailing list</a>.</p></li>
+<li><p>Squashing commits or cleaning up commit messages of a PR that you consider too
+messy is OK. Remember to retain the original author’s name when doing this.
+Make sure commit messages follow the <a class="reference internal" href="development_workflow.html#writing-the-commit-message"><span class="std std-ref">rules for NumPy</span></a>.</p></li>
+<li><p>When you want to reject a PR: if it’s very obvious, you can just close it and
+explain why. If it’s not, then it’s a good idea to first explain why you
+think the PR is not suitable for inclusion in NumPy and then let a second
+committer comment or close.</p></li>
+<li><p>If the PR submitter doesn’t respond to your comments for 6 months, move the PR
+in question to the inactive category with the “inactive” tag attached.
+At this point, the PR can be closed by a maintainer. If there is any interest
+in finalizing the PR under consideration, this can be indicated at any time,
+without waiting 6 months, by a comment.</p></li>
+<li><p>Maintainers are encouraged to finalize PRs when only small changes are
+necessary before merging (e.g., fixing code style or grammatical errors).
+If a PR becomes inactive, maintainers may make larger changes.
+Remember, a PR is a collaboration between a contributor and a reviewer/s,
+sometimes a direct push is the best way to finish it.</p></li>
+</ul>
+</section>
+<section id="api-changes">
+<h3>API changes<a class="headerlink" href="#api-changes" title="Link to this heading">#</a></h3>
+<p>As mentioned most public API changes should be discussed ahead of time and
+often with a wider audience (on the mailing list, or even through a NEP).</p>
+<p>For changes in the public C-API be aware that the NumPy C-API is backwards
+compatible so that any addition must be ABI compatible with previous versions.
+When it is not the case, you must add a guard.</p>
+<p>For example <code class="docutils literal notranslate"><span class="pre">PyUnicodeScalarObject</span></code> struct contains the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#if NPY_FEATURE_VERSION &gt;= NPY_1_20_API_VERSION</span>
+    <span class="n">char</span> <span class="o">*</span><span class="n">buffer_fmt</span><span class="p">;</span>
+<span class="c1">#endif</span>
+</pre></div>
+</div>
+<p>Because the <code class="docutils literal notranslate"><span class="pre">buffer_fmt</span></code> field was added to its end in NumPy 1.20 (all
+previous fields remained ABI compatible).
+Similarly, any function added to the API table in
+<code class="docutils literal notranslate"><span class="pre">numpy/_core/code_generators/numpy_api.py</span></code> must use the <code class="docutils literal notranslate"><span class="pre">MinVersion</span></code>
+annotation.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;PyDataMem_SetHandler&#39;</span><span class="p">:</span>                 <span class="p">(</span><span class="mi">304</span><span class="p">,</span> <span class="n">MinVersion</span><span class="p">(</span><span class="s2">&quot;1.22&quot;</span><span class="p">)),</span>
+</pre></div>
+</div>
+<p>Header only functionality (such as a new macro) typically does not need to be
+guarded.</p>
+</section>
+<section id="github-workflow">
+<h3>GitHub workflow<a class="headerlink" href="#github-workflow" title="Link to this heading">#</a></h3>
+<p>When reviewing pull requests, please use workflow tracking features on GitHub as
+appropriate:</p>
+<ul class="simple">
+<li><p>After you have finished reviewing, if you want to ask for the submitter to
+make changes, change your review status to “Changes requested.” This can be
+done on GitHub, PR page, Files changed tab, Review changes (button on the top
+right).</p></li>
+<li><p>If you’re happy about the current status, mark the pull request as Approved
+(same way as Changes requested). Alternatively (for maintainers): merge
+the pull request, if you think it is ready to be merged.</p></li>
+</ul>
+<p>It may be helpful to have a copy of the pull request code checked out on your
+own machine so that you can play with it locally. You can use the <a class="reference external" href="https://docs.github.com/en/github/getting-started-with-github/github-cli">GitHub CLI</a> to
+do this by clicking the <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">with</span></code> button in the upper right-hand corner of
+the PR page.</p>
+<p>Assuming you have your <a class="reference internal" href="development_environment.html#development-environment"><span class="std std-ref">development environment</span></a>
+set up, you can now build the code and test it.</p>
+</section>
+</section>
+<section id="standard-replies-for-reviewing">
+<span id="saved-replies"></span><h2>Standard replies for reviewing<a class="headerlink" href="#standard-replies-for-reviewing" title="Link to this heading">#</a></h2>
+<p>It may be helpful to store some of these in GitHub’s <a class="reference external" href="https://github.com/settings/replies/">saved
+replies</a> for reviewing:</p>
+<dl>
+<dt><strong>Usage question</strong></dt><dd><div class="highlight-md notranslate"><div class="highlight"><pre><span></span>You are asking a usage question. The issue tracker is for bugs and new features.
+I&#39;m going to close this issue, feel free to ask for help via our [<span class="nt">help channels</span>](<span class="na">https://numpy.org/gethelp/</span>).
+</pre></div>
+</div>
+</dd>
+<dt><strong>You’re welcome to update the docs</strong></dt><dd><div class="highlight-md notranslate"><div class="highlight"><pre><span></span>Please feel free to offer a pull request updating the documentation if you feel it could be improved.
+</pre></div>
+</div>
+</dd>
+<dt><strong>Self-contained example for bug</strong></dt><dd><div class="highlight-md notranslate"><div class="highlight"><pre><span></span>Please provide a [<span class="nt">self-contained example code</span>](<span class="na">https://stackoverflow.com/help/mcve</span>), including imports and data (if possible), so that other contributors can just run it and reproduce your issue.
+Ideally your example code should be minimal.
+</pre></div>
+</div>
+</dd>
+<dt><strong>Software versions</strong></dt><dd><div class="highlight-md notranslate"><div class="highlight"><pre><span></span>To help diagnose your issue, please paste the output of:
+<span class="sb">```</span>
+<span class="sb">python -c &#39;import numpy; print(numpy.version.version)&#39;</span>
+<span class="sb">```</span>
+Thanks.
+</pre></div>
+</div>
+</dd>
+<dt><strong>Code blocks</strong></dt><dd><div class="highlight-md notranslate"><div class="highlight"><pre><span></span>Readability can be greatly improved if you [<span class="nt">format</span>](<span class="na">https://help.github.com/articles/creating-and-highlighting-code-blocks/</span>) your code snippets and complete error messages appropriately.
+You can edit your issue descriptions and comments at any time to improve readability.
+This helps maintainers a lot. Thanks!
+</pre></div>
+</div>
+</dd>
+<dt><strong>Linking to code</strong></dt><dd><div class="highlight-md notranslate"><div class="highlight"><pre><span></span>For clarity&#39;s sake, you can link to code like [<span class="nt">this</span>](<span class="na">https://help.github.com/articles/creating-a-permanent-link-to-a-code-snippet/</span>).
+</pre></div>
+</div>
+</dd>
+<dt><strong>Better description and title</strong></dt><dd><div class="highlight-md notranslate"><div class="highlight"><pre><span></span>Please make the title of the PR more descriptive.
+The title will become the commit message when this is merged.
+You should state what issue (or PR) it fixes/resolves in the description using the syntax described [<span class="nt">here</span>](<span class="na">https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword</span>).
+</pre></div>
+</div>
+</dd>
+<dt><strong>Regression test needed</strong></dt><dd><div class="highlight-md notranslate"><div class="highlight"><pre><span></span>Please add a [<span class="nt">non-regression test</span>](<span class="na">https://en.wikipedia.org/wiki/Non-regression_testing</span>) that would fail at main but pass in this PR.
+</pre></div>
+</div>
+</dd>
+<dt><strong>Don’t change unrelated</strong></dt><dd><div class="highlight-md notranslate"><div class="highlight"><pre><span></span>Please do not change unrelated lines. It makes your contribution harder to review and may introduce merge conflicts to other pull requests.
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="development_advanced_debugging.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Advanced debugging tools</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../benchmarking.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-can-be-a-reviewer">Who can be a reviewer?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-guidelines">Communication guidelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewer-checklist">Reviewer checklist</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-maintainers">For maintainers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-changes">API changes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#github-workflow">GitHub workflow</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-replies-for-reviewing">Standard replies for reviewing</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1178 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ufunc API &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="../../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/c-api/ufunc';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Generalized universal function API" href="generalized-ufuncs.html" />
+    <link rel="prev" title="Array iterator API" href="iterator.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../routines.html">Routines and objects by topic</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">NumPy C-API</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="types-and-structures.html">Python types and C-structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">System configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dtype.html">Data type API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html">Array API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterator.html">Array iterator API</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">ufunc API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generalized-ufuncs.html">Generalized universal function API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strings.html">NpyString API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coremath.html">NumPy core math library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datetimes.html">Datetime API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deprecations.html">C API deprecations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_memory.html">Memory management in NumPy</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">NumPy C-API</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">ufunc API</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ufunc-api">
+<h1>ufunc API<a class="headerlink" href="#ufunc-api" title="Link to this heading">#</a></h1>
+<section id="constants">
+<span id="index-0"></span><h2>Constants<a class="headerlink" href="#constants" title="Link to this heading">#</a></h2>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">UFUNC_{THING}_{ERR}</span></code></dt><dd><dl class="c macro">
+<dt class="sig sig-object c" id="c.UFUNC_FPE_DIVIDEBYZERO">
+<span class="sig-name descname"><span class="n"><span class="pre">UFUNC_FPE_DIVIDEBYZERO</span></span></span><a class="headerlink" href="#c.UFUNC_FPE_DIVIDEBYZERO" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.UFUNC_FPE_OVERFLOW">
+<span class="sig-name descname"><span class="n"><span class="pre">UFUNC_FPE_OVERFLOW</span></span></span><a class="headerlink" href="#c.UFUNC_FPE_OVERFLOW" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.UFUNC_FPE_UNDERFLOW">
+<span class="sig-name descname"><span class="n"><span class="pre">UFUNC_FPE_UNDERFLOW</span></span></span><a class="headerlink" href="#c.UFUNC_FPE_UNDERFLOW" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.UFUNC_FPE_INVALID">
+<span class="sig-name descname"><span class="n"><span class="pre">UFUNC_FPE_INVALID</span></span></span><a class="headerlink" href="#c.UFUNC_FPE_INVALID" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">PyUFunc_{VALUE}</span></code></dt><dd><dl class="c macro">
+<dt class="sig sig-object c" id="c.PyUFunc_One">
+<span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_One</span></span></span><a class="headerlink" href="#c.PyUFunc_One" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.PyUFunc_Zero">
+<span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_Zero</span></span></span><a class="headerlink" href="#c.PyUFunc_Zero" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.PyUFunc_MinusOne">
+<span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_MinusOne</span></span></span><a class="headerlink" href="#c.PyUFunc_MinusOne" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.PyUFunc_ReorderableNone">
+<span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_ReorderableNone</span></span></span><a class="headerlink" href="#c.PyUFunc_ReorderableNone" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.PyUFunc_None">
+<span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_None</span></span></span><a class="headerlink" href="#c.PyUFunc_None" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.PyUFunc_IdentityValue">
+<span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_IdentityValue</span></span></span><a class="headerlink" href="#c.PyUFunc_IdentityValue" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd>
+</dl>
+</section>
+<section id="macros">
+<h2>Macros<a class="headerlink" href="#macros" title="Link to this heading">#</a></h2>
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.NPY_LOOP_BEGIN_THREADS">
+<span class="sig-name descname"><span class="n"><span class="pre">NPY_LOOP_BEGIN_THREADS</span></span></span><a class="headerlink" href="#c.NPY_LOOP_BEGIN_THREADS" title="Link to this definition">#</a><br /></dt>
+<dd><p>Used in universal function code to only release the Python GIL if
+loop-&gt;obj is not true (<em>i.e.</em> this is not an OBJECT array
+loop). Requires use of <a class="reference internal" href="array.html#c.NPY_BEGIN_THREADS_DEF" title="NPY_BEGIN_THREADS_DEF"><code class="xref c c-macro docutils literal notranslate"><span class="pre">NPY_BEGIN_THREADS_DEF</span></code></a> in variable
+declaration area.</p>
+</dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.NPY_LOOP_END_THREADS">
+<span class="sig-name descname"><span class="n"><span class="pre">NPY_LOOP_END_THREADS</span></span></span><a class="headerlink" href="#c.NPY_LOOP_END_THREADS" title="Link to this definition">#</a><br /></dt>
+<dd><p>Used in universal function code to re-acquire the Python GIL if it
+was released (because loop-&gt;obj was not true).</p>
+</dd></dl>
+
+</section>
+<section id="types">
+<h2>Types<a class="headerlink" href="#types" title="Link to this heading">#</a></h2>
+<dl class="c type">
+<dt class="sig sig-object c" id="c.PyUFuncGenericFunction">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFuncGenericFunction</span></span></span><a class="headerlink" href="#c.PyUFuncGenericFunction" title="Link to this definition">#</a><br /></dt>
+<dd><p>Pointers to functions that actually implement the underlying
+(element-by-element) function <span class="math notranslate nohighlight">\(N\)</span> times with the following
+signature:</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFuncGenericFunction.loopfunc">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">loopfunc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFuncGenericFunction.loopfunc" title="Link to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – An array of pointers to the actual data for the input and output
+arrays. The input arguments are given first followed by the output
+arguments.</p></li>
+<li><p><strong>dimensions</strong> – A pointer to the size of the dimension over which this function is
+looping.</p></li>
+<li><p><strong>steps</strong> – A pointer to the number of bytes to jump to get to the
+next element in this dimension for each of the input and
+output arguments.</p></li>
+<li><p><strong>data</strong> – <p>Arbitrary data (extra arguments, function names, <em>etc.</em> )
+that can be stored with the ufunc and will be passed in
+when it is called. May be <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.23.0: </span>Accepts <code class="docutils literal notranslate"><span class="pre">NULL</span></code> <em class="xref py py-obj">data</em> in addition to array of <code class="docutils literal notranslate"><span class="pre">NULL</span></code> values.</p>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p>This is an example of a func specialized for addition of doubles
+returning doubles.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span>
+<span class="nf">double_add</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">args</span><span class="p">,</span>
+<span class="w">           </span><span class="n">npy_intp</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">dimensions</span><span class="p">,</span>
+<span class="w">           </span><span class="n">npy_intp</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">steps</span><span class="p">,</span>
+<span class="w">           </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">extra</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">npy_intp</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="n">npy_intp</span><span class="w"> </span><span class="n">is1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">is2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">steps</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="n">npy_intp</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">steps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">i1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">*</span><span class="n">i2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="o">*</span><span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">*</span><span class="p">((</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">op</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">((</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">i1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                          </span><span class="o">*</span><span class="p">((</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">i2</span><span class="p">);</span>
+<span class="w">        </span><span class="n">i1</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">is1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">i2</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">is2</span><span class="p">;</span>
+<span class="w">        </span><span class="n">op</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">os</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_FromFuncAndData">
+<a class="reference external" href="https://docs.python.org/3/c-api/structures.html#c.PyObject" title="(in Python v3.12)"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_FromFuncAndData</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#c.PyUFuncGenericFunction" title="PyUFuncGenericFunction"><span class="n"><span class="pre">PyUFuncGenericFunction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">types</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">ntypes</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nin</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nout</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">identity</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">doc</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">unused</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_FromFuncAndData" title="Link to this definition">#</a><br /></dt>
+<dd><p>Create a new broadcasting universal function from required variables.
+Each ufunc builds around the notion of an element-by-element
+operation. Each ufunc object contains pointers to 1-d loops
+implementing the basic functionality for each supported type.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <em>func</em>, <em>data</em>, <em>types</em>, <em>name</em>, and <em>doc</em> arguments are not
+copied by <a class="reference internal" href="#c.PyUFunc_FromFuncAndData" title="PyUFunc_FromFuncAndData"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyUFunc_FromFuncAndData</span></code></a>. The caller must ensure
+that the memory used by these arrays is not freed as long as the
+ufunc object is alive.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – Must point to an array containing <em>ntypes</em>
+<a class="reference internal" href="#c.PyUFuncGenericFunction" title="PyUFuncGenericFunction"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyUFuncGenericFunction</span></code></a> elements.</p></li>
+<li><p><strong>data</strong> – Should be <code class="docutils literal notranslate"><span class="pre">NULL</span></code> or a pointer to an array of size <em>ntypes</em>.
+This array may contain arbitrary extra-data to be passed to
+the corresponding loop function in the func array, including
+<code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p></li>
+<li><p><strong>types</strong> – <p>Length <code class="docutils literal notranslate"><span class="pre">(nin</span> <span class="pre">+</span> <span class="pre">nout)</span> <span class="pre">*</span> <span class="pre">ntypes</span></code> array of <code class="docutils literal notranslate"><span class="pre">char</span></code> encoding the
+<a class="reference internal" href="../generated/numpy.dtype.num.html#numpy.dtype.num" title="numpy.dtype.num"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.dtype.num</span></code></a> (built-in only) that the corresponding
+function in the <code class="docutils literal notranslate"><span class="pre">func</span></code> array accepts. For instance, for a comparison
+ufunc with three <code class="docutils literal notranslate"><span class="pre">ntypes</span></code>, two <code class="docutils literal notranslate"><span class="pre">nin</span></code> and one <code class="docutils literal notranslate"><span class="pre">nout</span></code>, where the
+first function accepts <a class="reference internal" href="../arrays.scalars.html#numpy.int32" title="numpy.int32"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.int32</span></code></a> and the second
+<a class="reference internal" href="../arrays.scalars.html#numpy.int64" title="numpy.int64"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.int64</span></code></a>, with both returning <a class="reference internal" href="../arrays.scalars.html#numpy.bool_" title="numpy.bool_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.bool_</span></code></a>, <code class="docutils literal notranslate"><span class="pre">types</span></code> would
+be <code class="docutils literal notranslate"><span class="pre">(char[])</span> <span class="pre">{5,</span> <span class="pre">5,</span> <span class="pre">0,</span> <span class="pre">7,</span> <span class="pre">7,</span> <span class="pre">0}</span></code> since <code class="docutils literal notranslate"><span class="pre">NPY_INT32</span></code> is 5,
+<code class="docutils literal notranslate"><span class="pre">NPY_INT64</span></code> is 7, and <code class="docutils literal notranslate"><span class="pre">NPY_BOOL</span></code> is 0.</p>
+<p>The bit-width names can also be used (e.g. <a class="reference internal" href="dtype.html#c.NPY_TYPES.NPY_INT32" title="NPY_INT32"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_INT32</span></code></a>,
+<a class="reference internal" href="dtype.html#c.NPY_TYPES.NPY_COMPLEX128" title="NPY_COMPLEX128"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_COMPLEX128</span></code></a> ) if desired.</p>
+<p><a class="reference internal" href="../../user/basics.ufuncs.html#ufuncs-casting"><span class="std std-ref">Type casting rules</span></a> will be used at runtime to find the first
+<code class="docutils literal notranslate"><span class="pre">func</span></code> callable by the input/output provided.</p>
+</p></li>
+<li><p><strong>ntypes</strong> – How many different data-type-specific functions the ufunc has implemented.</p></li>
+<li><p><strong>nin</strong> – The number of inputs to this operation.</p></li>
+<li><p><strong>nout</strong> – The number of outputs</p></li>
+<li><p><strong>identity</strong> – Either <a class="reference internal" href="#c.PyUFunc_One" title="PyUFunc_One"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyUFunc_One</span></code></a>, <a class="reference internal" href="#c.PyUFunc_Zero" title="PyUFunc_Zero"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyUFunc_Zero</span></code></a>,
+<a class="reference internal" href="#c.PyUFunc_MinusOne" title="PyUFunc_MinusOne"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyUFunc_MinusOne</span></code></a>, or <a class="reference internal" href="#c.PyUFunc_None" title="PyUFunc_None"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyUFunc_None</span></code></a>.
+This specifies what should be returned when
+an empty array is passed to the reduce method of the ufunc.
+The special value <a class="reference internal" href="#c.PyUFunc_IdentityValue" title="PyUFunc_IdentityValue"><code class="xref c c-data docutils literal notranslate"><span class="pre">PyUFunc_IdentityValue</span></code></a> may only be used with
+the <a class="reference internal" href="#c.PyUFunc_FromFuncAndDataAndSignatureAndIdentity" title="PyUFunc_FromFuncAndDataAndSignatureAndIdentity"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyUFunc_FromFuncAndDataAndSignatureAndIdentity</span></code></a> method, to
+allow an arbitrary python object to be used as the identity.</p></li>
+<li><p><strong>name</strong> – The name for the ufunc as a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> terminated string.  Specifying
+a name of ‘add’ or ‘multiply’ enables a special behavior for
+integer-typed reductions when no dtype is given. If the input type is an
+integer (or boolean) data type smaller than the size of the <a class="reference internal" href="../arrays.scalars.html#numpy.int_" title="numpy.int_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.int_</span></code></a>
+data type, it will be internally upcast to the <a class="reference internal" href="../arrays.scalars.html#numpy.int_" title="numpy.int_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.int_</span></code></a> (or
+<a class="reference internal" href="../arrays.scalars.html#numpy.uint" title="numpy.uint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.uint</span></code></a>) data type.</p></li>
+<li><p><strong>doc</strong> – Allows passing in a documentation string to be stored with the
+ufunc.  The documentation string should not contain the name
+of the function or the calling signature as that will be
+dynamically determined from the object and available when
+accessing the <strong>__doc__</strong> attribute of the ufunc.</p></li>
+<li><p><strong>unused</strong> – Unused and present for backwards compatibility of the C-API.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_FromFuncAndDataAndSignature">
+<a class="reference external" href="https://docs.python.org/3/c-api/structures.html#c.PyObject" title="(in Python v3.12)"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_FromFuncAndDataAndSignature</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#c.PyUFuncGenericFunction" title="PyUFuncGenericFunction"><span class="n"><span class="pre">PyUFuncGenericFunction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">types</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">ntypes</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nin</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nout</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">identity</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">doc</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">unused</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">signature</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_FromFuncAndDataAndSignature" title="Link to this definition">#</a><br /></dt>
+<dd><p>This function is very similar to PyUFunc_FromFuncAndData above, but has
+an extra <em>signature</em> argument, to define a
+<a class="reference internal" href="generalized-ufuncs.html#c-api-generalized-ufuncs"><span class="std std-ref">generalized universal functions</span></a>.
+Similarly to how ufuncs are built around an element-by-element operation,
+gufuncs are around subarray-by-subarray operations, the
+<a class="reference internal" href="generalized-ufuncs.html#details-of-signature"><span class="std std-ref">signature</span></a> defining the subarrays to operate on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signature</strong> – The signature for the new gufunc. Setting it to NULL is equivalent
+to calling PyUFunc_FromFuncAndData. A copy of the string is made,
+so the passed in buffer can be freed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_FromFuncAndDataAndSignatureAndIdentity">
+<a class="reference external" href="https://docs.python.org/3/c-api/structures.html#c.PyObject" title="(in Python v3.12)"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_FromFuncAndDataAndSignatureAndIdentity</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#c.PyUFuncGenericFunction" title="PyUFuncGenericFunction"><span class="n"><span class="pre">PyUFuncGenericFunction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">types</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">ntypes</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nin</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nout</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">identity</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">doc</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">unused</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">signature</span></span>, <a class="reference external" href="https://docs.python.org/3/c-api/structures.html#c.PyObject" title="(in Python v3.12)"><span class="n"><span class="pre">PyObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">identity_value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_FromFuncAndDataAndSignatureAndIdentity" title="Link to this definition">#</a><br /></dt>
+<dd><p>This function is very similar to <a class="reference internal" href="#c.PyUFunc_FromFuncAndDataAndSignature" title="PyUFunc_FromFuncAndDataAndSignature"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyUFunc_FromFuncAndDataAndSignature</span></code></a> above,
+but has an extra <em>identity_value</em> argument, to define an arbitrary identity
+for the ufunc when <code class="docutils literal notranslate"><span class="pre">identity</span></code> is passed as <code class="docutils literal notranslate"><span class="pre">PyUFunc_IdentityValue</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>identity_value</strong> – The identity for the new gufunc. Must be passed as <code class="docutils literal notranslate"><span class="pre">NULL</span></code> unless the
+<code class="docutils literal notranslate"><span class="pre">identity</span></code> argument is <code class="docutils literal notranslate"><span class="pre">PyUFunc_IdentityValue</span></code>. Setting it to NULL
+is equivalent to calling PyUFunc_FromFuncAndDataAndSignature.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_RegisterLoopForType">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_RegisterLoopForType</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types-and-structures.html#c.PyUFuncObject" title="PyUFuncObject"><span class="n"><span class="pre">PyUFuncObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ufunc</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">usertype</span></span>, <a class="reference internal" href="#c.PyUFuncGenericFunction" title="PyUFuncGenericFunction"><span class="n"><span class="pre">PyUFuncGenericFunction</span></span></a><span class="w"> </span><span class="n"><span class="pre">function</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">arg_types</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_RegisterLoopForType" title="Link to this definition">#</a><br /></dt>
+<dd><p>This function allows the user to register a 1-d loop with an
+already- created ufunc to be used whenever the ufunc is called
+with any of its input arguments as the user-defined
+data-type. This is needed in order to make ufuncs work with
+built-in data-types. The data-type must have been previously
+registered with the numpy system. The loop is passed in as
+<em>function</em>. This loop can take arbitrary data which should be
+passed in as <em>data</em>. The data-types the loop requires are passed
+in as <em>arg_types</em> which must be a pointer to memory at least as
+large as ufunc-&gt;nargs.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_RegisterLoopForDescr">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_RegisterLoopForDescr</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types-and-structures.html#c.PyUFuncObject" title="PyUFuncObject"><span class="n"><span class="pre">PyUFuncObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ufunc</span></span>, <a class="reference internal" href="types-and-structures.html#c.PyArray_Descr" title="PyArray_Descr"><span class="n"><span class="pre">PyArray_Descr</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">userdtype</span></span>, <a class="reference internal" href="#c.PyUFuncGenericFunction" title="PyUFuncGenericFunction"><span class="n"><span class="pre">PyUFuncGenericFunction</span></span></a><span class="w"> </span><span class="n"><span class="pre">function</span></span>, <a class="reference internal" href="types-and-structures.html#c.PyArray_Descr" title="PyArray_Descr"><span class="n"><span class="pre">PyArray_Descr</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">arg_dtypes</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_RegisterLoopForDescr" title="Link to this definition">#</a><br /></dt>
+<dd><p>This function behaves like PyUFunc_RegisterLoopForType above, except
+that it allows the user to register a 1-d loop using PyArray_Descr
+objects instead of dtype type num values. This allows a 1-d loop to be
+registered for structured array data-dtypes and custom data-types
+instead of scalar data-types.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_ReplaceLoopBySignature">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_ReplaceLoopBySignature</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="types-and-structures.html#c.PyUFuncObject" title="PyUFuncObject"><span class="n"><span class="pre">PyUFuncObject</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">ufunc</span></span>, <a class="reference internal" href="#c.PyUFuncGenericFunction" title="PyUFuncGenericFunction"><span class="n"><span class="pre">PyUFuncGenericFunction</span></span></a><span class="w"> </span><span class="n"><span class="pre">newfunc</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">signature</span></span>, <a class="reference internal" href="#c.PyUFuncGenericFunction" title="PyUFuncGenericFunction"><span class="n"><span class="pre">PyUFuncGenericFunction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">oldfunc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_ReplaceLoopBySignature" title="Link to this definition">#</a><br /></dt>
+<dd><p>Replace a 1-d loop matching the given <em>signature</em> in the
+already-created <em>ufunc</em> with the new 1-d loop newfunc. Return the
+old 1-d loop function in <em>oldfunc</em>. Return 0 on success and -1 on
+failure. This function works only with built-in types (use
+<a class="reference internal" href="#c.PyUFunc_RegisterLoopForType" title="PyUFunc_RegisterLoopForType"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyUFunc_RegisterLoopForType</span></code></a> for user-defined types). A
+signature is an array of data-type numbers indicating the inputs
+followed by the outputs assumed by the 1-d loop.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_clearfperr">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_clearfperr</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_clearfperr" title="Link to this definition">#</a><br /></dt>
+<dd><p>Clear the IEEE error flags.</p>
+</dd></dl>
+
+</section>
+<section id="generic-functions">
+<h2>Generic functions<a class="headerlink" href="#generic-functions" title="Link to this heading">#</a></h2>
+<p>At the core of every ufunc is a collection of type-specific functions
+that defines the basic functionality for each of the supported types.
+These functions must evaluate the underlying function <span class="math notranslate nohighlight">\(N\geq1\)</span>
+times. Extra-data may be passed in that may be used during the
+calculation. This feature allows some general functions to be used as
+these basic looping functions. The general function has all the code
+needed to point variables to the right place and set up a function
+call. The general function assumes that the actual function to call is
+passed in as the extra data and calls it with the correct values. All
+of these functions are suitable for placing directly in the array of
+functions stored in the functions member of the PyUFuncObject
+structure.</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_f_f_As_d_d">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_f_f_As_d_d</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_f_f_As_d_d" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_d_d">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_d_d</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_d_d" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_f_f">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_f_f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_f_f" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_g_g">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_g_g</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_g_g" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_F_F_As_D_D">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_F_F_As_D_D</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_F_F_As_D_D" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_F_F">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_F_F</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_F_F" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_D_D">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_D_D</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_D_D" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_G_G">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_G_G</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_G_G" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_e_e">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_e_e</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_e_e" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_e_e_As_f_f">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_e_e_As_f_f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_e_e_As_f_f" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_e_e_As_d_d">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_e_e_As_d_d</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_e_e_As_d_d" title="Link to this definition">#</a><br /></dt>
+<dd><p>Type specific, core 1-d functions for ufuncs where each
+calculation is obtained by calling a function taking one input
+argument and returning one output. This function is passed in
+<code class="docutils literal notranslate"><span class="pre">func</span></code>. The letters correspond to dtypechar’s of the supported
+data types ( <code class="docutils literal notranslate"><span class="pre">e</span></code> - half, <code class="docutils literal notranslate"><span class="pre">f</span></code> - float, <code class="docutils literal notranslate"><span class="pre">d</span></code> - double,
+<code class="docutils literal notranslate"><span class="pre">g</span></code> - long double, <code class="docutils literal notranslate"><span class="pre">F</span></code> - cfloat, <code class="docutils literal notranslate"><span class="pre">D</span></code> - cdouble,
+<code class="docutils literal notranslate"><span class="pre">G</span></code> - clongdouble). The argument <em>func</em> must support the same
+signature. The _As_X_X variants assume ndarray’s of one data type
+but cast the values to use an underlying function that takes a
+different data type. Thus, <a class="reference internal" href="#c.PyUFunc_f_f_As_d_d" title="PyUFunc_f_f_As_d_d"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyUFunc_f_f_As_d_d</span></code></a> uses
+ndarrays of data type <a class="reference internal" href="dtype.html#c.NPY_TYPES.NPY_FLOAT" title="NPY_FLOAT"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_FLOAT</span></code></a> but calls out to a
+C-function that takes double and returns double.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_ff_f_As_dd_d">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_ff_f_As_dd_d</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_ff_f_As_dd_d" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_ff_f">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_ff_f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_ff_f" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_dd_d">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_dd_d</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_dd_d" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_gg_g">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_gg_g</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_gg_g" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_FF_F_As_DD_D">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_FF_F_As_DD_D</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_FF_F_As_DD_D" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_DD_D">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_DD_D</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_DD_D" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_FF_F">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_FF_F</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_FF_F" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_GG_G">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_GG_G</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_GG_G" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_ee_e">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_ee_e</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_ee_e" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_ee_e_As_ff_f">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_ee_e_As_ff_f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_ee_e_As_ff_f" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_ee_e_As_dd_d">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_ee_e_As_dd_d</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_ee_e_As_dd_d" title="Link to this definition">#</a><br /></dt>
+<dd><p>Type specific, core 1-d functions for ufuncs where each
+calculation is obtained by calling a function taking two input
+arguments and returning one output. The underlying function to
+call is passed in as <em>func</em>. The letters correspond to
+dtypechar’s of the specific data type supported by the
+general-purpose function. The argument <code class="docutils literal notranslate"><span class="pre">func</span></code> must support the
+corresponding signature. The <code class="docutils literal notranslate"><span class="pre">_As_XX_X</span></code> variants assume ndarrays
+of one data type but cast the values at each iteration of the loop
+to use the underlying function that takes a different data type.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_O_O">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_O_O</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_O_O" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_OO_O">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_OO_O</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_OO_O" title="Link to this definition">#</a><br /></dt>
+<dd><p>One-input, one-output, and two-input, one-output core 1-d functions
+for the <a class="reference internal" href="dtype.html#c.NPY_TYPES.NPY_OBJECT" title="NPY_OBJECT"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_OBJECT</span></code></a> data type. These functions handle reference
+count issues and return early on error. The actual function to call is
+<em>func</em> and it must accept calls with the signature <code class="docutils literal notranslate"><span class="pre">(PyObject*)</span>
+<span class="pre">(PyObject*)</span></code> for <a class="reference internal" href="#c.PyUFunc_O_O" title="PyUFunc_O_O"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyUFunc_O_O</span></code></a> or <code class="docutils literal notranslate"><span class="pre">(PyObject*)(PyObject</span> <span class="pre">*,</span>
+<span class="pre">PyObject</span> <span class="pre">*)</span></code> for <a class="reference internal" href="#c.PyUFunc_OO_O" title="PyUFunc_OO_O"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyUFunc_OO_O</span></code></a>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_O_O_method">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_O_O_method</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_O_O_method" title="Link to this definition">#</a><br /></dt>
+<dd><p>This general purpose 1-d core function assumes that <em>func</em> is a string
+representing a method of the input object. For each
+iteration of the loop, the Python object is extracted from the array
+and its <em>func</em> method is called returning the result to the output array.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_OO_O_method">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_OO_O_method</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_OO_O_method" title="Link to this definition">#</a><br /></dt>
+<dd><p>This general purpose 1-d core function assumes that <em>func</em> is a
+string representing a method of the input object that takes one
+argument. The first argument in <em>args</em> is the method whose function is
+called, the second argument in <em>args</em> is the argument passed to the
+function. The output of the function is stored in the third entry
+of <em>args</em>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_On_Om">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_On_Om</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dimensions</span></span>, <a class="reference internal" href="dtype.html#c.npy_intp" title="npy_intp"><span class="n"><span class="pre">npy_intp</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_On_Om" title="Link to this definition">#</a><br /></dt>
+<dd><p>This is the 1-d core function used by the dynamic ufuncs created
+by umath.frompyfunc(function, nin, nout). In this case <em>func</em> is a
+pointer to a <a class="reference internal" href="#c.PyUFunc_On_Om.PyUFunc_PyFuncData" title="PyUFunc_PyFuncData"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyUFunc_PyFuncData</span></code></a> structure which has definition</p>
+<dl class="c type">
+<dt class="sig sig-object c" id="c.PyUFunc_On_Om.PyUFunc_PyFuncData">
+<span class="k"><span class="pre">type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_PyFuncData</span></span></span><a class="headerlink" href="#c.PyUFunc_On_Om.PyUFunc_PyFuncData" title="Link to this definition">#</a><br /></dt>
+<dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">nin</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">nout</span><span class="p">;</span>
+<span class="w">    </span><span class="n">PyObject</span><span class="w"> </span><span class="o">*</span><span class="n">callable</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">PyUFunc_PyFuncData</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>At each iteration of the loop, the <em>nin</em> input objects are extracted
+from their object arrays and placed into an argument tuple, the Python
+<em>callable</em> is called with the input arguments, and the nout
+outputs are placed into their object arrays.</p>
+</dd></dl>
+
+</section>
+<section id="importing-the-api">
+<h2>Importing the API<a class="headerlink" href="#importing-the-api" title="Link to this heading">#</a></h2>
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.PY_UFUNC_UNIQUE_SYMBOL">
+<span class="sig-name descname"><span class="n"><span class="pre">PY_UFUNC_UNIQUE_SYMBOL</span></span></span><a class="headerlink" href="#c.PY_UFUNC_UNIQUE_SYMBOL" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.NO_IMPORT_UFUNC">
+<span class="sig-name descname"><span class="n"><span class="pre">NO_IMPORT_UFUNC</span></span></span><a class="headerlink" href="#c.NO_IMPORT_UFUNC" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.PyUFunc_ImportUFuncAPI">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PyUFunc_ImportUFuncAPI</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.PyUFunc_ImportUFuncAPI" title="Link to this definition">#</a><br /></dt>
+<dd><p>Ensures that the UFunc C-API is imported and usable.  It returns <code class="docutils literal notranslate"><span class="pre">0</span></code>
+on success and <code class="docutils literal notranslate"><span class="pre">-1</span></code> with an error set if NumPy couldn’t be imported.
+While preferable to call it once at module initialization, this function
+is very light-weight if called multiple times.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 2.0: </span>This function mainly checks for <code class="docutils literal notranslate"><span class="pre">PyUFunc_API</span> <span class="pre">==</span> <span class="pre">NULL</span></code> so it can be
+manually backported if desired.</p>
+</div>
+</dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.import_ufunc">
+<span class="sig-name descname"><span class="n"><span class="pre">import_ufunc</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.import_ufunc" title="Link to this definition">#</a><br /></dt>
+<dd><p>These are the constants and functions for accessing the ufunc
+C-API from extension modules in precisely the same way as the
+array C-API can be accessed. The <code class="docutils literal notranslate"><span class="pre">import_ufunc</span></code> () function must
+always be called (in the initialization subroutine of the
+extension module). If your extension module is in one file then
+that is all that is required. The other two constants are useful
+if your extension module makes use of multiple files. In that
+case, define <a class="reference internal" href="#c.PY_UFUNC_UNIQUE_SYMBOL" title="PY_UFUNC_UNIQUE_SYMBOL"><code class="xref c c-data docutils literal notranslate"><span class="pre">PY_UFUNC_UNIQUE_SYMBOL</span></code></a> to something unique to
+your code and then in source files that do not contain the module
+initialization function but still need access to the UFUNC API,
+define <a class="reference internal" href="#c.PY_UFUNC_UNIQUE_SYMBOL" title="PY_UFUNC_UNIQUE_SYMBOL"><code class="xref c c-data docutils literal notranslate"><span class="pre">PY_UFUNC_UNIQUE_SYMBOL</span></code></a> to the same name used previously
+and also define <a class="reference internal" href="#c.NO_IMPORT_UFUNC" title="NO_IMPORT_UFUNC"><code class="xref c c-data docutils literal notranslate"><span class="pre">NO_IMPORT_UFUNC</span></code></a>.</p>
+<p>The C-API is actually an array of function pointers. This array is
+created (and pointed to by a global variable) by import_ufunc. The
+global variable is either statically defined or allowed to be seen
+by other files depending on the state of
+<a class="reference internal" href="#c.PY_UFUNC_UNIQUE_SYMBOL" title="PY_UFUNC_UNIQUE_SYMBOL"><code class="xref c c-data docutils literal notranslate"><span class="pre">PY_UFUNC_UNIQUE_SYMBOL</span></code></a> and <a class="reference internal" href="#c.NO_IMPORT_UFUNC" title="NO_IMPORT_UFUNC"><code class="xref c c-data docutils literal notranslate"><span class="pre">NO_IMPORT_UFUNC</span></code></a>.</p>
+</dd></dl>
+
+<span class="target" id="index-1"></span></section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="iterator.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Array iterator API</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="generalized-ufuncs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Generalized universal function API</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constants">Constants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macros">Macros</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types">Types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generic-functions">Generic functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-the-api">Importing the API</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

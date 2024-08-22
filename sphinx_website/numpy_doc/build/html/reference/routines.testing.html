@@ -1,0 +1,874 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Test support (numpy.testing) &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/routines.testing';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="numpy.testing.assert_allclose" href="generated/numpy.testing.assert_allclose.html" />
+    <link rel="prev" title="numpy.strings.str_len" href="generated/numpy.strings.str_len.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 21, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="routines.html">Routines and objects by topic</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.array-creation.html">Array creation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.array-manipulation.html">Array manipulation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.bitwise.html">Bit-wise operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.strings.html">String functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.datetime.html">Datetime support functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.dtype.html">Data type routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.emath.html">Mathematical functions with automatic domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.err.html">Floating point error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.exceptions.html">Exceptions and Warnings (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.exceptions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.fft.html">Discrete Fourier Transform (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.fft</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.functional.html">Functional programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.io.html">Input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.indexing.html">Indexing routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.linalg.html">Linear algebra (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.linalg</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.logic.html">Logic functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.ma.html">Masked array operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.math.html">Mathematical functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.other.html">Miscellaneous routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.polynomials.html">Polynomials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random/index.html">Random sampling (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.random</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.set.html">Set routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.sort.html">Sorting, searching, and counting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.statistics.html">Statistics</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Test support (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.testing</span></code>)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_allclose.html">numpy.testing.assert_allclose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_array_almost_equal_nulp.html">numpy.testing.assert_array_almost_equal_nulp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_array_max_ulp.html">numpy.testing.assert_array_max_ulp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_array_equal.html">numpy.testing.assert_array_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_array_less.html">numpy.testing.assert_array_less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_equal.html">numpy.testing.assert_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_raises.html">numpy.testing.assert_raises</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_raises_regex.html">numpy.testing.assert_raises_regex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_warns.html">numpy.testing.assert_warns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_no_warnings.html">numpy.testing.assert_no_warnings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_no_gc_cycles.html">numpy.testing.assert_no_gc_cycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_string_equal.html">numpy.testing.assert_string_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_.html">numpy.testing.assert_</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_almost_equal.html">numpy.testing.assert_almost_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_approx_equal.html">numpy.testing.assert_approx_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.assert_array_almost_equal.html">numpy.testing.assert_array_almost_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.print_assert_equal.html">numpy.testing.print_assert_equal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.decorate_methods.html">numpy.testing.decorate_methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.clear_and_catch_warnings.html">numpy.testing.clear_and_catch_warnings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.measure.html">numpy.testing.measure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.rundocs.html">numpy.testing.rundocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.suppress_warnings.html">numpy.testing.suppress_warnings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.overrides.allows_array_function_override.html">numpy.testing.overrides.allows_array_function_override</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.overrides.allows_array_ufunc_override.html">numpy.testing.overrides.allows_array_ufunc_override</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.overrides.get_overridable_numpy_ufuncs.html">numpy.testing.overrides.get_overridable_numpy_ufuncs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/numpy.testing.overrides.get_overridable_numpy_array_functions.html">numpy.testing.overrides.get_overridable_numpy_array_functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html">Testing guidelines</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="routines.window.html">Window functions</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c-api/index.html">NumPy C-API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="module_structure.html" class="nav-link">NumPy’s module structure</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Test...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="test-support-numpy-testing">
+<span id="module-numpy.testing"></span><span id="routines-testing"></span><h1>Test support (<a class="reference internal" href="#module-numpy.testing" title="numpy.testing"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.testing</span></code></a>)<a class="headerlink" href="#test-support-numpy-testing" title="Link to this heading">#</a></h1>
+<p>Common test support for all numpy test scripts.</p>
+<p>This single module should provide all the common functionality for numpy
+tests in a single location, so that <a class="reference internal" href="../dev/development_environment.html#development-environment"><span class="std std-ref">test scripts</span></a> can just import it and work right away. For
+background, see the <a class="reference internal" href="testing.html#testing-guidelines"><span class="std std-ref">Testing guidelines</span></a></p>
+<section id="asserts">
+<h2>Asserts<a class="headerlink" href="#asserts" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_allclose</span></code></a>(actual, desired[, rtol, ...])</p></td>
+<td><p>Raises an AssertionError if two objects are not equal up to desired tolerance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.assert_array_almost_equal_nulp.html#numpy.testing.assert_array_almost_equal_nulp" title="numpy.testing.assert_array_almost_equal_nulp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_array_almost_equal_nulp</span></code></a>(x, y[, nulp])</p></td>
+<td><p>Compare two arrays relatively to their spacing.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.assert_array_max_ulp.html#numpy.testing.assert_array_max_ulp" title="numpy.testing.assert_array_max_ulp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_array_max_ulp</span></code></a>(a, b[, maxulp, dtype])</p></td>
+<td><p>Check that all items of arrays differ in at most N Units in the Last Place.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.assert_array_equal.html#numpy.testing.assert_array_equal" title="numpy.testing.assert_array_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_array_equal</span></code></a>(actual, desired[, ...])</p></td>
+<td><p>Raises an AssertionError if two array_like objects are not equal.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.assert_array_less.html#numpy.testing.assert_array_less" title="numpy.testing.assert_array_less"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_array_less</span></code></a>(x, y[, err_msg, verbose, ...])</p></td>
+<td><p>Raises an AssertionError if two array_like objects are not ordered by less than.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.assert_equal.html#numpy.testing.assert_equal" title="numpy.testing.assert_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_equal</span></code></a>(actual, desired[, err_msg, ...])</p></td>
+<td><p>Raises an AssertionError if two objects are not equal.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.assert_raises.html#numpy.testing.assert_raises" title="numpy.testing.assert_raises"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_raises</span></code></a>(assert_raises)</p></td>
+<td><p>Fail unless an exception of class exception_class is thrown by callable when invoked with arguments args and keyword arguments kwargs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.assert_raises_regex.html#numpy.testing.assert_raises_regex" title="numpy.testing.assert_raises_regex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_raises_regex</span></code></a>(exception_class, ...)</p></td>
+<td><p>Fail unless an exception of class exception_class and with message that matches expected_regexp is thrown by callable when invoked with arguments args and keyword arguments kwargs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.assert_warns.html#numpy.testing.assert_warns" title="numpy.testing.assert_warns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_warns</span></code></a>(warning_class, *args, **kwargs)</p></td>
+<td><p>Fail unless the given callable throws the specified warning.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.assert_no_warnings.html#numpy.testing.assert_no_warnings" title="numpy.testing.assert_no_warnings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_no_warnings</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Fail if the given callable produces any warnings.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.assert_no_gc_cycles.html#numpy.testing.assert_no_gc_cycles" title="numpy.testing.assert_no_gc_cycles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_no_gc_cycles</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Fail if the given callable produces any reference cycles.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.assert_string_equal.html#numpy.testing.assert_string_equal" title="numpy.testing.assert_string_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_string_equal</span></code></a>(actual, desired)</p></td>
+<td><p>Test if two strings are equal.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="asserts-not-recommended">
+<h2>Asserts (not recommended)<a class="headerlink" href="#asserts-not-recommended" title="Link to this heading">#</a></h2>
+<p>It is recommended to use one of <a class="reference internal" href="generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_allclose</span></code></a>,
+<a class="reference internal" href="generated/numpy.testing.assert_array_almost_equal_nulp.html#numpy.testing.assert_array_almost_equal_nulp" title="numpy.testing.assert_array_almost_equal_nulp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_array_almost_equal_nulp</span></code></a> or <a class="reference internal" href="generated/numpy.testing.assert_array_max_ulp.html#numpy.testing.assert_array_max_ulp" title="numpy.testing.assert_array_max_ulp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_array_max_ulp</span></code></a> instead of these
+functions for more consistent floating point comparisons.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.assert_.html#numpy.testing.assert_" title="numpy.testing.assert_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_</span></code></a>(val[, msg])</p></td>
+<td><p>Assert that works in release mode.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.assert_almost_equal.html#numpy.testing.assert_almost_equal" title="numpy.testing.assert_almost_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_almost_equal</span></code></a>(actual, desired[, ...])</p></td>
+<td><p>Raises an AssertionError if two items are not equal up to desired precision.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.assert_approx_equal.html#numpy.testing.assert_approx_equal" title="numpy.testing.assert_approx_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_approx_equal</span></code></a>(actual, desired[, ...])</p></td>
+<td><p>Raises an AssertionError if two items are not equal up to significant digits.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.assert_array_almost_equal.html#numpy.testing.assert_array_almost_equal" title="numpy.testing.assert_array_almost_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_array_almost_equal</span></code></a>(actual, desired[, ...])</p></td>
+<td><p>Raises an AssertionError if two objects are not equal up to desired precision.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.print_assert_equal.html#numpy.testing.print_assert_equal" title="numpy.testing.print_assert_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_assert_equal</span></code></a>(test_string, actual, desired)</p></td>
+<td><p>Test if two objects are equal, and print an error message if test fails.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="decorators">
+<h2>Decorators<a class="headerlink" href="#decorators" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.decorate_methods.html#numpy.testing.decorate_methods" title="numpy.testing.decorate_methods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decorate_methods</span></code></a>(cls, decorator[, testmatch])</p></td>
+<td><p>Apply a decorator to all methods in a class matching a regular expression.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="test-running">
+<h2>Test running<a class="headerlink" href="#test-running" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.clear_and_catch_warnings.html#numpy.testing.clear_and_catch_warnings" title="numpy.testing.clear_and_catch_warnings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_and_catch_warnings</span></code></a>([record, modules])</p></td>
+<td><p>Context manager that resets warning registry for catching warnings</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.measure.html#numpy.testing.measure" title="numpy.testing.measure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">measure</span></code></a>(code_str[, times, label])</p></td>
+<td><p>Return elapsed time for executing code in the namespace of the caller.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.rundocs.html#numpy.testing.rundocs" title="numpy.testing.rundocs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rundocs</span></code></a>([filename, raise_on_error])</p></td>
+<td><p>Run doctests found in the given file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.suppress_warnings.html#numpy.testing.suppress_warnings" title="numpy.testing.suppress_warnings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">suppress_warnings</span></code></a>([forwarding_rule])</p></td>
+<td><p>Context manager and decorator doing much the same as <code class="docutils literal notranslate"><span class="pre">warnings.catch_warnings</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="testing-custom-array-containers-numpy-testing-overrides">
+<span id="module-numpy.testing.overrides"></span><h2>Testing custom array containers (<a class="reference internal" href="#module-numpy.testing.overrides" title="numpy.testing.overrides"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.testing.overrides</span></code></a>)<a class="headerlink" href="#testing-custom-array-containers-numpy-testing-overrides" title="Link to this heading">#</a></h2>
+<p>These functions can be useful when testing custom array container
+implementations which make use of <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code>/<code class="docutils literal notranslate"><span class="pre">__array_function__</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.overrides.allows_array_function_override.html#numpy.testing.overrides.allows_array_function_override" title="numpy.testing.overrides.allows_array_function_override"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allows_array_function_override</span></code></a>(func)</p></td>
+<td><p>Determine if a Numpy function can be overridden via <em class="xref py py-obj">__array_function__</em></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.overrides.allows_array_ufunc_override.html#numpy.testing.overrides.allows_array_ufunc_override" title="numpy.testing.overrides.allows_array_ufunc_override"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allows_array_ufunc_override</span></code></a>(func)</p></td>
+<td><p>Determine if a function can be overridden via <em class="xref py py-obj">__array_ufunc__</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/numpy.testing.overrides.get_overridable_numpy_ufuncs.html#numpy.testing.overrides.get_overridable_numpy_ufuncs" title="numpy.testing.overrides.get_overridable_numpy_ufuncs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_overridable_numpy_ufuncs</span></code></a>()</p></td>
+<td><p>List all numpy ufuncs overridable via <em class="xref py py-obj">__array_ufunc__</em></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/numpy.testing.overrides.get_overridable_numpy_array_functions.html#numpy.testing.overrides.get_overridable_numpy_array_functions" title="numpy.testing.overrides.get_overridable_numpy_array_functions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_overridable_numpy_array_functions</span></code></a>()</p></td>
+<td><p>List all numpy functions overridable via <em class="xref py py-obj">__array_function__</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="guidelines">
+<h2>Guidelines<a class="headerlink" href="#guidelines" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#testing-numpy">Testing NumPy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#running-tests-from-inside-python">Running tests from inside Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#running-tests-from-the-command-line">Running tests from the command line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#running-doctests">Running doctests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#other-methods-of-running-tests">Other methods of running tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#writing-your-own-tests">Writing your own tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#using-c-code-in-tests">Using C code in tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="testing.html#numpy.testing.extbuild.build_and_import_extension"><code class="docutils literal notranslate"><span class="pre">build_and_import_extension</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#labeling-tests">Labeling tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#easier-setup-and-teardown-functions-methods">Easier setup and teardown functions / methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#parametric-tests">Parametric tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#doctests">Doctests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#tests"><code class="docutils literal notranslate"><span class="pre">tests/</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#init-py-and-setup-py"><code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#tips-tricks">Tips &amp; Tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#known-failures-skipping-tests">Known failures &amp; skipping tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#tests-on-random-data">Tests on random data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html#documentation-for-numpy-test">Documentation for <code class="docutils literal notranslate"><span class="pre">numpy.test</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="testing.html#numpy.test"><code class="docutils literal notranslate"><span class="pre">test</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="generated/numpy.strings.str_len.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">numpy.strings.str_len</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="generated/numpy.testing.assert_allclose.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">numpy.testing.assert_allclose</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asserts">Asserts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asserts-not-recommended">Asserts (not recommended)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decorators">Decorators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-running">Test running</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-custom-array-containers-numpy-testing-overrides">Testing custom array containers (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.testing.overrides</span></code>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidelines">Guidelines</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

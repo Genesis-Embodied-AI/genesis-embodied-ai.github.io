@@ -1,0 +1,838 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Troubleshooting &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user/troubleshooting-importerror';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Troubleshooting</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since this information may be updated regularly, please ensure you are
+viewing the most <a class="reference external" href="https://numpy.org/devdocs/user/troubleshooting-importerror.html">up-to-date version</a>.</p>
+</div>
+<section id="importerror">
+<h2>ImportError<a class="headerlink" href="#importerror" title="Link to this heading">#</a></h2>
+<p>In certain cases a failed installation or setup issue can cause you to
+see the following error message:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>IMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!
+
+Importing the numpy c-extensions failed. This error can happen for
+different reasons, often due to issues with your setup.
+</pre></div>
+</div>
+<p>The error also has additional information to help you troubleshoot:</p>
+<ul class="simple">
+<li><p>Your Python version</p></li>
+<li><p>Your NumPy version</p></li>
+</ul>
+<p>Please check both of these carefully to see if they are what you expect.
+You may need to check your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> or <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> environment variables
+(see <a class="reference internal" href="#check-environment-variables">Check Environment Variables</a> below).</p>
+<p>The following sections list commonly reported issues depending on your setup.
+If you have an issue/solution that you think should appear please open a
+NumPy issue so that it will be added.</p>
+<p>There are a few commonly reported issues depending on your system/setup.
+If none of the following tips help you, please be sure to note the following:</p>
+<ul class="simple">
+<li><p>how you installed Python</p></li>
+<li><p>how you installed NumPy</p></li>
+<li><p>your operating system</p></li>
+<li><p>whether or not you have multiple versions of Python installed</p></li>
+<li><p>if you built from source, your compiler versions and ideally a build log</p></li>
+</ul>
+<p>when investigating further and asking for support.</p>
+<section id="using-python-from-conda-anaconda">
+<h3>Using Python from <code class="docutils literal notranslate"><span class="pre">conda</span></code> (Anaconda)<a class="headerlink" href="#using-python-from-conda-anaconda" title="Link to this heading">#</a></h3>
+<p>Please make sure that you have activated your conda environment.
+See also the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#activating-an-environment">conda user-guide</a>.
+If you use an external editor/development environment it will have to be set
+up correctly.  See below for solutions for some common setups.</p>
+</section>
+<section id="using-pycharm-with-anaconda-python">
+<h3>Using PyCharm with Anaconda Python<a class="headerlink" href="#using-pycharm-with-anaconda-python" title="Link to this heading">#</a></h3>
+<p>There are fairly common issues when using PyCharm together with Anaconda,
+please see the <a class="reference external" href="https://www.jetbrains.com/help/pycharm/conda-support-creating-conda-virtual-environment.html">PyCharm support</a></p>
+</section>
+<section id="using-vs-code-with-anaconda-python-or-environments">
+<h3>Using VS Code with Anaconda Python (or environments)<a class="headerlink" href="#using-vs-code-with-anaconda-python-or-environments" title="Link to this heading">#</a></h3>
+<p>A commonly reported issue is related to the environment activation within
+VSCode. Please see the <a class="reference external" href="https://code.visualstudio.com/docs/python/environments">VSCode support</a>
+for information on how to correctly set up VSCode with virtual environments
+or conda.</p>
+</section>
+<section id="using-eclipse-pydev-with-anaconda-python-or-environments">
+<h3>Using Eclipse/PyDev with Anaconda Python (or environments)<a class="headerlink" href="#using-eclipse-pydev-with-anaconda-python-or-environments" title="Link to this heading">#</a></h3>
+<p>Please see the
+<a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/tasks/integration/eclipse-pydev/">Anaconda Documentation</a>
+on how to properly configure Eclipse/PyDev to use Anaconda Python with specific
+conda environments.</p>
+</section>
+<section id="raspberry-pi">
+<h3>Raspberry Pi<a class="headerlink" href="#raspberry-pi" title="Link to this heading">#</a></h3>
+<p>There are sometimes issues reported on Raspberry Pi setups when installing
+using <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span></code> (or <code class="docutils literal notranslate"><span class="pre">pip</span></code> install). These will typically mention:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">libf77blas</span><span class="o">.</span><span class="n">so</span><span class="mf">.3</span><span class="p">:</span> <span class="n">cannot</span> <span class="nb">open</span> <span class="n">shared</span> <span class="nb">object</span> <span class="n">file</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span>
+</pre></div>
+</div>
+<p>The solution will be to either:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libatlas</span><span class="o">-</span><span class="n">base</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>to install the missing libraries expected by the self-compiled NumPy
+(ATLAS is a possible provider of linear algebra).</p>
+<p><em>Alternatively</em> use the NumPy provided by Raspbian. In which case run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">uninstall</span> <span class="n">numpy</span>  <span class="c1"># remove previously installed version</span>
+<span class="n">apt</span> <span class="n">install</span> <span class="n">python3</span><span class="o">-</span><span class="n">numpy</span>
+</pre></div>
+</div>
+</section>
+<section id="debug-build-on-windows">
+<h3>Debug build on Windows<a class="headerlink" href="#debug-build-on-windows" title="Link to this heading">#</a></h3>
+<p>Rather than building your project in <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> mode on windows, try
+building in <code class="docutils literal notranslate"><span class="pre">RELEASE</span></code> mode with debug symbols and no optimization.
+Full <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> mode on windows changes the names of the DLLs python
+expects to find, so if you wish to truly work in <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> mode you will
+need to recompile the entire stack of python modules you work with
+including NumPy</p>
+</section>
+<section id="all-setups">
+<h3>All setups<a class="headerlink" href="#all-setups" title="Link to this heading">#</a></h3>
+<p>Occasionally there may be simple issues with old or bad installations
+of NumPy. In this case you may just try to uninstall and reinstall NumPy.
+Make sure that NumPy is not found after uninstalling.</p>
+</section>
+<section id="development-setup">
+<h3>Development setup<a class="headerlink" href="#development-setup" title="Link to this heading">#</a></h3>
+<p>If you are using a development setup, make sure to run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clean</span> <span class="pre">-xdf</span></code>
+to delete all files not under version control (be careful not to lose
+any modifications you made, e.g. <code class="docutils literal notranslate"><span class="pre">site.cfg</span></code>).
+In many cases files from old builds may lead to incorrect builds.</p>
+</section>
+<section id="check-environment-variables">
+<h3>Check environment variables<a class="headerlink" href="#check-environment-variables" title="Link to this heading">#</a></h3>
+<p>In general how to set and check your environment variables depends on
+your system. If you can open a correct python shell, you can also run the
+following in python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PYTHONPATH:&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PYTHONPATH&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PATH:&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PATH&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This may mainly help you if you are not running the python and/or NumPy
+version you are expecting to run.</p>
+</section>
+</section>
+<section id="downstream-importerror-attributeerror-or-c-api-abi-incompatibility">
+<h2>Downstream ImportError, AttributeError or C-API/ABI incompatibility<a class="headerlink" href="#downstream-importerror-attributeerror-or-c-api-abi-incompatibility" title="Link to this heading">#</a></h2>
+<p>If you see a message such as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">module</span> <span class="n">that</span> <span class="n">was</span> <span class="n">compiled</span> <span class="n">using</span> <span class="n">NumPy</span> <span class="mf">1.</span><span class="n">x</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">run</span> <span class="ow">in</span>
+<span class="n">NumPy</span> <span class="mf">2.0.0</span> <span class="k">as</span> <span class="n">it</span> <span class="n">may</span> <span class="n">crash</span><span class="o">.</span> <span class="n">To</span> <span class="n">support</span> <span class="n">both</span> <span class="mf">1.</span><span class="n">x</span> <span class="ow">and</span> <span class="mf">2.</span><span class="n">x</span>
+<span class="n">versions</span> <span class="n">of</span> <span class="n">NumPy</span><span class="p">,</span> <span class="n">modules</span> <span class="n">must</span> <span class="n">be</span> <span class="n">compiled</span> <span class="k">with</span> <span class="n">NumPy</span> <span class="mf">2.0</span><span class="o">.</span>
+<span class="n">Some</span> <span class="n">module</span> <span class="n">may</span> <span class="n">need</span> <span class="n">to</span> <span class="n">rebuild</span> <span class="n">instead</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="k">with</span> <span class="s1">&#39;pybind11&gt;=2.12&#39;</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>either as an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code> or with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">AttributeError</span><span class="p">:</span> <span class="n">_ARRAY_API</span> <span class="ow">not</span> <span class="n">found</span>
+</pre></div>
+</div>
+<p>or other errors such as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">RuntimeError</span><span class="p">:</span> <span class="n">module</span> <span class="n">compiled</span> <span class="n">against</span> <span class="n">API</span> <span class="n">version</span> <span class="n">v1</span> <span class="n">but</span> <span class="n">this</span> <span class="n">version</span> <span class="n">of</span> <span class="n">numpy</span> <span class="ow">is</span> <span class="n">v2</span>
+</pre></div>
+</div>
+<p>or when a package implemented with Cython:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">ValueError</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dtype</span> <span class="n">size</span> <span class="n">changed</span><span class="p">,</span> <span class="n">may</span> <span class="n">indicate</span> <span class="n">binary</span> <span class="n">incompatibility</span><span class="o">.</span> <span class="n">Expected</span> <span class="mi">96</span> <span class="kn">from</span> <span class="nn">C</span> <span class="n">header</span><span class="p">,</span> <span class="n">got</span> <span class="mi">88</span> <span class="kn">from</span> <span class="nn">PyObject</span>
+</pre></div>
+</div>
+<p>This means that a package depending on NumPy was build in a way that is not
+compatible with the NumPy version found.
+If this error is due to a recent upgrade to NumPy 2, the easiest solution may
+be to simply downgrade NumPy to <code class="docutils literal notranslate"><span class="pre">'numpy&lt;2'</span></code>.</p>
+<p>To understand the cause, search the traceback (from the back) to find the first
+line that isn’t inside NumPy to see which package has the incompatibility.
+Note your NumPy version and the version of the incompatible package to
+help you find the best solution.</p>
+<p>There can be various reason for the incompatibility:</p>
+<ul class="simple">
+<li><p>You have recently upgraded NumPy, most likely to NumPy 2, and the other
+module now also needs to be upgraded.  (NumPy 2 was released in June 2024.)</p></li>
+<li><p>You have version constraints and <code class="docutils literal notranslate"><span class="pre">pip</span></code> may
+have installed a combination of incompatible packages.</p></li>
+<li><p>You have compiled locally or have copied a compiled extension from
+elsewhere (which is, in general, a bad idea).</p></li>
+</ul>
+<p>The best solution will usually be to upgrade the failing package:</p>
+<ul class="simple">
+<li><p>If you installed it for example through <code class="docutils literal notranslate"><span class="pre">pip</span></code>, try upgrading it with
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">package_name</span> <span class="pre">--upgrade</span></code>.</p></li>
+<li><p>If it is your own package or it is build locally, you need recompiled
+for the new NumPy version (for details see <a class="reference internal" href="../dev/depending_on_numpy.html#depending-on-numpy"><span class="std std-ref">Adding a dependency on NumPy</span></a>).
+It may be that a reinstall of the package is sufficient to fix it.</p></li>
+</ul>
+<p>When these steps fail, you should inform the package maintainers since they
+probably need to make a new, compatible, release.</p>
+<p>However, upgrading may not always be possible because a compatible version does
+not yet exist or cannot be installed for other reasons.  In that case:</p>
+<ul class="simple">
+<li><p>Install a compatible NumPy version:</p>
+<ul>
+<li><p>Try downgrading NumPy with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">'numpy&lt;2'</span></code>
+(NumPy 2 was released in June 2024).</p></li>
+<li><p>If your NumPy version is old, you can try upgrading it for
+example with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">numpy</span> <span class="pre">--upgrade</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Add additional version pins to the failing package to help <code class="docutils literal notranslate"><span class="pre">pip</span></code>
+resolve compatible versions of NumPy and the package.</p></li>
+</ul>
+</section>
+<section id="segfaults-or-crashes">
+<h2>Segfaults or crashes<a class="headerlink" href="#segfaults-or-crashes" title="Link to this heading">#</a></h2>
+<p>NumPy tries to use advanced CPU features (SIMD) to speed up operations. If you
+are getting an “illegal instruction” error or a segfault, one cause could be
+that the environment claims it can support one or more of these features but
+actually cannot. This can happen inside a docker image or a VM (qemu, VMWare,
+…)</p>
+<p>You can use the output of <code class="docutils literal notranslate"><span class="pre">np.show_runtime()</span></code> to show which SIMD features are
+detected. For instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">show_runtime</span><span class="p">()</span>
+<span class="go">WARNING: `threadpoolctl` not found in system! Install it by `pip install \</span>
+<span class="go">threadpoolctl`. Once installed, try `np.show_runtime` again for more detailed</span>
+<span class="go">build information</span>
+<span class="go">[{&#39;simd_extensions&#39;: {&#39;baseline&#39;: [&#39;SSE&#39;, &#39;SSE2&#39;, &#39;SSE3&#39;],</span>
+<span class="go">                      &#39;found&#39;: [&#39;SSSE3&#39;,</span>
+<span class="go">                                &#39;SSE41&#39;,</span>
+<span class="go">                                &#39;POPCNT&#39;,</span>
+<span class="go">                                &#39;SSE42&#39;,</span>
+<span class="go">                                &#39;AVX&#39;,</span>
+<span class="go">                                &#39;F16C&#39;,</span>
+<span class="go">                                &#39;FMA3&#39;,</span>
+<span class="go">                                &#39;AVX2&#39;],</span>
+<span class="go">                      &#39;not_found&#39;: [&#39;AVX512F&#39;,</span>
+<span class="go">                                    &#39;AVX512CD&#39;,</span>
+<span class="go">                                    &#39;AVX512_KNL&#39;,</span>
+<span class="go">                                    &#39;AVX512_KNM&#39;,</span>
+<span class="go">                                    &#39;AVX512_SKX&#39;,</span>
+<span class="go">                                    &#39;AVX512_CLX&#39;,</span>
+<span class="go">                                    &#39;AVX512_CNL&#39;,</span>
+<span class="go">                                    &#39;AVX512_ICL&#39;]}}]</span>
+</pre></div>
+</div>
+<p>In this case, it shows AVX2 and FMA3 under the <code class="docutils literal notranslate"><span class="pre">found</span></code> section, so you can
+try disabling them by setting <code class="docutils literal notranslate"><span class="pre">NPY_DISABLE_CPU_FEATURES=&quot;AVX2,FMA3&quot;</span></code> in your
+environment before running python (for cmd.exe on windows):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">SET</span> <span class="n">NPY_DISABLE_CPU_FEATURES</span><span class="o">=</span><span class="s2">&quot;AVX2,FMA3&quot;</span>
+<span class="o">&gt;</span><span class="n">python</span> <span class="o">&lt;</span><span class="n">myprogram</span><span class="o">.</span><span class="n">py</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>By installing threadpoolctl <code class="docutils literal notranslate"><span class="pre">np.show_runtime()</span></code> will show additional information:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="p">{</span><span class="s1">&#39;architecture&#39;</span><span class="p">:</span> <span class="s1">&#39;Zen&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;filepath&#39;</span><span class="p">:</span> <span class="s1">&#39;/tmp/venv3/lib/python3.9/site-packages/numpy.libs/libopenblas64_p-r0-15028c96.3.21.so&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;internal_api&#39;</span><span class="p">:</span> <span class="s1">&#39;openblas&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;num_threads&#39;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+  <span class="s1">&#39;prefix&#39;</span><span class="p">:</span> <span class="s1">&#39;libopenblas&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;threading_layer&#39;</span><span class="p">:</span> <span class="s1">&#39;pthreads&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;user_api&#39;</span><span class="p">:</span> <span class="s1">&#39;blas&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="s1">&#39;0.3.21&#39;</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p>If you use the wheel from PyPI, it contains code from the OpenBLAS project to
+speed up matrix operations. This code too can try to use SIMD instructions. It
+has a different mechanism for choosing which to use, based on a CPU
+architecture, You can override this architecture by setting
+<code class="docutils literal notranslate"><span class="pre">OPENBLAS_CORETYPE</span></code>: a minimal value for <code class="docutils literal notranslate"><span class="pre">x86_64</span></code> is
+<code class="docutils literal notranslate"><span class="pre">OPENBLAS_CORETYPE=Haswell</span></code>.  This too needs to be set before running your
+python (this time for posix):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ OPENBLAS_CORETYPE=Haswell python &lt;myprogram.py&gt;
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importerror">ImportError</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-python-from-conda-anaconda">Using Python from <code class="docutils literal notranslate"><span class="pre">conda</span></code> (Anaconda)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pycharm-with-anaconda-python">Using PyCharm with Anaconda Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-vs-code-with-anaconda-python-or-environments">Using VS Code with Anaconda Python (or environments)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-eclipse-pydev-with-anaconda-python-or-environments">Using Eclipse/PyDev with Anaconda Python (or environments)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raspberry-pi">Raspberry Pi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#debug-build-on-windows">Debug build on Windows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#all-setups">All setups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#development-setup">Development setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-environment-variables">Check environment variables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#downstream-importerror-attributeerror-or-c-api-abi-incompatibility">Downstream ImportError, AttributeError or C-API/ABI incompatibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segfaults-or-crashes">Segfaults or crashes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

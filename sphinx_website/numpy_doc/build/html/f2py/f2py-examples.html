@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>F2PY examples &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'f2py/f2py-examples';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="F2PY reference manual" href="f2py-reference.html" />
+    <link rel="prev" title="Using F2PY" href="usage.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.html">NumPy fundamentals</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/howtos_index.html">NumPy how-tos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">F2PY user guide and reference manual</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="f2py-user.html">F2PY user guide</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="f2py.getting-started.html">Three ways to wrap - getting started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html">Using F2PY</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">F2PY examples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="f2py-reference.html">F2PY reference manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows/index.html">F2PY and Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildtools/distutils-to-meson.html">1 Migrating to <code class="docutils literal notranslate"><span class="pre">meson</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/underthehood.html">Under-the-hood documentation for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.interoperability.html">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user/index.html" class="nav-link">NumPy user guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="f2py-user.html" class="nav-link">F2PY user guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">F2PY examples</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="f2py-examples">
+<span id="id1"></span><h1>F2PY examples<a class="headerlink" href="#f2py-examples" title="Link to this heading">#</a></h1>
+<p>Below are some examples of F2PY usage. This list is not comprehensive, but can
+be used as a starting point when wrapping your own code.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The best place to look for examples is the <a class="reference external" href="https://github.com/numpy/numpy/issues?q=is%3Aissue+label%3A%22component%3A+numpy.f2py%22+is%3Aclosed">NumPy issue tracker</a>, or the
+test cases for <code class="docutils literal notranslate"><span class="pre">f2py</span></code>. Some more use cases are in
+<a class="reference internal" href="advanced/boilerplating.html#f2py-boilerplating"><span class="std std-ref">Boilerplate reduction and templating</span></a>.</p>
+</div>
+<section id="f2py-walkthrough-a-basic-extension-module">
+<h2>F2PY walkthrough: a basic extension module<a class="headerlink" href="#f2py-walkthrough-a-basic-extension-module" title="Link to this heading">#</a></h2>
+<section id="creating-source-for-a-basic-extension-module">
+<h3>Creating source for a basic extension module<a class="headerlink" href="#creating-source-for-a-basic-extension-module" title="Link to this heading">#</a></h3>
+<p>Consider the following subroutine, contained in a file named <code class="file docutils literal notranslate"><span class="pre">add.f</span></code></p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">C</span>
+<span class="w">      </span><span class="k">SUBROUTINE </span><span class="n">ZADD</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">C</span>
+<span class="w">      </span><span class="kt">DOUBLE COMPLEX </span><span class="n">A</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">DOUBLE COMPLEX </span><span class="n">B</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">DOUBLE COMPLEX </span><span class="n">C</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">INTEGER </span><span class="n">N</span>
+<span class="w">      </span><span class="k">DO </span><span class="mi">20</span><span class="w"> </span><span class="n">J</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">N</span>
+<span class="w">         </span><span class="n">C</span><span class="p">(</span><span class="n">J</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">J</span><span class="p">)</span><span class="o">+</span><span class="n">B</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
+<span class="w"> </span><span class="mi">20</span><span class="w">   </span><span class="k">CONTINUE</span>
+<span class="k">      END</span>
+</pre></div>
+</div>
+<p>This routine simply adds the elements in two contiguous arrays and places the
+result in a third. The memory for all three arrays must be provided by the
+calling routine. A very basic interface to this routine can be automatically
+generated by f2py:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">numpy</span><span class="o">.</span><span class="n">f2py</span> <span class="o">-</span><span class="n">m</span> <span class="n">add</span> <span class="n">add</span><span class="o">.</span><span class="n">f</span>
+</pre></div>
+</div>
+<p>This command will produce an extension module named <code class="file docutils literal notranslate"><span class="pre">addmodule.c</span></code> in the
+current directory. This extension module can now be compiled and used from
+Python just like any other extension module.</p>
+</section>
+<section id="creating-a-compiled-extension-module">
+<h3>Creating a compiled extension module<a class="headerlink" href="#creating-a-compiled-extension-module" title="Link to this heading">#</a></h3>
+<p>You can also get f2py to both compile <code class="file docutils literal notranslate"><span class="pre">add.f</span></code> along with the produced
+extension module leaving only a shared-library extension file that can
+be imported from Python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">numpy</span><span class="o">.</span><span class="n">f2py</span> <span class="o">-</span><span class="n">c</span> <span class="o">-</span><span class="n">m</span> <span class="n">add</span> <span class="n">add</span><span class="o">.</span><span class="n">f</span>
+</pre></div>
+</div>
+<p>This command produces a Python extension module compatible with your platform.
+This module may then be imported from Python. It will contain a method for each
+subroutine in <code class="docutils literal notranslate"><span class="pre">add</span></code>. The docstring of each method contains information about
+how the module method may be called:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">add</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">add</span><span class="o">.</span><span class="n">zadd</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+<span class="go">zadd(a,b,c,n)</span>
+
+<span class="go">Wrapper for ``zadd``.</span>
+
+<span class="go">Parameters</span>
+<span class="go">----------</span>
+<span class="go">a : input rank-1 array(&#39;D&#39;) with bounds (*)</span>
+<span class="go">b : input rank-1 array(&#39;D&#39;) with bounds (*)</span>
+<span class="go">c : input rank-1 array(&#39;D&#39;) with bounds (*)</span>
+<span class="go">n : input int</span>
+</pre></div>
+</div>
+</section>
+<section id="improving-the-basic-interface">
+<h3>Improving the basic interface<a class="headerlink" href="#improving-the-basic-interface" title="Link to this heading">#</a></h3>
+<p>The default interface is a very literal translation of the Fortran code into
+Python. The Fortran array arguments are converted to NumPy arrays and the
+integer argument should be mapped to a <code class="docutils literal notranslate"><span class="pre">C</span></code> integer. The interface will attempt
+to convert all arguments to their required types (and shapes) and issue an error
+if unsuccessful. However, because <code class="docutils literal notranslate"><span class="pre">f2py</span></code> knows nothing about the semantics of
+the arguments (such that <code class="docutils literal notranslate"><span class="pre">C</span></code> is an output and <code class="docutils literal notranslate"><span class="pre">n</span></code> should really match the
+array sizes), it is possible to abuse this function in ways that can cause
+Python to crash. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="o">.</span><span class="n">zadd</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will cause a program crash on most systems. Under the hood, the lists are being
+converted to arrays but then the underlying <code class="docutils literal notranslate"><span class="pre">add</span></code> function is told to cycle
+way beyond the borders of the allocated memory.</p>
+<p>In order to improve the interface, <code class="docutils literal notranslate"><span class="pre">f2py</span></code> supports directives. This is
+accomplished by constructing a signature file. It is usually best to start from
+the interfaces that <code class="docutils literal notranslate"><span class="pre">f2py</span></code> produces in that file, which correspond to the
+default behavior. To get <code class="docutils literal notranslate"><span class="pre">f2py</span></code> to generate the interface file use the <code class="docutils literal notranslate"><span class="pre">-h</span></code>
+option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">numpy</span><span class="o">.</span><span class="n">f2py</span> <span class="o">-</span><span class="n">h</span> <span class="n">add</span><span class="o">.</span><span class="n">pyf</span> <span class="o">-</span><span class="n">m</span> <span class="n">add</span> <span class="n">add</span><span class="o">.</span><span class="n">f</span>
+</pre></div>
+</div>
+<p>This command creates the <code class="docutils literal notranslate"><span class="pre">add.pyf</span></code> file in the current directory. The section
+of this file corresponding to <code class="docutils literal notranslate"><span class="pre">zadd</span></code> is:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">zadd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="c">! in :add:add.f</span>
+<span class="w">   </span><span class="kt">double complex </span><span class="k">dimension</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span>
+<span class="w">   </span><span class="kt">double complex </span><span class="k">dimension</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">b</span>
+<span class="w">   </span><span class="kt">double complex </span><span class="k">dimension</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">c</span>
+<span class="w">   </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">n</span>
+<span class="k">end subroutine </span><span class="n">zadd</span>
+</pre></div>
+</div>
+<p>By placing intent directives and checking code, the interface can be cleaned up
+quite a bit so the Python module method is both easier to use and more robust to
+malformed inputs.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">zadd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="c">! in :add:add.f</span>
+<span class="w">   </span><span class="kt">double complex </span><span class="k">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span>
+<span class="w">   </span><span class="kt">double complex </span><span class="k">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">b</span>
+<span class="w">   </span><span class="kt">double complex </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="k">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">c</span>
+<span class="w">   </span><span class="kt">integer </span><span class="k">intent</span><span class="p">(</span><span class="n">hide</span><span class="p">),</span><span class="n">depend</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">end subroutine </span><span class="n">zadd</span>
+</pre></div>
+</div>
+<p>The intent directive, intent(out) is used to tell f2py that <code class="docutils literal notranslate"><span class="pre">c</span></code> is
+an output variable and should be created by the interface before being
+passed to the underlying code. The intent(hide) directive tells f2py
+to not allow the user to specify the variable, <code class="docutils literal notranslate"><span class="pre">n</span></code>, but instead to
+get it from the size of <code class="docutils literal notranslate"><span class="pre">a</span></code>. The depend( <code class="docutils literal notranslate"><span class="pre">a</span></code> ) directive is
+necessary to tell f2py that the value of n depends on the input a (so
+that it won’t try to create the variable n until the variable a is
+created).</p>
+<p>After modifying <code class="docutils literal notranslate"><span class="pre">add.pyf</span></code>, the new Python module file can be generated
+by compiling both <code class="docutils literal notranslate"><span class="pre">add.f</span></code> and <code class="docutils literal notranslate"><span class="pre">add.pyf</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">numpy</span><span class="o">.</span><span class="n">f2py</span> <span class="o">-</span><span class="n">c</span> <span class="n">add</span><span class="o">.</span><span class="n">pyf</span> <span class="n">add</span><span class="o">.</span><span class="n">f</span>
+</pre></div>
+</div>
+<p>The new interface’s docstring is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">add</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">add</span><span class="o">.</span><span class="n">zadd</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+<span class="go">c = zadd(a,b)</span>
+
+<span class="go">Wrapper for ``zadd``.</span>
+
+<span class="go">Parameters</span>
+<span class="go">----------</span>
+<span class="go">a : input rank-1 array(&#39;D&#39;) with bounds (n)</span>
+<span class="go">b : input rank-1 array(&#39;D&#39;) with bounds (n)</span>
+
+<span class="go">Returns</span>
+<span class="go">-------</span>
+<span class="go">c : rank-1 array(&#39;D&#39;) with bounds (n)</span>
+</pre></div>
+</div>
+<p>Now, the function can be called in a much more robust way:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add</span><span class="o">.</span><span class="n">zadd</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="go">array([5.+0.j, 7.+0.j, 9.+0.j])</span>
+</pre></div>
+</div>
+<p>Notice the automatic conversion to the correct format that occurred.</p>
+</section>
+<section id="inserting-directives-in-fortran-source">
+<h3>Inserting directives in Fortran source<a class="headerlink" href="#inserting-directives-in-fortran-source" title="Link to this heading">#</a></h3>
+<p>The robust interface of the previous section can also be generated automatically
+by placing the variable directives as special comments in the original Fortran
+code.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For projects where the Fortran code is being actively developed, this may be
+preferred.</p>
+</div>
+<p>Thus, if the source code is modified to contain:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">C</span>
+<span class="w">      </span><span class="k">SUBROUTINE </span><span class="n">ZADD</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">C</span>
+<span class="n">CF2PY</span><span class="w"> </span><span class="k">INTENT</span><span class="p">(</span><span class="n">OUT</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">C</span>
+<span class="n">CF2PY</span><span class="w"> </span><span class="k">INTENT</span><span class="p">(</span><span class="n">HIDE</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">N</span>
+<span class="n">CF2PY</span><span class="w"> </span><span class="kt">DOUBLE COMPLEX</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">CF2PY</span><span class="w"> </span><span class="kt">DOUBLE COMPLEX</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">CF2PY</span><span class="w"> </span><span class="kt">DOUBLE COMPLEX</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">C</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">DOUBLE COMPLEX </span><span class="n">A</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">DOUBLE COMPLEX </span><span class="n">B</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">DOUBLE COMPLEX </span><span class="n">C</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">INTEGER </span><span class="n">N</span>
+<span class="w">      </span><span class="k">DO </span><span class="mi">20</span><span class="w"> </span><span class="n">J</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">N</span>
+<span class="w">         </span><span class="n">C</span><span class="p">(</span><span class="n">J</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">J</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
+<span class="w"> </span><span class="mi">20</span><span class="w">   </span><span class="k">CONTINUE</span>
+<span class="k">      END</span>
+</pre></div>
+</div>
+<p>Then, one can compile the extension module using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">numpy</span><span class="o">.</span><span class="n">f2py</span> <span class="o">-</span><span class="n">c</span> <span class="o">-</span><span class="n">m</span> <span class="n">add</span> <span class="n">add</span><span class="o">.</span><span class="n">f</span>
+</pre></div>
+</div>
+<p>The resulting signature for the function add.zadd is exactly the same
+one that was created previously. If the original source code had
+contained <code class="docutils literal notranslate"><span class="pre">A(N)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">A(*)</span></code> and so forth with <code class="docutils literal notranslate"><span class="pre">B</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code>,
+then nearly the same interface can be obtained by placing the
+<code class="docutils literal notranslate"><span class="pre">INTENT(OUT)</span> <span class="pre">::</span> <span class="pre">C</span></code> comment line in the source code. The only difference
+is that <code class="docutils literal notranslate"><span class="pre">N</span></code> would be an optional input that would default to the length
+of <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+</section>
+</section>
+<section id="a-filtering-example">
+<h2>A filtering example<a class="headerlink" href="#a-filtering-example" title="Link to this heading">#</a></h2>
+<p>This example shows a function that filters a two-dimensional array of double
+precision floating-point numbers using a fixed averaging filter. The advantage
+of using Fortran to index into multi-dimensional arrays should be clear from
+this example.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">C</span>
+<span class="w">      </span><span class="k">SUBROUTINE </span><span class="n">DFILTER2D</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">C</span>
+<span class="w">      </span><span class="kt">DOUBLE PRECISION </span><span class="n">A</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">DOUBLE PRECISION </span><span class="n">B</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="w">      </span><span class="kt">INTEGER </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">M</span>
+<span class="n">CF2PY</span><span class="w"> </span><span class="k">INTENT</span><span class="p">(</span><span class="n">OUT</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">B</span>
+<span class="n">CF2PY</span><span class="w"> </span><span class="k">INTENT</span><span class="p">(</span><span class="n">HIDE</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">N</span>
+<span class="n">CF2PY</span><span class="w"> </span><span class="k">INTENT</span><span class="p">(</span><span class="n">HIDE</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">M</span>
+<span class="w">      </span><span class="k">DO </span><span class="mi">20</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span>
+<span class="w">         </span><span class="k">DO </span><span class="mi">40</span><span class="w"> </span><span class="n">J</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span>
+<span class="w">            </span><span class="n">B</span><span class="p">(</span><span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">     </span><span class="p">&amp;</span><span class="w">           </span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">J</span><span class="p">)</span><span class="o">+</span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">J</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">     </span><span class="p">&amp;</span><span class="w">           </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="p">,</span><span class="n">J</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="o">*</span><span class="mf">0.5D0</span><span class="w"> </span><span class="o">+</span>
+<span class="w">     </span><span class="p">&amp;</span><span class="w">           </span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">J</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">J</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">     </span><span class="p">&amp;</span><span class="w">           </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">J</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">I</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">J</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="mf">0.25D0</span>
+<span class="w"> </span><span class="mi">40</span><span class="w">      </span><span class="k">CONTINUE</span>
+<span class="k"> </span><span class="mi">20</span><span class="w">   </span><span class="k">CONTINUE</span>
+<span class="k">      END</span>
+</pre></div>
+</div>
+<p>This code can be compiled and linked into an extension module named
+filter using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">numpy</span><span class="o">.</span><span class="n">f2py</span> <span class="o">-</span><span class="n">c</span> <span class="o">-</span><span class="n">m</span> <span class="nb">filter</span> <span class="nb">filter</span><span class="o">.</span><span class="n">f</span>
+</pre></div>
+</div>
+<p>This will produce an extension module in the current directory with a method
+named <code class="docutils literal notranslate"><span class="pre">dfilter2d</span></code> that returns a filtered version of the input.</p>
+</section>
+<section id="depends-keyword-example">
+<h2><code class="docutils literal notranslate"><span class="pre">depends</span></code> keyword example<a class="headerlink" href="#depends-keyword-example" title="Link to this heading">#</a></h2>
+<p>Consider the following code, saved in the file <code class="docutils literal notranslate"><span class="pre">myroutine.f90</span></code>:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">s</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<span class="w">	</span><span class="k">implicit none</span>
+<span class="k">  	</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span>
+<span class="w">  	</span><span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  	</span><span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">c</span><span class="p">(:)</span>
+
+<span class="w">	</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0d0</span>
+<span class="w">	</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">end subroutine </span><span class="n">s</span>
+</pre></div>
+</div>
+<p>Wrapping this with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">numpy.f2py</span> <span class="pre">-c</span> <span class="pre">myroutine.f90</span> <span class="pre">-m</span> <span class="pre">myroutine</span></code>, we
+can do the following in Python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">myroutine</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">myroutine</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">array([[5., 0., 0.],</span>
+<span class="go">   [0., 0., 0.]])</span>
+</pre></div>
+</div>
+<p>Now, instead of generating the extension module directly, we will create a
+signature file for this subroutine first. This is a common pattern for
+multi-step extension module generation. In this case, after running</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">numpy</span><span class="o">.</span><span class="n">f2py</span> <span class="n">myroutine</span><span class="o">.</span><span class="n">f90</span> <span class="o">-</span><span class="n">m</span> <span class="n">myroutine</span> <span class="o">-</span><span class="n">h</span> <span class="n">myroutine</span><span class="o">.</span><span class="n">pyf</span>
+</pre></div>
+</div>
+<p>the following signature file is generated:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!    -*- f90 -*-</span>
+<span class="c">! Note: the context of this file is case sensitive.</span>
+
+<span class="n">python</span><span class="w"> </span><span class="k">module </span><span class="n">myroutine</span><span class="w"> </span><span class="c">! in </span>
+<span class="w">    </span><span class="k">interface</span><span class="w">  </span><span class="c">! in :myroutine</span>
+<span class="w">        </span><span class="k">subroutine </span><span class="n">s</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c">! in :myroutine:myroutine.f90</span>
+<span class="w">            </span><span class="kt">integer </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">n</span>
+<span class="w">            </span><span class="kt">integer </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">m</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">c</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span><span class="n">depend</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
+<span class="w">        </span><span class="k">end subroutine </span><span class="n">s</span>
+<span class="w">    </span><span class="k">end interface </span>
+<span class="k">end </span><span class="n">python</span><span class="w"> </span><span class="k">module </span><span class="n">myroutine</span>
+
+<span class="c">! This file was auto-generated with f2py (version:1.23.0.dev0+120.g4da01f42d).</span>
+<span class="c">! See:</span>
+<span class="c">! https://web.archive.org/web/20140822061353/http://cens.ioc.ee/projects/f2py2e</span>
+</pre></div>
+</div>
+<p>Now, if we run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">numpy.f2py</span> <span class="pre">-c</span> <span class="pre">myroutine.pyf</span> <span class="pre">myroutine.f90</span></code> we see an
+error; note that the signature file included a <code class="docutils literal notranslate"><span class="pre">depend(m,n)</span></code> statement for
+<code class="docutils literal notranslate"><span class="pre">x</span></code> which is not necessary. Indeed, editing the file above to read</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">!    -*- f90 -*-</span>
+<span class="c">! Note: the context of this file is case sensitive.</span>
+
+<span class="n">python</span><span class="w"> </span><span class="k">module </span><span class="n">myroutine</span><span class="w"> </span><span class="c">! in </span>
+<span class="w">    </span><span class="k">interface</span><span class="w">  </span><span class="c">! in :myroutine</span>
+<span class="w">        </span><span class="k">subroutine </span><span class="n">s</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c">! in :myroutine:myroutine.f90</span>
+<span class="w">            </span><span class="kt">integer </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">n</span>
+<span class="w">            </span><span class="kt">integer </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">m</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">dimension</span><span class="p">(:),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">c</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
+<span class="w">        </span><span class="k">end subroutine </span><span class="n">s</span>
+<span class="w">    </span><span class="k">end interface </span>
+<span class="k">end </span><span class="n">python</span><span class="w"> </span><span class="k">module </span><span class="n">myroutine</span>
+
+<span class="c">! This file was auto-generated with f2py (version:1.23.0.dev0+120.g4da01f42d).</span>
+<span class="c">! See:</span>
+<span class="c">! https://web.archive.org/web/20140822061353/http://cens.ioc.ee/projects/f2py2e</span>
+</pre></div>
+</div>
+<p>and running <code class="docutils literal notranslate"><span class="pre">f2py</span> <span class="pre">-c</span> <span class="pre">myroutine.pyf</span> <span class="pre">myroutine.f90</span></code> yields correct results.</p>
+</section>
+<section id="read-more">
+<h2>Read more<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scipy.github.io/old-wiki/pages/Cookbook/f2py_and_NumPy.html">Wrapping C codes using f2py</a></p></li>
+<li><p><a class="reference external" href="https://scipy-cookbook.readthedocs.io/items/F2Py.html">F2py section on the SciPy Cookbook</a></p></li>
+<li><p><a class="reference external" href="http://websrv.cs.umt.edu/isis/index.php/F2py_example">F2py example: Interactive System for Ice sheet Simulation</a></p></li>
+<li><p><a class="reference external" href="https://scipy-cookbook.readthedocs.io/items/idx_interfacing_with_other_languages.html">“Interfacing With Other Languages” section on the SciPy Cookbook.</a></p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="usage.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Using F2PY</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="f2py-reference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">F2PY reference manual</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#f2py-walkthrough-a-basic-extension-module">F2PY walkthrough: a basic extension module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-source-for-a-basic-extension-module">Creating source for a basic extension module</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-compiled-extension-module">Creating a compiled extension module</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#improving-the-basic-interface">Improving the basic interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inserting-directives-in-fortran-source">Inserting directives in Fortran source</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-filtering-example">A filtering example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#depends-keyword-example"><code class="docutils literal notranslate"><span class="pre">depends</span></code> keyword example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">Read more</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

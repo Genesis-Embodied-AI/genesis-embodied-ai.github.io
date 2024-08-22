@@ -1,0 +1,848 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>numpy.polynomial.chebyshev.chebone &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=30646c52"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'reference/generated/numpy.polynomial.chebyshev.chebone';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="numpy.polynomial.chebyshev.chebx" href="numpy.polynomial.chebyshev.chebx.html" />
+    <link rel="prev" title="numpy.polynomial.chebyshev.chebzero" href="numpy.polynomial.chebyshev.chebzero.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 20, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../dev/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../release.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../module_structure.html">NumPy’s module structure</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../arrays.html">Array objects</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ufuncs.html">Universal functions (<code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code>)</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../routines.html">Routines and objects by topic</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.array-creation.html">Array creation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.array-manipulation.html">Array manipulation routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.bitwise.html">Bit-wise operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.strings.html">String functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.datetime.html">Datetime support functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.dtype.html">Data type routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.emath.html">Mathematical functions with automatic domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.err.html">Floating point error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.exceptions.html">Exceptions and Warnings (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.exceptions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.fft.html">Discrete Fourier Transform (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.fft</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.functional.html">Functional programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.io.html">Input and output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.indexing.html">Indexing routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.linalg.html">Linear algebra (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.linalg</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.logic.html">Logic functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.ma.html">Masked array operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.math.html">Mathematical functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.other.html">Miscellaneous routines</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../routines.polynomials.html">Polynomials</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../routines.polynomials.classes.html">Using the convenience classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../routines.polynomials.polynomial.html">Power Series (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.polynomial.polynomial</span></code>)</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="../routines.polynomials.chebyshev.html">Chebyshev Series (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.polynomial.chebyshev</span></code>)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.Chebyshev.html">numpy.polynomial.chebyshev.Chebyshev</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebdomain.html">numpy.polynomial.chebyshev.chebdomain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebzero.html">numpy.polynomial.chebyshev.chebzero</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">numpy.polynomial.chebyshev.chebone</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebx.html">numpy.polynomial.chebyshev.chebx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebadd.html">numpy.polynomial.chebyshev.chebadd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebsub.html">numpy.polynomial.chebyshev.chebsub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebmulx.html">numpy.polynomial.chebyshev.chebmulx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebmul.html">numpy.polynomial.chebyshev.chebmul</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebdiv.html">numpy.polynomial.chebyshev.chebdiv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebpow.html">numpy.polynomial.chebyshev.chebpow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebval.html">numpy.polynomial.chebyshev.chebval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebval2d.html">numpy.polynomial.chebyshev.chebval2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebval3d.html">numpy.polynomial.chebyshev.chebval3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebgrid2d.html">numpy.polynomial.chebyshev.chebgrid2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebgrid3d.html">numpy.polynomial.chebyshev.chebgrid3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebder.html">numpy.polynomial.chebyshev.chebder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebint.html">numpy.polynomial.chebyshev.chebint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebfromroots.html">numpy.polynomial.chebyshev.chebfromroots</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebroots.html">numpy.polynomial.chebyshev.chebroots</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebvander.html">numpy.polynomial.chebyshev.chebvander</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebvander2d.html">numpy.polynomial.chebyshev.chebvander2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebvander3d.html">numpy.polynomial.chebyshev.chebvander3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebgauss.html">numpy.polynomial.chebyshev.chebgauss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebweight.html">numpy.polynomial.chebyshev.chebweight</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebcompanion.html">numpy.polynomial.chebyshev.chebcompanion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebfit.html">numpy.polynomial.chebyshev.chebfit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebpts1.html">numpy.polynomial.chebyshev.chebpts1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebpts2.html">numpy.polynomial.chebyshev.chebpts2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebtrim.html">numpy.polynomial.chebyshev.chebtrim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebline.html">numpy.polynomial.chebyshev.chebline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.cheb2poly.html">numpy.polynomial.chebyshev.cheb2poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.poly2cheb.html">numpy.polynomial.chebyshev.poly2cheb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="numpy.polynomial.chebyshev.chebinterpolate.html">numpy.polynomial.chebyshev.chebinterpolate</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../routines.polynomials.hermite.html">Hermite Series, “Physicists” (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.polynomial.hermite</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../routines.polynomials.hermite_e.html">HermiteE Series, “Probabilists” (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.polynomial.hermite_e</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../routines.polynomials.laguerre.html">Laguerre Series (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.polynomial.laguerre</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../routines.polynomials.legendre.html">Legendre Series (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.polynomial.legendre</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../routines.polynomials.polyutils.html">Polyutils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../routines.polynomials.poly1d.html">Poly1d</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../random/index.html">Random sampling (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.random</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.set.html">Set routines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.sort.html">Sorting, searching, and counting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.statistics.html">Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.testing.html">Test support (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.testing</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routines.window.html">Window functions</a></li>
+</ul>
+</details></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../typing.html">Typing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.typing</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils.html">Packaging (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.distutils</span></code>)</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../c-api/index.html">NumPy C-API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../array_api.html">Array API standard compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simd/index.html">CPU/SIMD optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thread_safety.html">Thread Safety</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../global_state.html">Global Configuration Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">NumPy security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_status_migration.html">Status of <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> and migration advice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../distutils_guide.html"><code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> user guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../swig.html">NumPy and SWIG</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">NumPy reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../routines.polynomials.chebyshev.html" class="nav-link">Chebyshev Series (<code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy.polynomial.chebyshev</span></code>)</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">numpy.polyno...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="numpy-polynomial-chebyshev-chebone">
+<h1>numpy.polynomial.chebyshev.chebone<a class="headerlink" href="#numpy-polynomial-chebyshev-chebone" title="Link to this heading">#</a></h1>
+<dl class="py data">
+<dt class="sig sig-object py" id="numpy.polynomial.chebyshev.chebone">
+<span class="sig-prename descclassname"><span class="pre">polynomial.chebyshev.</span></span><span class="sig-name descname"><span class="pre">chebone</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">array([1])</span></em><a class="headerlink" href="#numpy.polynomial.chebyshev.chebone" title="Link to this definition">#</a></dt>
+<dd><p>An array object represents a multidimensional, homogeneous array
+of fixed-size items.  An associated data-type object describes the
+format of each element in the array (its byte-order, how many bytes it
+occupies in memory, whether it is an integer, a floating point number,
+or something else, etc.)</p>
+<p>Arrays should be constructed using <a class="reference internal" href="numpy.array.html#numpy.array" title="numpy.array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, <a class="reference internal" href="numpy.zeros.html#numpy.zeros" title="numpy.zeros"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros</span></code></a> or <a class="reference internal" href="numpy.empty.html#numpy.empty" title="numpy.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a> (refer
+to the See Also section below).  The parameters given here refer to
+a low-level method (<em class="xref py py-obj">ndarray(…)</em>) for instantiating an array.</p>
+<p>For more information, refer to the <a class="reference internal" href="../index.html#module-numpy" title="numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy</span></code></a> module and examine the
+methods and attributes of an array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>(for the __new__ method; see Notes below)</strong></dt><dd></dd>
+<dt><strong>shape</strong><span class="classifier">tuple of ints</span></dt><dd><p>Shape of created array.</p>
+</dd>
+<dt><strong>dtype</strong><span class="classifier">data-type, optional</span></dt><dd><p>Any object that can be interpreted as a numpy data type.</p>
+</dd>
+<dt><strong>buffer</strong><span class="classifier">object exposing buffer interface, optional</span></dt><dd><p>Used to fill the array with data.</p>
+</dd>
+<dt><strong>offset</strong><span class="classifier">int, optional</span></dt><dd><p>Offset of array data in buffer.</p>
+</dd>
+<dt><strong>strides</strong><span class="classifier">tuple of ints, optional</span></dt><dd><p>Strides of data in memory.</p>
+</dd>
+<dt><strong>order</strong><span class="classifier">{‘C’, ‘F’}, optional</span></dt><dd><p>Row-major (C-style) or column-major (Fortran-style) order.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>T</strong><span class="classifier">ndarray</span></dt><dd><p>Transpose of the array.</p>
+</dd>
+<dt><strong>data</strong><span class="classifier">buffer</span></dt><dd><p>The array’s elements, in memory.</p>
+</dd>
+<dt><strong>dtype</strong><span class="classifier">dtype object</span></dt><dd><p>Describes the format of the elements in the array.</p>
+</dd>
+<dt><strong>flags</strong><span class="classifier">dict</span></dt><dd><p>Dictionary containing information related to memory use, e.g.,
+‘C_CONTIGUOUS’, ‘OWNDATA’, ‘WRITEABLE’, etc.</p>
+</dd>
+<dt><strong>flat</strong><span class="classifier">numpy.flatiter object</span></dt><dd><p>Flattened version of the array as an iterator.  The iterator
+allows assignments, e.g., <code class="docutils literal notranslate"><span class="pre">x.flat</span> <span class="pre">=</span> <span class="pre">3</span></code> (See <a class="reference internal" href="numpy.ndarray.flat.html#numpy.ndarray.flat" title="numpy.ndarray.flat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray.flat</span></code></a> for
+assignment examples; TODO).</p>
+</dd>
+<dt><strong>imag</strong><span class="classifier">ndarray</span></dt><dd><p>Imaginary part of the array.</p>
+</dd>
+<dt><strong>real</strong><span class="classifier">ndarray</span></dt><dd><p>Real part of the array.</p>
+</dd>
+<dt><strong>size</strong><span class="classifier">int</span></dt><dd><p>Number of elements in the array.</p>
+</dd>
+<dt><strong>itemsize</strong><span class="classifier">int</span></dt><dd><p>The memory use of each array element in bytes.</p>
+</dd>
+<dt><strong>nbytes</strong><span class="classifier">int</span></dt><dd><p>The total number of bytes required to store the array data,
+i.e., <code class="docutils literal notranslate"><span class="pre">itemsize</span> <span class="pre">*</span> <span class="pre">size</span></code>.</p>
+</dd>
+<dt><strong>ndim</strong><span class="classifier">int</span></dt><dd><p>The array’s number of dimensions.</p>
+</dd>
+<dt><strong>shape</strong><span class="classifier">tuple of ints</span></dt><dd><p>Shape of the array.</p>
+</dd>
+<dt><strong>strides</strong><span class="classifier">tuple of ints</span></dt><dd><p>The step-size required to move from one element to the next in
+memory. For example, a contiguous <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">4)</span></code> array of type
+<code class="docutils literal notranslate"><span class="pre">int16</span></code> in C-order has strides <code class="docutils literal notranslate"><span class="pre">(8,</span> <span class="pre">2)</span></code>.  This implies that
+to move from element to element in memory requires jumps of 2 bytes.
+To move from row-to-row, one needs to jump 8 bytes at a time
+(<code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">4</span></code>).</p>
+</dd>
+<dt><strong>ctypes</strong><span class="classifier">ctypes object</span></dt><dd><p>Class containing properties of the array needed for interaction
+with ctypes.</p>
+</dd>
+<dt><strong>base</strong><span class="classifier">ndarray</span></dt><dd><p>If the array is a view into another array, that array is its <em class="xref py py-obj">base</em>
+(unless that array is also a view).  The <em class="xref py py-obj">base</em> array is where the
+array data is actually stored.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="numpy.array.html#numpy.array" title="numpy.array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a></dt><dd><p>Construct an array.</p>
+</dd>
+<dt><a class="reference internal" href="numpy.zeros.html#numpy.zeros" title="numpy.zeros"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros</span></code></a></dt><dd><p>Create an array, each element of which is zero.</p>
+</dd>
+<dt><a class="reference internal" href="numpy.empty.html#numpy.empty" title="numpy.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></dt><dd><p>Create an array, but leave its allocated memory unchanged (i.e., it contains “garbage”).</p>
+</dd>
+<dt><a class="reference internal" href="numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype</span></code></a></dt><dd><p>Create a data-type.</p>
+</dd>
+<dt><a class="reference internal" href="../typing.html#numpy.typing.NDArray" title="numpy.typing.NDArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.typing.NDArray</span></code></a></dt><dd><p>An ndarray alias <a class="reference external" href="https://docs.python.org/3/glossary.html#term-generic-type" title="(in Python v3.12)"><span class="xref std std-term">generic</span></a> w.r.t. its <a class="reference internal" href="numpy.dtype.type.html#numpy.dtype.type" title="numpy.dtype.type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype.type</span></code></a>.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>There are two modes of creating an array using <code class="docutils literal notranslate"><span class="pre">__new__</span></code>:</p>
+<ol class="arabic simple">
+<li><p>If <em class="xref py py-obj">buffer</em> is None, then only <a class="reference internal" href="numpy.shape.html#numpy.shape" title="numpy.shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shape</span></code></a>, <a class="reference internal" href="numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dtype</span></code></a>, and <em class="xref py py-obj">order</em>
+are used.</p></li>
+<li><p>If <em class="xref py py-obj">buffer</em> is an object exposing the buffer interface, then
+all keywords are interpreted.</p></li>
+</ol>
+<p>No <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method is needed because the array is fully initialized
+after the <code class="docutils literal notranslate"><span class="pre">__new__</span></code> method.</p>
+<p class="rubric">Examples</p>
+<p>These examples illustrate the low-level <a class="reference internal" href="numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></a> constructor.  Refer
+to the <em class="xref py py-obj">See Also</em> section above for easier ways of constructing an
+ndarray.</p>
+<p>First mode, <em class="xref py py-obj">buffer</em> is None:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+<span class="go">array([[0.0e+000, 0.0e+000], # random</span>
+<span class="go">       [     nan, 2.5e-323]])</span>
+</pre></div>
+</div>
+<p>Second mode:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="mi">2</span><span class="p">,),</span> <span class="n">buffer</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]),</span>
+<span class="gp">... </span>           <span class="n">offset</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">()</span><span class="o">.</span><span class="n">itemsize</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="c1"># offset = 1*itemsize, i.e. skip first element</span>
+<span class="go">array([2, 3])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="numpy.polynomial.chebyshev.chebzero.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">numpy.polynomial.chebyshev.chebzero</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="numpy.polynomial.chebyshev.chebx.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">numpy.polynomial.chebyshev.chebx</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy.polynomial.chebyshev.chebone"><code class="docutils literal notranslate"><span class="pre">polynomial.chebyshev.chebone</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

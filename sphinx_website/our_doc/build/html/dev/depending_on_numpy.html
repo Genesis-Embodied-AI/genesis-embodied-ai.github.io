@@ -1,0 +1,838 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>For downstream package authors &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dev/depending_on_numpy';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Releasing a version" href="releasing.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="../benchmarking.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="development_environment.html">Setting up and using your development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto_build_docs.html">Building the NumPy API and reference docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_workflow.html">Development workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development_advanced_debugging.html">Advanced debugging tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reviewer_guidelines.html">Reviewer guidelines</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/neps/nep-0045-c_style_guide.html">NumPy C style guide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">For downstream package authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing a version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governance/index.html">NumPy governance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-docs.html">How to contribute to the NumPy documentation</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Contributing to NumPy</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">For...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="for-downstream-package-authors">
+<span id="id1"></span><h1>For downstream package authors<a class="headerlink" href="#for-downstream-package-authors" title="Link to this heading">#</a></h1>
+<p>This document aims to explain some best practices for authoring a package that
+depends on NumPy.</p>
+<section id="understanding-numpy-s-versioning-and-api-abi-stability">
+<h2>Understanding NumPy’s versioning and API/ABI stability<a class="headerlink" href="#understanding-numpy-s-versioning-and-api-abi-stability" title="Link to this heading">#</a></h2>
+<p>NumPy uses a standard, <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-0440/"><strong>PEP 440</strong></a> compliant, versioning scheme:
+<code class="docutils literal notranslate"><span class="pre">major.minor.bugfix</span></code>. A <em>major</em> release is highly unusual and if it happens
+it will most likely indicate an ABI break. NumPy 1.xx releases happened from
+2006 to 2023; NumPy 2.0 in early 2024 is the first release which changed the
+ABI (minor ABI breaks for corner cases may have happened a few times in minor
+releases).
+<em>Minor</em> versions are released regularly, typically every 6 months. Minor
+versions contain new features, deprecations, and removals of previously
+deprecated code. <em>Bugfix</em> releases are made even more frequently; they do not
+contain any new features or deprecations.</p>
+<p>It is important to know that NumPy, like Python itself and most other
+well known scientific Python projects, does <strong>not</strong> use semantic versioning.
+Instead, backwards incompatible API changes require deprecation warnings for at
+least two releases. For more details, see <a class="reference external" href="https://numpy.org/neps/nep-0023-backwards-compatibility.html#nep23" title="(in NumPy Enhancement Proposals)"><span>NEP 23 — Backwards compatibility and deprecation policy</span></a>.</p>
+<p>NumPy has both a Python API and a C API. The C API can be used directly or via
+Cython, f2py, or other such tools. If your package uses the C API, then ABI
+(application binary interface) stability of NumPy is important. NumPy’s ABI is
+forward but not backward compatible. This means: binaries compiled against a
+given target version of NumPy’s C API will still run correctly with newer NumPy
+versions, but not with older versions.</p>
+</section>
+<section id="testing-against-the-numpy-main-branch-or-pre-releases">
+<span id="testing-prereleases"></span><h2>Testing against the NumPy main branch or pre-releases<a class="headerlink" href="#testing-against-the-numpy-main-branch-or-pre-releases" title="Link to this heading">#</a></h2>
+<p>For large, actively maintained packages that depend on NumPy, we recommend
+testing against the development version of NumPy in CI. To make this easy,
+nightly builds are provided as wheels at
+<a class="reference external" href="https://anaconda.org/scientific-python-nightly-wheels/">https://anaconda.org/scientific-python-nightly-wheels/</a>. Example install command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="o">--</span><span class="n">pre</span> <span class="o">--</span><span class="n">only</span><span class="o">-</span><span class="n">binary</span> <span class="p">:</span><span class="nb">all</span><span class="p">:</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">anaconda</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">scientific</span><span class="o">-</span><span class="n">python</span><span class="o">-</span><span class="n">nightly</span><span class="o">-</span><span class="n">wheels</span><span class="o">/</span><span class="n">simple</span> <span class="n">numpy</span>
+</pre></div>
+</div>
+<p>This helps detect regressions in NumPy that need fixing before the next NumPy
+release.  Furthermore, we recommend to raise errors on warnings in CI for this
+job, either all warnings or otherwise at least <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> and
+<code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code>. This gives you an early warning about changes in NumPy to
+adapt your code.</p>
+<p>If you want to test your own wheel builds against the latest NumPy nightly
+build and you’re using <code class="docutils literal notranslate"><span class="pre">cibuildwheel</span></code>, you may need something like this in
+your CI config file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CIBW_ENVIRONMENT</span><span class="p">:</span> <span class="s2">&quot;PIP_PRE=1 PIP_EXTRA_INDEX_URL=https://pypi.anaconda.org/scientific-python-nightly-wheels/simple&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-a-dependency-on-numpy">
+<span id="depending-on-numpy"></span><h2>Adding a dependency on NumPy<a class="headerlink" href="#adding-a-dependency-on-numpy" title="Link to this heading">#</a></h2>
+<section id="build-time-dependency">
+<h3>Build-time dependency<a class="headerlink" href="#build-time-dependency" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before NumPy 1.25, the NumPy C-API was <em>not</em> exposed in a backwards
+compatible way by default. This means that when compiling with a NumPy
+version earlier than 1.25 you have to compile with the oldest version you
+wish to support. This can be done by using
+<a class="reference external" href="https://github.com/scipy/oldest-supported-numpy/">oldest-supported-numpy</a>.
+Please see the <a class="reference external" href="https://numpy.org/doc/1.24/dev/depending_on_numpy.html">NumPy 1.24 documentation</a>.</p>
+</div>
+<p>If a package either uses the NumPy C API directly or it uses some other tool
+that depends on it like Cython or Pythran, NumPy is a <em>build-time</em> dependency
+of the package.</p>
+<p>By default, NumPy will expose an API that is backwards compatible with the
+oldest NumPy version that supports the currently oldest compatible Python
+version.  NumPy 1.25.0 supports Python 3.9 and higher and NumPy 1.19 is the
+first version to support Python 3.9.  Thus, we guarantee that, when using
+defaults, NumPy 1.25 will expose a C-API compatible with NumPy 1.19.
+(the exact version is set within NumPy-internal header files).</p>
+<p>NumPy is also forward compatible for all minor releases, but a major release
+will require recompilation (see NumPy 2.0-specific advice further down).</p>
+<p>The default behavior can be customized for example by adding:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define NPY_TARGET_VERSION NPY_1_22_API_VERSION</span>
+</pre></div>
+</div>
+<p>before including any NumPy headers (or the equivalent <code class="docutils literal notranslate"><span class="pre">-D</span></code> compiler flag) in
+every extension module that requires the NumPy C-API.
+This is mainly useful if you need to use newly added API at the cost of not
+being compatible with older versions.</p>
+<p>If for some reason you wish to compile for the currently installed NumPy
+version by default you can add:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#ifndef NPY_TARGET_VERSION</span>
+    <span class="c1">#define NPY_TARGET_VERSION NPY_API_VERSION</span>
+<span class="c1">#endif</span>
+</pre></div>
+</div>
+<p>Which allows a user to override the default via <code class="docutils literal notranslate"><span class="pre">-DNPY_TARGET_VERSION</span></code>.
+This define must be consistent for each extension module (use of
+<code class="docutils literal notranslate"><span class="pre">import_array()</span></code>) and also applies to the umath module.</p>
+<p>When you compile against NumPy, you should add the proper version restrictions
+to your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> (see PEP 517).  Since your extension will not be
+compatible with a new major release of NumPy and may not be compatible with
+very old versions.</p>
+<p>For conda-forge packages, please see
+<a class="reference external" href="https://conda-forge.org/docs/maintainer/knowledge_base.html#building-against-numpy">here</a>.</p>
+<p>as of now, it is usually as easy as including:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">numpy</span>
+<span class="n">run</span><span class="p">:</span>
+  <span class="o">-</span> <span class="p">{{</span> <span class="n">pin_compatible</span><span class="p">(</span><span class="s1">&#39;numpy&#39;</span><span class="p">)</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="runtime-dependency-version-ranges">
+<h3>Runtime dependency &amp; version ranges<a class="headerlink" href="#runtime-dependency-version-ranges" title="Link to this heading">#</a></h3>
+<p>NumPy itself and many core scientific Python packages have agreed on a schedule
+for dropping support for old Python and NumPy versions: <a class="reference external" href="https://docs.scipy.org/doc/scipy/dev/toolchain.html#nep29" title="(in SciPy v1.14.1)"><span class="xref std std-ref">NEP29</span></a>. We
+recommend all packages depending on NumPy to follow the recommendations in NEP
+29.</p>
+<p>For <em>run-time dependencies</em>, specify version bounds using
+<code class="docutils literal notranslate"><span class="pre">install_requires</span></code> in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> (assuming you use <code class="docutils literal notranslate"><span class="pre">numpy.distutils</span></code> or
+<code class="docutils literal notranslate"><span class="pre">setuptools</span></code> to build).</p>
+<p>Most libraries that rely on NumPy will not need to set an upper
+version bound: NumPy is careful to preserve backward-compatibility.</p>
+<p>That said, if you are (a) a project that is guaranteed to release
+frequently, (b) use a large part of NumPy’s API surface, and (c) is
+worried that changes in NumPy may break your code, you can set an
+upper bound of <code class="docutils literal notranslate"><span class="pre">&lt;MAJOR.MINOR</span> <span class="pre">+</span> <span class="pre">N</span></code> with N no less than 3, and
+<code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR</span></code> being the current release of NumPy <a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>*<span class="fn-bracket">]</span></a>. If you use the NumPy
+C API (directly or via Cython), you can also pin the current major
+version to prevent ABI breakage. Note that setting an upper bound on
+NumPy may <a class="reference external" href="https://iscinumpy.dev/post/bound-version-constraints/">affect the ability of your library to be installed
+alongside other, newer packages</a>.</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">*</a><span class="fn-bracket">]</span></span>
+<p>The reason for setting <code class="docutils literal notranslate"><span class="pre">N=3</span></code> is that NumPy will, on the
+rare occasion where it makes breaking changes, raise warnings
+for at least two releases. (NumPy releases about once every six
+months, so this translates to a window of at least a year;
+hence the subsequent requirement that your project releases at
+least on that cadence.)</p>
+</aside>
+</aside>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SciPy has more documentation on how it builds wheels and deals with its
+build-time and runtime dependencies
+<a class="reference external" href="https://scipy.github.io/devdocs/dev/core-dev/index.html#distributing">here</a>.</p>
+<p>NumPy and SciPy wheel build CI may also be useful as a reference, it can be
+found <a class="reference external" href="https://github.com/MacPython/numpy-wheels">here for NumPy</a> and
+<a class="reference external" href="https://github.com/MacPython/scipy-wheels">here for SciPy</a>.</p>
+</div>
+</section>
+<section id="numpy-2-0-specific-advice">
+<span id="numpy-2-abi-handling"></span><h3>NumPy 2.0-specific advice<a class="headerlink" href="#numpy-2-0-specific-advice" title="Link to this heading">#</a></h3>
+<p>NumPy 2.0 is an ABI-breaking release, however it does contain support for
+building wheels that work on both 2.0 and 1.xx releases. It’s important to understand that:</p>
+<ol class="arabic simple">
+<li><p>When you build wheels for your package using a NumPy 1.xx version at build
+time, those <strong>will not work</strong> with NumPy 2.0.</p></li>
+<li><p>When you build wheels for your package using a NumPy 2.x version at build
+time, those <strong>will work</strong> with NumPy 1.xx.</p></li>
+</ol>
+<p>The first time the NumPy ABI for 2.0 is guaranteed to be stable will be the
+release of the first release candidate for 2.0 (i.e., 2.0.0rc1). Our advice for
+handling your dependency on NumPy is as follows:</p>
+<ol class="arabic simple">
+<li><p>In the main (development) branch of your package, do not add any constraints.</p></li>
+<li><p>If you rely on the NumPy C API (e.g. via direct use in C/C++, or via Cython
+code that uses NumPy), add a <code class="docutils literal notranslate"><span class="pre">numpy&lt;2.0</span></code> requirement in your
+package’s dependency metadata for releases / in release branches. Do this
+until numpy <code class="docutils literal notranslate"><span class="pre">2.0.0rc1</span></code> is released and you can target that.
+<em>Rationale: the NumPy C ABI will change in 2.0, so any compiled extension
+modules that rely on NumPy will break; they need to be recompiled.</em></p></li>
+<li><p>If you rely on a large API surface from NumPy’s Python API, also consider
+adding the same <code class="docutils literal notranslate"><span class="pre">numpy&lt;2.0</span></code> requirement to your metadata until you are
+sure your code is updated for changes in 2.0 (i.e., when you’ve tested
+things work against <code class="docutils literal notranslate"><span class="pre">2.0.0rc1</span></code>).
+<em>Rationale: we will do a significant API cleanup, with many aliases and
+deprecated/non-recommended objects being removed (see, e.g.,</em>
+<a class="reference internal" href="../numpy_2_0_migration_guide.html#numpy-2-migration-guide"><span class="std std-ref">NumPy 2.0 migration guide</span></a> <em>and</em> <a class="reference external" href="https://numpy.org/neps/nep-0052-python-api-cleanup.html#nep52" title="(in NumPy Enhancement Proposals)"><span>NEP 52 — Python API cleanup for NumPy 2.0</span></a>), <em>so unless you only use
+modern/recommended functions and objects, your code is likely to require at
+least some adjustments.</em></p></li>
+<li><p>Plan to do a release of your own packages which depend on <code class="docutils literal notranslate"><span class="pre">numpy</span></code> shortly
+after the first NumPy 2.0 release candidate is released (probably around 1
+Feb 2024).
+<em>Rationale: at that point, you can release packages that will work with both
+2.0 and 1.X, and hence your own end users will not be seeing much/any
+disruption (you want</em> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mypackage</span></code> <em>to continue working on the
+day NumPy 2.0 is released).</em></p></li>
+<li><p>Once <code class="docutils literal notranslate"><span class="pre">2.0.0rc1</span></code> is available, you can adjust your metadata in
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> in the way outlined below.</p></li>
+</ol>
+<p>There are two cases: you need to keep compatibility with numpy 1.xx while also
+supporting 2.0, or you are able to drop numpy 1.xx support for new releases of
+your package and support &gt;=2.0 only. The latter is simpler, but may be more
+restrictive for your users. In that case, simply add <code class="docutils literal notranslate"><span class="pre">numpy&gt;=2.0</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">numpy&gt;=2.0.0rc1</span></code>) to your build and runtime requirements and you’re good to
+go. We’ll focus on the “keep compatibility with 1.xx and 2.x” now, which is a
+little more involved.</p>
+<p><em>Example for a package using the NumPy C API (via C/Cython/etc.) which wants to support
+NumPy 1.23.5 and up</em>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[build-system]</span>
+<span class="na">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">...</span>
+<span class="na">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[</span>
+<span class="w">    </span><span class="c1"># Note for packagers: this constraint is specific to wheels</span>
+<span class="w">    </span><span class="c1"># for PyPI; it is also supported to build against 1.xx still.</span>
+<span class="w">    </span><span class="c1"># If you do so, please ensure to include a `numpy&lt;2.0`</span>
+<span class="w">    </span><span class="c1"># runtime requirement for those binary packages.</span>
+<span class="w">    </span><span class="na">&quot;numpy&gt;</span><span class="o">=</span><span class="s">2.0.0rc1&quot;,</span>
+<span class="w">    </span><span class="na">...</span>
+<span class="na">]</span>
+
+<span class="k">[project]</span>
+<span class="na">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[</span>
+<span class="w">    </span><span class="na">&quot;numpy&gt;</span><span class="o">=</span><span class="s">1.23.5&quot;,</span>
+<span class="na">]</span>
+</pre></div>
+</div>
+<p>We recommend that you have at least one CI job which builds/installs via a wheel,
+and then runs tests against the oldest numpy version that the package supports.
+For example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build wheel via wheel, then install it</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">python -m build  # This will pull in numpy 2.0 in an isolated env</span>
+<span class="w">    </span><span class="no">python -m pip install dist/*.whl</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test against oldest supported numpy version</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">python -m pip install numpy==1.23.5</span>
+<span class="w">    </span><span class="no"># now run test suite</span>
+</pre></div>
+</div>
+<p>The above only works once NumPy 2.0 is available on PyPI. If you want to test
+against a NumPy 2.0-dev wheel, you have to use a numpy nightly build (see
+<a class="reference internal" href="#testing-prereleases"><span class="std std-ref">this section</span></a> higher up) or build numpy from source.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../benchmarking.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="releasing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Releasing a version</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-numpy-s-versioning-and-api-abi-stability">Understanding NumPy’s versioning and API/ABI stability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-against-the-numpy-main-branch-or-pre-releases">Testing against the NumPy main branch or pre-releases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-dependency-on-numpy">Adding a dependency on NumPy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-time-dependency">Build-time dependency</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#runtime-dependency-version-ranges">Runtime dependency &amp; version ranges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-2-0-specific-advice">NumPy 2.0-specific advice</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1205 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NumPy C code explanations &#8212; NumPy v2.1 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/numpy.css?v=f033eccb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=c95eb2c2"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dev/internals.code-explanations';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://numpy.org/doc/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '2.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Memory alignment" href="alignment.html" />
+    <link rel="prev" title="Internal organization of NumPy arrays" href="internals.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Aug 23, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../_static/numpylogo.svg" class="logo__image only-light" alt="NumPy v2.1 Manual - Home"/>
+    <script>document.write(`<img src="../_static/numpylogo_dark.svg" class="logo__image only-dark" alt="NumPy v2.1 Manual - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../reference/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../building/index.html">
+    Building from source
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/numpy-tutorials/">
+    Learn
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://numpy.org/neps">
+    NEPs
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/numpy/numpy" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/whatisnumpy.html">What is NumPy?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/install/">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/quickstart.html">NumPy quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/absolute_beginners.html">NumPy: the absolute basics for beginners</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentals and usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.html">NumPy fundamentals</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/numpy-for-matlab-users.html">NumPy for MATLAB users</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://numpy.org/numpy-tutorials/">NumPy tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/howtos_index.html">NumPy how-tos</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced usage and interoperability</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user/c-info.html">Using NumPy C-API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../f2py/index.html">F2PY user guide and reference manual</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="underthehood.html">Under-the-hood documentation for developers</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="internals.html">Internal organization of NumPy arrays</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">NumPy C code explanations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alignment.html">Memory alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/byteswapping.html">Byte-swapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/basics.dispatch.html">Writing custom array containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/basics.subclassing.html">Subclassing ndarray</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/basics.interoperability.html">Interoperability with NumPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy_2_0_migration_guide.html">NumPy 2.0 migration guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">NumPy license</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user/index.html" class="nav-link">NumPy user guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="underthehood.html" class="nav-link">Under-the-hood documentation for developers</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">NumPy C...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="numpy-c-code-explanations">
+<span id="c-code-explanations"></span><h1>NumPy C code explanations<a class="headerlink" href="#numpy-c-code-explanations" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>Fanaticism consists of redoubling your efforts when you have forgotten
+your aim.
+— <em>George Santayana</em></p>
+<p>An authority is a person who can tell you more about something than
+you really care to know.
+— <em>Unknown</em></p>
+</div></blockquote>
+<p>This page attempts to explain the logic behind some of the new
+pieces of code. The purpose behind these explanations is to enable
+somebody to be able to understand the ideas behind the implementation
+somewhat more easily than just staring at the code. Perhaps in this
+way, the algorithms can be improved on, borrowed from, and/or
+optimized by more people.</p>
+<section id="memory-model">
+<h2>Memory model<a class="headerlink" href="#memory-model" title="Link to this heading">#</a></h2>
+<p id="index-0">One fundamental aspect of the <a class="reference internal" href="../reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> is that an array is seen as a
+“chunk” of memory starting at some location. The interpretation of
+this memory depends on the <a class="reference internal" href="../glossary.html#term-stride"><span class="xref std std-term">stride</span></a> information. For each dimension in
+an <span class="math notranslate nohighlight">\(N\)</span>-dimensional array, an integer (<a class="reference internal" href="../glossary.html#term-stride"><span class="xref std std-term">stride</span></a>) dictates how many
+bytes must be skipped to get to the next element in that dimension.
+Unless you have a single-segment array, this <a class="reference internal" href="../glossary.html#term-stride"><span class="xref std std-term">stride</span></a> information must
+be consulted when traversing through an array. It is not difficult to
+write code that accepts strides, you just have to use <code class="docutils literal notranslate"><span class="pre">char*</span></code>
+pointers because strides are in units of bytes. Keep in mind also that
+strides do not have to be unit-multiples of the element size. Also,
+remember that if the number of dimensions of the array is 0 (sometimes
+called a <code class="docutils literal notranslate"><span class="pre">rank-0</span></code> array), then the <a class="reference internal" href="../glossary.html#term-stride"><span class="xref std std-term">strides</span></a> and
+<a class="reference internal" href="../glossary.html#term-dimension"><span class="xref std std-term">dimensions</span></a> variables are <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+<p>Besides the structural information contained in the strides and
+dimensions members of the <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayObject" title="PyArrayObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyArrayObject</span></code></a>, the flags contain
+important information about how the data may be accessed. In particular,
+the <a class="reference internal" href="../reference/c-api/array.html#c.NPY_ARRAY_ALIGNED" title="NPY_ARRAY_ALIGNED"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_ARRAY_ALIGNED</span></code></a> flag is set when the memory is on a
+suitable boundary according to the datatype array. Even if you have
+a <a class="reference internal" href="../glossary.html#term-contiguous"><span class="xref std std-term">contiguous</span></a> chunk of memory, you cannot just assume it is safe to
+dereference a datatype-specific pointer to an element. Only if the
+<a class="reference internal" href="../reference/c-api/array.html#c.NPY_ARRAY_ALIGNED" title="NPY_ARRAY_ALIGNED"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_ARRAY_ALIGNED</span></code></a> flag is set, this is a safe operation. On
+some platforms it will work but on others, like Solaris, it will cause
+a bus error. The <a class="reference internal" href="../reference/c-api/array.html#c.NPY_ARRAY_WRITEABLE" title="NPY_ARRAY_WRITEABLE"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_ARRAY_WRITEABLE</span></code></a> should also be ensured
+if you plan on writing to the memory area of the array. It is also
+possible to obtain a pointer to an unwritable memory area. Sometimes,
+writing to the memory area when the <a class="reference internal" href="../reference/c-api/array.html#c.NPY_ARRAY_WRITEABLE" title="NPY_ARRAY_WRITEABLE"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_ARRAY_WRITEABLE</span></code></a> flag is not
+set will just be rude. Other times it can cause program crashes (<em>e.g.</em>
+a data-area that is a read-only memory-mapped file).</p>
+</section>
+<section id="data-type-encapsulation">
+<h2>Data-type encapsulation<a class="headerlink" href="#data-type-encapsulation" title="Link to this heading">#</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../reference/arrays.dtypes.html#arrays-dtypes"><span class="std std-ref">Data type objects (dtype)</span></a></p>
+</div>
+<p id="index-1">The <a class="reference internal" href="../reference/arrays.dtypes.html#arrays-dtypes"><span class="std std-ref">datatype</span></a> is an important abstraction of the
+<a class="reference internal" href="../reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>. Operations
+will look to the datatype to provide the key functionality that is
+needed to operate on the array. This functionality is provided in the
+list of function pointers pointed to by the <code class="docutils literal notranslate"><span class="pre">f</span></code> member of the
+<a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArray_Descr" title="PyArray_Descr"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyArray_Descr</span></code></a> structure. In this way, the number of datatypes can be
+extended simply by providing a <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArray_Descr" title="PyArray_Descr"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyArray_Descr</span></code></a> structure with suitable
+function pointers in the <code class="docutils literal notranslate"><span class="pre">f</span></code> member. For built-in types, there are some
+optimizations that bypass this mechanism, but the point of the datatype
+abstraction is to allow new datatypes to be added.</p>
+<p>One of the built-in datatypes, the <a class="reference internal" href="../reference/arrays.scalars.html#numpy.void" title="numpy.void"><code class="xref py py-class docutils literal notranslate"><span class="pre">void</span></code></a> datatype allows for
+arbitrary <a class="reference internal" href="../glossary.html#term-structured-data-type"><span class="xref std std-term">structured types</span></a> containing 1 or more
+fields as elements of the array. A <a class="reference internal" href="../glossary.html#term-field"><span class="xref std std-term">field</span></a> is simply another datatype
+object along with an offset into the current structured type. In order to
+support arbitrarily nested fields, several recursive implementations of
+datatype access are implemented for the void type. A common idiom is to cycle
+through the elements of the dictionary and perform a specific operation based on
+the datatype object stored at the given offset. These offsets can be
+arbitrary numbers. Therefore, the possibility of encountering misaligned
+data must be recognized and taken into account if necessary.</p>
+</section>
+<section id="n-d-iterators">
+<h2>N-D iterators<a class="headerlink" href="#n-d-iterators" title="Link to this heading">#</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../reference/arrays.nditer.html#arrays-nditer"><span class="std std-ref">Iterating over arrays</span></a></p>
+</div>
+<p id="index-2">A very common operation in much of NumPy code is the need to iterate
+over all the elements of a general, strided, N-dimensional array. This
+operation of a general-purpose N-dimensional loop is abstracted in the
+notion of an iterator object. To write an N-dimensional loop, you only
+have to create an iterator object from an ndarray, work with the
+<a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject.dataptr" title="PyArrayIterObject.dataptr"><code class="xref c c-member docutils literal notranslate"><span class="pre">dataptr</span></code></a> member of the iterator object
+structure and call the macro <a class="reference internal" href="../reference/c-api/array.html#c.PyArray_ITER_NEXT" title="PyArray_ITER_NEXT"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_ITER_NEXT</span></code></a> on the iterator
+object to move to the next element. The <code class="docutils literal notranslate"><span class="pre">next</span></code> element is always in
+C-contiguous order. The macro works by first special-casing the C-contiguous,
+1-D, and 2-D cases which work very simply.</p>
+<p>For the general case, the iteration works by keeping track of a list
+of coordinate counters in the iterator object. At each iteration, the
+last coordinate counter is increased (starting from 0). If this
+counter is smaller than one less than the size of the array in that
+dimension (a pre-computed and stored value), then the counter is
+increased and the <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject.dataptr" title="PyArrayIterObject.dataptr"><code class="xref c c-member docutils literal notranslate"><span class="pre">dataptr</span></code></a> member is
+increased by the strides in that
+dimension and the macro ends. If the end of a dimension is reached,
+the counter for the last dimension is reset to zero and the
+<a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject.dataptr" title="PyArrayIterObject.dataptr"><code class="xref c c-member docutils literal notranslate"><span class="pre">dataptr</span></code></a> is
+moved back to the beginning of that dimension by subtracting the
+strides value times one less than the number of elements in that
+dimension (this is also pre-computed and stored in the
+<a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject.backstrides" title="PyArrayIterObject.backstrides"><code class="xref c c-member docutils literal notranslate"><span class="pre">backstrides</span></code></a>
+member of the iterator object). In this case, the macro does not end,
+but a local dimension counter is decremented so that the next-to-last
+dimension replaces the role that the last dimension played and the
+previously-described tests are executed again on the next-to-last
+dimension. In this way, the <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject.dataptr" title="PyArrayIterObject.dataptr"><code class="xref c c-member docutils literal notranslate"><span class="pre">dataptr</span></code></a>
+is adjusted appropriately for arbitrary striding.</p>
+<p>The <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject.coordinates" title="PyArrayIterObject.coordinates"><code class="xref c c-member docutils literal notranslate"><span class="pre">coordinates</span></code></a> member of the
+<a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject" title="PyArrayIterObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyArrayIterObject</span></code></a> structure maintains
+the current N-d counter unless the underlying array is C-contiguous in
+which case the coordinate counting is bypassed. The
+<a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject.index" title="PyArrayIterObject.index"><code class="xref c c-member docutils literal notranslate"><span class="pre">index</span></code></a> member of
+the <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject" title="PyArrayIterObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyArrayIterObject</span></code></a> keeps track of the current flat index of the
+iterator. It is updated by the <a class="reference internal" href="../reference/c-api/array.html#c.PyArray_ITER_NEXT" title="PyArray_ITER_NEXT"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_ITER_NEXT</span></code></a> macro.</p>
+</section>
+<section id="broadcasting">
+<h2>Broadcasting<a class="headerlink" href="#broadcasting" title="Link to this heading">#</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user/basics.broadcasting.html#basics-broadcasting"><span class="std std-ref">Broadcasting</span></a></p>
+</div>
+<p id="index-3">In Numeric, the ancestor of NumPy, broadcasting was implemented in several
+lines of code buried deep in <code class="docutils literal notranslate"><span class="pre">ufuncobject.c</span></code>. In NumPy, the notion of
+broadcasting has been abstracted so that it can be performed in multiple places.
+Broadcasting is handled by the function <a class="reference internal" href="../reference/c-api/array.html#c.PyArray_Broadcast" title="PyArray_Broadcast"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_Broadcast</span></code></a>. This
+function requires a <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayMultiIterObject" title="PyArrayMultiIterObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyArrayMultiIterObject</span></code></a> (or something that is a
+binary equivalent) to be passed in. The <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayMultiIterObject" title="PyArrayMultiIterObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyArrayMultiIterObject</span></code></a> keeps
+track of the broadcast number of dimensions and size in each
+dimension along with the total size of the broadcast result. It also
+keeps track of the number of arrays being broadcast and a pointer to
+an iterator for each of the arrays being broadcast.</p>
+<p>The <a class="reference internal" href="../reference/c-api/array.html#c.PyArray_Broadcast" title="PyArray_Broadcast"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_Broadcast</span></code></a> function takes the iterators that have already
+been defined and uses them to determine the broadcast shape in each
+dimension (to create the iterators at the same time that broadcasting
+occurs then use the <a class="reference internal" href="../reference/c-api/array.html#c.PyArray_MultiIterNew" title="PyArray_MultiIterNew"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_MultiIterNew</span></code></a> function).
+Then, the iterators are
+adjusted so that each iterator thinks it is iterating over an array
+with the broadcast size. This is done by adjusting the iterators
+number of dimensions, and the <a class="reference internal" href="../glossary.html#term-shape"><span class="xref std std-term">shape</span></a> in each dimension. This works
+because the iterator strides are also adjusted. Broadcasting only
+adjusts (or adds) length-1 dimensions. For these dimensions, the
+strides variable is simply set to 0 so that the data-pointer for the
+iterator over that array doesn’t move as the broadcasting operation
+operates over the extended dimension.</p>
+<p>Broadcasting was always implemented in Numeric using 0-valued strides
+for the extended dimensions. It is done in exactly the same way in
+NumPy. The big difference is that now the array of strides is kept
+track of in a <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayIterObject" title="PyArrayIterObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyArrayIterObject</span></code></a>, the iterators involved in a
+broadcast result are kept track of in a <a class="reference internal" href="../reference/c-api/types-and-structures.html#c.PyArrayMultiIterObject" title="PyArrayMultiIterObject"><code class="xref c c-type docutils literal notranslate"><span class="pre">PyArrayMultiIterObject</span></code></a>,
+and the <a class="reference internal" href="../reference/c-api/array.html#c.PyArray_Broadcast" title="PyArray_Broadcast"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_Broadcast</span></code></a> call implements the
+<a class="reference internal" href="../user/basics.broadcasting.html#general-broadcasting-rules"><span class="std std-ref">General broadcasting rules</span></a>.</p>
+</section>
+<section id="array-scalars">
+<h2>Array scalars<a class="headerlink" href="#array-scalars" title="Link to this heading">#</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../reference/arrays.scalars.html#arrays-scalars"><span class="std std-ref">Scalars</span></a></p>
+</div>
+<p id="index-4">The array scalars offer a hierarchy of Python types that allow a one-to-one
+correspondence between the datatype stored in an array and the
+Python-type that is returned when an element is extracted from the
+array. An exception to this rule was made with object arrays. Object
+arrays are heterogeneous collections of arbitrary Python objects. When
+you select an item from an object array, you get back the original
+Python object (and not an object array scalar which does exist but is
+rarely used for practical purposes).</p>
+<p>The array scalars also offer the same methods and attributes as arrays
+with the intent that the same code can be used to support arbitrary
+dimensions (including 0-dimensions). The array scalars are read-only
+(immutable) with the exception of the void scalar which can also be
+written to so that structured array field setting works more naturally
+(<code class="docutils literal notranslate"><span class="pre">a[0]['f1']</span> <span class="pre">=</span> <span class="pre">value</span></code>).</p>
+</section>
+<section id="indexing">
+<h2>Indexing<a class="headerlink" href="#indexing" title="Link to this heading">#</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../user/basics.indexing.html#basics-indexing"><span class="std std-ref">Indexing on ndarrays</span></a>, <a class="reference internal" href="../reference/routines.indexing.html#arrays-indexing"><span class="std std-ref">Indexing routines</span></a></p>
+</div>
+<p id="index-5">All Python indexing operations <code class="docutils literal notranslate"><span class="pre">arr[index]</span></code> are organized by first preparing
+the index and finding the index type. The supported index types are:</p>
+<ul class="simple">
+<li><p>integer</p></li>
+<li><p><a class="reference internal" href="../reference/constants.html#numpy.newaxis" title="numpy.newaxis"><code class="xref py py-const docutils literal notranslate"><span class="pre">newaxis</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/glossary.html#term-slice" title="(in Python v3.12)"><span>slice</span></a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Ellipsis</span></code></a></p></li>
+<li><p>integer arrays/array-likes (advanced)</p></li>
+<li><p>boolean (single boolean array); if there is more than one boolean array as
+the index or the shape does not match exactly, the boolean array will be
+converted to an integer array instead.</p></li>
+<li><p>0-d boolean (and also integer); 0-d boolean arrays are a special
+case that has to be handled in the advanced indexing code. They signal
+that a 0-d boolean array had to be interpreted as an integer array.</p></li>
+</ul>
+<p>As well as the scalar array special case signaling that an integer array
+was interpreted as an integer index, which is important because an integer
+array index forces a copy but is ignored if a scalar is returned (full integer
+index). The prepared index is guaranteed to be valid with the exception of
+out of bound values and broadcasting errors for advanced indexing. This
+includes that an <a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Ellipsis</span></code></a> is added for incomplete indices for
+example when a two-dimensional array is indexed with a single integer.</p>
+<p>The next step depends on the type of index which was found. If all
+dimensions are indexed with an integer a scalar is returned or set. A
+single boolean indexing array will call specialized boolean functions.
+Indices containing an <a class="reference external" href="https://docs.python.org/3/library/constants.html#Ellipsis" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Ellipsis</span></code></a> or <a class="reference external" href="https://docs.python.org/3/glossary.html#term-slice" title="(in Python v3.12)"><span>slice</span></a> but no
+advanced indexing will always create a view into the old array by calculating
+the new strides and memory offset.  This view can then either be returned or,
+for assignments, filled using <code class="docutils literal notranslate"><span class="pre">PyArray_CopyObject</span></code>. Note that
+<code class="docutils literal notranslate"><span class="pre">PyArray_CopyObject</span></code> may also be called on temporary arrays in other branches
+to support complicated assignments when the array is of object <a class="reference internal" href="../reference/generated/numpy.dtype.html#numpy.dtype" title="numpy.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></a>.</p>
+<section id="advanced-indexing">
+<h3>Advanced indexing<a class="headerlink" href="#advanced-indexing" title="Link to this heading">#</a></h3>
+<p>By far the most complex case is advanced indexing, which may or may not be
+combined with typical view-based indexing. Here integer indices are
+interpreted as view-based. Before trying to understand this, you may want
+to make yourself familiar with its subtleties. The advanced indexing code
+has three different branches and one special case:</p>
+<ul class="simple">
+<li><p>There is one indexing array and it, as well as the assignment array, can
+be iterated trivially. For example, they may be contiguous. Also, the
+indexing array must be of <a class="reference internal" href="../reference/arrays.scalars.html#numpy.intp" title="numpy.intp"><code class="xref py py-class docutils literal notranslate"><span class="pre">intp</span></code></a> type and the value array in
+assignments should be of the correct type. This is purely a fast path.</p></li>
+<li><p>There are only integer array indices so that no subarray exists.</p></li>
+<li><p>View-based and advanced indexing is mixed. In this case, the view-based
+indexing defines a collection of subarrays that are combined by the
+advanced indexing. For example, <code class="docutils literal notranslate"><span class="pre">arr[[1,</span> <span class="pre">2,</span> <span class="pre">3],</span> <span class="pre">:]</span></code> is created by
+vertically stacking the subarrays <code class="docutils literal notranslate"><span class="pre">arr[1,</span> <span class="pre">:]</span></code>, <code class="docutils literal notranslate"><span class="pre">arr[2,</span> <span class="pre">:]</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">arr[3,</span> <span class="pre">:]</span></code>.</p></li>
+<li><p>There is a subarray but it has exactly one element. This case can be handled
+as if there is no subarray but needs some care during setup.</p></li>
+</ul>
+<p>Deciding what case applies, checking broadcasting, and determining the kind
+of transposition needed are all done in <code class="docutils literal notranslate"><span class="pre">PyArray_MapIterNew</span></code>. After
+setting up, there are two cases. If there is no subarray or it only has one
+element, no subarray iteration is necessary and an iterator is prepared
+which iterates all indexing arrays <em>as well as</em> the result or value array.
+If there is a subarray, there are three iterators prepared. One for the
+indexing arrays, one for the result or value array (minus its subarray),
+and one for the subarrays of the original and the result/assignment array.
+The first two iterators give (or allow calculation) of the pointers into
+the start of the subarray, which then allows restarting the subarray
+iteration.</p>
+<p>When advanced indices are next to each other transposing may be necessary.
+All necessary transposing is handled by <code class="docutils literal notranslate"><span class="pre">PyArray_MapIterSwapAxes</span></code> and
+has to be handled by the caller unless <code class="docutils literal notranslate"><span class="pre">PyArray_MapIterNew</span></code> is asked to
+allocate the result.</p>
+<p>After preparation, getting and setting are relatively straightforward,
+although the different modes of iteration need to be considered. Unless
+there is only a single indexing array during item getting, the validity of
+the indices is checked beforehand. Otherwise, it is handled in the inner
+loop itself for optimization.</p>
+</section>
+</section>
+<section id="universal-functions">
+<span id="ufuncs-internals"></span><h2>Universal functions<a class="headerlink" href="#universal-functions" title="Link to this heading">#</a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../reference/ufuncs.html#ufuncs"><span class="std std-ref">Universal functions (ufunc)</span></a>, <a class="reference internal" href="../user/basics.ufuncs.html#ufuncs-basics"><span class="std std-ref">Universal functions (ufunc) basics</span></a></p>
+</div>
+<p id="index-6">Universal functions are callable objects that take <span class="math notranslate nohighlight">\(N\)</span> inputs
+and produce <span class="math notranslate nohighlight">\(M\)</span> outputs by wrapping basic 1-D loops that work
+element-by-element into full easy-to-use functions that seamlessly
+implement <a class="reference internal" href="../user/basics.broadcasting.html#basics-broadcasting"><span class="std std-ref">broadcasting</span></a>,
+<a class="reference internal" href="../user/basics.ufuncs.html#ufuncs-casting"><span class="std std-ref">type-checking</span></a>,
+<a class="reference internal" href="../user/basics.ufuncs.html#use-of-internal-buffers"><span class="std std-ref">buffered coercion</span></a>, and
+<a class="reference internal" href="../user/basics.ufuncs.html#ufuncs-output-type"><span class="std std-ref">output-argument handling</span></a>. New universal functions
+are normally created in C, although there is a mechanism for creating ufuncs
+from Python functions (<a class="reference internal" href="../reference/generated/numpy.frompyfunc.html#numpy.frompyfunc" title="numpy.frompyfunc"><code class="xref py py-func docutils literal notranslate"><span class="pre">frompyfunc</span></code></a>). The user must supply a 1-D loop that
+implements the basic function taking the input scalar values and
+placing the resulting scalars into the appropriate output slots as
+explained in implementation.</p>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
+<p>Every <a class="reference internal" href="../reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc"><code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code></a> calculation involves some overhead related to setting up
+the calculation. The practical significance of this overhead is that
+even though the actual calculation of the ufunc is very fast, you will
+be able to write array and type-specific code that will work faster
+for small arrays than the ufunc. In particular, using ufuncs to
+perform many calculations on 0-D arrays will be slower than other
+Python-based solutions (the silently-imported <code class="docutils literal notranslate"><span class="pre">scalarmath</span></code> module exists
+precisely to give array scalars the look-and-feel of ufunc based
+calculations with significantly reduced overhead).</p>
+<p>When a <a class="reference internal" href="../reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc"><code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code></a> is called, many things must be done. The information
+collected from these setup operations is stored in a loop object. This
+loop object is a C-structure (that could become a Python object but is
+not initialized as such because it is only used internally). This loop
+object has the layout needed to be used with <a class="reference internal" href="../reference/c-api/array.html#c.PyArray_Broadcast" title="PyArray_Broadcast"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_Broadcast</span></code></a>
+so that the broadcasting can be handled in the same way as it is handled in
+other sections of code.</p>
+<p>The first thing done is to look up in the thread-specific global
+dictionary the current values for the buffer-size, the error mask, and
+the associated error object. The state of the error mask controls what
+happens when an error condition is found. It should be noted that
+checking of the hardware error flags is only performed after each 1-D
+loop is executed. This means that if the input and output arrays are
+contiguous and of the correct type so that a single 1-D loop is
+performed, then the flags may not be checked until all elements of the
+array have been calculated. Looking up these values in a thread-specific
+dictionary takes time which is easily ignored for all but
+very small arrays.</p>
+<p>After checking, the thread-specific global variables, the inputs are
+evaluated to determine how the ufunc should proceed and the input and
+output arrays are constructed if necessary. Any inputs which are not
+arrays are converted to arrays (using context if necessary). Which of
+the inputs are scalars (and therefore converted to 0-D arrays) is
+noted.</p>
+<p>Next, an appropriate 1-D loop is selected from the 1-D loops available
+to the <a class="reference internal" href="../reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc"><code class="xref py py-class docutils literal notranslate"><span class="pre">ufunc</span></code></a> based on the input array types. This 1-D loop is selected
+by trying to match the signature of the datatypes of the inputs
+against the available signatures. The signatures corresponding to
+built-in types are stored in the <a class="reference internal" href="../reference/generated/numpy.ufunc.types.html#numpy.ufunc.types" title="numpy.ufunc.types"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ufunc.types</span></code></a> member of the ufunc
+structure. The signatures corresponding to user-defined types are stored in a
+linked list of function information with the head element stored as a
+<code class="docutils literal notranslate"><span class="pre">CObject</span></code> in the <code class="docutils literal notranslate"><span class="pre">userloops</span></code> dictionary keyed by the datatype number
+(the first user-defined type in the argument list is used as the key).
+The signatures are searched until a signature is found to which the
+input arrays can all be cast safely (ignoring any scalar arguments
+which are not allowed to determine the type of the result). The
+implication of this search procedure is that “lesser types” should be
+placed below “larger types” when the signatures are stored. If no 1-D
+loop is found, then an error is reported. Otherwise, the <code class="docutils literal notranslate"><span class="pre">argument_list</span></code>
+is updated with the stored signature — in case casting is necessary
+and to fix the output types assumed by the 1-D loop.</p>
+<p>If the ufunc has 2 inputs and 1 output and the second input is an
+<code class="docutils literal notranslate"><span class="pre">Object</span></code> array then a special-case check is performed so that
+<code class="docutils literal notranslate"><span class="pre">NotImplemented</span></code> is returned if the second input is not an ndarray, has
+the <a class="reference internal" href="../reference/arrays.classes.html#numpy.class.__array_priority__" title="numpy.class.__array_priority__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__array_priority__</span></code></a> attribute, and has an <code class="docutils literal notranslate"><span class="pre">__r{op}__</span></code>
+special method. In this way, Python is signaled to give the other object a
+chance to complete the operation instead of using generic object-array
+calculations. This allows (for example) sparse matrices to override
+the multiplication operator 1-D loop.</p>
+<p>For input arrays that are smaller than the specified buffer size,
+copies are made of all non-contiguous, misaligned, or out-of-byteorder
+arrays to ensure that for small arrays, a single loop is
+used. Then, array iterators are created for all the input arrays and
+the resulting collection of iterators is broadcast to a single shape.</p>
+<p>The output arguments (if any) are then processed and any missing
+return arrays are constructed. If any provided output array doesn’t
+have the correct type (or is misaligned) and is smaller than the
+buffer size, then a new output array is constructed with the special
+<a class="reference internal" href="../reference/c-api/array.html#c.NPY_ARRAY_WRITEBACKIFCOPY" title="NPY_ARRAY_WRITEBACKIFCOPY"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_ARRAY_WRITEBACKIFCOPY</span></code></a> flag set. At the end of the function,
+<a class="reference internal" href="../reference/c-api/array.html#c.PyArray_ResolveWritebackIfCopy" title="PyArray_ResolveWritebackIfCopy"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_ResolveWritebackIfCopy</span></code></a> is called so that
+its contents will be copied back into the output array.
+Iterators for the output arguments are then processed.</p>
+<p>Finally, the decision is made about how to execute the looping
+mechanism to ensure that all elements of the input arrays are combined
+to produce the output arrays of the correct type. The options for loop
+execution are one-loop (for :term`contiguous`, aligned, and correct data
+type), strided-loop (for non-contiguous but still aligned and correct
+data type), and a buffered loop (for misaligned or incorrect data
+type situations). Depending on which execution method is called for,
+the loop is then set up and computed.</p>
+</section>
+<section id="function-call">
+<h3>Function call<a class="headerlink" href="#function-call" title="Link to this heading">#</a></h3>
+<p>This section describes how the basic universal function computation loop is
+set up and executed for each of the three different kinds of execution. If
+<a class="reference internal" href="../reference/c-api/array.html#c.NPY_ALLOW_THREADS" title="NPY_ALLOW_THREADS"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_ALLOW_THREADS</span></code></a> is defined during compilation, then as long as
+no object arrays are involved, the Python Global Interpreter Lock (GIL) is
+released prior to calling the loops.  It is re-acquired if necessary to
+handle error conditions. The hardware error flags are checked only after
+the 1-D loop is completed.</p>
+<section id="one-loop">
+<h4>One loop<a class="headerlink" href="#one-loop" title="Link to this heading">#</a></h4>
+<p>This is the simplest case of all. The ufunc is executed by calling the
+underlying 1-D loop exactly once. This is possible only when we have
+aligned data of the correct type (including byteorder) for both input
+and output and all arrays have uniform strides (either <a class="reference internal" href="../glossary.html#term-contiguous"><span class="xref std std-term">contiguous</span></a>,
+0-D, or 1-D). In this case, the 1-D computational loop is called once
+to compute the calculation for the entire array. Note that the
+hardware error flags are only checked after the entire calculation is
+complete.</p>
+</section>
+<section id="strided-loop">
+<h4>Strided loop<a class="headerlink" href="#strided-loop" title="Link to this heading">#</a></h4>
+<p>When the input and output arrays are aligned and of the correct type,
+but the striding is not uniform (non-contiguous and 2-D or larger),
+then a second looping structure is employed for the calculation. This
+approach converts all of the iterators for the input and output
+arguments to iterate over all but the largest dimension. The inner
+loop is then handled by the underlying 1-D computational loop. The
+outer loop is a standard iterator loop on the converted iterators. The
+hardware error flags are checked after each 1-D loop is completed.</p>
+</section>
+<section id="buffered-loop">
+<h4>Buffered loop<a class="headerlink" href="#buffered-loop" title="Link to this heading">#</a></h4>
+<p>This is the code that handles the situation whenever the input and/or
+output arrays are either misaligned or of the wrong datatype
+(including being byteswapped) from what the underlying 1-D loop
+expects. The arrays are also assumed to be non-contiguous. The code
+works very much like the strided-loop except for the inner 1-D loop is
+modified so that pre-processing is performed on the inputs and post-processing
+is performed on the outputs in <code class="docutils literal notranslate"><span class="pre">bufsize</span></code> chunks (where
+<code class="docutils literal notranslate"><span class="pre">bufsize</span></code> is a user-settable parameter). The underlying 1-D
+computational loop is called on data that is copied over (if it needs
+to be). The setup code and the loop code is considerably more
+complicated in this case because it has to handle:</p>
+<ul class="simple">
+<li><p>memory allocation of the temporary buffers</p></li>
+<li><p>deciding whether or not to use buffers on the input and output data
+(misaligned and/or wrong datatype)</p></li>
+<li><p>copying and possibly casting data for any inputs or outputs for which
+buffers are necessary.</p></li>
+<li><p>special-casing <code class="docutils literal notranslate"><span class="pre">Object</span></code> arrays so that reference counts are properly
+handled when copies and/or casts are necessary.</p></li>
+<li><p>breaking up the inner 1-D loop into <code class="docutils literal notranslate"><span class="pre">bufsize</span></code> chunks (with a possible
+remainder).</p></li>
+</ul>
+<p>Again, the hardware error flags are checked at the end of each 1-D
+loop.</p>
+</section>
+</section>
+<section id="final-output-manipulation">
+<h3>Final output manipulation<a class="headerlink" href="#final-output-manipulation" title="Link to this heading">#</a></h3>
+<p>Ufuncs allow other array-like classes to be passed seamlessly through
+the interface in that inputs of a particular class will induce the
+outputs to be of that same class. The mechanism by which this works is
+the following. If any of the inputs are not ndarrays and define the
+<a class="reference internal" href="../reference/arrays.classes.html#numpy.class.__array_wrap__" title="numpy.class.__array_wrap__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__array_wrap__</span></code></a> method, then the class with the largest
+<a class="reference internal" href="../reference/arrays.classes.html#numpy.class.__array_priority__" title="numpy.class.__array_priority__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__array_priority__</span></code></a> attribute determines the type of all the
+outputs (with the exception of any output arrays passed in). The
+<a class="reference internal" href="../reference/arrays.classes.html#numpy.class.__array_wrap__" title="numpy.class.__array_wrap__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__array_wrap__</span></code></a> method of the input array will be called
+with the ndarray being returned from the ufunc as its input. There are two
+calling styles of the <a class="reference internal" href="../reference/arrays.classes.html#numpy.class.__array_wrap__" title="numpy.class.__array_wrap__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__array_wrap__</span></code></a> function supported.
+The first takes the ndarray as the first argument and a tuple of “context” as
+the second argument. The context is (ufunc, arguments, output argument
+number). This is the first call tried. If a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> occurs, then the
+function is called with just the ndarray as the first argument.</p>
+</section>
+<section id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h3>
+<p>There are three methods of ufuncs that require calculation similar to
+the general-purpose ufuncs. These are <a class="reference internal" href="../reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce" title="numpy.ufunc.reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ufunc.reduce</span></code></a>,
+<a class="reference internal" href="../reference/generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate" title="numpy.ufunc.accumulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ufunc.accumulate</span></code></a>, and <a class="reference internal" href="../reference/generated/numpy.ufunc.reduceat.html#numpy.ufunc.reduceat" title="numpy.ufunc.reduceat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ufunc.reduceat</span></code></a>. Each of these
+methods requires a setup command followed by a
+loop. There are four loop styles possible for the methods
+corresponding to no-elements, one-element, strided-loop, and buffered-loop.
+These are the same basic loop styles as implemented for the
+general-purpose function call except for the no-element and one-element
+cases which are special-cases occurring when the input array
+objects have 0 and 1 elements respectively.</p>
+<section id="id1">
+<h4>Setup<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>The setup function for all three methods is <code class="docutils literal notranslate"><span class="pre">construct_reduce</span></code>.
+This function creates a reducing loop object and fills it with the
+parameters needed to complete the loop. All of the methods only work
+on ufuncs that take 2-inputs and return 1 output. Therefore, the
+underlying 1-D loop is selected assuming a signature of <code class="docutils literal notranslate"><span class="pre">[otype,</span>
+<span class="pre">otype,</span> <span class="pre">otype]</span></code> where <code class="docutils literal notranslate"><span class="pre">otype</span></code> is the requested reduction
+datatype. The buffer size and error handling are then retrieved from
+(per-thread) global storage. For small arrays that are misaligned or
+have incorrect datatype, a copy is made so that the un-buffered
+section of code is used. Then, the looping strategy is selected. If
+there is 1 element or 0 elements in the array, then a simple looping
+method is selected. If the array is not misaligned and has the
+correct datatype, then strided looping is selected. Otherwise,
+buffered looping must be performed. Looping parameters are then
+established, and the return array is constructed.  The output array is
+of a different <a class="reference internal" href="../glossary.html#term-shape"><span class="xref std std-term">shape</span></a> depending on whether the method is
+<a class="reference internal" href="../reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce" title="numpy.ufunc.reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reduce</span></code></a>, <a class="reference internal" href="../reference/generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate" title="numpy.ufunc.accumulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">accumulate</span></code></a>, or
+<a class="reference internal" href="../reference/generated/numpy.ufunc.reduceat.html#numpy.ufunc.reduceat" title="numpy.ufunc.reduceat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reduceat</span></code></a>. If an output array is already provided, then
+its shape is checked. If the output array is not C-contiguous,
+aligned, and of the correct data type, then a temporary copy is made
+with the <a class="reference internal" href="../reference/c-api/array.html#c.NPY_ARRAY_WRITEBACKIFCOPY" title="NPY_ARRAY_WRITEBACKIFCOPY"><code class="xref c c-data docutils literal notranslate"><span class="pre">NPY_ARRAY_WRITEBACKIFCOPY</span></code></a> flag set. In this way, the methods
+will be able to work with a well-behaved output array but the result will be
+copied back into the true output array when
+<a class="reference internal" href="../reference/c-api/array.html#c.PyArray_ResolveWritebackIfCopy" title="PyArray_ResolveWritebackIfCopy"><code class="xref c c-func docutils literal notranslate"><span class="pre">PyArray_ResolveWritebackIfCopy</span></code></a> is called at function completion.
+Finally, iterators are set up to loop over the correct <a class="reference internal" href="../glossary.html#term-axis"><span class="xref std std-term">axis</span></a>
+(depending on the value of axis provided to the method) and the setup
+routine returns to the actual computation routine.</p>
+</section>
+<section id="reduce">
+<h4><a class="reference internal" href="../reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce" title="numpy.ufunc.reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Reduce</span></code></a><a class="headerlink" href="#reduce" title="Link to this heading">#</a></h4>
+<p id="index-7">All of the ufunc methods use the same underlying 1-D computational
+loops with input and output arguments adjusted so that the appropriate
+reduction takes place. For example, the key to the functioning of
+<a class="reference internal" href="../reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce" title="numpy.ufunc.reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reduce</span></code></a> is that the 1-D loop is called with the output
+and the second input pointing to the same position in memory and both having
+a step-size of 0. The first input is pointing to the input array with a
+step-size given by the appropriate stride for the selected axis. In this
+way, the operation performed is</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+o &amp; = &amp; i[0] \\
+o &amp; = &amp; i[k]\textrm{&lt;op&gt;}o\quad k=1\ldots N
+\end{align*}</div><p>where <span class="math notranslate nohighlight">\(N+1\)</span> is the number of elements in the input, <span class="math notranslate nohighlight">\(i\)</span>,
+<span class="math notranslate nohighlight">\(o\)</span> is the output, and <span class="math notranslate nohighlight">\(i[k]\)</span> is the
+<span class="math notranslate nohighlight">\(k^{\textrm{th}}\)</span> element of <span class="math notranslate nohighlight">\(i\)</span> along the selected axis.
+This basic operation is repeated for arrays with greater than 1
+dimension so that the reduction takes place for every 1-D sub-array
+along the selected axis. An iterator with the selected dimension
+removed handles this looping.</p>
+<p>For buffered loops, care must be taken to copy and cast data before
+the loop function is called because the underlying loop expects
+aligned data of the correct datatype (including byteorder). The
+buffered loop must handle this copying and casting prior to calling
+the loop function on chunks no greater than the user-specified
+<code class="docutils literal notranslate"><span class="pre">bufsize</span></code>.</p>
+</section>
+<section id="accumulate">
+<h4><a class="reference internal" href="../reference/generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate" title="numpy.ufunc.accumulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Accumulate</span></code></a><a class="headerlink" href="#accumulate" title="Link to this heading">#</a></h4>
+<p id="index-8">The <a class="reference internal" href="../reference/generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate" title="numpy.ufunc.accumulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">accumulate</span></code></a> method is very similar to
+the <a class="reference internal" href="../reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce" title="numpy.ufunc.reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reduce</span></code></a> method in that
+the output and the second input both point to the output. The
+difference is that the second input points to memory one stride behind
+the current output pointer. Thus, the operation performed is</p>
+<div class="math notranslate nohighlight">
+\begin{align*}
+o[0] &amp; = &amp; i[0] \\
+o[k] &amp; = &amp; i[k]\textrm{&lt;op&gt;}o[k-1]\quad k=1\ldots N.
+\end{align*}</div><p>The output has the same shape as the input and each 1-D loop operates
+over <span class="math notranslate nohighlight">\(N\)</span> elements when the shape in the selected axis is <span class="math notranslate nohighlight">\(N+1\)</span>.
+Again, buffered loops take care to copy and cast the data before
+calling the underlying 1-D computational loop.</p>
+</section>
+<section id="reduceat">
+<h4><a class="reference internal" href="../reference/generated/numpy.ufunc.reduceat.html#numpy.ufunc.reduceat" title="numpy.ufunc.reduceat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Reduceat</span></code></a><a class="headerlink" href="#reduceat" title="Link to this heading">#</a></h4>
+<p id="index-9">The <a class="reference internal" href="../reference/generated/numpy.ufunc.reduceat.html#numpy.ufunc.reduceat" title="numpy.ufunc.reduceat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reduceat</span></code></a> function is a generalization of both the
+<a class="reference internal" href="../reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce" title="numpy.ufunc.reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reduce</span></code></a> and <a class="reference internal" href="../reference/generated/numpy.ufunc.accumulate.html#numpy.ufunc.accumulate" title="numpy.ufunc.accumulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">accumulate</span></code></a>
+functions. It implements a <a class="reference internal" href="../reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce" title="numpy.ufunc.reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reduce</span></code></a> over ranges of
+the input array specified by indices. The extra indices argument is checked to
+be sure that every input is not too large for the input array along
+the selected dimension before the loop calculations take place. The
+loop implementation is handled using code that is very similar to the
+<a class="reference internal" href="../reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce" title="numpy.ufunc.reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reduce</span></code></a> code repeated as many times as there are elements
+in the indices input. In particular: the first input pointer passed to the
+underlying 1-D computational loop points to the input array at the
+correct location indicated by the index array. In addition, the output
+pointer and the second input pointer passed to the underlying 1-D loop
+point to the same position in memory. The size of the 1-D
+computational loop is fixed to be the difference between the current
+index and the next index (when the current index is the last index,
+then the next index is assumed to be the length of the array along the
+selected dimension). In this way, the 1-D loop will implement a
+<a class="reference internal" href="../reference/generated/numpy.ufunc.reduce.html#numpy.ufunc.reduce" title="numpy.ufunc.reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reduce</span></code></a> over the specified indices.</p>
+<p>Misaligned or a loop datatype that does not match the input and/or
+output datatype is handled using buffered code wherein data is
+copied to a temporary buffer and cast to the correct datatype if
+necessary prior to calling the underlying 1-D function. The temporary
+buffers are created in (element) sizes no bigger than the user
+settable buffer-size value. Thus, the loop must be flexible enough to
+call the underlying 1-D computational loop enough times to complete
+the total calculation in chunks no bigger than the buffer-size.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="internals.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Internal organization of NumPy arrays</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="alignment.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Memory alignment</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-model">Memory model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-type-encapsulation">Data-type encapsulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-d-iterators">N-D iterators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">Broadcasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#array-scalars">Array scalars</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">Indexing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-indexing">Advanced indexing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-functions">Universal functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-call">Function call</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#one-loop">One loop</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#strided-loop">Strided loop</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#buffered-loop">Buffered loop</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-output-manipulation">Final output manipulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Setup</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reduce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Reduce</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#accumulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Accumulate</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reduceat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Reduceat</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2008-2024, NumPy Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
