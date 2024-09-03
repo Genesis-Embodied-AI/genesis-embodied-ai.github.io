@@ -1,0 +1,1446 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>genesis.engine.scene &#8212; Genesis 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/genesis/engine/scene';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '_static/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="icon" href="../../../_static/genesis_logo_small.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/genesis_logo_small.svg" class="logo__image only-light" alt="Genesis 0.1.0 documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/logo_white.svg" class="logo__image only-dark" alt="Genesis 0.1.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../roadmap/index.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/haosulab/ManiSkill/releases">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/haosulab/ManiSkill" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://maniskill.ai" title="Website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Website</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+          
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../roadmap/index.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://github.com/haosulab/ManiSkill/releases">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/haosulab/ManiSkill" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://maniskill.ai" title="Website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Website</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">genesis.engine.scene</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for genesis.engine.scene</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">import</span> <span class="nn">genesis</span> <span class="k">as</span> <span class="nn">gs</span>
+<span class="kn">from</span> <span class="nn">genesis.engine.entities</span> <span class="kn">import</span> <span class="n">Emitter</span>
+<span class="kn">from</span> <span class="nn">genesis.engine.simulator</span> <span class="kn">import</span> <span class="n">Simulator</span>
+<span class="kn">from</span> <span class="nn">genesis.options</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AvatarOptions</span><span class="p">,</span>
+    <span class="n">CouplerOptions</span><span class="p">,</span>
+    <span class="n">FEMOptions</span><span class="p">,</span>
+    <span class="n">MPMOptions</span><span class="p">,</span>
+    <span class="n">PBDOptions</span><span class="p">,</span>
+    <span class="n">RigidOptions</span><span class="p">,</span>
+    <span class="n">SFOptions</span><span class="p">,</span>
+    <span class="n">SimOptions</span><span class="p">,</span>
+    <span class="n">SPHOptions</span><span class="p">,</span>
+    <span class="n">ToolOptions</span><span class="p">,</span>
+    <span class="n">ViewerOptions</span><span class="p">,</span>
+    <span class="n">VisOptions</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">genesis.options.renderers</span> <span class="kn">import</span> <span class="n">Rasterizer</span><span class="p">,</span> <span class="n">Renderer</span>
+<span class="kn">from</span> <span class="nn">genesis.repr_base</span> <span class="kn">import</span> <span class="n">RBC</span>
+<span class="kn">from</span> <span class="nn">genesis.utils.tools</span> <span class="kn">import</span> <span class="n">FPSTracker</span>
+<span class="kn">from</span> <span class="nn">genesis.vis</span> <span class="kn">import</span> <span class="n">Visualizer</span>
+
+
+<div class="viewcode-block" id="Scene"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene">[docs]</a><span class="nd">@gs</span><span class="o">.</span><span class="n">assert_initialized</span>
+<span class="k">class</span> <span class="nc">Scene</span><span class="p">(</span><span class="n">RBC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A ``genesis.Scene`` object wraps all components in a simulation environment, including a simulator (containing multiple physics solvers), entities, and a visualizer (controlling both the viewer and all the cameras).</span>
+<span class="sd">    Basically, everything happens inside a scene.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sim_options : gs.options.SimOptions</span>
+<span class="sd">        The options configuring the overarching `simulator`, which in turn manages all the solvers.</span>
+<span class="sd">    coupler_options : gs.options.CouplerOptions</span>
+<span class="sd">        The options configuring the `coupler` between different solvers.</span>
+<span class="sd">    tool_options : gs.options.ToolOptions</span>
+<span class="sd">        The options configuring the tool_solver (``scene.sim.ToolSolver``).</span>
+<span class="sd">    rigid_options : gs.options.RigidOptions</span>
+<span class="sd">        The options configuring the rigid_solver (``scene.sim.RigidSolver``).</span>
+<span class="sd">    avatar_options : gs.options.AvatarOptions</span>
+<span class="sd">        The options configuring the avatar_solver (``scene.sim.AvatarSolver``).</span>
+<span class="sd">    mpm_options : gs.options.MPMOptions</span>
+<span class="sd">        The options configuring the mpm_solver (``scene.sim.MPMSolver``).</span>
+<span class="sd">    sph_options : gs.options.SPHOptions</span>
+<span class="sd">        The options configuring the sph_solver (``scene.sim.SPHSolver``).</span>
+<span class="sd">    fem_options : gs.options.FEMOptions</span>
+<span class="sd">        The options configuring the fem_solver (``scene.sim.FEMSolver``).</span>
+<span class="sd">    sf_options : gs.options.SFOptions</span>
+<span class="sd">        The options configuring the sf_solver (``scene.sim.SFSolver``).</span>
+<span class="sd">    pbd_options : gs.options.PBDOptions</span>
+<span class="sd">        The options configuring the pbd_solver (``scene.sim.PBDSolver``).</span>
+<span class="sd">    vis_options : gs.options.VisOptions</span>
+<span class="sd">        The options configuring the visualization system (``scene.visualizer``). Visualizer controls both the interactive viewer and the cameras.</span>
+<span class="sd">    viewer_options : gs.options.ViewerOptions</span>
+<span class="sd">        The options configuring the viewer (``scene.visualizer.viewer``).</span>
+<span class="sd">    renderer : gs.renderers.Renderer</span>
+<span class="sd">        The renderer used by `camera` for rendering images. This doesn&#39;t affect the behavior of the interactive viewer.</span>
+<span class="sd">    show_viewer : bool</span>
+<span class="sd">        Whether to show the interactive viewer. Set it to False if you only need headless rendering.</span>
+<span class="sd">    show_FPS : bool</span>
+<span class="sd">        Whether to show the FPS in the terminal.</span>
+<span class="sd">    &#39;&#39;&#39;</span>    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">sim_options</span>     <span class="o">=</span> <span class="n">SimOptions</span><span class="p">(),</span>
+            <span class="n">coupler_options</span> <span class="o">=</span> <span class="n">CouplerOptions</span><span class="p">(),</span>
+            <span class="n">tool_options</span>    <span class="o">=</span> <span class="n">ToolOptions</span><span class="p">(),</span>
+            <span class="n">rigid_options</span>   <span class="o">=</span> <span class="n">RigidOptions</span><span class="p">(),</span>
+            <span class="n">avatar_options</span>  <span class="o">=</span> <span class="n">AvatarOptions</span><span class="p">(),</span>
+            <span class="n">mpm_options</span>     <span class="o">=</span> <span class="n">MPMOptions</span><span class="p">(),</span>
+            <span class="n">sph_options</span>     <span class="o">=</span> <span class="n">SPHOptions</span><span class="p">(),</span>
+            <span class="n">fem_options</span>     <span class="o">=</span> <span class="n">FEMOptions</span><span class="p">(),</span>
+            <span class="n">sf_options</span>      <span class="o">=</span> <span class="n">SFOptions</span><span class="p">(),</span>
+            <span class="n">pbd_options</span>     <span class="o">=</span> <span class="n">PBDOptions</span><span class="p">(),</span>
+            <span class="n">vis_options</span>     <span class="o">=</span> <span class="n">VisOptions</span><span class="p">(),</span>
+            <span class="n">viewer_options</span>  <span class="o">=</span> <span class="n">ViewerOptions</span><span class="p">(),</span>
+            <span class="n">renderer</span>        <span class="o">=</span> <span class="n">Rasterizer</span><span class="p">(),</span>
+            <span class="n">show_viewer</span>     <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">show_FPS</span>        <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">):</span>
+    
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>       <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">ID</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_t</span>        <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_built</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_show_FPS</span> <span class="o">=</span> <span class="n">show_FPS</span>
+
+        <span class="c1"># validate options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_options</span><span class="p">(</span><span class="n">sim_options</span><span class="p">,</span> <span class="n">coupler_options</span><span class="p">,</span> <span class="n">tool_options</span><span class="p">,</span> <span class="n">rigid_options</span><span class="p">,</span> <span class="n">avatar_options</span><span class="p">,</span> <span class="n">mpm_options</span><span class="p">,</span> <span class="n">sph_options</span><span class="p">,</span> <span class="n">fem_options</span><span class="p">,</span> <span class="n">sf_options</span><span class="p">,</span> <span class="n">pbd_options</span><span class="p">,</span> <span class="n">vis_options</span><span class="p">,</span> <span class="n">viewer_options</span><span class="p">,</span> <span class="n">renderer</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span>     <span class="o">=</span> <span class="n">sim_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coupler_options</span> <span class="o">=</span> <span class="n">coupler_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_options</span>    <span class="o">=</span> <span class="n">tool_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rigid_options</span>   <span class="o">=</span> <span class="n">rigid_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avatar_options</span>  <span class="o">=</span> <span class="n">avatar_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mpm_options</span>     <span class="o">=</span> <span class="n">mpm_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sph_options</span>     <span class="o">=</span> <span class="n">sph_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fem_options</span>     <span class="o">=</span> <span class="n">fem_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sf_options</span>      <span class="o">=</span> <span class="n">sf_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pbd_options</span>     <span class="o">=</span> <span class="n">pbd_options</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">vis_options</span>    <span class="o">=</span> <span class="n">vis_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer_options</span> <span class="o">=</span> <span class="n">viewer_options</span>
+        
+        <span class="c1"># merge options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_options</span><span class="o">.</span><span class="n">copy_attributes_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rigid_options</span><span class="o">.</span><span class="n">copy_attributes_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avatar_options</span><span class="o">.</span><span class="n">copy_attributes_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mpm_options</span><span class="o">.</span><span class="n">copy_attributes_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sph_options</span><span class="o">.</span><span class="n">copy_attributes_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fem_options</span><span class="o">.</span><span class="n">copy_attributes_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sf_options</span><span class="o">.</span><span class="n">copy_attributes_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pbd_options</span><span class="o">.</span><span class="n">copy_attributes_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span><span class="p">)</span>
+
+        <span class="c1"># simulator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span> <span class="o">=</span> <span class="n">Simulator</span><span class="p">(</span>
+            <span class="n">scene</span>           <span class="o">=</span> <span class="bp">self</span><span class="p">,</span>
+            <span class="n">options</span>         <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim_options</span><span class="p">,</span>
+            <span class="n">coupler_options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coupler_options</span><span class="p">,</span>
+            <span class="n">tool_options</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tool_options</span><span class="p">,</span>
+            <span class="n">rigid_options</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rigid_options</span><span class="p">,</span>
+            <span class="n">avatar_options</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">avatar_options</span><span class="p">,</span>
+            <span class="n">mpm_options</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mpm_options</span><span class="p">,</span>
+            <span class="n">sph_options</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sph_options</span><span class="p">,</span>
+            <span class="n">fem_options</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fem_options</span><span class="p">,</span>
+            <span class="n">sf_options</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sf_options</span><span class="p">,</span>
+            <span class="n">pbd_options</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pbd_options</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># visualizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span> <span class="o">=</span> <span class="n">Visualizer</span><span class="p">(</span>
+            <span class="n">scene</span>          <span class="o">=</span> <span class="bp">self</span><span class="p">,</span>
+            <span class="n">show_viewer</span>    <span class="o">=</span> <span class="n">show_viewer</span><span class="p">,</span>
+            <span class="n">vis_options</span>    <span class="o">=</span> <span class="n">vis_options</span><span class="p">,</span>
+            <span class="n">viewer_options</span> <span class="o">=</span> <span class="n">viewer_options</span><span class="p">,</span>
+            <span class="n">renderer</span>       <span class="o">=</span> <span class="n">renderer</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># emitters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">List</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backward_ready</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_forward_ready</span>  <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">gs</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scene ~~~&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="si">}</span><span class="s1">&gt;~~~ created.&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_validate_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sim_options</span><span class="p">,</span> <span class="n">coupler_options</span><span class="p">,</span> <span class="n">tool_options</span><span class="p">,</span> <span class="n">rigid_options</span><span class="p">,</span> <span class="n">avatar_options</span><span class="p">,</span> <span class="n">mpm_options</span><span class="p">,</span> <span class="n">sph_options</span><span class="p">,</span> <span class="n">fem_options</span><span class="p">,</span> <span class="n">sf_options</span><span class="p">,</span> <span class="n">pbd_options</span><span class="p">,</span> <span class="n">vis_options</span><span class="p">,</span> <span class="n">viewer_options</span><span class="p">,</span> <span class="n">renderer</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sim_options</span><span class="p">,</span> <span class="n">SimOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`sim_options` should be an instance of `SimOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coupler_options</span><span class="p">,</span> <span class="n">CouplerOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`coupler_options` should be an instance of `CouplerOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool_options</span><span class="p">,</span> <span class="n">ToolOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`tool_options` should be an instance of `ToolOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rigid_options</span><span class="p">,</span> <span class="n">RigidOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`rigid_options` should be an instance of `RigidOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">avatar_options</span><span class="p">,</span> <span class="n">AvatarOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`avatar_options` should be an instance of `AvatarOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mpm_options</span><span class="p">,</span> <span class="n">MPMOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`mpm_options` should be an instance of `MPMOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sph_options</span><span class="p">,</span> <span class="n">SPHOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`sph_options` should be an instance of `SPHOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fem_options</span><span class="p">,</span> <span class="n">FEMOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`fem_options` should be an instance of `FEMOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sf_options</span><span class="p">,</span> <span class="n">SFOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`sf_options` should be an instance of `SFOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pbd_options</span><span class="p">,</span> <span class="n">PBDOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`pbd_options` should be an instance of `PBDOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_options</span><span class="p">,</span> <span class="n">VisOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`vis_options` should be an instance of `VisOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">viewer_options</span><span class="p">,</span> <span class="n">ViewerOptions</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`viewer_options` should be an instance of `ViewerOptions`.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">Renderer</span><span class="p">):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`viewer_options` should be an instance of `gs.renderers.Renderer`.&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Scene.add_entity"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.add_entity">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_unbuilt</span>
+    <span class="k">def</span> <span class="nf">add_entity</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">morph</span><span class="p">,</span>
+        <span class="n">material</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">surface</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">visualize_contact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">vis_mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add an entity to the scene.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        morph : gs.morphs.Morph</span>
+<span class="sd">            The morph of the entity.</span>
+<span class="sd">        material : gs.materials.Material | None, optional</span>
+<span class="sd">            The material of the entity. If None, use ``gs.materials.Rigid()``.</span>
+<span class="sd">        surface : gs.surfaces.Surface | None, optional</span>
+<span class="sd">            The surface of the entity. If None, use ``gs.surfaces.Default()``.</span>
+<span class="sd">        visualize_contact : bool</span>
+<span class="sd">            Whether to visualize contact forces as arrows applied to this entity in the viewer and rendered images. Note that this will not be displayed in images rendered by camera using the `RayTracer` renderer.</span>
+<span class="sd">        vis_mode : str | None, optional</span>
+<span class="sd">            The visualization mode of the entity. This is actually a shortcut for `surface.vis_mode`. If None, the default value of `surface.vis_mode` will be used.</span>
+
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        entity : genesis.Entity</span>
+<span class="sd">            The created entity.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">material</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">material</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Rigid</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">surface</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">surface</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">surfaces</span><span class="o">.</span><span class="n">Default</span><span class="p">()</span> <span class="c1"># assign a local surface, otherwise modification will apply on global default surface</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Rigid</span><span class="p">):</span>
+            <span class="c1"># small sdf res is sufficient for primitives regardless of size</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">Primitive</span><span class="p">):</span>
+                <span class="n">material</span><span class="o">.</span><span class="n">_sdf_max_res</span> <span class="o">=</span> <span class="mi">32</span>
+
+        <span class="c1"># some morph should not smooth surface normal</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">Box</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">Cylinder</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">Terrain</span><span class="p">)):</span>
+            <span class="n">surface</span><span class="o">.</span><span class="n">smooth</span> <span class="o">=</span> <span class="kc">False</span>
+    
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">URDF</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">MJCF</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">Terrain</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Rigid</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Avatar</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Hybrid</span><span class="p">)):</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unsupported material for morph: </span><span class="si">{</span><span class="n">material</span><span class="si">}</span><span class="s1"> and </span><span class="si">{</span><span class="n">morph</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">double_sided</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">PBD</span><span class="o">.</span><span class="n">Cloth</span><span class="p">):</span>
+                <span class="n">surface</span><span class="o">.</span><span class="n">double_sided</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">surface</span><span class="o">.</span><span class="n">double_sided</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># validate and populate default surface.vis_mode considering morph type</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="o">=</span> <span class="n">vis_mode</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Rigid</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Avatar</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="o">=</span> <span class="s1">&#39;visual&#39;</span>
+            
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;visual&#39;</span><span class="p">,</span> <span class="s1">&#39;collision&#39;</span><span class="p">,</span> <span class="s1">&#39;collision_sdf&#39;</span><span class="p">]:</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported `surface.vis_mode` for material </span><span class="si">{</span><span class="n">material</span><span class="si">}</span><span class="s2">: &#39;</span><span class="si">{</span><span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span><span class="si">}</span><span class="s2">&#39;. Expected one of: [&#39;visual&#39;, &#39;collision&#39;, &#39;collision_sdf&#39;].&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">PBD</span><span class="o">.</span><span class="n">Liquid</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">PBD</span><span class="o">.</span><span class="n">Particle</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">MPM</span><span class="o">.</span><span class="n">Liquid</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">MPM</span><span class="o">.</span><span class="n">Sand</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">MPM</span><span class="o">.</span><span class="n">Snow</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">SPH</span><span class="o">.</span><span class="n">Liquid</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="o">=</span> <span class="s1">&#39;particle&#39;</span>
+            
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;particle&#39;</span><span class="p">,</span> <span class="s1">&#39;recon&#39;</span><span class="p">]:</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported `surface.vis_mode` for material </span><span class="si">{</span><span class="n">material</span><span class="si">}</span><span class="s2">: &#39;</span><span class="si">{</span><span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span><span class="si">}</span><span class="s2">&#39;. Expected one of: [&#39;particle&#39;, &#39;recon&#39;].&quot;</span><span class="p">)</span>
+            
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">PBD</span><span class="o">.</span><span class="n">Base</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">MPM</span><span class="o">.</span><span class="n">Base</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">SPH</span><span class="o">.</span><span class="n">Base</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="o">=</span> <span class="s1">&#39;visual&#39;</span>
+            
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;visual&#39;</span><span class="p">,</span> <span class="s1">&#39;particle&#39;</span><span class="p">,</span> <span class="s1">&#39;recon&#39;</span><span class="p">]:</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported `surface.vis_mode` for material </span><span class="si">{</span><span class="n">material</span><span class="si">}</span><span class="s2">: &#39;</span><span class="si">{</span><span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span><span class="si">}</span><span class="s2">&#39;. Expected one of: [&#39;visual&#39;, &#39;particle&#39;, &#39;recon&#39;].&quot;</span><span class="p">)</span>
+        
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">FEM</span><span class="o">.</span><span class="n">Base</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="o">=</span> <span class="s1">&#39;visual&#39;</span>
+            
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;visual&#39;</span><span class="p">]:</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported `surface.vis_mode` for material </span><span class="si">{</span><span class="n">material</span><span class="si">}</span><span class="s2">: &#39;</span><span class="si">{</span><span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span><span class="si">}</span><span class="s2">&#39;. Expected one of: [&#39;visual&#39;].&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Hybrid</span><span class="p">)):</span> <span class="c1"># determine the visual of the outer soft part</span>
+            <span class="c1"># TODO: theoretically, if we can do `visual` and `recon` in MPM, we should be able to do that here as well</span>
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="o">=</span> <span class="s1">&#39;particle&#39;</span>
+
+            <span class="k">if</span> <span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;particle&#39;</span><span class="p">]:</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported `surface.vis_mode` for material </span><span class="si">{</span><span class="n">material</span><span class="si">}</span><span class="s2">: &#39;</span><span class="si">{</span><span class="n">surface</span><span class="o">.</span><span class="n">vis_mode</span><span class="si">}</span><span class="s2">&#39;. Expected one of: [&#39;particle&#39;].&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">()</span>
+
+        <span class="c1"># Rigid entities will convexify geom by default</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="s1">&#39;convexify&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">morph</span><span class="o">.</span><span class="n">convexify</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Rigid</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">Avatar</span><span class="p">)):</span>
+                <span class="n">morph</span><span class="o">.</span><span class="n">convexify</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">morph</span><span class="o">.</span><span class="n">convexify</span> <span class="o">=</span> <span class="kc">False</span>
+                
+        <span class="n">entity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">_add_entity</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="n">material</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">visualize_contact</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">entity</span></div>
+
+<div class="viewcode-block" id="Scene.add_light"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.add_light">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_unbuilt</span>
+    <span class="k">def</span> <span class="nf">add_light</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">morph</span><span class="p">,</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">intensity</span> <span class="o">=</span> <span class="mf">20.0</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add a light to the scene. Note that lights added this way can be instantiated from morphs (supporting `gs.morphs.Primitive` or `gs.morphs.Mesh`), and will only be used by the RayTracer renderer.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        morph : gs.morphs.Morph</span>
+<span class="sd">            The morph of the light. Must be an instance of `gs.morphs.Primitive` or `gs.morphs.Mesh`.</span>
+<span class="sd">        color : tuple of float, shape (3,)</span>
+<span class="sd">            The color of the light, specified as (r, g, b).</span>
+<span class="sd">        intensity : float</span>
+<span class="sd">            The intensity of the light.</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualizer</span><span class="o">.</span><span class="n">raytracer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Light is only supported by RayTracer renderer.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">Primitive</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">Mesh</span><span class="p">)):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;Light morph only supports `gs.morphs.Primitive` or `gs.morphs.Mesh`.&#39;</span><span class="p">)</span>
+
+        <span class="n">mesh</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">Mesh</span><span class="o">.</span><span class="n">from_morph_surface</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">surfaces</span><span class="o">.</span><span class="n">Default</span><span class="p">(</span><span class="n">smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualizer</span><span class="o">.</span><span class="n">raytracer</span><span class="o">.</span><span class="n">add_mesh_light</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">intensity</span><span class="p">,</span> <span class="n">morph</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">morph</span><span class="o">.</span><span class="n">quat</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.add_camera"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.add_camera">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_unbuilt</span>
+    <span class="k">def</span> <span class="nf">add_camera</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model</span>      <span class="o">=</span> <span class="s1">&#39;pinhole&#39;</span><span class="p">,</span>
+        <span class="n">res</span>        <span class="o">=</span> <span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">320</span><span class="p">),</span>
+        <span class="n">pos</span>        <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span>
+        <span class="n">lookat</span>     <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">up</span>         <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">fov</span>        <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+        <span class="n">aperture</span>   <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span>
+        <span class="n">focus_dist</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">GUI</span>        <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">denoise</span>    <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add a camera to the scene. The camera model can be either &#39;pinhole&#39; or &#39;thinlens&#39;. The &#39;pinhole&#39; model is a simple camera model that captures light rays from a single point in space. The &#39;thinlens&#39; model is a more complex camera model that simulates a lens with a finite aperture size, allowing for depth of field effects. When &#39;pinhole&#39; is used, the `aperture` and `focal_len` parameters are ignored.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model : str</span>
+<span class="sd">            Specifies the camera model. Options are &#39;pinhole&#39; or &#39;thinlens&#39;.</span>
+<span class="sd">        res : tuple of int, shape (2,)</span>
+<span class="sd">            The resolution of the camera, specified as a tuple (width, height).</span>
+<span class="sd">        pos : tuple of float, shape (3,)</span>
+<span class="sd">            The position of the camera in the scene, specified as (x, y, z).</span>
+<span class="sd">        lookat : tuple of float, shape (3,)</span>
+<span class="sd">            The point in the scene that the camera is looking at, specified as (x, y, z).</span>
+<span class="sd">        up : tuple of float, shape (3,)</span>
+<span class="sd">            The up vector of the camera, defining its orientation, specified as (x, y, z).</span>
+<span class="sd">        fov : float</span>
+<span class="sd">            The vertical field of view of the camera in degrees.</span>
+<span class="sd">        aperture : float</span>
+<span class="sd">            The aperture size of the camera, controlling depth of field.</span>
+<span class="sd">        focus_dist : float | None</span>
+<span class="sd">            The focus distance of the camera. If None, it will be auto-computed using `pos` and `lookat`.</span>
+<span class="sd">        GUI : bool</span>
+<span class="sd">            Whether to display the camera&#39;s rendered image in a separate GUI window.</span>
+<span class="sd">        denoise : bool</span>
+<span class="sd">            Whether to denoise the camera&#39;s rendered image.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        camera : genesis.Camera</span>
+<span class="sd">            The created camera object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">add_camera</span><span class="p">(</span>
+            <span class="n">res</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">lookat</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">fov</span><span class="p">,</span> <span class="n">aperture</span><span class="p">,</span> <span class="n">focus_dist</span><span class="p">,</span> <span class="n">GUI</span><span class="p">,</span> <span class="n">denoise</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.add_emitter"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.add_emitter">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_unbuilt</span>
+    <span class="k">def</span> <span class="nf">add_emitter</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">material</span><span class="p">,</span>
+        <span class="n">max_particles</span> <span class="o">=</span> <span class="mi">20000</span><span class="p">,</span>
+        <span class="n">surface</span>       <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">surfaces</span><span class="o">.</span><span class="n">Default</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)),</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add a fluid emitter to the scene.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        material : gs.materials.Material</span>
+<span class="sd">            The material of the fluid to be emitted. Must be an instance of `gs.materials.MPM.Base` or `gs.materials.SPH.Base`.</span>
+<span class="sd">        max_particles : int</span>
+<span class="sd">            The maximum number of particles that can be emitted by the emitter. Particles will be recycled once this limit is reached.</span>
+<span class="sd">        surface : gs.surfaces.Surface</span>
+<span class="sd">            The surface of the emitter.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        emitter : genesis.Emitter</span>
+<span class="sd">            The created emitter object.</span>
+<span class="sd">        </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;Emitter is not supported in differentiable mode.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">MPM</span><span class="o">.</span><span class="n">Base</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">SPH</span><span class="o">.</span><span class="n">Base</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">PBD</span><span class="o">.</span><span class="n">Particle</span><span class="p">,</span> <span class="n">gs</span><span class="o">.</span><span class="n">materials</span><span class="o">.</span><span class="n">PBD</span><span class="o">.</span><span class="n">Liquid</span><span class="p">)):</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s2">&quot;Non-supported material for emitter. Supported materials are: `gs.materials.MPM.Base`, `gs.materials.SPH.Base`, `gs.materials.PBD.Particle`, `gs.materials.PBD.Liquid`.&quot;</span><span class="p">)</span>
+
+        <span class="n">emitter</span> <span class="o">=</span> <span class="n">Emitter</span><span class="p">(</span><span class="n">max_particles</span><span class="p">)</span>
+        <span class="n">entity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_entity</span><span class="p">(</span>
+            <span class="n">morph</span>    <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">morphs</span><span class="o">.</span><span class="n">Nowhere</span><span class="p">(</span><span class="n">n_particles</span><span class="o">=</span><span class="n">max_particles</span><span class="p">),</span>
+            <span class="n">material</span> <span class="o">=</span> <span class="n">material</span><span class="p">,</span>
+            <span class="n">surface</span>  <span class="o">=</span> <span class="n">surface</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">emitter</span><span class="o">.</span><span class="n">set_entity</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">emitter</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">emitter</span></div>
+
+<div class="viewcode-block" id="Scene.add_force_field"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.add_force_field">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_unbuilt</span>
+    <span class="k">def</span> <span class="nf">add_force_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_field</span><span class="p">:</span> <span class="n">gs</span><span class="o">.</span><span class="n">force_fields</span><span class="o">.</span><span class="n">ForceField</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">_add_force_field</span><span class="p">(</span><span class="n">force_field</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.build"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.build">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_unbuilt</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_envs</span>                <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">env_spacing</span>           <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+        <span class="n">n_envs_per_row</span>        <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">center_envs_at_origin</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">compile_kernels</span>       <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>  
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Builds the scene once all entities have been added. This operation is required before running the simulation.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_envs : int</span>
+<span class="sd">            Number of parallel environments to create. If `n_envs` is 0, the scene will not have a batching dimension. If `n_envs` is greater than 0, the first dimension of all the input and returned states will be the batch dimension.</span>
+<span class="sd">        env_spacing : tuple of float, shape (2,)</span>
+<span class="sd">            The spacing between adjacent environments in the scene. This is for visualization purposes only and does not change simulation-related poses.</span>
+<span class="sd">        n_envs_per_row : int</span>
+<span class="sd">            The number of environments per row for visualization. If None, it will be set to `sqrt(n_envs)`.</span>
+<span class="sd">        center_envs_at_origin : bool</span>
+<span class="sd">            Whether to put the center of all the environments at the origin (for visualization only).</span>
+<span class="sd">        compile_kernels : bool</span>
+<span class="sd">            Whether to compile the simulation kernels inside `build()`. If False, the kernels will not be compiled (or loaded if found in the cache) until the first call of `scene.step()`. This is useful for cases you don&#39;t want to run the actual simulation, but rather just want to visualize the created scene.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">with</span> <span class="n">gs</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Building scene ~~~&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="si">}</span><span class="s2">&gt;~~~...&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parallelize</span><span class="p">(</span>
+                <span class="n">n_envs</span><span class="p">,</span> <span class="n">env_spacing</span><span class="p">,</span> <span class="n">n_envs_per_row</span><span class="p">,</span> <span class="n">center_envs_at_origin</span>
+            <span class="p">)</span>
+
+            <span class="c1"># simulator</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+            <span class="c1"># reset state</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_built</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">compile_kernels</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">gs</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="s2">&quot;Compiling simulation kernels...&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="p">()</span>
+
+        <span class="c1"># visualizer</span>
+        <span class="k">with</span> <span class="n">gs</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="s2">&quot;Building visualizer...&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_FPS</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">FPS_tracker</span> <span class="o">=</span> <span class="n">FPSTracker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_envs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_parallelize</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_envs</span><span class="p">,</span>
+        <span class="n">env_spacing</span><span class="p">,</span>
+        <span class="n">n_envs_per_row</span><span class="p">,</span>
+        <span class="n">center_envs_at_origin</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_envs</span>         <span class="o">=</span> <span class="n">n_envs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_spacing</span>    <span class="o">=</span> <span class="n">env_spacing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_envs_per_row</span> <span class="o">=</span> <span class="n">n_envs_per_row</span>
+
+        <span class="c1"># true batch size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_B</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_envs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_envs_idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">gs</span><span class="o">.</span><span class="n">tc_int</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">gs</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_envs_per_row</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_envs_per_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># compute offset values for visualizing each env</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env_spacing</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">env_spacing</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;`env_spacing` should be a tuple of length 2.&#39;</span><span class="p">)</span>
+        <span class="n">idx_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_envs_per_row</span><span class="p">)</span>
+        <span class="n">idx_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_envs_per_row</span>
+        <span class="n">idx_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">)</span>
+        <span class="n">offset_x</span> <span class="o">=</span> <span class="n">idx_x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_spacing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">offset_y</span> <span class="o">=</span> <span class="n">idx_y</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_spacing</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">offset_z</span> <span class="o">=</span> <span class="n">idx_z</span> <span class="o">*</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">envs_offset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">offset_x</span><span class="p">,</span> <span class="n">offset_y</span><span class="p">,</span> <span class="n">offset_z</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="c1"># move to center</span>
+        <span class="k">if</span> <span class="n">center_envs_at_origin</span><span class="p">:</span>
+            <span class="n">center</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">envs_offset</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">envs_offset</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">envs_offset</span> <span class="o">-=</span> <span class="n">center</span>
+
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Notes:</span>
+<span class="sd">        - When using gpu</span>
+<span class="sd">            - for non-batched env, we only parallelize certain loops that have big loop size</span>
+<span class="sd">            - for batched env, we parallelize all loops</span>
+<span class="sd">        - When using cpu, we serialize everything.</span>
+<span class="sd">            - This is emprically as fast as parallel loops even with big batchsize (tested up to B=10000), because invoking multiple cpu processes cannot utilize all cpu usage.</span>
+<span class="sd">            - In order to exploit full cpu power, users are encouraged to launch multiple processes manually, and each will use a single cpu thred.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">gs</span><span class="o">.</span><span class="n">backend</span> <span class="o">==</span> <span class="n">gs</span><span class="o">.</span><span class="n">cpu</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_para_level</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">PARA_LEVEL</span><span class="o">.</span><span class="n">NEVER</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_envs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_para_level</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">PARA_LEVEL</span><span class="o">.</span><span class="n">PARTIAL</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_para_level</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">PARA_LEVEL</span><span class="o">.</span><span class="n">ALL</span>
+
+<div class="viewcode-block" id="Scene.reset"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.reset">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Resets the scene to its initial state.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : dict | None</span>
+<span class="sd">            The state to reset the scene to. If None, the scene will be reset to its initial state. If this is given, the scene&#39;s registerered initial state will be updated to this state.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">gs</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Resetting Scene ~~~&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="si">}</span><span class="s1">&gt;~~~.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="p">(</span><span class="n">state</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_built</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_state</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_init_state</span> <span class="o">=</span> <span class="n">state</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_state</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_forward_ready</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_grad</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">emitter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span><span class="p">:</span>
+            <span class="n">emitter</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            
+    <span class="k">def</span> <span class="nf">_reset_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backward_ready</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Scene.get_state"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.get_state">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns the current state of the scene.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        state : genesis.SimState</span>
+<span class="sd">            The state of the scene at the current time step.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_state</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Scene.step"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.step">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Runs a simulation step forward in time.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_ready</span><span class="p">:</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s1">&#39;Forward simulation not allowed after backward pass. Please reset scene state.&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_t</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_FPS</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">FPS_tracker</span><span class="o">.</span><span class="n">step</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_step_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">collect_output_grads</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">_step_grad</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_t</span> <span class="o">-=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="Scene.draw_debug_line"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.draw_debug_line">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">draw_debug_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.002</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws a line in the scene for visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        start : array_like, shape (3,)</span>
+<span class="sd">            The starting point of the line.</span>
+<span class="sd">        end : array_like, shape (3,)</span>
+<span class="sd">            The ending point of the line.</span>
+<span class="sd">        radius : float, optional</span>
+<span class="sd">            The radius of the line (represented as a cylinder)</span>
+<span class="sd">        color : array_like, shape (4,), optional</span>
+<span class="sd">            The color of the line in RGBA format.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">draw_debug_line</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.draw_debug_arrow"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.draw_debug_arrow">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">draw_debug_arrow</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">vec</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="p">):</span>  
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws an arrow in the scene for visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pos : array_like, shape (3,)</span>
+<span class="sd">            The starting position of the arrow.</span>
+<span class="sd">        vec : array_like, shape (3,), optional</span>
+<span class="sd">            The vector of the arrow.</span>
+<span class="sd">        radius : float, optional</span>
+<span class="sd">            The radius of the arrow body (represented as a cylinder).</span>
+<span class="sd">        color : array_like, shape (4,), optional</span>
+<span class="sd">            The color of the arrow in RGBA format.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">draw_debug_arrow</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">vec</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.draw_debug_frame"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.draw_debug_frame">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">draw_debug_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">axis_length</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">origin_size</span><span class="o">=</span><span class="mf">0.015</span><span class="p">,</span> <span class="n">axis_radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws a 3-axis coordinate frame in the scene for visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        T : array_like, shape (4, 4)</span>
+<span class="sd">            The transformation matrix of the frame.</span>
+<span class="sd">        axis_length : float, optional</span>
+<span class="sd">            The length of the axes.</span>
+<span class="sd">        origin_size : float, optional</span>
+<span class="sd">            The size of the origin point (represented as a sphere).</span>
+<span class="sd">        axis_radius : float, optional</span>
+<span class="sd">            The radius of the axes (represented as cylinders).</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">draw_debug_frame</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">axis_length</span><span class="p">,</span> <span class="n">origin_size</span><span class="p">,</span> <span class="n">axis_radius</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.draw_debug_mesh"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.draw_debug_mesh">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">draw_debug_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">T</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws a mesh in the scene for visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mesh : trimesh.Trimesh</span>
+<span class="sd">            The mesh to be drawn.</span>
+<span class="sd">        pos : array_like, shape (3,), optional</span>
+<span class="sd">            The position of the mesh in the scene.</span>
+<span class="sd">        T : array_like, shape (4, 4) | None, optional</span>
+<span class="sd">            The transformation matrix of the mesh. If None, the mesh will be drawn at the position specified by `pos`. Otherwise, `T` has a higher priority than `pos`.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">draw_debug_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.draw_debug_sphere"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.draw_debug_sphere">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">draw_debug_sphere</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws a sphere in the scene for visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pos : array_like, shape (3,)</span>
+<span class="sd">            The center position of the sphere.</span>
+<span class="sd">        radius : float, optional</span>
+<span class="sd">            radius of the sphere.</span>
+<span class="sd">        color : array_like, shape (4,), optional</span>
+<span class="sd">            The color of the sphere in RGBA format.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">draw_debug_sphere</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.draw_debug_spheres"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.draw_debug_spheres">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">draw_debug_spheres</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws multiple spheres in the scene for visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        poss : array_like, shape (N, 3)</span>
+<span class="sd">            The positions of the spheres.</span>
+<span class="sd">        radius : float, optional</span>
+<span class="sd">            The radius of the spheres.</span>
+<span class="sd">        color : array_like, shape (4,), optional</span>
+<span class="sd">            The color of the spheres in RGBA format.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">draw_debug_spheres</span><span class="p">(</span><span class="n">poss</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.draw_debug_box"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.draw_debug_box">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">draw_debug_box</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">bounds</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">wireframe_radius</span><span class="o">=</span><span class="mf">0.0015</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws a box in the scene for visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        bounds : array_like, shape (2, 3)</span>
+<span class="sd">            The bounds of the box, specified as [[min_x, min_y, min_z], [max_x, max_y, max_z]].</span>
+<span class="sd">        color : array_like, shape (4,), optional</span>
+<span class="sd">            The color of the box in RGBA format.</span>
+<span class="sd">        wireframe : bool, optional</span>
+<span class="sd">            Whether to draw the box as a wireframe.</span>
+<span class="sd">        wireframe_radius : float, optional</span>
+<span class="sd">            The radius of the wireframe lines.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">draw_debug_box</span><span class="p">(</span>
+                <span class="n">bounds</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">wireframe</span><span class="o">=</span><span class="n">wireframe</span><span class="p">,</span> <span class="n">wireframe_radius</span><span class="o">=</span><span class="n">wireframe_radius</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.draw_debug_points"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.draw_debug_points">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">draw_debug_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poss</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws points in the scene for visualization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        poss : array_like, shape (N, 3)</span>
+<span class="sd">            The positions of the points.</span>
+<span class="sd">        colors : array_like, shape (4,), optional</span>
+<span class="sd">            The color of the points in RGBA format.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">draw_debug_points</span><span class="p">(</span><span class="n">poss</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Scene.clear_debug_objects"><a class="viewcode-back" href="../../../api_reference/scene/scene.html#genesis.engine.scene.Scene.clear_debug_objects">[docs]</a>    <span class="nd">@gs</span><span class="o">.</span><span class="n">assert_built</span>
+    <span class="k">def</span> <span class="nf">clear_debug_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Clears all the debug objects in the scene.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">clear_debug_objects</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        At this point, all the scene states the simulation run should have been filled with gradients.</span>
+<span class="sd">        Next, we run backward from scene state back to scene&#39;s internal taichi variables, then back through time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backward_ready</span><span class="p">:</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="s2">&quot;Multiple backward calls not allowed.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># backward pass through time</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_step_grad</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backward_ready</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_forward_ready</span>  <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># ------------------------------------------------------------------------------------</span>
+    <span class="c1"># ----------------------------------- properties -------------------------------------</span>
+    <span class="c1"># ------------------------------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The unique ID of the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The time duration for each simulation step.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">dt</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">substep_dt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The time duration for each substep.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">substep_dt</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">t</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The current simulation time step.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_t</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">substeps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The number of substeps per simulation step.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">substeps</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">requires_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Whether the scene is in differentiable mode.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">requires_grad</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_built</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Whether the scene has been built.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_built</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">show_FPS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Whether to print the frames per second (FPS) in the terminal.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_show_FPS</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">gravity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The gravity in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">gravity</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">viewer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The viewer object for the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span><span class="o">.</span><span class="n">viewer</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">visualizer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The visualizer object for the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizer</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The scene&#39;s top-level simulator.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">solvers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;All the solvers managed by the scene&#39;s simulator.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">solvers</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">active_solvers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;All the active solvers managed by the scene&#39;s simulator.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">active_solvers</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;All the entities in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">entities</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">emitters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;All the emitters in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emitters</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tool_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The scene&#39;s `tool_solver`, managing all the `ToolEntity` in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">tool_solver</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rigid_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The scene&#39;s `rigid_solver`, managing all the `RigidEntity` in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">rigid_solver</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">avatar_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The scene&#39;s `avatar_solver`, managing all the `AvatarEntity` in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">avatar_solver</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mpm_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The scene&#39;s `mpm_solver`, managing all the `MPMEntity` in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">mpm_solver</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sph_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The scene&#39;s `sph_solver`, managing all the `SPHEntity` in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">sph_solver</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fem_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The scene&#39;s `fem_solver`, managing all the `FEMEntity` in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">fem_solver</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pbd_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;The scene&#39;s `pbd_solver`, managing all the `PBDEntity` in the scene.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim</span><span class="o">.</span><span class="n">pbd_solver</span></div>
+    
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Genesis Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
