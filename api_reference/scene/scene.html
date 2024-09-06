@@ -1,0 +1,1191 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>gs.Scene &#8212; Genesis 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/scene/scene';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '_static/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="icon" href="../../_static/genesis_logo_small.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Camera" href="../camera/index.html" />
+    <link rel="prev" title="Scene" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/genesis_logo_small.svg" class="logo__image only-light" alt="Genesis 0.1.0 documentation - Home"/>
+    <script>document.write(`<img src="../../_static/logo_white.svg" class="logo__image only-dark" alt="Genesis 0.1.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../roadmap/index.html">
+    Roadmap
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/haosulab/ManiSkill" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://maniskill.ai" title="Website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Website</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+          
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../roadmap/index.html">
+    Roadmap
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/haosulab/ManiSkill" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://maniskill.ai" title="Website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Website</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Scene</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">gs.Scene</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../camera/index.html">Camera</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../camera/camera.html"><code class="docutils literal notranslate"><span class="pre">Camera</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../entity/index.html">Entity</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../entity/rigidentity/index.html">RigidEntity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../entity/rigidentity/rigidentity.html"><code class="docutils literal notranslate"><span class="pre">gs.RigidEntity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../entity/rigidentity/rigidlink.html"><code class="docutils literal notranslate"><span class="pre">gs.RigidLink</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../entity/rigidentity/rigidjoint.html"><code class="docutils literal notranslate"><span class="pre">gs.RigidJoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../entity/rigidentity/rigidgeom.html"><code class="docutils literal notranslate"><span class="pre">gs.RigidGeom</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../entity/rigidentity/rigidvisgeom.html"><code class="docutils literal notranslate"><span class="pre">gs.RigidVisGeom</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../options/index.html">Options</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../options/options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.Options</span></code></a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/index.html">Simulator, Coupler &amp; Solver Options</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/sim_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.SimOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/coupler_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.CouplerOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/tool_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.ToolOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/rigid_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.RigidOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/avatar_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.AvatarOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/mpm_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.MPMOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/sph_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.SPHOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/pbd_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.PBDOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/fem_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.FEMOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/simulator_coupler_and_solver_options/sf_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.SFOptions</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../options/morph/index.html">Morph</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../options/morph/morph.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Morph</span></code></a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../options/morph/primitive/index.html">Primitive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/primitive/primitive.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Primitive</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/primitive/box.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Box</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/primitive/sphere.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Sphere</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/primitive/cylinder.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Cylinder</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../options/morph/file_morph/index.html">FileMorph</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/file_morph/file_morph.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.FileMorph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/file_morph/mesh.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Mesh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/file_morph/urdf.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.URDF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/file_morph/mjcf.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.MJCF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/file_morph/terrain.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Terrain</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/morph/file_morph/drone.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Drone</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../options/renderer/index.html">Renderer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../options/renderer/renderer.html"><code class="docutils literal notranslate"><span class="pre">gs.renderers.Renderer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/renderer/rasterizer.html"><code class="docutils literal notranslate"><span class="pre">gs.renderers.Rasterizer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/renderer/raytracer.html"><code class="docutils literal notranslate"><span class="pre">gs.renderers.RayTracer</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../options/surface/index.html">Surface</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../options/surface/surface.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Surface</span></code></a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../options/surface/plastic/index.html">Plastic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/plastic/plastic.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Plastic</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/plastic/rough.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Rough</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/plastic/smooth.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Smooth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/plastic/reflective.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Reflective</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/plastic/collision.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Collision</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/plastic/default.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Default</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../options/surface/metal/index.html">Metal</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/metal/metal.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Metal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/metal/iron.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Iron</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/metal/aluminium.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Aluminium</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/metal/copper.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Copper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/metal/gold.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Gold</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../options/surface/emission/index.html">Emission</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../options/surface/emission/emission.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Emission</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../options/texture/index.html">Texture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../options/texture/texture.html"><code class="docutils literal notranslate"><span class="pre">gs.textures.Texture</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/texture/color_texture.html"><code class="docutils literal notranslate"><span class="pre">gs.textures.ColorTexture</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../options/texture/image_texture.html"><code class="docutils literal notranslate"><span class="pre">gs.textures.ImageTexture</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Scene</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><code...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gs-scene">
+<h1><code class="docutils literal notranslate"><span class="pre">gs.Scene</span></code><a class="headerlink" href="#gs-scene" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">genesis.engine.scene.</span></span><span class="sig-name descname"><span class="pre">Scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene" title="Permalink to this definition">#</a></dt>
+<dd><p>A <code class="docutils literal notranslate"><span class="pre">genesis.Scene</span></code> object wraps all components in a simulation environment, including a simulator (containing multiple physics solvers), entities, and a visualizer (controlling both the viewer and all the cameras).
+Basically, everything happens inside a scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_options</strong> (<em>gs.options.SimOptions</em>) – The options configuring the overarching <cite>simulator</cite>, which in turn manages all the solvers.</p></li>
+<li><p><strong>coupler_options</strong> (<em>gs.options.CouplerOptions</em>) – The options configuring the <cite>coupler</cite> between different solvers.</p></li>
+<li><p><strong>tool_options</strong> (<em>gs.options.ToolOptions</em>) – The options configuring the tool_solver (<code class="docutils literal notranslate"><span class="pre">scene.sim.ToolSolver</span></code>).</p></li>
+<li><p><strong>rigid_options</strong> (<em>gs.options.RigidOptions</em>) – The options configuring the rigid_solver (<code class="docutils literal notranslate"><span class="pre">scene.sim.RigidSolver</span></code>).</p></li>
+<li><p><strong>avatar_options</strong> (<em>gs.options.AvatarOptions</em>) – The options configuring the avatar_solver (<code class="docutils literal notranslate"><span class="pre">scene.sim.AvatarSolver</span></code>).</p></li>
+<li><p><strong>mpm_options</strong> (<em>gs.options.MPMOptions</em>) – The options configuring the mpm_solver (<code class="docutils literal notranslate"><span class="pre">scene.sim.MPMSolver</span></code>).</p></li>
+<li><p><strong>sph_options</strong> (<em>gs.options.SPHOptions</em>) – The options configuring the sph_solver (<code class="docutils literal notranslate"><span class="pre">scene.sim.SPHSolver</span></code>).</p></li>
+<li><p><strong>fem_options</strong> (<em>gs.options.FEMOptions</em>) – The options configuring the fem_solver (<code class="docutils literal notranslate"><span class="pre">scene.sim.FEMSolver</span></code>).</p></li>
+<li><p><strong>sf_options</strong> (<em>gs.options.SFOptions</em>) – The options configuring the sf_solver (<code class="docutils literal notranslate"><span class="pre">scene.sim.SFSolver</span></code>).</p></li>
+<li><p><strong>pbd_options</strong> (<em>gs.options.PBDOptions</em>) – The options configuring the pbd_solver (<code class="docutils literal notranslate"><span class="pre">scene.sim.PBDSolver</span></code>).</p></li>
+<li><p><strong>vis_options</strong> (<em>gs.options.VisOptions</em>) – The options configuring the visualization system (<code class="docutils literal notranslate"><span class="pre">scene.visualizer</span></code>). Visualizer controls both the interactive viewer and the cameras.</p></li>
+<li><p><strong>viewer_options</strong> (<em>gs.options.ViewerOptions</em>) – The options configuring the viewer (<code class="docutils literal notranslate"><span class="pre">scene.visualizer.viewer</span></code>).</p></li>
+<li><p><strong>renderer</strong> (<em>gs.renderers.Renderer</em>) – The renderer used by <cite>camera</cite> for rendering images. This doesn’t affect the behavior of the interactive viewer.</p></li>
+<li><p><strong>show_viewer</strong> (<em>bool</em>) – Whether to show the interactive viewer. Set it to False if you only need headless rendering.</p></li>
+<li><p><strong>show_FPS</strong> (<em>bool</em>) – Whether to show the FPS in the terminal.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.add_entity">
+<span class="sig-name descname"><span class="pre">add_entity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">morph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">material</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visualize_contact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.add_entity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.add_entity" title="Permalink to this definition">#</a></dt>
+<dd><p>Add an entity to the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>morph</strong> (<em>gs.morphs.Morph</em>) – The morph of the entity.</p></li>
+<li><p><strong>material</strong> (<em>gs.materials.Material</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – The material of the entity. If None, use <code class="docutils literal notranslate"><span class="pre">gs.materials.Rigid()</span></code>.</p></li>
+<li><p><strong>surface</strong> (<em>gs.surfaces.Surface</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – The surface of the entity. If None, use <code class="docutils literal notranslate"><span class="pre">gs.surfaces.Default()</span></code>.</p></li>
+<li><p><strong>visualize_contact</strong> (<em>bool</em>) – Whether to visualize contact forces applied to this entity as arrows in the viewer and rendered images. Note that this will not be displayed in images rendered by camera using the <cite>RayTracer</cite> renderer.</p></li>
+<li><p><strong>vis_mode</strong> (<em>str</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – The visualization mode of the entity. This is a handy shortcut for setting <cite>surface.vis_mode</cite> without explicitly creating a surface object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>entity</strong> – The created entity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>genesis.Entity</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.add_light">
+<span class="sig-name descname"><span class="pre">add_light</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">morph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">1.0,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intensity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.add_light"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.add_light" title="Permalink to this definition">#</a></dt>
+<dd><p>Add a light to the scene. Note that lights added this way can be instantiated from morphs (supporting <cite>gs.morphs.Primitive</cite> or <cite>gs.morphs.Mesh</cite>), and will only be used by the RayTracer renderer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>morph</strong> (<em>gs.morphs.Morph</em>) – The morph of the light. Must be an instance of <cite>gs.morphs.Primitive</cite> or <cite>gs.morphs.Mesh</cite>.</p></li>
+<li><p><strong>color</strong> (<em>tuple</em><em> of </em><em>float</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em>) – The color of the light, specified as (r, g, b).</p></li>
+<li><p><strong>intensity</strong> (<em>float</em>) – The intensity of the light.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.add_camera">
+<span class="sig-name descname"><span class="pre">add_camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pinhole'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(320,</span> <span class="pre">320)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">2.5,</span> <span class="pre">3.5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fov</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aperture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus_dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GUI</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denoise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.add_camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.add_camera" title="Permalink to this definition">#</a></dt>
+<dd><p>Add a camera to the scene. The camera model can be either ‘pinhole’ or ‘thinlens’. The ‘pinhole’ model is a simple camera model that captures light rays from a single point in space. The ‘thinlens’ model is a more complex camera model that simulates a lens with a finite aperture size, allowing for depth of field effects. When ‘pinhole’ is used, the <cite>aperture</cite> and <cite>focal_len</cite> parameters are ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>str</em>) – Specifies the camera model. Options are ‘pinhole’ or ‘thinlens’.</p></li>
+<li><p><strong>res</strong> (<em>tuple</em><em> of </em><em>int</em><em>, </em><em>shape</em><em> (</em><em>2</em><em>,</em><em>)</em>) – The resolution of the camera, specified as a tuple (width, height).</p></li>
+<li><p><strong>pos</strong> (<em>tuple</em><em> of </em><em>float</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em>) – The position of the camera in the scene, specified as (x, y, z).</p></li>
+<li><p><strong>lookat</strong> (<em>tuple</em><em> of </em><em>float</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em>) – The point in the scene that the camera is looking at, specified as (x, y, z).</p></li>
+<li><p><strong>up</strong> (<em>tuple</em><em> of </em><em>float</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em>) – The up vector of the camera, defining its orientation, specified as (x, y, z).</p></li>
+<li><p><strong>fov</strong> (<em>float</em>) – The vertical field of view of the camera in degrees.</p></li>
+<li><p><strong>aperture</strong> (<em>float</em>) – The aperture size of the camera, controlling depth of field.</p></li>
+<li><p><strong>focus_dist</strong> (<em>float</em><em> | </em><em>None</em>) – The focus distance of the camera. If None, it will be auto-computed using <cite>pos</cite> and <cite>lookat</cite>.</p></li>
+<li><p><strong>GUI</strong> (<em>bool</em>) – Whether to display the camera’s rendered image in a separate GUI window.</p></li>
+<li><p><strong>spp</strong> (<em>int</em><em>, </em><em>optional</em>) – Samples per pixel. Defaults to 256.</p></li>
+<li><p><strong>denoise</strong> (<em>bool</em>) – Whether to denoise the camera’s rendered image.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>camera</strong> – The created camera object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>genesis.Camera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.add_emitter">
+<span class="sig-name descname"><span class="pre">add_emitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">material</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_particles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.add_emitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.add_emitter" title="Permalink to this definition">#</a></dt>
+<dd><p>Add a fluid emitter to the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>material</strong> (<em>gs.materials.Material</em>) – The material of the fluid to be emitted. Must be an instance of <cite>gs.materials.MPM.Base</cite> or <cite>gs.materials.SPH.Base</cite>.</p></li>
+<li><p><strong>max_particles</strong> (<em>int</em>) – The maximum number of particles that can be emitted by the emitter. Particles will be recycled once this limit is reached.</p></li>
+<li><p><strong>surface</strong> (<em>gs.surfaces.Surface</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – The surface of the emitter. If None, use <code class="docutils literal notranslate"><span class="pre">gs.surfaces.Default(color=(0.6,</span> <span class="pre">0.8,</span> <span class="pre">1.0,</span> <span class="pre">1.0))</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>emitter</strong> – The created emitter object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>genesis.Emitter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.add_force_field">
+<span class="sig-name descname"><span class="pre">add_force_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ForceField</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.add_force_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.add_force_field" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_envs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_envs_per_row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_envs_at_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compile_kernels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.build"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.build" title="Permalink to this definition">#</a></dt>
+<dd><p>Builds the scene once all entities have been added. This operation is required before running the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_envs</strong> (<em>int</em>) – Number of parallel environments to create. If <cite>n_envs</cite> is 0, the scene will not have a batching dimension. If <cite>n_envs</cite> is greater than 0, the first dimension of all the input and returned states will be the batch dimension.</p></li>
+<li><p><strong>env_spacing</strong> (<em>tuple</em><em> of </em><em>float</em><em>, </em><em>shape</em><em> (</em><em>2</em><em>,</em><em>)</em>) – The spacing between adjacent environments in the scene. This is for visualization purposes only and does not change simulation-related poses.</p></li>
+<li><p><strong>n_envs_per_row</strong> (<em>int</em>) – The number of environments per row for visualization. If None, it will be set to <cite>sqrt(n_envs)</cite>.</p></li>
+<li><p><strong>center_envs_at_origin</strong> (<em>bool</em>) – Whether to put the center of all the environments at the origin (for visualization only).</p></li>
+<li><p><strong>compile_kernels</strong> (<em>bool</em>) – Whether to compile the simulation kernels inside <cite>build()</cite>. If False, the kernels will not be compiled (or loaded if found in the cache) until the first call of <cite>scene.step()</cite>. This is useful for cases you don’t want to run the actual simulation, but rather just want to visualize the created scene.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.reset" title="Permalink to this definition">#</a></dt>
+<dd><p>Resets the scene to its initial state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>dict</em><em> | </em><em>None</em>) – The state to reset the scene to. If None, the scene will be reset to its initial state. If this is given, the scene’s registerered initial state will be updated to this state.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.get_state">
+<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.get_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.get_state" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns the current state of the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> – The state of the scene at the current time step.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>genesis.SimState</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.step" title="Permalink to this definition">#</a></dt>
+<dd><p>Runs a simulation step forward in time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.draw_debug_line">
+<span class="sig-name descname"><span class="pre">draw_debug_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.002</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.draw_debug_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.draw_debug_line" title="Permalink to this definition">#</a></dt>
+<dd><p>Draws a line in the scene for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em>) – The starting point of the line.</p></li>
+<li><p><strong>end</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em>) – The ending point of the line.</p></li>
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em>) – The radius of the line (represented as a cylinder)</p></li>
+<li><p><strong>color</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>4</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The color of the line in RGBA format.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.draw_debug_arrow">
+<span class="sig-name descname"><span class="pre">draw_debug_arrow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.draw_debug_arrow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.draw_debug_arrow" title="Permalink to this definition">#</a></dt>
+<dd><p>Draws an arrow in the scene for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em>) – The starting position of the arrow.</p></li>
+<li><p><strong>vec</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The vector of the arrow.</p></li>
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em>) – The radius of the arrow body (represented as a cylinder).</p></li>
+<li><p><strong>color</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>4</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The color of the arrow in RGBA format.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.draw_debug_frame">
+<span class="sig-name descname"><span class="pre">draw_debug_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.015</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.draw_debug_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.draw_debug_frame" title="Permalink to this definition">#</a></dt>
+<dd><p>Draws a 3-axis coordinate frame in the scene for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>4</em><em>, </em><em>4</em><em>)</em>) – The transformation matrix of the frame.</p></li>
+<li><p><strong>axis_length</strong> (<em>float</em><em>, </em><em>optional</em>) – The length of the axes.</p></li>
+<li><p><strong>origin_size</strong> (<em>float</em><em>, </em><em>optional</em>) – The size of the origin point (represented as a sphere).</p></li>
+<li><p><strong>axis_radius</strong> (<em>float</em><em>, </em><em>optional</em>) – The radius of the axes (represented as cylinders).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.draw_debug_mesh">
+<span class="sig-name descname"><span class="pre">draw_debug_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0.,</span> <span class="pre">0.,</span> <span class="pre">0.])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.draw_debug_mesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.draw_debug_mesh" title="Permalink to this definition">#</a></dt>
+<dd><p>Draws a mesh in the scene for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> (<em>trimesh.Trimesh</em>) – The mesh to be drawn.</p></li>
+<li><p><strong>pos</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The position of the mesh in the scene.</p></li>
+<li><p><strong>T</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>4</em><em>, </em><em>4</em><em>) </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – The transformation matrix of the mesh. If None, the mesh will be drawn at the position specified by <cite>pos</cite>. Otherwise, <cite>T</cite> has a higher priority than <cite>pos</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.draw_debug_sphere">
+<span class="sig-name descname"><span class="pre">draw_debug_sphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.draw_debug_sphere"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.draw_debug_sphere" title="Permalink to this definition">#</a></dt>
+<dd><p>Draws a sphere in the scene for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em>) – The center position of the sphere.</p></li>
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em>) – radius of the sphere.</p></li>
+<li><p><strong>color</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>4</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The color of the sphere in RGBA format.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.draw_debug_spheres">
+<span class="sig-name descname"><span class="pre">draw_debug_spheres</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.draw_debug_spheres"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.draw_debug_spheres" title="Permalink to this definition">#</a></dt>
+<dd><p>Draws multiple spheres in the scene for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>poss</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>3</em><em>)</em>) – The positions of the spheres.</p></li>
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em>) – The radius of the spheres.</p></li>
+<li><p><strong>color</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>4</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The color of the spheres in RGBA format.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.draw_debug_box">
+<span class="sig-name descname"><span class="pre">draw_debug_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wireframe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wireframe_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0015</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.draw_debug_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.draw_debug_box" title="Permalink to this definition">#</a></dt>
+<dd><p>Draws a box in the scene for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bounds</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>2</em><em>, </em><em>3</em><em>)</em>) – The bounds of the box, specified as [[min_x, min_y, min_z], [max_x, max_y, max_z]].</p></li>
+<li><p><strong>color</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>4</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The color of the box in RGBA format.</p></li>
+<li><p><strong>wireframe</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to draw the box as a wireframe.</p></li>
+<li><p><strong>wireframe_radius</strong> (<em>float</em><em>, </em><em>optional</em>) – The radius of the wireframe lines.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.draw_debug_points">
+<span class="sig-name descname"><span class="pre">draw_debug_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.draw_debug_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.draw_debug_points" title="Permalink to this definition">#</a></dt>
+<dd><p>Draws points in the scene for visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>poss</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>N</em><em>, </em><em>3</em><em>)</em>) – The positions of the points.</p></li>
+<li><p><strong>colors</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>4</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The color of the points in RGBA format.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.clear_debug_objects">
+<span class="sig-name descname"><span class="pre">clear_debug_objects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/genesis/engine/scene.html#Scene.clear_debug_objects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.scene.Scene.clear_debug_objects" title="Permalink to this definition">#</a></dt>
+<dd><p>Clears all the debug objects in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.id" title="Permalink to this definition">#</a></dt>
+<dd><p>The unique ID of the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.dt">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dt</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.dt" title="Permalink to this definition">#</a></dt>
+<dd><p>The time duration for each simulation step.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.substep_dt">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">substep_dt</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.substep_dt" title="Permalink to this definition">#</a></dt>
+<dd><p>The time duration for each substep.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.t">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">t</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.t" title="Permalink to this definition">#</a></dt>
+<dd><p>The current simulation time step.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.substeps">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">substeps</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.substeps" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of substeps per simulation step.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.requires_grad">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">requires_grad</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.requires_grad" title="Permalink to this definition">#</a></dt>
+<dd><p>Whether the scene is in differentiable mode.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.is_built">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_built</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.is_built" title="Permalink to this definition">#</a></dt>
+<dd><p>Whether the scene has been built.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.show_FPS">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">show_FPS</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.show_FPS" title="Permalink to this definition">#</a></dt>
+<dd><p>Whether to print the frames per second (FPS) in the terminal.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.gravity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gravity</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.gravity" title="Permalink to this definition">#</a></dt>
+<dd><p>The gravity in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.viewer">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">viewer</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.viewer" title="Permalink to this definition">#</a></dt>
+<dd><p>The viewer object for the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.visualizer">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">visualizer</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.visualizer" title="Permalink to this definition">#</a></dt>
+<dd><p>The visualizer object for the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.sim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sim</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.sim" title="Permalink to this definition">#</a></dt>
+<dd><p>The scene’s top-level simulator.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.solvers">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">solvers</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.solvers" title="Permalink to this definition">#</a></dt>
+<dd><p>All the solvers managed by the scene’s simulator.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.active_solvers">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">active_solvers</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.active_solvers" title="Permalink to this definition">#</a></dt>
+<dd><p>All the active solvers managed by the scene’s simulator.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.entities">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entities</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.entities" title="Permalink to this definition">#</a></dt>
+<dd><p>All the entities in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.emitters">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">emitters</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.emitters" title="Permalink to this definition">#</a></dt>
+<dd><p>All the emitters in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.tool_solver">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tool_solver</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.tool_solver" title="Permalink to this definition">#</a></dt>
+<dd><p>The scene’s <cite>tool_solver</cite>, managing all the <cite>ToolEntity</cite> in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.rigid_solver">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rigid_solver</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.rigid_solver" title="Permalink to this definition">#</a></dt>
+<dd><p>The scene’s <cite>rigid_solver</cite>, managing all the <cite>RigidEntity</cite> in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.avatar_solver">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">avatar_solver</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.avatar_solver" title="Permalink to this definition">#</a></dt>
+<dd><p>The scene’s <cite>avatar_solver</cite>, managing all the <cite>AvatarEntity</cite> in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.mpm_solver">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mpm_solver</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.mpm_solver" title="Permalink to this definition">#</a></dt>
+<dd><p>The scene’s <cite>mpm_solver</cite>, managing all the <cite>MPMEntity</cite> in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.sph_solver">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sph_solver</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.sph_solver" title="Permalink to this definition">#</a></dt>
+<dd><p>The scene’s <cite>sph_solver</cite>, managing all the <cite>SPHEntity</cite> in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.fem_solver">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fem_solver</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.fem_solver" title="Permalink to this definition">#</a></dt>
+<dd><p>The scene’s <cite>fem_solver</cite>, managing all the <cite>FEMEntity</cite> in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.scene.Scene.pbd_solver">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pbd_solver</span></span><a class="headerlink" href="#genesis.engine.scene.Scene.pbd_solver" title="Permalink to this definition">#</a></dt>
+<dd><p>The scene’s <cite>pbd_solver</cite>, managing all the <cite>PBDEntity</cite> in the scene.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Scene</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../camera/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Camera</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene"><code class="docutils literal notranslate"><span class="pre">Scene</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.add_entity"><code class="docutils literal notranslate"><span class="pre">Scene.add_entity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.add_light"><code class="docutils literal notranslate"><span class="pre">Scene.add_light()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.add_camera"><code class="docutils literal notranslate"><span class="pre">Scene.add_camera()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.add_emitter"><code class="docutils literal notranslate"><span class="pre">Scene.add_emitter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.add_force_field"><code class="docutils literal notranslate"><span class="pre">Scene.add_force_field()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.build"><code class="docutils literal notranslate"><span class="pre">Scene.build()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.reset"><code class="docutils literal notranslate"><span class="pre">Scene.reset()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.get_state"><code class="docutils literal notranslate"><span class="pre">Scene.get_state()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.step"><code class="docutils literal notranslate"><span class="pre">Scene.step()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.draw_debug_line"><code class="docutils literal notranslate"><span class="pre">Scene.draw_debug_line()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.draw_debug_arrow"><code class="docutils literal notranslate"><span class="pre">Scene.draw_debug_arrow()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.draw_debug_frame"><code class="docutils literal notranslate"><span class="pre">Scene.draw_debug_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.draw_debug_mesh"><code class="docutils literal notranslate"><span class="pre">Scene.draw_debug_mesh()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.draw_debug_sphere"><code class="docutils literal notranslate"><span class="pre">Scene.draw_debug_sphere()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.draw_debug_spheres"><code class="docutils literal notranslate"><span class="pre">Scene.draw_debug_spheres()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.draw_debug_box"><code class="docutils literal notranslate"><span class="pre">Scene.draw_debug_box()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.draw_debug_points"><code class="docutils literal notranslate"><span class="pre">Scene.draw_debug_points()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.clear_debug_objects"><code class="docutils literal notranslate"><span class="pre">Scene.clear_debug_objects()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.id"><code class="docutils literal notranslate"><span class="pre">Scene.id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.dt"><code class="docutils literal notranslate"><span class="pre">Scene.dt</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.substep_dt"><code class="docutils literal notranslate"><span class="pre">Scene.substep_dt</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.t"><code class="docutils literal notranslate"><span class="pre">Scene.t</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.substeps"><code class="docutils literal notranslate"><span class="pre">Scene.substeps</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.requires_grad"><code class="docutils literal notranslate"><span class="pre">Scene.requires_grad</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.is_built"><code class="docutils literal notranslate"><span class="pre">Scene.is_built</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.show_FPS"><code class="docutils literal notranslate"><span class="pre">Scene.show_FPS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.gravity"><code class="docutils literal notranslate"><span class="pre">Scene.gravity</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.viewer"><code class="docutils literal notranslate"><span class="pre">Scene.viewer</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.visualizer"><code class="docutils literal notranslate"><span class="pre">Scene.visualizer</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.sim"><code class="docutils literal notranslate"><span class="pre">Scene.sim</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.solvers"><code class="docutils literal notranslate"><span class="pre">Scene.solvers</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.active_solvers"><code class="docutils literal notranslate"><span class="pre">Scene.active_solvers</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.entities"><code class="docutils literal notranslate"><span class="pre">Scene.entities</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.emitters"><code class="docutils literal notranslate"><span class="pre">Scene.emitters</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.tool_solver"><code class="docutils literal notranslate"><span class="pre">Scene.tool_solver</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.rigid_solver"><code class="docutils literal notranslate"><span class="pre">Scene.rigid_solver</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.avatar_solver"><code class="docutils literal notranslate"><span class="pre">Scene.avatar_solver</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.mpm_solver"><code class="docutils literal notranslate"><span class="pre">Scene.mpm_solver</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.sph_solver"><code class="docutils literal notranslate"><span class="pre">Scene.sph_solver</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.fem_solver"><code class="docutils literal notranslate"><span class="pre">Scene.fem_solver</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.scene.Scene.pbd_solver"><code class="docutils literal notranslate"><span class="pre">Scene.pbd_solver</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/genesis-embodied-ai/Genesis/edit/main/docs/source/api_reference/scene/scene.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/api_reference/scene/scene.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Genesis Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

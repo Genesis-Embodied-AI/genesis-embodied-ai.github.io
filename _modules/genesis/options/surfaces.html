@@ -1,0 +1,1101 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>genesis.options.surfaces &#8212; Genesis 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/genesis/options/surfaces';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '_static/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="icon" href="../../../_static/genesis_logo_small.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/genesis_logo_small.svg" class="logo__image only-light" alt="Genesis 0.1.0 documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/logo_white.svg" class="logo__image only-dark" alt="Genesis 0.1.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../roadmap/index.html">
+    Roadmap
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/haosulab/ManiSkill" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://maniskill.ai" title="Website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Website</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+          
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference/index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../roadmap/index.html">
+    Roadmap
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/haosulab/ManiSkill" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://maniskill.ai" title="Website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Website</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">genesis.opti...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for genesis.options.surfaces</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">genesis</span> <span class="k">as</span> <span class="nn">gs</span>
+
+<span class="kn">from</span> <span class="nn">.misc</span> <span class="kn">import</span> <span class="n">FoamOptions</span>
+<span class="kn">from</span> <span class="nn">.options</span> <span class="kn">import</span> <span class="n">Options</span>
+<span class="kn">from</span> <span class="nn">.textures</span> <span class="kn">import</span> <span class="n">ColorTexture</span><span class="p">,</span> <span class="n">ImageTexture</span><span class="p">,</span> <span class="n">Texture</span>
+
+
+<span class="c1">############################ Base ############################</span>
+<div class="viewcode-block" id="Surface"><a class="viewcode-back" href="../../../api_reference/options/surface/surface.html#genesis.options.surfaces.Surface">[docs]</a><span class="k">class</span> <span class="nc">Surface</span><span class="p">(</span><span class="n">Options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Base class for all surfaces types in Genesis.</span>
+<span class="sd">    A ``Surface`` object encapsulates all visual information used for rendering an entity or its sub-components (links, geoms, etc.)</span>
+<span class="sd">    The surface contains different types textures: diffuse_texture, specular_texture, roughness_texture, metallic_texture, transmission_texture, normal_texture, and emissive_texture. Each one of them is a `gs.textures.Texture` object.</span>
+
+<span class="sd">    Tip</span>
+<span class="sd">    ---</span>
+<span class="sd">    If any of the textures only has single value (instead of a map), you can use the shortcut attribute (e.g., `color`, `roughness`, `metallic`, `emissive`) instead of creating a texture object.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This class should *not* be instantiated directly.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    color : tuple | None, optional</span>
+<span class="sd">        Diffuse color of the surface. Shortcut for `diffuse_texture` with a single color.</span>
+<span class="sd">    roughness : float | None, optional</span>
+<span class="sd">        Roughness of the surface. Shortcut for `roughness_texture` with a single value.</span>
+<span class="sd">    metallic : float | None, optional</span>
+<span class="sd">        Metallicness of the surface. Shortcut for `metallic_texture` with a single value.</span>
+<span class="sd">    emissive : tuple | None, optional</span>
+<span class="sd">        Emissive color of the surface. Shortcut for `emissive_texture` with a single color.</span>
+<span class="sd">    opacity_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Opacity texture of the surface.</span>
+<span class="sd">    roughness_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Roughness texture of the surface.</span>
+<span class="sd">    metallic_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Metallic texture of the surface.</span>
+<span class="sd">    normal_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Normal texture of the surface.</span>
+<span class="sd">    emissive_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Emissive texture of the surface.</span>
+<span class="sd">    default_roughness : float, optional</span>
+<span class="sd">        Default roughness value when `roughness` is not set and the asset does not have a roughness texture. Defaults to 1.0.</span>
+<span class="sd">    vis_mode : str | None, optional</span>
+<span class="sd">        How the entity should be visualized. Possible values are [&#39;visual&#39;, &#39;particle&#39;, &#39;collision&#39;, &#39;collision_sdf&#39;, &#39;recon&#39;].</span>
+
+<span class="sd">        - &#39;visual&#39;: Render the entity&#39;s visual geometry.</span>
+<span class="sd">        - &#39;collision&#39;: Render the entity&#39;s collision geometry.</span>
+<span class="sd">        - &#39;particle&#39;: Render the entity&#39;s particle representation (if applicable).</span>
+<span class="sd">        - &#39;collision_sdf&#39;: Render the reconstructed surface mesh of the entity&#39;s sdf.</span>
+<span class="sd">        - &#39;recon&#39;: Render the reconstructed surface mesh of the entity&#39;s particle representation.</span>
+
+<span class="sd">    smooth : bool, optional</span>
+<span class="sd">        Whether to smooth face normals by interpolating vertex normals.</span>
+<span class="sd">    double_sided : bool | None, optional</span>
+<span class="sd">        Whether to render both sides of the surface. Useful for non-watertight 2D objects. Defaults to True for Cloth material and False for others.</span>
+<span class="sd">    normal_diff_clamp : float, optional</span>
+<span class="sd">        Controls the threshold for computing surface normals by interpolating vertex normals.</span>
+<span class="sd">    recon_backend : str, optional</span>
+<span class="sd">        Backend for surface reconstruction. Possible values are [&#39;splashsurf&#39;, &#39;openvdb&#39;].</span>
+<span class="sd">    generate_foam : bool, optional</span>
+<span class="sd">        Whether to generate foam particles for visual effects for particle-based entities.</span>
+<span class="sd">    foam_options : gs.options.FoamOptions, optional</span>
+<span class="sd">        Options for foam generation.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># shortcuts</span>
+    <span class="n">color</span>             <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span>   <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">roughness</span>         <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>   <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">metallic</span>          <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>   <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">emissive</span>          <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span>   <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># textures (can be either ColorTexture or ImageTexture)</span>
+    <span class="n">opacity_texture</span>   <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">roughness_texture</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">metallic_texture</span>  <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">normal_texture</span>    <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">emissive_texture</span>  <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">default_roughness</span> <span class="p">:</span> <span class="nb">float</span>             <span class="o">=</span> <span class="mf">1.0</span>
+    
+    <span class="n">vis_mode</span>          <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>         <span class="o">=</span> <span class="kc">None</span> <span class="c1"># [&#39;visual&#39;, &#39;particle&#39;, &#39;collision&#39;, &#39;collision_sdf&#39;, &#39;recon&#39;]</span>
+    <span class="n">smooth</span>            <span class="p">:</span> <span class="nb">bool</span>                  <span class="o">=</span> <span class="kc">False</span> <span class="c1"># whether to smooth face normals by interpolating vertex normals</span>
+    <span class="n">double_sided</span>      <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>        <span class="o">=</span> <span class="kc">None</span> <span class="c1"># whether to render both sides of the surface. Defaults to True for Cloth material and False for others.</span>
+    <span class="n">normal_diff_clamp</span> <span class="p">:</span> <span class="nb">float</span>                 <span class="o">=</span> <span class="mi">180</span>
+    <span class="n">recon_backend</span>     <span class="p">:</span> <span class="nb">str</span>                   <span class="o">=</span> <span class="s1">&#39;splashsurf&#39;</span> <span class="c1"># backend for surface recon</span>
+    <span class="n">generate_foam</span>     <span class="p">:</span> <span class="nb">bool</span>                  <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">foam_options</span>      <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FoamOptions</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">foam_options</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">foam_options</span> <span class="o">=</span> <span class="n">FoamOptions</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">split_color</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">color</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">color</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid dimension </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span><span class="si">}</span><span class="s1"> of `color`.&#39;</span><span class="p">)</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">split_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid channels </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1"> of `image`.&#39;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">shortcut_info</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">map_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;`</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">` is a shortcut for texture. &#39;</span>\
+               <span class="sa">f</span><span class="s1">&#39;When </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> is set, </span><span class="si">{</span><span class="n">map_name</span><span class="si">}</span><span class="s1"> setting is not allowed.&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_texture</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shortcut_info</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;texture&#39;</span><span class="p">))</span>
+            <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_texture</span><span class="p">(</span><span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">opacity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shortcut_info</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;opacity_texture&#39;</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="n">opacity</span><span class="p">,))</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">roughness</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">roughness_texture</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shortcut_info</span><span class="p">(</span><span class="s1">&#39;roughness&#39;</span><span class="p">,</span> <span class="s1">&#39;roughness_texture&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">roughness_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roughness</span><span class="p">,))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metallic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metallic_texture</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shortcut_info</span><span class="p">(</span><span class="s1">&#39;metallic&#39;</span><span class="p">,</span> <span class="s1">&#39;metallic_texture&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">metallic_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metallic</span><span class="p">,))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">emissive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">emissive_texture</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shortcut_info</span><span class="p">(</span><span class="s1">&#39;emissive&#39;</span><span class="p">,</span> <span class="s1">&#39;emissive_texture&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">emissive_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">emissive</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">update_texture</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">color</span>           <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">image_array</span>     <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">roughness</span>       <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">roughness_array</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metallic</span>        <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metallic_array</span>  <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">normal_array</span>    <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">emissive</span>        <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">emissive_array</span>  <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">force</span>           <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Update the surface textures using given attributes.</span>
+<span class="sd">        Note that if the surface already contains corresponding textures, the existing one have a higher priority and won&#39;t be overridden. Force overriding can be enable by setting force=True,</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_color</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">opacity</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">image_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">image_array</span><span class="p">,</span> <span class="n">opacity_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_image</span><span class="p">(</span><span class="n">image_array</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">opacity_array</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># diffuse map (or specular for glass and emissive for emission)</span>
+        <span class="n">texture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_texture</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">texture</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">image_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">texture</span> <span class="o">=</span> <span class="n">ImageTexture</span><span class="p">(</span><span class="n">image_array</span><span class="o">=</span><span class="n">image_array</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+                <span class="n">texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_texture</span><span class="p">(</span><span class="n">texture</span><span class="p">)</span>
+        
+        <span class="c1"># update opacity</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">opacity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="n">opacity</span><span class="p">,))</span>
+            <span class="k">elif</span> <span class="n">opacity_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span> <span class="o">=</span> <span class="n">ImageTexture</span><span class="p">(</span><span class="n">image_array</span><span class="o">=</span><span class="n">opacity_array</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,))</span>
+
+        <span class="c1"># update roughness</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">roughness_texture</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">roughness</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">roughness_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="n">roughness</span><span class="p">,))</span>
+            <span class="k">elif</span> <span class="n">roughness_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">roughness_texture</span> <span class="o">=</span> <span class="n">ImageTexture</span><span class="p">(</span><span class="n">image_array</span><span class="o">=</span><span class="n">roughness_array</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">roughness_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_roughness</span><span class="p">,))</span>
+
+        <span class="c1"># update metallic</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metallic_texture</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">metallic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">metallic_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="n">metallic</span><span class="p">,))</span>
+            <span class="k">elif</span> <span class="n">metallic_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">metallic_texture</span> <span class="o">=</span> <span class="n">ImageTexture</span><span class="p">(</span><span class="n">image_array</span><span class="o">=</span><span class="n">metallic_array</span><span class="p">)</span>
+        
+        <span class="c1"># update normal</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_texture</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">normal_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">normal_texture</span> <span class="o">=</span> <span class="n">ImageTexture</span><span class="p">(</span><span class="n">image_array</span><span class="o">=</span><span class="n">normal_array</span><span class="p">)</span>
+
+        <span class="c1"># update emissive</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">emissive_texture</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">emissive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">emissive_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">emissive</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">emissive_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">emissive_texture</span> <span class="o">=</span> <span class="n">ImageTexture</span><span class="p">(</span><span class="n">image_array</span><span class="o">=</span><span class="n">emissive_array</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">requires_uv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_texture</span><span class="p">(),</span> <span class="n">ImageTexture</span><span class="p">)</span> <span class="ow">or</span> \
+               <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="p">,</span> <span class="n">ImageTexture</span><span class="p">)</span> <span class="ow">or</span> \
+               <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roughness_texture</span><span class="p">,</span> <span class="n">ImageTexture</span><span class="p">)</span> <span class="ow">or</span> \
+               <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metallic_texture</span><span class="p">,</span> <span class="n">ImageTexture</span><span class="p">)</span> <span class="ow">or</span> \
+               <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normal_texture</span><span class="p">,</span> <span class="n">ImageTexture</span><span class="p">)</span> <span class="ow">or</span> \
+               <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">emissive_texture</span><span class="p">,</span> <span class="n">ImageTexture</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_rgba</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">texture</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_texture</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">texture</span><span class="p">,</span> <span class="n">ColorTexture</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="p">,</span> <span class="n">ColorTexture</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">*</span><span class="n">texture</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="o">.</span><span class="n">color</span><span class="p">))</span>
+            
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="p">,</span> <span class="n">ImageTexture</span><span class="p">):</span>
+                <span class="n">rgba_shape</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="o">.</span><span class="n">image_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+                <span class="n">rgba_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">rgba_shape</span><span class="p">)</span>
+                <span class="n">rgba_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="o">.</span><span class="n">image_array</span>
+                <span class="n">rgba_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">texture</span><span class="o">.</span><span class="n">color</span>
+                <span class="k">return</span> <span class="n">ImageTexture</span><span class="p">(</span><span class="n">image_array</span><span class="o">=</span><span class="n">rgba_array</span><span class="p">)</span>
+            
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">*</span><span class="n">texture</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+            
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">texture</span><span class="p">,</span> <span class="n">ImageTexture</span><span class="p">):</span>
+            <span class="n">rgba_shape</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">texture</span><span class="o">.</span><span class="n">image_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="n">rgba_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">rgba_shape</span><span class="p">)</span>
+            <span class="n">rgba_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">texture</span><span class="o">.</span><span class="n">image_array</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="p">,</span> <span class="n">ColorTexture</span><span class="p">):</span>
+                <span class="n">rgba_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="o">.</span><span class="n">color</span>
+                
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="p">,</span> <span class="n">ImageTexture</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="o">.</span><span class="n">image_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">rgba_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]:</span>
+                    <span class="n">rgba_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity_texture</span><span class="o">.</span><span class="n">image_array</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">gs</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Color and opacity image shapes do not match. Fall back to fully opaque texture.&quot;</span><span class="p">)</span>
+                    <span class="n">rgba_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rgba_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+            <span class="k">return</span> <span class="n">ImageTexture</span><span class="p">(</span><span class="n">image_array</span><span class="o">=</span><span class="n">rgba_array</span><span class="p">)</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">set_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texture</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">get_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        
+    <span class="k">def</span> <span class="nf">get_emission</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">emissive_texture</span></div>
+        
+<span class="c1">############################ Three surface types ############################</span>
+<span class="k">class</span> <span class="nc">Glass</span><span class="p">(</span><span class="n">Surface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Base class for all surfaces types in Genesis.</span>
+<span class="sd">    A ``Surface`` object encapsulates all visual information used for rendering an entity or its sub-components (links, geoms, etc.)</span>
+<span class="sd">    The surface contains different types textures: diffuse_texture, specular_texture, roughness_texture, metallic_texture, normal_texture, and emissive_texture. Each one of them is a `gs.textures.Texture` object.</span>
+
+<span class="sd">    Tip</span>
+<span class="sd">    ---</span>
+<span class="sd">    If any of the textures only has single value (instead of a map), you can use the shortcut attribute (e.g., `color`, `roughness`, `metallic`, `emissive`) instead of creating a texture object.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This class should *not* be instantiated directly.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    color : tuple | None, optional</span>
+<span class="sd">        Diffuse color of the surface. Shortcut for `diffuse_texture` with a single color.</span>
+<span class="sd">    roughness : float | None, optional</span>
+<span class="sd">        Roughness of the surface. Shortcut for `roughness_texture` with a single value.</span>
+<span class="sd">    eta : float, optional</span>
+<span class="sd">    metallic : float | None, optional</span>
+<span class="sd">        Metallicness of the surface. Shortcut for `metallic_texture` with a single value.</span>
+<span class="sd">    emissive : tuple | None, optional</span>
+<span class="sd">        Emissive color of the surface. Shortcut for `emissive_texture` with a single color.</span>
+<span class="sd">    specular_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Specular texture of the surface.</span>
+<span class="sd">    transmission_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Transmission texture of the surface.</span>
+<span class="sd">    opacity_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Opacity texture of the surface.</span>
+<span class="sd">    roughness_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Roughness texture of the surface.</span>
+<span class="sd">    metallic_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Metallic texture of the surface.</span>
+<span class="sd">    normal_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Normal texture of the surface.</span>
+<span class="sd">    emissive_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Emissive texture of the surface.</span>
+<span class="sd">    default_roughness : float, optional</span>
+<span class="sd">        Default roughness value when `roughness` is not set and the asset does not have a roughness texture. Defaults to 1.0.</span>
+<span class="sd">    vis_mode : str | None, optional</span>
+<span class="sd">        How the entity should be visualized. Possible values are [&#39;visual&#39;, &#39;particle&#39;, &#39;collision&#39;, &#39;collision_sdf&#39;, &#39;recon&#39;].</span>
+
+<span class="sd">        - &#39;visual&#39;: Render the entity&#39;s visual geometry.</span>
+<span class="sd">        - &#39;collision&#39;: Render the entity&#39;s collision geometry.</span>
+<span class="sd">        - &#39;particle&#39;: Render the entity&#39;s particle representation (if applicable).</span>
+<span class="sd">        - &#39;collision_sdf&#39;: Render the reconstructed surface mesh of the entity&#39;s sdf.</span>
+<span class="sd">        - &#39;recon&#39;: Render the reconstructed surface mesh of the entity&#39;s particle representation.</span>
+
+<span class="sd">    smooth : bool, optional</span>
+<span class="sd">        Whether to smooth face normals by interpolating vertex normals.</span>
+<span class="sd">    double_sided : bool | None, optional</span>
+<span class="sd">        Whether to render both sides of the surface. Useful for non-watertight 2D objects. Defaults to True for Cloth material and False for others.</span>
+<span class="sd">    normal_diff_clamp : float, optional</span>
+<span class="sd">        Controls the threshold for computing surface normals by interpolating vertex normals.</span>
+<span class="sd">    recon_backend : str, optional</span>
+<span class="sd">        Backend for surface reconstruction. Possible values are [&#39;splashsurf&#39;, &#39;openvdb&#39;].</span>
+<span class="sd">    generate_foam : bool, optional</span>
+<span class="sd">        Whether to generate foam particles for visual effects for particle-based entities.</span>
+<span class="sd">    foam_options : gs.options.FoamOptions, optional</span>
+<span class="sd">        Options for foam generation.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">roughness</span>            <span class="p">:</span> <span class="nb">float</span>             <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">eta</span>                  <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>   <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">specular_texture</span>     <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">transmission_texture</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">get_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">specular_texture</span>
+        
+    <span class="k">def</span> <span class="nf">set_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texture</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">specular_texture</span> <span class="o">=</span> <span class="n">texture</span>
+
+<div class="viewcode-block" id="Metal"><a class="viewcode-back" href="../../../api_reference/options/surface/metal/metal.html#genesis.options.surfaces.Metal">[docs]</a><span class="k">class</span> <span class="nc">Metal</span><span class="p">(</span><span class="n">Surface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Metal surface.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    color : tuple | None, optional</span>
+<span class="sd">        Diffuse color of the surface. Shortcut for `diffuse_texture` with a single color.</span>
+<span class="sd">    roughness : float | None, optional</span>
+<span class="sd">        Roughness of the surface. Shortcut for `roughness_texture` with a single value.</span>
+<span class="sd">    metallic : float | None, optional</span>
+<span class="sd">        Metallicness of the surface. Shortcut for `metallic_texture` with a single value.</span>
+<span class="sd">    emissive : tuple | None, optional</span>
+<span class="sd">        Emissive color of the surface. Shortcut for `emissive_texture` with a single color.</span>
+<span class="sd">    metal_type : str, optional</span>
+<span class="sd">        Type of metal. Possible values are [&#39;aluminium&#39;, &#39;gold&#39;, &#39;copper&#39;, &#39;brass&#39;, &#39;iron&#39;, &#39;titanium&#39;, &#39;vanadium&#39;, &#39;lithium&#39;].</span>
+<span class="sd">    diffuse_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Diffuse (basic color) texture of the surface.</span>
+<span class="sd">    opacity_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Opacity texture of the surface.</span>
+<span class="sd">    roughness_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Roughness texture of the surface.</span>
+<span class="sd">    metallic_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Metallic texture of the surface.</span>
+<span class="sd">    normal_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Normal texture of the surface.</span>
+<span class="sd">    emissive_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Emissive texture of the surface.</span>
+<span class="sd">    default_roughness : float, optional</span>
+<span class="sd">        Default roughness value when `roughness` is not set and the asset does not have a roughness texture. Defaults to 1.0.</span>
+<span class="sd">    vis_mode : str | None, optional</span>
+<span class="sd">        How the entity should be visualized. Possible values are [&#39;visual&#39;, &#39;particle&#39;, &#39;collision&#39;, &#39;collision_sdf&#39;, &#39;recon&#39;].</span>
+
+<span class="sd">        - &#39;visual&#39;: Render the entity&#39;s visual geometry.</span>
+<span class="sd">        - &#39;collision&#39;: Render the entity&#39;s collision geometry.</span>
+<span class="sd">        - &#39;particle&#39;: Render the entity&#39;s particle representation (if applicable).</span>
+<span class="sd">        - &#39;collision_sdf&#39;: Render the reconstructed surface mesh of the entity&#39;s sdf.</span>
+<span class="sd">        - &#39;recon&#39;: Render the reconstructed surface mesh of the entity&#39;s particle representation.</span>
+
+<span class="sd">    smooth : bool, optional</span>
+<span class="sd">        Whether to smooth face normals by interpolating vertex normals.</span>
+<span class="sd">    double_sided : bool | None, optional</span>
+<span class="sd">        Whether to render both sides of the surface. Useful for non-watertight 2D objects. Defaults to True for Cloth material and False for others.</span>
+<span class="sd">    normal_diff_clamp : float, optional</span>
+<span class="sd">        Controls the threshold for computing surface normals by interpolating vertex normals.</span>
+<span class="sd">    recon_backend : str, optional</span>
+<span class="sd">        Backend for surface reconstruction. Possible values are [&#39;splashsurf&#39;, &#39;openvdb&#39;].</span>
+<span class="sd">    generate_foam : bool, optional</span>
+<span class="sd">        Whether to generate foam particles for visual effects for particle-based entities.</span>
+<span class="sd">    foam_options : gs.options.FoamOptions, optional</span>
+<span class="sd">        Options for foam generation.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">roughness</span>       <span class="p">:</span> <span class="nb">float</span>             <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">metal_type</span>      <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>     <span class="o">=</span> <span class="s2">&quot;iron&quot;</span>
+    <span class="n">diffuse_texture</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metal_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;aluminium&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;copper&#39;</span><span class="p">,</span> <span class="s1">&#39;brass&#39;</span><span class="p">,</span> <span class="s1">&#39;iron&#39;</span><span class="p">,</span> <span class="s1">&#39;titanium&#39;</span><span class="p">,</span> <span class="s1">&#39;vanadium&#39;</span><span class="p">,</span> <span class="s1">&#39;lithium&#39;</span><span class="p">]:</span>
+            <span class="n">gs</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid metal metal_type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">metal_type</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffuse_texture</span>
+        
+    <span class="k">def</span> <span class="nf">set_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texture</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diffuse_texture</span> <span class="o">=</span> <span class="n">texture</span></div>
+
+<div class="viewcode-block" id="Plastic"><a class="viewcode-back" href="../../../api_reference/options/surface/plastic/plastic.html#genesis.options.surfaces.Plastic">[docs]</a><span class="k">class</span> <span class="nc">Plastic</span><span class="p">(</span><span class="n">Surface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Plastic surface is the most basic type of surface.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    color : tuple | None, optional</span>
+<span class="sd">        Diffuse color of the surface. Shortcut for `diffuse_texture` with a single color.</span>
+<span class="sd">    roughness : float | None, optional</span>
+<span class="sd">        Roughness of the surface. Shortcut for `roughness_texture` with a single value.</span>
+<span class="sd">    metallic : float | None, optional</span>
+<span class="sd">        Metallicness of the surface. Shortcut for `metallic_texture` with a single value.</span>
+<span class="sd">    emissive : tuple | None, optional</span>
+<span class="sd">        Emissive color of the surface. Shortcut for `emissive_texture` with a single color.</span>
+<span class="sd">    eta : float, optional</span>
+<span class="sd">    diffuse_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Diffuse (basic color) texture of the surface.</span>
+<span class="sd">    specular_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Specular texture of the surface.</span>
+<span class="sd">    opacity_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Opacity texture of the surface.</span>
+<span class="sd">    roughness_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Roughness texture of the surface.</span>
+<span class="sd">    metallic_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Metallic texture of the surface.</span>
+<span class="sd">    normal_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Normal texture of the surface.</span>
+<span class="sd">    emissive_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Emissive texture of the surface.</span>
+<span class="sd">    default_roughness : float, optional</span>
+<span class="sd">        Default roughness value when `roughness` is not set and the asset does not have a roughness texture. Defaults to 1.0.</span>
+<span class="sd">    vis_mode : str | None, optional</span>
+<span class="sd">        How the entity should be visualized. Possible values are [&#39;visual&#39;, &#39;particle&#39;, &#39;collision&#39;, &#39;collision_sdf&#39;, &#39;recon&#39;].</span>
+
+<span class="sd">        - &#39;visual&#39;: Render the entity&#39;s visual geometry.</span>
+<span class="sd">        - &#39;collision&#39;: Render the entity&#39;s collision geometry.</span>
+<span class="sd">        - &#39;particle&#39;: Render the entity&#39;s particle representation (if applicable).</span>
+<span class="sd">        - &#39;collision_sdf&#39;: Render the reconstructed surface mesh of the entity&#39;s sdf.</span>
+<span class="sd">        - &#39;recon&#39;: Render the reconstructed surface mesh of the entity&#39;s particle representation.</span>
+
+<span class="sd">    smooth : bool, optional</span>
+<span class="sd">        Whether to smooth face normals by interpolating vertex normals.</span>
+<span class="sd">    double_sided : bool | None, optional</span>
+<span class="sd">        Whether to render both sides of the surface. Useful for non-watertight 2D objects. Defaults to True for Cloth material and False for others.</span>
+<span class="sd">    normal_diff_clamp : float, optional</span>
+<span class="sd">        Controls the threshold for computing surface normals by interpolating vertex normals.</span>
+<span class="sd">    recon_backend : str, optional</span>
+<span class="sd">        Backend for surface reconstruction. Possible values are [&#39;splashsurf&#39;, &#39;openvdb&#39;].</span>
+<span class="sd">    generate_foam : bool, optional</span>
+<span class="sd">        Whether to generate foam particles for visual effects for particle-based entities.</span>
+<span class="sd">    foam_options : gs.options.FoamOptions, optional</span>
+<span class="sd">        Options for foam generation.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">eta</span>              <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>   <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">diffuse_texture</span>  <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">specular_texture</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Texture</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">def</span> <span class="nf">get_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffuse_texture</span>
+        
+    <span class="k">def</span> <span class="nf">set_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texture</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diffuse_texture</span> <span class="o">=</span> <span class="n">texture</span></div>
+
+<div class="viewcode-block" id="Emission"><a class="viewcode-back" href="../../../api_reference/options/surface/emission/emission.html#genesis.options.surfaces.Emission">[docs]</a><span class="k">class</span> <span class="nc">Emission</span><span class="p">(</span><span class="n">Surface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Emission surface. This surface emits light. Note that in Genesis&#39;s ray tracing pipeline, lights are not a special type of objects, but simply entities with emission surfaces.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    emissive : tuple | None, optional</span>
+<span class="sd">        Emissive color of the surface. Shortcut for `emissive_texture` with a single color.</span>
+<span class="sd">    emissive_texture : gs.textures.Texture | None, optional</span>
+<span class="sd">        Emissive texture of the surface.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">get_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">emissive_texture</span>
+    
+    <span class="k">def</span> <span class="nf">set_texture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texture</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emissive_texture</span> <span class="o">=</span> <span class="n">texture</span></div>
+
+<span class="c1">############################ Handy shortcuts ############################</span>
+<div class="viewcode-block" id="Default"><a class="viewcode-back" href="../../../api_reference/options/surface/plastic/default.html#genesis.options.surfaces.Default">[docs]</a><span class="k">class</span> <span class="nc">Default</span><span class="p">(</span><span class="n">Plastic</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The default surface type used in Genesis. This is just an alias for `Plastic`.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Rough"><a class="viewcode-back" href="../../../api_reference/options/surface/plastic/rough.html#genesis.options.surfaces.Rough">[docs]</a><span class="k">class</span> <span class="nc">Rough</span><span class="p">(</span><span class="n">Plastic</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Shortcut for a rough plastic surface.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">roughness</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">eta</span>       <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span></div>
+
+<div class="viewcode-block" id="Smooth"><a class="viewcode-back" href="../../../api_reference/options/surface/plastic/smooth.html#genesis.options.surfaces.Smooth">[docs]</a><span class="k">class</span> <span class="nc">Smooth</span><span class="p">(</span><span class="n">Plastic</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Shortcut for a smooth plastic surface.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">roughness</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="n">eta</span>       <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span></div>
+
+<div class="viewcode-block" id="Reflective"><a class="viewcode-back" href="../../../api_reference/options/surface/plastic/reflective.html#genesis.options.surfaces.Reflective">[docs]</a><span class="k">class</span> <span class="nc">Reflective</span><span class="p">(</span><span class="n">Plastic</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Shortcut for a reflective (smoother than `Smooth`) plastic surface.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">roughness</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span>
+    <span class="n">eta</span>       <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span></div>
+
+<div class="viewcode-block" id="Collision"><a class="viewcode-back" href="../../../api_reference/options/surface/plastic/collision.html#genesis.options.surfaces.Collision">[docs]</a><span class="k">class</span> <span class="nc">Collision</span><span class="p">(</span><span class="n">Plastic</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Default surface type for collision geometry with a grey color.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diffuse_texture</span> <span class="o">=</span> <span class="n">ColorTexture</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Iron"><a class="viewcode-back" href="../../../api_reference/options/surface/metal/iron.html#genesis.options.surfaces.Iron">[docs]</a><span class="k">class</span> <span class="nc">Iron</span><span class="p">(</span><span class="n">Metal</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Shortcut for an metallic surface with `metal_type = &#39;iron&#39;`.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">metal_type</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;iron&quot;</span></div>
+
+<div class="viewcode-block" id="Aluminium"><a class="viewcode-back" href="../../../api_reference/options/surface/metal/aluminium.html#genesis.options.surfaces.Aluminium">[docs]</a><span class="k">class</span> <span class="nc">Aluminium</span><span class="p">(</span><span class="n">Metal</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Shortcut for an metallic surface with `metal_type = &#39;aluminium&#39;`.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">metal_type</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;aluminium&quot;</span></div>
+
+<div class="viewcode-block" id="Copper"><a class="viewcode-back" href="../../../api_reference/options/surface/metal/copper.html#genesis.options.surfaces.Copper">[docs]</a><span class="k">class</span> <span class="nc">Copper</span><span class="p">(</span><span class="n">Metal</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Shortcut for an metallic surface with `metal_type = &#39;copper&#39;`.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">metal_type</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;copper&quot;</span></div>
+
+<div class="viewcode-block" id="Gold"><a class="viewcode-back" href="../../../api_reference/options/surface/metal/gold.html#genesis.options.surfaces.Gold">[docs]</a><span class="k">class</span> <span class="nc">Gold</span><span class="p">(</span><span class="n">Metal</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Shortcut for an metallic surface with `metal_type = &#39;gold&#39;`.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">metal_type</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;gold&quot;</span></div>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Genesis Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

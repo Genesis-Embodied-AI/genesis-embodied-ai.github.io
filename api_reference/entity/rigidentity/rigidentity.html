@@ -1,0 +1,1767 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>gs.RigidEntity &#8212; Genesis 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api_reference/entity/rigidentity/rigidentity';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '_static/version_switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'v0.1.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <link rel="icon" href="../../../_static/genesis_logo_small.svg"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="gs.RigidLink" href="rigidlink.html" />
+    <link rel="prev" title="RigidEntity" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/genesis_logo_small.svg" class="logo__image only-light" alt="Genesis 0.1.0 documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/logo_white.svg" class="logo__image only-dark" alt="Genesis 0.1.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../roadmap/index.html">
+    Roadmap
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/haosulab/ManiSkill" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://maniskill.ai" title="Website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Website</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+          
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../roadmap/index.html">
+    Roadmap
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/haosulab/ManiSkill" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://maniskill.ai" title="Website" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Website</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../scene/index.html">Scene</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../scene/scene.html"><code class="docutils literal notranslate"><span class="pre">gs.Scene</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../camera/index.html">Camera</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../camera/camera.html"><code class="docutils literal notranslate"><span class="pre">Camera</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Entity</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">RigidEntity</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">gs.RigidEntity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rigidlink.html"><code class="docutils literal notranslate"><span class="pre">gs.RigidLink</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rigidjoint.html"><code class="docutils literal notranslate"><span class="pre">gs.RigidJoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rigidgeom.html"><code class="docutils literal notranslate"><span class="pre">gs.RigidGeom</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="rigidvisgeom.html"><code class="docutils literal notranslate"><span class="pre">gs.RigidVisGeom</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../options/index.html">Options</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../options/options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.Options</span></code></a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/index.html">Simulator, Coupler &amp; Solver Options</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/sim_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.SimOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/coupler_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.CouplerOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/tool_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.ToolOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/rigid_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.RigidOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/avatar_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.AvatarOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/mpm_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.MPMOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/sph_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.SPHOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/pbd_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.PBDOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/fem_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.FEMOptions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/simulator_coupler_and_solver_options/sf_options.html"><code class="docutils literal notranslate"><span class="pre">gs.options.SFOptions</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../options/morph/index.html">Morph</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../options/morph/morph.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Morph</span></code></a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../options/morph/primitive/index.html">Primitive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/primitive/primitive.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Primitive</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/primitive/box.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Box</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/primitive/sphere.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Sphere</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/primitive/cylinder.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Cylinder</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../options/morph/file_morph/index.html">FileMorph</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/file_morph/file_morph.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.FileMorph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/file_morph/mesh.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Mesh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/file_morph/urdf.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.URDF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/file_morph/mjcf.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.MJCF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/file_morph/terrain.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Terrain</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/morph/file_morph/drone.html"><code class="docutils literal notranslate"><span class="pre">gs.morphs.Drone</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../options/renderer/index.html">Renderer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../options/renderer/renderer.html"><code class="docutils literal notranslate"><span class="pre">gs.renderers.Renderer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/renderer/rasterizer.html"><code class="docutils literal notranslate"><span class="pre">gs.renderers.Rasterizer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/renderer/raytracer.html"><code class="docutils literal notranslate"><span class="pre">gs.renderers.RayTracer</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../options/surface/index.html">Surface</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../options/surface/surface.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Surface</span></code></a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../options/surface/plastic/index.html">Plastic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/plastic/plastic.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Plastic</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/plastic/rough.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Rough</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/plastic/smooth.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Smooth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/plastic/reflective.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Reflective</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/plastic/collision.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Collision</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/plastic/default.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Default</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../options/surface/metal/index.html">Metal</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/metal/metal.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Metal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/metal/iron.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Iron</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/metal/aluminium.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Aluminium</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/metal/copper.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Copper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/metal/gold.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Gold</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../options/surface/emission/index.html">Emission</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../options/surface/emission/emission.html"><code class="docutils literal notranslate"><span class="pre">gs.surfaces.Emission</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../options/texture/index.html">Texture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../options/texture/texture.html"><code class="docutils literal notranslate"><span class="pre">gs.textures.Texture</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/texture/color_texture.html"><code class="docutils literal notranslate"><span class="pre">gs.textures.ColorTexture</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../options/texture/image_texture.html"><code class="docutils literal notranslate"><span class="pre">gs.textures.ImageTexture</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">RigidEntity</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><code...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gs-rigidentity">
+<h1><code class="docutils literal notranslate"><span class="pre">gs.RigidEntity</span></code><a class="headerlink" href="#gs-rigidentity" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">genesis.engine.entities.rigid_entity.rigid_entity.</span></span><span class="sig-name descname"><span class="pre">RigidEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">material</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">morph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_in_solver</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">joint_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vgeom_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vvert_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vface_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visualize_contact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_jacobian">
+<span class="sig-name descname"><span class="pre">get_jacobian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_jacobian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_jacobian" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the Jacobian matrix for a target link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>link</strong> (<a class="reference internal" href="rigidlink.html#genesis.engine.entities.rigid_entity.rigid_link.RigidLink" title="genesis.engine.entities.rigid_entity.rigid_link.RigidLink"><em>RigidLink</em></a>) – The target link.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>jacobian</strong> – The Jacobian matrix of shape (n_envs, 6, entity.n_dofs) or (6, entity.n_dofs) if n_envs == 0.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.inverse_kinematics">
+<span class="sig-name descname"><span class="pre">inverse_kinematics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_qpos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">respect_joint_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_solver_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rot_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">True,</span> <span class="pre">True]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rot_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">True,</span> <span class="pre">True]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_step_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.inverse_kinematics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.inverse_kinematics" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute inverse kinematics for a single target link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>link</strong> (<a class="reference internal" href="rigidlink.html#genesis.engine.entities.rigid_entity.rigid_link.RigidLink" title="genesis.engine.entities.rigid_entity.rigid_link.RigidLink"><em>RigidLink</em></a>) – The link to be used as the end-effector.</p></li>
+<li><p><strong>pos</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The target position. If None, position error will not be considered. Defaults to None.</p></li>
+<li><p><strong>quat</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>shape</em><em> (</em><em>4</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – The target orientation. If None, orientation error will not be considered. Defaults to None.</p></li>
+<li><p><strong>init_qpos</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>shape</em><em> (</em><em>n_dofs</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – Initial qpos used for solving IK. If None, the current qpos will be used. Defaults to None.</p></li>
+<li><p><strong>respect_joint_limit</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to respect joint limits. Defaults to True.</p></li>
+<li><p><strong>max_samples</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of resample attempts. Defaults to 50.</p></li>
+<li><p><strong>max_solver_iters</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of solver iterations per sample. Defaults to 20.</p></li>
+<li><p><strong>damping</strong> (<em>float</em><em>, </em><em>optional</em>) – Damping for damped least squares. Defaults to 0.01.</p></li>
+<li><p><strong>pos_tol</strong> (<em>float</em><em>, </em><em>optional</em>) – Position tolerance for normalized position error (in meter). Defaults to 1e-4.</p></li>
+<li><p><strong>rot_tol</strong> (<em>float</em><em>, </em><em>optional</em>) – Rotation tolerance for normalized rotation vector error (in radian). Defaults to 1e-4.</p></li>
+<li><p><strong>pos_mask</strong> (<em>list</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – Mask for position error. Defaults to [True, True, True]. E.g.: If you only care about position along x and y, you can set it to [True, True, False].</p></li>
+<li><p><strong>rot_mask</strong> (<em>list</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – Mask for rotation axis alignment. Defaults to [True, True, True]. E.g.: If you only want the link’s Z-axis to be aligned with the Z-axis in the given quat, you can set it to [False, False, True].</p></li>
+<li><p><strong>max_step_size</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum step size in q space for each IK solver step. Defaults to 0.5.</p></li>
+<li><p><strong>return_error</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return the final errorqpos. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>qpos</strong> (<em>array_like, shape (n_dofs,) or (n_envs, n_dofs)</em>) – Solver qpos (joint positions).</p></li>
+<li><p><strong>(optional) error_pose</strong> (<em>array_like, shape (6,) or (n_envs, 6)</em>) – Pose error for each target. The 6-vector is [err_pos_x, err_pos_y, err_pos_z, err_rot_x, err_rot_y, err_rot_z]. Only returned if <cite>return_error</cite> is True.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.inverse_kinematics_multilink">
+<span class="sig-name descname"><span class="pre">inverse_kinematics_multilink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_qpos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">respect_joint_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_solver_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rot_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">True,</span> <span class="pre">True]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rot_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">True,</span> <span class="pre">True]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_step_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.inverse_kinematics_multilink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.inverse_kinematics_multilink" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute inverse kinematics for  multiple target links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>links</strong> (<em>list</em><em> of </em><a class="reference internal" href="rigidlink.html#genesis.engine.entities.rigid_entity.rigid_link.RigidLink" title="genesis.engine.entities.rigid_entity.rigid_link.RigidLink"><em>RigidLink</em></a>) – List of links to be used as the end-effectors.</p></li>
+<li><p><strong>poss</strong> (<em>list</em><em>, </em><em>optional</em>) – List of target positions. If empty, position error will not be considered. Defaults to None.</p></li>
+<li><p><strong>quats</strong> (<em>list</em><em>, </em><em>optional</em>) – List of target orientations. If empty, orientation error will not be considered. Defaults to None.</p></li>
+<li><p><strong>init_qpos</strong> (<em>array_like</em><em>, </em><em>shape</em><em> (</em><em>n_dofs</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – Initial qpos used for solving IK. If None, the current qpos will be used. Defaults to None.</p></li>
+<li><p><strong>respect_joint_limit</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to respect joint limits. Defaults to True.</p></li>
+<li><p><strong>max_samples</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of resample attempts. Defaults to 50.</p></li>
+<li><p><strong>max_solver_iters</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of solver iterations per sample. Defaults to 20.</p></li>
+<li><p><strong>damping</strong> (<em>float</em><em>, </em><em>optional</em>) – Damping for damped least squares. Defaults to 0.01.</p></li>
+<li><p><strong>pos_tol</strong> (<em>float</em><em>, </em><em>optional</em>) – Position tolerance for normalized position error (in meter). Defaults to 1e-4.</p></li>
+<li><p><strong>rot_tol</strong> (<em>float</em><em>, </em><em>optional</em>) – Rotation tolerance for normalized rotation vector error (in radian). Defaults to 1e-4.</p></li>
+<li><p><strong>pos_mask</strong> (<em>list</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – Mask for position error. Defaults to [True, True, True]. E.g.: If you only care about position along x and y, you can set it to [True, True, False].</p></li>
+<li><p><strong>rot_mask</strong> (<em>list</em><em>, </em><em>shape</em><em> (</em><em>3</em><em>,</em><em>)</em><em>, </em><em>optional</em>) – Mask for rotation axis alignment. Defaults to [True, True, True]. E.g.: If you only want the link’s Z-axis to be aligned with the Z-axis in the given quat, you can set it to [False, False, True].</p></li>
+<li><p><strong>max_step_size</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum step size in q space for each IK solver step. Defaults to 0.5.</p></li>
+<li><p><strong>return_error</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return the final errorqpos. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>qpos</strong> (<em>array_like, shape (n_dofs,) or (n_envs, n_dofs)</em>) – Solver qpos (joint positions).</p></li>
+<li><p><strong>(optional) error_pose</strong> (<em>array_like, shape (6,) or (n_envs, 6)</em>) – Pose error for each target. The 6-vector is [err_pos_x, err_pos_y, err_pos_z, err_rot_x, err_rot_y, err_rot_z]. Only returned if <cite>return_error</cite> is True.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.plan_path">
+<span class="sig-name descname"><span class="pre">plan_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qpos_goal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qpos_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_waypoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_collision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_joint_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RRTConnect'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.plan_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.plan_path" title="Permalink to this definition">#</a></dt>
+<dd><p>Plan a path from <cite>qpos_start</cite> to <cite>qpos_goal</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qpos_goal</strong> (<em>array_like</em>) – The goal state.</p></li>
+<li><p><strong>qpos_start</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The start state. If None, the current state of the rigid entity will be used. Defaults to None.</p></li>
+<li><p><strong>timeout</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum time (in seconds) allowed for the motion planning algorithm to find a solution. Defaults to 5.0.</p></li>
+<li><p><strong>smooth_path</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to smooth the path after finding a solution. Defaults to True.</p></li>
+<li><p><strong>num_waypoints</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of waypoints to interpolate the path. If None, no interpolation will be performed. Defaults to 100.</p></li>
+<li><p><strong>ignore_collision</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to ignore collision checking during motion planning. Defaults to False.</p></li>
+<li><p><strong>ignore_joint_limit</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to ignore joint limits during motion planning. Defaults to False.</p></li>
+<li><p><strong>planner</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the motion planning algorithm to use. Supported planners: ‘PRM’, ‘RRT’, ‘RRTConnect’, ‘RRTstar’, ‘EST’, ‘FMT’, ‘BITstar’, ‘ABITstar’. Defaults to ‘RRTConnect’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>waypoints</strong> – A list of waypoints representing the planned path. Each waypoint is an array storing the entity’s qpos of a single time step.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_joint">
+<span class="sig-name descname"><span class="pre">get_joint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_joint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_joint" title="Permalink to this definition">#</a></dt>
+<dd><p>Get a RigidJoint object by name or id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the joint. Defaults to None.</p></li>
+<li><p><strong>id</strong> (<em>str</em><em>, </em><em>optional</em>) – The id of the joint. This can be a substring of the joint’s id. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>joint</strong> – The joint object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="rigidjoint.html#genesis.engine.entities.rigid_entity.rigid_joint.RigidJoint" title="genesis.engine.entities.rigid_entity.rigid_joint.RigidJoint">RigidJoint</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_link">
+<span class="sig-name descname"><span class="pre">get_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_link" title="Permalink to this definition">#</a></dt>
+<dd><p>Get a RigidLink object by name or id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the link. Defaults to None.</p></li>
+<li><p><strong>id</strong> (<em>str</em><em>, </em><em>optional</em>) – The id of the link. This can be a substring of the link’s id. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>link</strong> – The link object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="rigidlink.html#genesis.engine.entities.rigid_entity.rigid_link.RigidLink" title="genesis.engine.entities.rigid_entity.rigid_link.RigidLink">RigidLink</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_pos">
+<span class="sig-name descname"><span class="pre">get_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_pos" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns position of the entity’s base link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>pos</strong> – The position of the entity’s base link.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (3,) or (n_envs, 3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_quat">
+<span class="sig-name descname"><span class="pre">get_quat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_quat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_quat" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns quaternion of the entity’s base link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>quat</strong> – The quaternion of the entity’s base link.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (4,) or (n_envs, 4)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_vel">
+<span class="sig-name descname"><span class="pre">get_vel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_vel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_vel" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns linear velocity of the entity’s base link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>vel</strong> – The linear velocity of the entity’s base link.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (3,) or (n_envs, 3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_ang">
+<span class="sig-name descname"><span class="pre">get_ang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_ang"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_ang" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns angular velocity of the entity’s base link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ang</strong> – The angular velocity of the entity’s base link.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (3,) or (n_envs, 3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_pos">
+<span class="sig-name descname"><span class="pre">get_links_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_links_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_pos" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns position of all the entity’s links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>pos</strong> – The position of all the entity’s links.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_links, 3) or (n_envs, n_links, 3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_quat">
+<span class="sig-name descname"><span class="pre">get_links_quat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_links_quat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_quat" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns quaternion of all the entity’s links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>quat</strong> – The quaternion of all the entity’s links.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_links, 4) or (n_envs, n_links, 4)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_vel">
+<span class="sig-name descname"><span class="pre">get_links_vel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_links_vel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_vel" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns linear velocity of all the entity’s links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>vel</strong> – The linear velocity of all the entity’s links.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_links, 3) or (n_envs, n_links, 3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_ang">
+<span class="sig-name descname"><span class="pre">get_links_ang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_links_ang"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_ang" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns angular velocity of all the entity’s links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ang</strong> – The angular velocity of all the entity’s links.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_links, 3) or (n_envs, n_links, 3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_pos">
+<span class="sig-name descname"><span class="pre">set_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_velocity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.set_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_pos" title="Permalink to this definition">#</a></dt>
+<dd><p>Set position of the entity’s base link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>array_like</em>) – The position to set.</p></li>
+<li><p><strong>zero_velocity</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to zero the velocity of all the entity’s dofs. Defaults to True. This is a safety measure after a sudden change in entity pose.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_quat">
+<span class="sig-name descname"><span class="pre">set_quat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_velocity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.set_quat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_quat" title="Permalink to this definition">#</a></dt>
+<dd><p>Set quaternion of the entity’s base link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quat</strong> (<em>array_like</em>) – The quaternion to set.</p></li>
+<li><p><strong>zero_velocity</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to zero the velocity of all the entity’s dofs. Defaults to True. This is a safety measure after a sudden change in entity pose.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_verts">
+<span class="sig-name descname"><span class="pre">get_verts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_verts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_verts" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the all vertices of the entity’s (using collision geoms).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>verts</strong> – The vertices of the entity (using collision geoms).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor, shape (n_verts, 3) or (n_envs, n_verts, 3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_AABB">
+<span class="sig-name descname"><span class="pre">get_AABB</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_AABB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_AABB" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the axis-aligned bounding box (AABB) of the entity (using collision geoms).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AABB</strong> – The axis-aligned bounding box (AABB) of the entity (using collision geoms).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor, shape (2, 3) or (n_envs, 2, 3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_qpos">
+<span class="sig-name descname"><span class="pre">set_qpos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qpos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_velocity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.set_qpos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_qpos" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the entity’s qpos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qpos</strong> (<em>array_like</em>) – The qpos to set.</p></li>
+<li><p><strong>qs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the qpos to set. If None, all qpos will be set. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>zero_velocity</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to zero the velocity of all the entity’s dofs. Defaults to True. This is a safety measure after a sudden change in entity pose.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_kp">
+<span class="sig-name descname"><span class="pre">set_dofs_kp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.set_dofs_kp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_kp" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the entity’s dofs’ positional gains for the PD controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kp</strong> (<em>array_like</em>) – The positional gains to set.</p></li>
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to set. If None, all dofs will be set. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_kv">
+<span class="sig-name descname"><span class="pre">set_dofs_kv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.set_dofs_kv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_kv" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the entity’s dofs’ velocity gains for the PD controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kv</strong> (<em>array_like</em>) – The velocity gains to set.</p></li>
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to set. If None, all dofs will be set. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_force_range">
+<span class="sig-name descname"><span class="pre">set_dofs_force_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.set_dofs_force_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_force_range" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the entity’s dofs’ force range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lower</strong> (<em>array_like</em>) – The lower bounds of the force range.</p></li>
+<li><p><strong>upper</strong> (<em>array_like</em>) – The upper bounds of the force range.</p></li>
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to set. If None, all dofs will be set. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_velocity">
+<span class="sig-name descname"><span class="pre">set_dofs_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.set_dofs_velocity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_velocity" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the entity’s dofs’ velocity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>velocity</strong> (<em>array_like</em>) – The velocity to set.</p></li>
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to set. If None, all dofs will be set. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_position">
+<span class="sig-name descname"><span class="pre">set_dofs_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_velocity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.set_dofs_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_position" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the entity’s dofs’ position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>array_like</em>) – The position to set.</p></li>
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to set. If None, all dofs will be set. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>zero_velocity</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to zero the velocity of all the entity’s dofs. Defaults to True. This is a safety measure after a sudden change in entity pose.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.control_dofs_force">
+<span class="sig-name descname"><span class="pre">control_dofs_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.control_dofs_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.control_dofs_force" title="Permalink to this definition">#</a></dt>
+<dd><p>Control the entity’s dofs’ motor force. This is used for force/torque control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>force</strong> (<em>array_like</em>) – The force to apply.</p></li>
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to control. If None, all dofs will be controlled. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.control_dofs_velocity">
+<span class="sig-name descname"><span class="pre">control_dofs_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">velocity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.control_dofs_velocity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.control_dofs_velocity" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the PD controller’s target velocity for the entity’s dofs. This is used for velocity control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>velocity</strong> (<em>array_like</em>) – The target velocity to set.</p></li>
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to control. If None, all dofs will be controlled. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.control_dofs_position">
+<span class="sig-name descname"><span class="pre">control_dofs_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.control_dofs_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.control_dofs_position" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the PD controller’s target position for the entity’s dofs. This is used for position control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>array_like</em>) – The target position to set.</p></li>
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to control. If None, all dofs will be controlled. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_qpos">
+<span class="sig-name descname"><span class="pre">get_qpos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_qpos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_qpos" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the entity’s qpos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the qpos to get. If None, all qpos will be returned. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>qpos</strong> – The entity’s qpos.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_qs,) or (n_envs, n_qs)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_control_force">
+<span class="sig-name descname"><span class="pre">get_dofs_control_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_dofs_control_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_control_force" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the entity’s dofs’ internal control force, computed based on the position/velocity control command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to get. If None, all dofs will be returned. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>control_force</strong> – The entity’s dofs’ internal control force.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_dofs,) or (n_envs, n_dofs)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_force">
+<span class="sig-name descname"><span class="pre">get_dofs_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_dofs_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_force" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the entity’s dofs’ internal force at the current time step.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Different from <cite>get_dofs_control_force</cite>, this function returns the actual internal force experienced by all the dofs at the current time step.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to get. If None, all dofs will be returned. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>force</strong> – The entity’s dofs’ force.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_dofs,) or (n_envs, n_dofs)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_velocity">
+<span class="sig-name descname"><span class="pre">get_dofs_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_dofs_velocity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_velocity" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the entity’s dofs’ velocity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to get. If None, all dofs will be returned. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>velocity</strong> – The entity’s dofs’ velocity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_dofs,) or (n_envs, n_dofs)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_position">
+<span class="sig-name descname"><span class="pre">get_dofs_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_dofs_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_position" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the entity’s dofs’ position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to get. If None, all dofs will be returned. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p></li>
+<li><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>position</strong> – The entity’s dofs’ position.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_dofs,) or (n_envs, n_dofs)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_kp">
+<span class="sig-name descname"><span class="pre">get_dofs_kp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_dofs_kp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_kp" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the positional gain (kp) for the entity’s dofs used by the PD controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to get. If None, all dofs will be returned. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>kp</strong> – The positional gain (kp) for the entity’s dofs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_dofs,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_kv">
+<span class="sig-name descname"><span class="pre">get_dofs_kv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_dofs_kv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_kv" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the velocity gain (kv) for the entity’s dofs used by the PD controller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to get. If None, all dofs will be returned. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>kv</strong> – The velocity gain (kv) for the entity’s dofs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor, shape (n_dofs,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_force_range">
+<span class="sig-name descname"><span class="pre">get_dofs_force_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dofs_idx_local</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_dofs_force_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_force_range" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the force range (min and max limits) for the entity’s dofs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dofs_idx_local</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to get. If None, all dofs will be returned. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>lower_limit</strong> (<em>torch.Tensor, shape (n_dofs,)</em>) – The lower limit of the force range for the entity’s dofs.</p></li>
+<li><p><strong>upper_limit</strong> (<em>torch.Tensor, shape (n_dofs,)</em>) – The upper limit of the force range for the entity’s dofs.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_limit">
+<span class="sig-name descname"><span class="pre">get_dofs_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dofs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_dofs_limit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_limit" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the positional limits (min and max) for the entity’s dofs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dofs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the dofs to get. If None, all dofs will be returned. Note that here this uses the local <cite>q_idx</cite>, not the scene-level one. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>lower_limit</strong> (<em>torch.Tensor, shape (n_dofs,)</em>) – The lower limit of the positional limits for the entity’s dofs.</p></li>
+<li><p><strong>upper_limit</strong> (<em>torch.Tensor, shape (n_dofs,)</em>) – The upper limit of the positional limits for the entity’s dofs.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.zero_all_dofs_velocity">
+<span class="sig-name descname"><span class="pre">zero_all_dofs_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">envs_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.zero_all_dofs_velocity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.zero_all_dofs_velocity" title="Permalink to this definition">#</a></dt>
+<dd><p>Zero the velocity of all the entity’s dofs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>envs_idx</strong> (<em>None</em><em> | </em><em>array_like</em><em>, </em><em>optional</em>) – The indices of the environments. If None, all environments will be considered. Defaults to None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.detect_collision">
+<span class="sig-name descname"><span class="pre">detect_collision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.detect_collision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.detect_collision" title="Permalink to this definition">#</a></dt>
+<dd><p>Detects collision for the entity. This only supports a single environment.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function re-detects real-time collision for the entity, so it doesn’t rely on scene.step() and can be used for applications like motion planning, which doesn’t require physical simulation during state sampling.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>env_idx</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the environment. Defaults to 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_contacts">
+<span class="sig-name descname"><span class="pre">get_contacts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">with_entity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_contacts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_contacts" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns contact information computed during the most recent <cite>scene.step()</cite>.
+If <cite>with_entity</cite> is provided, only returns contact information involving the caller entity and the specified <cite>with_entity</cite>. Otherwise, returns all contact information involving the caller entity.</p>
+<p>The returned dict contains the following keys (a contact pair consists of two geoms: A and B):</p>
+<ul class="simple">
+<li><p>‘geom_a’     : The global geom index of geom A in the contact pair. (actual geom object can be obtained by scene.rigid_solver.geoms[geom_a])</p></li>
+<li><p>‘geom_b’     : The global geom index of geom B in the contact pair. (actual geom object can be obtained by scene.rigid_solver.geoms[geom_b])</p></li>
+<li><p>‘link_a’     : The global link index of link A (that contains geom A) in the contact pair. (actual link object can be obtained by scene.rigid_solver.links[link_a])</p></li>
+<li><p>‘link_b’     : The global link index of link B (that contains geom B) in the contact pair. (actual link object can be obtained by scene.rigid_solver.links[link_b])</p></li>
+<li><p>‘position’   : The contact position in world frame.</p></li>
+<li><p>‘force_a’    : The contact force applied to geom A.</p></li>
+<li><p>‘force_b’    : The contact force applied to geom B.</p></li>
+<li><p>‘valid_mask’ : (Only when scene is parallelized) A boolean mask indicating whether the contact information is valid.</p></li>
+</ul>
+<p>The shape of each entry is (n_envs, n_contacts, …) for scene with parallel envs, and (n_contacts, …) for non-parallelized scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>with_entity</strong> (<a class="reference internal" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity" title="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity"><em>RigidEntity</em></a><em>, </em><em>optional</em>) – The entity to check contact with. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>contact_info</strong> – The contact information.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_net_contact_force">
+<span class="sig-name descname"><span class="pre">get_links_net_contact_force</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_links_net_contact_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_net_contact_force" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns net force applied on each links due to direct external contacts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entity_links_force</strong> – The net force applied on each links due to direct external contacts.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor, shape (n_links, 3) or (n_envs, n_links, 3)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_friction">
+<span class="sig-name descname"><span class="pre">set_friction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">friction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.set_friction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_friction" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the friction coefficient of all the links (and in turn, geoms) of the rigid entity.
+Note that for a pair of geoms in contact, the actual friction coefficient is set to be max(geom_a.friction, geom_b.friction), so you need to set for both geoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>friction</strong> (<em>float</em>) – The friction coefficient to set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_mass">
+<span class="sig-name descname"><span class="pre">get_mass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/genesis/engine/entities/rigid_entity/rigid_entity.html#RigidEntity.get_mass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_mass" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the total mass of the entity in kg.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mass</strong> – The total mass of the entity in kg.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.visualize_contact">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">visualize_contact</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.visualize_contact" title="Permalink to this definition">#</a></dt>
+<dd><p>Whether to visualize contact force.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.init_qpos">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_qpos</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.init_qpos" title="Permalink to this definition">#</a></dt>
+<dd><p>The initial qpos of the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_qs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_qs</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_qs" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of <cite>q</cite> (generalized coordinates) of the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_links">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_links</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_links" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of <cite>RigidLink</cite> in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_joints">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_joints</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_joints" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of <cite>RigidJoint</cite> in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_dofs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_dofs</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_dofs" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of degrees of freedom (DOFs) of the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_geoms">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_geoms</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_geoms" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of <cite>RigidGeom</cite> in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_cells">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_cells</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_cells" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of sdf cells in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_verts">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_verts</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_verts" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of vertices (from collision geom <cite>RigidGeom</cite>) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_faces">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_faces</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_faces" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of faces (from collision geom <cite>RigidGeom</cite>) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_edges</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_edges" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of edges (from collision geom <cite>RigidGeom</cite>) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_vgeoms">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_vgeoms</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_vgeoms" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of vgeoms (visual geoms - <cite>RigidVisGeom</cite>) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_vverts">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_vverts</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_vverts" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of vverts (visual vertices, from vgeoms) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_vfaces">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_vfaces</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_vfaces" title="Permalink to this definition">#</a></dt>
+<dd><p>The number of vfaces (visual faces, from vgeoms) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.geom_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">geom_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.geom_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s first RigidGeom in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.geom_end">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">geom_end</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.geom_end" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s last RigidGeom in the scene <em>plus one</em>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.cell_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cell_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.cell_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The start index the entity’s sdf cells in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.cell_end">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cell_end</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.cell_end" title="Permalink to this definition">#</a></dt>
+<dd><p>The end index the entity’s sdf cells in the scene <em>plus one</em>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.base_link_idx">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_link_idx</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.base_link_idx" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s base link in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.link_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">link_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.link_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s first RigidLink in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.link_end">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">link_end</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.link_end" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s last RigidLink in the scene <em>plus one</em>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.dof_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dof_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.dof_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s first degree of freedom (DOF) in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.dof_end">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dof_end</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.dof_end" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s last degree of freedom (DOF) in the scene <em>plus one</em>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vert_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vert_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vert_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s first <cite>vert</cite> (collision vertex) in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vvert_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vvert_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vvert_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s first <cite>vvert</cite> (visual vertex) in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.face_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">face_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.face_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s first <cite>face</cite> (collision face) in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vface_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vface_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vface_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s first <cite>vface</cite> (visual face) in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.edge_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edge_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.edge_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s first <cite>edge</cite> (collision edge) in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.q_start">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">q_start</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.q_start" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s first <cite>q</cite> (generalized coordinates) in the scene.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.q_end">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">q_end</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.q_end" title="Permalink to this definition">#</a></dt>
+<dd><p>The index of the entity’s last <cite>q</cite> (generalized coordinates) in the scene <em>plus one</em>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.geoms">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">geoms</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.geoms" title="Permalink to this definition">#</a></dt>
+<dd><p>The list of collision geoms (<cite>RigidGeom</cite>) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vgeoms">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">vgeoms</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vgeoms" title="Permalink to this definition">#</a></dt>
+<dd><p>The list of visual geoms (<cite>RigidVisGeom</cite>) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.links">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">links</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.links" title="Permalink to this definition">#</a></dt>
+<dd><p>The list of links (<cite>RigidLink</cite>) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.joints">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">joints</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.joints" title="Permalink to this definition">#</a></dt>
+<dd><p>The list of joints (<cite>RigidJoint</cite>) in the entity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.base_link">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_link</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.base_link" title="Permalink to this definition">#</a></dt>
+<dd><p>The base link of the entity</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.base_joint">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_joint</span></span><a class="headerlink" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.base_joint" title="Permalink to this definition">#</a></dt>
+<dd><p>The base joint of the entity</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">RigidEntity</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="rigidlink.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">gs.RigidLink</span></code></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity"><code class="docutils literal notranslate"><span class="pre">RigidEntity</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_jacobian"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_jacobian()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.inverse_kinematics"><code class="docutils literal notranslate"><span class="pre">RigidEntity.inverse_kinematics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.inverse_kinematics_multilink"><code class="docutils literal notranslate"><span class="pre">RigidEntity.inverse_kinematics_multilink()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.plan_path"><code class="docutils literal notranslate"><span class="pre">RigidEntity.plan_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_joint"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_joint()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_link"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_link()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_pos"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_pos()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_quat"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_quat()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_vel"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_vel()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_ang"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_ang()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_pos"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_links_pos()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_quat"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_links_quat()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_vel"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_links_vel()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_ang"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_links_ang()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_pos"><code class="docutils literal notranslate"><span class="pre">RigidEntity.set_pos()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_quat"><code class="docutils literal notranslate"><span class="pre">RigidEntity.set_quat()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_verts"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_verts()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_AABB"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_AABB()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_qpos"><code class="docutils literal notranslate"><span class="pre">RigidEntity.set_qpos()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_kp"><code class="docutils literal notranslate"><span class="pre">RigidEntity.set_dofs_kp()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_kv"><code class="docutils literal notranslate"><span class="pre">RigidEntity.set_dofs_kv()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_force_range"><code class="docutils literal notranslate"><span class="pre">RigidEntity.set_dofs_force_range()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_velocity"><code class="docutils literal notranslate"><span class="pre">RigidEntity.set_dofs_velocity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_dofs_position"><code class="docutils literal notranslate"><span class="pre">RigidEntity.set_dofs_position()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.control_dofs_force"><code class="docutils literal notranslate"><span class="pre">RigidEntity.control_dofs_force()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.control_dofs_velocity"><code class="docutils literal notranslate"><span class="pre">RigidEntity.control_dofs_velocity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.control_dofs_position"><code class="docutils literal notranslate"><span class="pre">RigidEntity.control_dofs_position()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_qpos"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_qpos()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_control_force"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_dofs_control_force()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_force"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_dofs_force()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_velocity"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_dofs_velocity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_position"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_dofs_position()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_kp"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_dofs_kp()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_kv"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_dofs_kv()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_force_range"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_dofs_force_range()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_dofs_limit"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_dofs_limit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.zero_all_dofs_velocity"><code class="docutils literal notranslate"><span class="pre">RigidEntity.zero_all_dofs_velocity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.detect_collision"><code class="docutils literal notranslate"><span class="pre">RigidEntity.detect_collision()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_contacts"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_contacts()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_links_net_contact_force"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_links_net_contact_force()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.set_friction"><code class="docutils literal notranslate"><span class="pre">RigidEntity.set_friction()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.get_mass"><code class="docutils literal notranslate"><span class="pre">RigidEntity.get_mass()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.visualize_contact"><code class="docutils literal notranslate"><span class="pre">RigidEntity.visualize_contact</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.init_qpos"><code class="docutils literal notranslate"><span class="pre">RigidEntity.init_qpos</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_qs"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_qs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_links"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_links</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_joints"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_joints</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_dofs"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_dofs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_geoms"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_geoms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_cells"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_cells</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_verts"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_verts</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_faces"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_faces</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_edges"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_edges</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_vgeoms"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_vgeoms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_vverts"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_vverts</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.n_vfaces"><code class="docutils literal notranslate"><span class="pre">RigidEntity.n_vfaces</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.geom_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.geom_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.geom_end"><code class="docutils literal notranslate"><span class="pre">RigidEntity.geom_end</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.cell_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.cell_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.cell_end"><code class="docutils literal notranslate"><span class="pre">RigidEntity.cell_end</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.base_link_idx"><code class="docutils literal notranslate"><span class="pre">RigidEntity.base_link_idx</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.link_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.link_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.link_end"><code class="docutils literal notranslate"><span class="pre">RigidEntity.link_end</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.dof_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.dof_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.dof_end"><code class="docutils literal notranslate"><span class="pre">RigidEntity.dof_end</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vert_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.vert_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vvert_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.vvert_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.face_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.face_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vface_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.vface_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.edge_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.edge_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.q_start"><code class="docutils literal notranslate"><span class="pre">RigidEntity.q_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.q_end"><code class="docutils literal notranslate"><span class="pre">RigidEntity.q_end</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.geoms"><code class="docutils literal notranslate"><span class="pre">RigidEntity.geoms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.vgeoms"><code class="docutils literal notranslate"><span class="pre">RigidEntity.vgeoms</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.links"><code class="docutils literal notranslate"><span class="pre">RigidEntity.links</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.joints"><code class="docutils literal notranslate"><span class="pre">RigidEntity.joints</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.base_link"><code class="docutils literal notranslate"><span class="pre">RigidEntity.base_link</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genesis.engine.entities.rigid_entity.rigid_entity.RigidEntity.base_joint"><code class="docutils literal notranslate"><span class="pre">RigidEntity.base_joint</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/genesis-embodied-ai/Genesis/edit/main/docs/source/api_reference/entity/rigidentity/rigidentity.md">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../../_sources/api_reference/entity/rigidentity/rigidentity.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024, Genesis Developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
