@@ -1,5 +1,0 @@
-# Entity
-
-```{toctree}
-rigidentity/index
-```

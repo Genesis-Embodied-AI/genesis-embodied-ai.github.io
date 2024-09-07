@@ -1,8 +1,0 @@
-# `gs.Scene`
-
-```{eval-rst}  
-.. autoclass:: genesis.engine.scene.Scene
-    :members:
-    :show-inheritance:
-    :undoc-members:
-```
