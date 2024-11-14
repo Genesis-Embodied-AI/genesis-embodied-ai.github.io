@@ -59,7 +59,7 @@ html_theme_options = {
     "show_nav_level": 2,
     "use_edit_page_button": True,
     "logo": {
-        "image_dark": "_static/logo_white.svg",
+        "image_dark": "_static/bigger_text_white.png",
     },
     "navbar_center": ["version-switcher", "navbar-nav"],
     "show_version_warning_banner": False,
