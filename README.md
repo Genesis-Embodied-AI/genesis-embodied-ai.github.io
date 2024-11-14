@@ -1,6 +1,6 @@
 # Genesis Documentation
 
-1. Install Sphinx and other dependencies
+1. Create a clean env using python 3.10, install Sphinx and other dependencies
 
 ```bash
 # In Genesis-dev/
@@ -13,5 +13,3 @@ pip install -e ".[docs]"
 # In docs/
 rm -rf build/; make html; sphinx-autobuild ./source ./build/html
 ```
-
-For github links for the time being must double check they link the right branch/commit

@@ -4,4 +4,8 @@ Basically, everything happens inside a scene.
 
 ```{toctree}
 scene
+simulator
+coupler
+force_field
+mesh
 ```

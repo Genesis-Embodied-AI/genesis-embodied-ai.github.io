@@ -1,17 +1,18 @@
 # Roadmap
 
 ## In progress and will be released in the near future
-- Differentiable physically tactile sensor
+- A differentiable & physics-based tactile sensor module
 - Differentiable rigid body simulation 
-- Hair simulation
 - Tiled rendering
+- Faster JIT kernel compilation
 - A comprehensive generative framework
-    - human motion
-    - scene
-    - facial expression
-    - robot policy (manipulation + locomotion)
+    - character motion
+    - camera motion
+    - interactive scene
+    - facial animation
+    - locomotion policy
+    - manipulation policy
 - Boundless MPM simulation for large-scale environment
-- Faster rigid body compilation
 
 ## Wanted feature, but not currently working on (Contributions needed!)
 - Viewer and headless rendering on windows

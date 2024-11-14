@@ -8,4 +8,5 @@ primitive
 box
 sphere
 cylinder
+plane
 ```

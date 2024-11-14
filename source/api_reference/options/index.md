@@ -13,4 +13,5 @@ morph/index
 renderer/index
 surface/index
 texture/index
+vis/index
 ```

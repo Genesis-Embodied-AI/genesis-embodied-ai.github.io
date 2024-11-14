@@ -1,7 +1,7 @@
-# `Scene`
+# `Mesh`
 
 ```{eval-rst}  
-.. autoclass:: genesis.engine.scene.Scene
+.. autoclass:: genesis.engine.mesh.Mesh
     :members:
     :undoc-members:
 ```

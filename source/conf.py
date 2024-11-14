@@ -48,10 +48,9 @@ templates_path = ["_templates"]
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "pydata_sphinx_theme"
-html_logo = "_static/genesis_logo_small.svg"
-html_favicon = "_static/genesis_logo_small.svg"
+html_logo = "_static/bigger_text.png"
+html_favicon = "_static/option2_shadow_1.svg"
 
-# json_url = "https://maniskill.readthedocs.io/en/latest/_static/version_switcher.json"
 json_url = "_static/version_switcher.json"
 version_match = os.environ.get("READTHEDOCS_VERSION")
 if version_match is None:
@@ -59,18 +58,6 @@ if version_match is None:
 html_theme_options = {
     "show_nav_level": 2,
     "use_edit_page_button": True,
-    "icon_links": [
-        {
-            "name": "GitHub",
-            "url": "https://github.com/haosulab/ManiSkill",
-            "icon": "fa-brands fa-github",
-        },
-        {
-            "name": "Website",
-            "url": "https://maniskill.ai",
-            "icon": "fa-solid fa-globe",
-        }
-    ],
     "logo": {
         "image_dark": "_static/logo_white.svg",
     },
@@ -102,5 +89,3 @@ autodoc_default_flags = ['members', 'show-inheritance', 'undoc-members']
 autodoc_member_order = "bysource"
 
 autosummary_generate = True
-
-# remove_from_toctrees = ["_autosummary/*"]

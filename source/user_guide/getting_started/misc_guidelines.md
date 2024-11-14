@@ -49,7 +49,7 @@
             - `i_d`: dof
         - for prefix, we use:
             - `l_`: link
-            - `l_info`: links_info[i_l]
+            - `l_info`: links_info[i_l, i_b]
             - `g_`: geom
             - `p_`: parent
             - ...
@@ -97,7 +97,7 @@
     - prefix `v`
         - this is used for global parameters that are used for visualization (visual geoms, verts, edges, normals etc)
 - `surface.vis_mode`:
-    - For rigid bodies, supported modes are ['visual', 'collision', 'collision_sdf']. Default type is `visual`.
+    - For rigid bodies, supported modes are ['visual', 'collision', 'sdf']. Default type is `visual`.
     - For deformable non-fluid bodies, supported modes are ['visual', 'particle', 'recon']. Default type is `visual`.
         - `visual` will render the input full visual mesh, skinned using internal particle state
         - `particle` will render the internal particles. If the input texture is a color texture, the color will be used. In case of a image texture, the particles will be rendered using the texture's mean_color.

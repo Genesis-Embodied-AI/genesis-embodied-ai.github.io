@@ -7,6 +7,7 @@
 overview/what_is_genesis
 overview/why_a_new_simulator
 overview/installation
+overview/our_manifesto
 ```
 
 
@@ -15,7 +16,6 @@ overview/installation
 :maxdepth: 1
 
 getting_started/hello_genesis
-getting_started/create_a_scene
 getting_started/visualization
 getting_started/control_your_robot
 getting_started/parallel_simulation

@@ -1,132 +1,124 @@
 # 👋🏻 Hello, Genesis
 
-## Prerequisites
-* **Python**: 3.7+
-* **OS**: Linux (*recommended*) / MacOS / Windows
-
-## System Support
-Genesis is designed to be *cross-platform*, supporting both *CPU* and *GPU* (both CUDA and non-CUDA) backends. That said, it is recommended to use Linux platform with CUDA-compatible GPU to achieve the best performance.
-
-<div style="text-align: center;">
-
-| System  | GPU Device        | GPU Simulation | CPU Simulation | On-screen Viewer | Headless Rendering |
-| ------- | ----------------- | -------------- | -------------- | ---------------- | ------------------ |
-| Linux   | Nvidia            | ✅             | ✅             | ✅               | ✅                 |
-|         | AMD               | ✅             | ✅             | ✅               | ✅                 |
-| MacOS   | Apple Silicon     | ✅             | ✅             | ✅               | ✅                 |
-| Windows | Nvidia            | ✅             | ✅             | ❌               | ❌                 |
-|         | AMD               | ✅             | ✅             | ❌               | ❌                 |
-
-</div>
-
-## Installation
-1. create conda env
+```{figure} images/hello_genesis.png
 ```
-conda create -n genesis python=3.9
-conda activate genesis
-```
+In this tutorial, we will go through a basic example that loads a single Franka arm and then let it fall freely onto the floor, and use this example to illustrate the core steps for creating a simulation experiment in genesis, and some basic concepts:
 
-2. Install genesis. (will be distributed via pip in public release)
-```
-pip install -e .
-```
+```python
+import genesis as gs
+gs.init(backend=gs.cpu)
 
-3. Install **torch (>=2.0.0)** following the [official instructions](https://pytorch.org/get-started/locally/).
+scene = gs.Scene(show_viewer=True)
+plane = scene.add_entity(gs.morphs.Plane())
+franka = scene.add_entity(
+    gs.morphs.MJCF(file='xml/franka_emika_panda/panda.xml'),
+)
 
+scene.build()
 
-### (Optional) Motion planning
-Genesis integrated OMPL's motion planning functionalities and wraps it using a intuitive API for effortless motion planning. If you need the built-in motion planning capability, download pre-compiled OMPL wheel [here](https://github.com/ompl/ompl/releases/tag/prerelease), and then `pip install` it.
-
-### (Optional) Surface reconstruction
-If you need fancy visuals for visualizing particle-based entities (fluids, deformables, etc.), you typically need to reconstruct the mesh surface using the internal particle-based representation. We provide two options for this purpose:
-
-1. [splashsurf](https://github.com/InteractiveComputerGraphics/splashsurf), a state-of-the-art surface reconstruction method for achieving this:
+for i in range(1000):
+    scene.step()
 ```
-cargo install splashsurf
+This is the **complete code script**! Such an example only takes <10 lines of code, and already encapsulates all the necessary steps needed for creating a simulation experiment using genesis. 
+
+You can stop here and start exploring genesis if you want, but if you are patient enough, let's go through it step by step together:
+
+#### Initialization
+The first step is to import genesis and initialize it:
 ```
-2. ParticleMesher, our own openVDB-based surface reconstruction tool (faster but with not as smooth):
+import genesis as gs
+gs.init(backend=gs.cpu)
 ```
-echo "export LD_LIBRARY_PATH=${PWD}/ext/ParticleMesher/ParticleMesherPy:$LD_LIBRARY_PATH" >> ~/.bashrc
-source ~/.bashrc
+- **Backend device**: Genesis is designed to be cross-platform, meaning that it supports various backend devices. Here we are using `gs.cpu`. If you need GPU-accelerated [parallel simulation](parallel_simulation.md), you can switch to other backends such as `gs.cuda`, `gs.vulkan` or `gs.metal`. You can also use `gs.gpu` as a shortcut, and genesis will select a backend based on your system (e.g. `gs.cuda` if CUDA is available, and `gs.metal` for Apple Silicon devices).
+- **Precision level**: By default, genesis uses f32 precision. You can change to f64 if you want a higher precision level by setting `precision='64'`.
+- **Logging level**: Once genesis is initialized, you will see logger output on your terminal detailing your system info and genesis-related info like its current version. You can suppress logger output by setting `logging_level` to `'warning'`.
+- **Color scheme**: The default color theme used by genesis logger is optimized for dark background terminal, i.e. `theme='dark'`. You can change to `'light'` if you are using a terminal with a light background, or simply use `'dumb'` if you are a black-and-white person.
+
+A more detailed example of an `gs.init()` call would look like this:
+```python
+gs.init(
+    seed=None, precision='32', debug=False,
+    eps=1e-12, logging_level=None,
+    backend=gs_backend.gpu, theme='dark',
+    logger_verbose_time=False
+)
 ```
 
-
-### (Optional) Ray Tracing Renderer
-
-If you need photo-realistic visuals, Genesis has a built-in a ray-tracing (path-tracing) based renderer developped using [LuisaCompute](https://github.com/LuisaGroup/LuisaCompute), a high-performance domain specific language designed for rendering.
-
-#### 1. Get LuisaRender
-The submodule LuisaRender is under `ext/LuisaRender`:
+#### Create a scene
+All the objects, robots, cameras, etc. in genesis are placed in a genesis `Scene`:
+```python
+scene = gs.Scene()
 ```
-git submodule update --init --recursive
+A scene wraps a `simulator` object, which handles all the underlying physics solvers, and a `visualizer` object, which manages visualization-related concepts. For more details and APIs, see [`Scene`](../../api_reference/scene/scene.md).
+
+When creating a scene, there's various physics solver parameters you can configure. A slightly more complex example would be:
+```python
+scene = gs.Scene(
+    sim_options=gs.options.SimOptions(
+        dt=0.01,
+        gravity=(0, 0, -10.0),
+    ),
+    show_viewer=True,
+    viewer_options=gs.options.ViewerOptions(
+        camera_pos=(3.5, 0.0, 2.5),
+        camera_lookat=(0.0, 0.0, 0.5),
+        camera_fov=40,
+    ),
+)
 ```
-#### 2. Dependencies
-**NB**: It seems compilation only works on Ubuntu 20.04+, As vulkan 1.2+ is needed and 18.04 only supports 1.1, but I haven't fully checked this...
-
-- upgrade `g++` and `gcc` to version 11
-    ```
-    sudo apt install build-essential manpages-dev software-properties-common
-    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-    sudo apt update && sudo apt install gcc-11 g++-11
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 110
-    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 110
-
-    # verify
-    g++ --version
-    gcc --version
-    ```
-- cmake
-    ```
-    # if you system's cmake version is under 3.18, uninstall that and reinstall via snap
-    sudo snap install cmake --classic
-    ```
-- CUDA
-    - You need to install a system-wide cuda. 11.7 worked for me. (Update: 4090 requires 11.8+)
-        - download https://developer.nvidia.com/cuda-11-7-0-download-archive
-        - Install cuda toolkit.
-        - reboot
-- Vulkan
-    ```
-    sudo apt install libvulkan-dev
-    ```
-- rust
-    ```
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    sudo apt-get install patchelf
-    # if the above gives downloader error, make sure your curl was installed via apt, not snap
-    ```
-- zlib
-    ```
-    sudo apt-get install zlib1g-dev
-    ```
-- X11
-    ```
-    sudo apt-get install libx11-dev
-    ```
-- RandR headers
-    ```
-    sudo apt-get install xorg-dev libglu1-mesa-dev
-    ```
-- pybind
-    ```
-    pip install "pybind11[global]"
-    ```
-- libsnappy
-    ```
-    sudo apt-get install libsnappy-dev
-    ```
-#### 3. Compile
-- Build LuisaRender and its python binding:
-    ```
-    cd ./ext/LuisaRender
-    cmake -S . -B build -D CMAKE_BUILD_TYPE=Release -D PYTHON_VERSIONS=3.9 -D LUISA_COMPUTE_DOWNLOAD_NVCOMP=ON -D LUISA_COMPUTE_DOWNLOAD_OIDN=ON
-    cmake --build build -j $(nproc)
-    ```
-- If you encounterd this error: "`GLIBCXX_3.4.30` not found"
-    ```
-    cd ~/anaconda3/envs/genesis/lib
-    mv libstdc++.so.6 libstdc++.so.6.old
-    ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 libstdc++.so.6
-    ```
+This example sets simulation `dt` to be 0.01s for each step, configures gravity, and sets the initial camera pose for the interactive viewer.
 
 
+#### Load objects into the scene
+In this example, we load one plane and one franka arm into the scene:
+```python
+plane = scene.add_entity(gs.morphs.Plane())
+franka = scene.add_entity(
+    gs.morphs.MJCF(file='xml/franka_emika_panda/panda.xml'),
+)
+```
+In genesis, all the objects and robots are represented as [`Entity`](../../api_reference/entity/index.md). Genesis is designed to be fully object-oriented, so you will be able to interact with these entity objects through their methods directly, instead of using a handle or a global id assigned to them.
+The first parameter for `add_entity` is [`morph`](../../api_reference/options/morph/index.md). A morph in Genesis is a hybrid concept, encapsulating both the geometry and pose information of an entity. By using different morphs, you can instantiate genesis entities from shape primitives, meshes, URDF, MJCF, Terrain, or soft robot description files.
+
+We currently support different type of shape primitives including:
+- `gs.morphs.Plane`
+- `gs.morphs.Box`
+- `gs.morphs.Cylinder`
+- `gs.morphs.Sphere`
+
+In addition, for training locomotion tasks, we support various types of built-in terrains as well as terrains initialized from user-given height maps via `gs.morphs.Terrain`, which we will cover in the following tutorials.
+
+We support loading from external files with different formats including :
+- `gs.morphs.MJCF`: mujoco `.xml` robot configuration files
+- `gs.morphs.URDF`: robot description files that end with `.urdf` (Unified Robotics Description Format)
+- `gs.morphs.Mesh`: non-articulated mesh assets, supporting extensions including: `*.obj`, `*.ply`, `*.stl`, `*.glb`, `*.gltf`
+
+
+When loading from external files, you need to specify the file location using the `file` parameter. When parsing this, we support both *absolute* and *relative* file path. Note that since genesis also comes with an internal asset directory (`genesis/assets`), so if a relative path is used, we search not only relative path with respect to your current working directory, but also under `genesis/assets`. Therefore, in this example, we will retrieve the franka model from: `genesis/assets/xml/franka_emika_panda/panda.xml`.
+
+:::{note}
+During genesis's development, we have tried to support as many file extensions as we can, including support for loading their associated textures for rendering. If you would like us to support any other file types not listed above, or if you find your texture is not being loaded or rendered correctly, feel free to submit a feature request!
+:::
+
+If you want to load a Franka arm using an external **URDF** file, you can simply change the morph to `gs.morphs.URDF(file='urdf/panda_bullet/panda.urdf', fixed=True)`. Note that unlike MJCF file which already specifies the joint type connecting the robot's base link and the `world`, URDF file doesn't come with this information. Therefore, by default the base link of a URDF robot tree is disconnected from the `world` (or more precisely, connected to `world` via a `free` 6-dof joint). Therefore, we need to additionally specify `fixed=True` for `morphs.URDF` and `morphs.Mesh` if you want the base link to be fixed.
+
+
+#### Build The Scene and Start Simulating
+```Python
+scene.build()
+for i in range(1000):
+    scene.step()
+```
+Now that everything has been added, we can start the simulation. Note that we now need to ***build** the scene first by calling `scene.build()`. This is because genesis uses just-in-time (JIT) technology to compile GPU kernels on the fly for each run, so we need an explicit step to initiate this process, which puts everything in place, allocates device memory, and creates underlying data fields for simulation.
+
+Once the scene is built, an interactive viewer will pop up to visualize the scene. The viewer comes with various keyboard shortcuts for video recording, screenshot, switching between different visualization modes, etc. We will discuss more details on visualization later in this tutorial.
+
+
+:::{note}
+Due to the nature of JIT, each time you create a scene with a new configuration (i.e. different robot types, different number of objects, etc.), genesis needs to re-compile the GPU kernels on the fly. Genesis supports auto-caching of compiled kernels, so after the first run, if the scene configuration stays the same, we will load from cached kernels from previous runs to speed up the scene creation process.
+
+We are actively working on optimizing this compilation step by adding techniques like parallel compilation and faster kernel serialization, so we expect to keep optimizing the efficiency of this step in future releases.
+:::
+
+
+Now we have walked through the whole example. Next, let's dive into genesis's visualization system, and play with the viewer and add some cameras.
