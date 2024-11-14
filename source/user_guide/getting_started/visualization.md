@@ -6,6 +6,7 @@ Genesis's visualization system is managed by the `visualizer` of the scene you j
 ## Viewer
 If you are connected to a display, you can visualize the scene using the interactive viewer. Genesis uses different `options` groups to configure different components in the scene. To configure the viewer, you can change the parameters in `viewer_options` when creating the scene. In addition, we use `vis_options` to specify visualization-related properties, which will be shared by the viewer and cameras (that we will add very soon).
 
+Create a scene with a more detailed viewer and vis setting (this looks a bit complex, but it's just for illustration purposes):
 ```python
 scene = gs.Scene(
     show_viewer    = True,
@@ -40,13 +41,13 @@ scene.viewer.set_camera_pose(cam_pose)
 ## Camera & Headless Rendering
 Now let's manually add a camera object to the scene. Cameras are not connected to the viewer or the display, and returns rendered images only when you need it. Therefore, camera works in headless mode.
 
-```
+```python
 cam = scene.add_camera(
-    res=(1280, 960),
-    pos=(3.5, 0.0, 2.5),
-    lookat=(0, 0, 0.5),
-    fov=30,
-    GUI=False
+    res    = (1280, 960),
+    pos    = (3.5, 0.0, 2.5),
+    lookat = (0, 0, 0.5),
+    fov    = 30,
+    GUI    = False
 )
 ```
 If `GUI=True`, each camera will create an opencv window to dynamically display the rendered image. Note that this is different from the viewer GUI.
@@ -77,13 +78,13 @@ for i in range(120):
 
     # change camera position
     cam.set_pose(
-        pos=(3.0 * np.sin(i / 60), 3.0 * np.cos(i / 60), 2.5),
-        lookat=(0, 0, 0.5),
+        pos    = (3.0 * np.sin(i / 60), 3.0 * np.cos(i / 60), 2.5),
+        lookat = (0, 0, 0.5),
     )
     
     cam.render()
 
-# stop recording and save video.
+# stop recording and save video. If `filename` is not specified, a name will be auto-generated using the caller file name.
 cam.stop_recording(save_to_filename='video.mp4', fps=60)
 ```
 You will have the video saved to `video.mp4`:
@@ -91,6 +92,7 @@ You will have the video saved to `video.mp4`:
 <video preload="auto" controls="True" width="100%">
 <source src="https://github.com/Genesis-Embodied-AI/genesis-embodied-ai.github.io/tree/main/source/_static/videos/cam_record.mp4" type="video/mp4">
 </video>
+
 
 Here is the full code script covering everything discussed above:
 ```python
@@ -115,6 +117,7 @@ scene = gs.Scene(
         plane_reflection = True,
         ambient_light    = (0.1, 0.1, 0.1),
     ),
+    renderer=gs.renderers.Rasterizer(),
 )
 
 plane = scene.add_entity(
@@ -124,13 +127,12 @@ franka = scene.add_entity(
     gs.morphs.MJCF(file='xml/franka_emika_panda/panda.xml'),
 )
 
-
 cam = scene.add_camera(
-    res=(640, 480),
-    pos=(3.5, 0.0, 2.5),
-    lookat=(0, 0, 0.5),
-    fov=30,
-    GUI=False,
+    res    = (640, 480),
+    pos    = (3.5, 0.0, 2.5),
+    lookat = (0, 0, 0.5),
+    fov    = 30,
+    GUI    = False,
 )
 
 scene.build()
@@ -144,8 +146,8 @@ import numpy as np
 for i in range(120):
     scene.step()
     cam.set_pose(
-        pos=(3.0 * np.sin(i / 60), 3.0 * np.cos(i / 60), 2.5),
-        lookat=(0, 0, 0.5),
+        pos    = (3.0 * np.sin(i / 60), 3.0 * np.cos(i / 60), 2.5),
+        lookat = (0, 0, 0.5),
     )
     cam.render()
 cam.stop_recording(save_to_filename='video.mp4', fps=60)

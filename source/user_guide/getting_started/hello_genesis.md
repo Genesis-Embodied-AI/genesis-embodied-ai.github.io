@@ -80,7 +80,20 @@ franka = scene.add_entity(
 In genesis, all the objects and robots are represented as [`Entity`](../../api_reference/entity/index.md). Genesis is designed to be fully object-oriented, so you will be able to interact with these entity objects through their methods directly, instead of using a handle or a global id assigned to them.
 The first parameter for `add_entity` is [`morph`](../../api_reference/options/morph/index.md). A morph in Genesis is a hybrid concept, encapsulating both the geometry and pose information of an entity. By using different morphs, you can instantiate genesis entities from shape primitives, meshes, URDF, MJCF, Terrain, or soft robot description files.
 
-We currently support different type of shape primitives including:
+When creating the morph, you can additionally specify its position, orientation, size, etc. For orientation, a morph accepts either `euler` (scipy extrinsic x-y-z convention) or `quat` (w-x-y-z convention). One example would be:
+```python
+franka = scene.add_entity(
+    gs.morphs.MJCF(
+        file  = 'xml/franka_emika_panda/panda.xml'
+        pos   = (0, 0, 0),
+        euler = (0, 0, 90), # we follow scipy's extrinsic x-y-z rotation convention, in degrees,
+        # quat  = (1.0, 0.0, 0.0, 0.0), # we use w-x-y-z convention for quaternions,
+        scale = 1.0,
+    ),
+)
+```
+
+We currently support different types of shape primitives including:
 - `gs.morphs.Plane`
 - `gs.morphs.Box`
 - `gs.morphs.Cylinder`
@@ -115,7 +128,9 @@ Once the scene is built, an interactive viewer will pop up to visualize the scen
 
 
 :::{note}
-Due to the nature of JIT, each time you create a scene with a new configuration (i.e. different robot types, different number of objects, etc.), genesis needs to re-compile the GPU kernels on the fly. Genesis supports auto-caching of compiled kernels, so after the first run, if the scene configuration stays the same, we will load from cached kernels from previous runs to speed up the scene creation process.
+**Kernel compilation and caching**
+
+Due to the nature of JIT, each time you create a scene with a new configuration (i.e. different robot types, different number of objects, etc.), genesis needs to re-compile the GPU kernels on the fly. Genesis supports auto-caching of compiled kernels, so after the first run (as long as it exits normally or is terminated via `ctrl + c`, not `ctrl + \`), if the scene configuration stays the same, we will load from cached kernels from previous runs to speed up the scene creation process.
 
 We are actively working on optimizing this compilation step by adding techniques like parallel compilation and faster kernel serialization, so we expect to keep optimizing the efficiency of this step in future releases.
 :::
