@@ -1,3 +1,0 @@
-# 🐛 Soft Robots
-
-Coming soon...

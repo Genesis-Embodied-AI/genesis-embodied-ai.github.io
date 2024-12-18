@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Genesis</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="./static/css/academicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+
+
+                        <h1 class="title is-1 publication-title">
+                          <img src="assets/images/logo.png" class="small-image-logo"> Genesis: A Generative and Universal Physics Engine for Robotics and Beyond
+                        </h1>
+                    </h3>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                                <a target="_blank"
+                                    href="https://www.zhou-xian.com/">Zhou Xian</a><sup>*,1</sup>
+                                    ,
+                                <a target="_blank"
+                                    href="https://ylqiao.net/">Yiling Qiao</a><sup>*,2</sup>,
+
+                                <a target="_blank"
+                                    href="https://www.zhenjiaxu.com/">Zhenjia Xu</a><sup>*,3,4,6</sup>,
+
+                                <a target="_blank"
+                                    href="https://zswang666.github.io/">Tsun-Hsuan Wang</a><sup>*,5</sup>,
+
+                                <a target="_blank"
+                                    href="https://acmlczh.github.io/">Zhehuan Chen</a><sup>*,7,8</sup>,
+
+                                <a target="_blank"
+                                    href="">Juntian Zheng</a><sup>*,1,9</sup>,
+                                    
+                                <a target="_blank"
+                                href="https://ziyanx02.github.io/">Ziyan Xiong</a><sup>*,9</sup>,
+                                
+                                <a target="_blank" href="https://wangyian-me.github.io/">
+                                  Yian Wang</a><sup>*,7</sup>,
+                                  
+                                <a target="_blank" href="erizmr.github.io">
+                                    Mingrui Zhang</a><sup>*,10,11</sup>,
+
+                                <a target="_blank"
+                                href="https://pingchuan.ma/">Pingchuan Ma</a><sup>*,5</sup>,
+                                
+                                <a target="_blank" href="https://yufeiwang63.github.io/">
+                                  Yufei Wang</a><sup>*,1</sup>,
+  
+                                <a target="_blank"
+                                    href="https://frank-zy-dou.github.io/">Zhiyang Dou</a><sup>*,13,14</sup>,
+                                <a target="_blank"
+                                    href="https://bc-kim.github.io/">Byungchul Kim</a><sup>5</sup>,
+                                <a target="_blank"
+                                    href="https://www.yunshengtian.com/">Yunsheng Tian</a><sup>5</sup>,
+                                <a target="_blank"
+                                    href="https://scholar.google.com/citations?user=ugn9uy4AAAAJ&hl=en">Yipu Chen</a><sup>12</sup>,
+                                <a target="_blank"
+                                    href="">Xiaowen Qiu</a><sup>7</sup>,
+                                <a target="_blank" href="https://xhrlyb.github.io/">
+                                    Chunru Lin</a><sup>7</sup>,
+                                <a target="_blank"
+                                    href="https://tairanhe.com/">Tairan He</a><sup>1</sup>,
+                                    
+                                <a target="_blank" href="https://si-lynnn.github.io/">
+                                    Zilin Si</a><sup>1</sup>,
+
+                                <a target="_blank" href="https://yunchuzhang.github.io/">
+                                  Yunchu Zhang</a><sup>15</sup>,
+  
+                                  <a target="_blank"
+                                  href="">Zhanlue Yang</a><sup>11</sup>,
+
+                              <a target="_blank" href="https://tiantianliu.cn/">
+                                  Tiantian liu</a><sup>11</sup>,
+
+                                  <a target="_blank"
+                                  href="https://tli2.github.io/">Tianyu Li</a><sup>12</sup>,
+                                  
+                                <a target="_blank"
+                                href="https://kashu7100.github.io/">Kashu Yamazaki</a><sup>1</sup>,
+                                
+                                <a target="_blank"
+                                    href="https://icefoxzhx.github.io/">Hongxin Zhang</a><sup>7</sup>,
+                                    
+                                <a target="_blank"
+                                href="https://www.cs.columbia.edu/~huy/">Huy Ha</a><sup>3, 4</sup>,
+
+                                <a target="_blank"
+                                href="https://yucrazing.github.io/resume/">Yu Zhang</a><sup>15</sup>,
+
+                                <a target="_blank" href="">
+                                  Michael Liu</a><sup>1,17</sup>,
+
+                                <a target="_blank" href="">
+                                  Shaokun Zheng</a><sup>9</sup>,
+
+                                <a target="_blank"
+                                    href="https://zipengfu.github.io/">Zipeng Fu</a><sup>4</sup>,
+                                    
+                                <a target="_blank"
+                                href="https://wooqi57.github.io/">Qi Wu</a><sup>4</sup>,
+
+
+                                <a target="_blank" href="https://gengyiran.github.io/">
+                                  Yiran Geng</a><sup>8</sup>,
+  
+                                <a target="_blank" href="">
+                                    Feng Chen</a><sup>9,13</sup>,
+
+                                <a target="_blank" href="https://zhou-xian.com/gallery#nono-milky">
+                                  Milky</a><sup></sup>,
+
+                                <a target="_blank"
+                                    href="https://yuanming.taichi.graphics/">Yuanming Hu</a><sup>11</sup>,
+                                    
+                                <a target="_blank"
+                                    href="https://ai.stanford.edu/~cbfinn/">Chelsea Finn</a><sup>4</sup>,
+
+                                <a target="_blank"
+                                    href="https://www.gshi.me/">Guanya Shi</a><sup>1</sup>,
+                                <a target="_blank"
+                                  href="https://lingjie0206.github.io/">Lingjie Liu</a><sup>14</sup>,
+                                <a target="_blank"
+                                  href="https://i.cs.hku.hk/~taku/">Taku Komura</a><sup>13</sup>,
+                                <a target="_blank"
+                                    href="https://zackory.com/">Zackory Erickson</a><sup>1</sup>,
+                                <a target="_blank"
+                                    href="http://davheld.github.io/">David Held</a><sup>1</sup>,
+
+                                <a target="_blank" href="https://www.cs.cmu.edu/~minchenl/">
+                                  Minchen Li</a><sup>1</sup>,
+  
+                                <a target="_blank"
+                                    href="https://jimfan.me/">Linxi "Jim" Fan</a><sup>6</sup>,
+                                <a target="_blank"
+                                    href="https://yukezhu.me/">Yuke Zhu</a><sup>6,18</sup>,
+                                <a target="_blank"
+                                    href="https://cdfg.csail.mit.edu/wojciech">Wojciech Matusik</a><sup>5</sup>,
+                                <a target="_blank"
+                                    href="https://research.ibm.com/people/dan-gutfreund">Dan Gutfreund</a><sup>19</sup>,
+                                <a target="_blank"
+                                    href="https://shurans.github.io/">Shuran Song</a><sup>3,4</sup>,
+                                <a target="_blank"
+                                    href="https://danielarus.csail.mit.edu/">Daniela Rus</a><sup>5</sup>,
+                                <a target="_blank"
+                                    href="https://www.cs.umd.edu/~lin/">Ming Lin</a><sup>2</sup>,
+                                <a target="_blank"
+                                    href="https://faculty.cc.gatech.edu/~bozhu/">Bo Zhu</a><sup>12</sup>,
+    
+                                <a target="_blank"
+                                    href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a><sup>1</sup>,
+
+                                <a target="_blank" href="http://people.csail.mit.edu/ganchuang/">Chuang Gan</a><sup>7,19</sup>
+                            </span>
+                        </div>
+
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block"><sup>* </sup>Core Contributors</span>
+                        </div>
+                        <!-- <div class="is-size-5 publication-authors">
+                            <span class="author-block"><sup>1 </sup>CMU</span>,
+                            <span class="author-block"><sup>2 </sup>UMD</span>,
+                            <span class="author-block"><sup>3 </sup>Columbia University</span>,
+                            <span class="author-block"><sup>4 </sup>Stanford</span>,
+                            <span class="author-block"><sup>5 </sup>NVIDIA</span>,
+                            <span class="author-block"><sup>6 </sup>MIT CSAIL</span>,
+                            <span class="author-block"><sup>7 </sup>UMass Amherst</span>,
+                            <span class="author-block"><sup>8 </sup>Peking University</span>,
+                            <span class="author-block"><sup>9 </sup>Tsinghua IIIS</span>,
+                            <span class="author-block"><sup>10 </sup>Imperial College London</span>,
+                            <span class="author-block"><sup>11 </sup>Taichi Graphics</span>,
+                            <span class="author-block"><sup>12 </sup>George Tech</span>,
+                            <span class="author-block"><sup>13 </sup>HKU</span>,
+                            <span class="author-block"><sup>14 </sup>UPenn</span>,
+                            <span class="author-block"><sup>15 </sup>University of Washington</span>,
+                            <span class="author-block"><sup>16 </sup>UMich</span>,
+                            <span class="author-block"><sup>17 </sup>UT Austin</span>,
+                            <span class="author-block"><sup>18 </sup>MIT-IBM AI Lab</span>,
+                        </div> -->
+
+                        <div class="is-size-5 institutions">
+                          <span class="author-block"><sup>1 </sup><img src="assets/images/1.jpg" class="small-image">  <img src="assets/images/CMU_Logo_Stack_Red.png" class="small-image-50"></span>
+                          <span class="author-block"><sup>2 </sup><img src="assets/images/1.jpeg" class="small-image-30"></span>
+                          <span class="author-block"><sup>3 </sup><img src="assets/images/e679d5b662753f97ece0fd8b0d3eab26.jpg" class="small-image-50"></span>
+                          <span class="author-block"><sup>4 </sup><img src="assets/images/fc46c55e92901d55b8020aa867060a3c.63627c756928d.avif" class="small-image-35"><img src="assets/images/Stanford-Logo.png" class="small-image"></span>
+                          <span class="author-block"><sup>5 </sup><img src="assets/images/MIT_logo.svg.png" class="small-image-35"><img src="assets/images/channels4_profile.jpg" class="small-image-50"></span>
+                          <span class="author-block"><sup>6 </sup><img src="assets/images/NVIDIA_logo.svg" class="small-image-30"></span>
+                          <span class="author-block"><sup>7 </sup><img src="assets/images/67fefce70748390f1652c051c93d2c4d.png" class="small-image-50"></span>
+                          <span class="author-block"><sup>8 </sup><img src="assets/images/images.png" class="small-image-50"></span>
+                          <span class="author-block"><sup>9 </sup><img src="assets/images/tsinghua-university-logo.webp" class="small-image-50"><img src="assets/images/iiis.png" class="small-image-50"></span>
+                          <span class="author-block"><sup>10 </sup><img src="assets/images/Logo_for_Imperial_College_London.svg.png" class="small-image-35"></span>
+                          <span class="author-block"><sup>11 </sup><img src="assets/images/c19f6600-cfa3-11eb-89f5-7ff5113dab05.png" class="small-image"></span>
+                          <span class="author-block"><sup>12 </sup><img src="assets/images/georgia-institute-of-technology.svg" class="small-image-35"></span>
+                          <span class="author-block"><sup>13 </sup><img src="assets/images/university-of-hong-kong-logo.png" class="small-image"></span>
+                          <span class="author-block"><sup>14 </sup><img src="assets/images/upenn.png" class="small-image-35"></span>
+                          <span class="author-block"><sup>15 </sup><img src="assets/images/University-of-Utah-Logo.png" class="small-image-60"></span>
+                          <span class="author-block"><sup>16 </sup><img src="assets/images/University_of_Washington_Block_W_logo_RGB_brand_colors.SVG" class="small-image-35"></span>
+                          <span class="author-block"><sup>17 </sup><img src="assets/images/U-M_Logo-Hex.png" class="small-image"></span>
+                          <span class="author-block"><sup>18 </sup><img src="assets/images/utaustin.png" class="small-image-30"></span>
+                          <span class="author-block"><sup>19 </sup><img src="assets/images/ibm.png" class="small-image"></span>
+                        </div>
+
+                        <!-- <div class="is-size-5 publication-authors">
+                        <span class="author-block"><sup>&dagger;</sup>Equal Contribution</span>
+                        <span class="author-block"><sup>&#8225;</sup>Equal Advising </span>
+                    </div> -->
+
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- TODO REPLACE ALL LINKS -->
+                                <span class="link-block">
+                                    <a target="_blank" href="https://github.com/Genesis-Embodied-AI/Genesis"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fab fa-github"></i>
+                                        </span>
+                                        <span>Code</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a target="_blank" href="https://genesis-world.readthedocs.io"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fa fa-book"></i>
+                                        </span>
+                                        <span>Documentation</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a target="_blank" href=""
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>Paper (Coming Soon)</span>
+                                    </a>
+                                </span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column">
+                    <div class="content has-text-justified">
+                        <p style="font-size: 125%">
+                        Genesis is a comprehensive physics simulation platform designed for general purpose <i>Robotics</i>, <i>Embodied AI</i>, & <i>Physical AI</i> applications. It is simultaneously multiple things:
+                      <ul style="font-size: 125%">
+                        <li>A <b>universal physics engine</b> re-built from the ground up, capable of simulating a wide range of materials and physical phenomena.</li>
+                        </b>
+                          <li>A <b>lightweight</b>, <b>ultra-fast</b>, <b>pythonic</b>, and <b>user-friendly</b> robotics simulation platform.</li>
+                          <li>A powerful and fast <b>photo-realistic rendering</b> system.</li>
+                          <li>A <b>generative data engine</b> that transforms user-prompted natural language description into various modalities of data.</li>
+                          </ul>
+                        </p>
+                        <p style="font-size: 125%">
+                          Powered by a universal physics engine re-designed and re-built from the ground up, Genesis integrates various physics solvers and their coupling into a unified framework. This core physics engine is further enhanced by a generative agent framework that operates at an upper level, aiming towards fully automated data generation for robotics and beyond. Our generative framework aims to automate generating data including the following modalities:
+                          <ul style="font-size: 125%">
+                            <li> Physically-accurate & spatially consistent videos</li>
+                            <li> Camera motion & parameters</li>
+                            <li> Human and animal character motion</li>
+                            <li> Robotic manipulation & locomotion policy, deployable to real-world</li>
+                            <li> Fully interactive 3D scene</li>
+                            <li> Open-world articulated object generation</li>
+                            <li> Speech audio, facial animation & emotion</li>
+                          </ul>
+                        <p style="font-size: 125%">
+                          Currently, we are open-sourcing the underlying physics engine and the simulation platform. Access to the generative framework will be rolled out gradually in the near future.
+<br>
+                        This webpage serves as a gallery showcasing different capabilities of the Genesis platform. Please refer to our 
+                          <a target="_blank" href="https://genesis-world.readthedocs.io/en/latest/index.html">documentation site </a> to for detailed installation steps, tutorials and API references.
+                          </p>
+<br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="rows">
+                <div class="rows is-centered ">
+                        <h2 class="title is-3"><span class="dvima">Optimized Performance</span></h2>
+                        <p style="font-size: 125%">
+                            Genesis is a highly-optimized physics engine that leverages GPU-accelerated parallel computation, with features like optimized collision checking, auto-hibernation, contact island, etc. Genesis delivers an unprecedented simulation speed in various scenes.
+
+                        </p>
+                        <p style="font-size: 125%">
+                            When simulating a manipulation scene (with a single plane and a Franka arm), Genesis runs at 43 millision FPS, which is 430,000 times faster than in real time.
+
+                        </p>
+                        <p style="font-size: 125%">
+                            In large-scale simulation, Genesis utilizied auto-hibernation to speed up simulation of entities that are in converged and static states. (This feature is under testing and will be release in version 0.1.1).
+                        </p>
+                    <br>
+                    <div class="columns is-centered">
+                      <div class="column">
+                        <div class="content">
+                        <p style="text-align:center;">
+                        <video autoplay controls muted loop playsinline width="100%">
+                          <source src="videos/speed.mp4"
+                                      type="video/mp4">
+                        </video>
+
+                        <br>
+                        Speed comparison with popular CPU and GPU-based robotics simulator.
+                        <br>
+                    </p>
+                        <br>
+                        <br>
+                        </div>
+                      </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="rows">
+                <div class="rows is-centered ">
+                        <h2 class="title is-3"><span class="dvima">Generating 4D dynamical & physical world</span></h2>
+                        
+                        <p style="font-size: 125%">Genesis's physics engine is empowered by a VLM-based generated agent that uses the APIs provided by the simulation infrastructure as tools to create 4D dynamic worlds, which can then be used as a foundational data source for extracting various modalities of data. Together with modules for generating camera and object motion, we are able to generate physically-accurate and view-consistent videos and other modalities of data.</p>
+                    <div class="columns is-centered">
+                      <div class="column">
+                        <div class="content">
+                        <p style="text-align:center;">
+                        <video autoplay controls muted loop playsinline width="100%">
+                          <source src="videos/physical.mp4"
+                                      type="video/mp4">
+                        </video>
+                        <br>
+                    </p>
+                        <br>
+                        <br>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    </div>
+
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="rows">
+                <div class="rows is-centered ">
+                        <h2 class="title is-3"><span class="dvima">Character Motion Generation</span></h2>
+                    <div class="columns is-centered">
+                      <div class="column">
+                        <div class="content">
+                        <p style="text-align:center;">
+                        <video autoplay controls muted loop playsinline width="100%">
+                          <source src="videos/wukong.mp4"
+                                      type="video/mp4">
+                        </video>
+                        <br>
+                        <span>"<i>A miniature Wukong holding a stick in his hand sprints across a table surface for 3 seconds, then jumps into the air, and swings his right arm downward during landing. The camera begins with a close-up of his face, then steadily follows the character while gradually zooming out. When the monkey leaps into the air, at the highest point of the jump, the motion pauses for a few seconds. The camera circles around the character for 360 degrees, and slowly ascends, before the action resumes.</i>"</span>
+                    </p>
+                        <br>
+                        <br>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    </div>
+
+                    <div class="row is-full-width">
+                    <div class="columns is-centered">
+                      <div class="column" style="padding-left: 30px; padding-right: 30px;">
+                        <div class="content">
+                          <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/boxing.mp4"
+                                    type="video/mp4">
+                          </video>
+                          <p style="text-align:center;">
+                            <span>"<i>A Japanese samurai performs boxing.</i>"</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="column" style="padding-left: 30px; padding-right: 30px;">
+                        <div class="content">
+                          <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/dance.mp4"
+                                    type="video/mp4">
+                          </video>
+                          <p style="text-align:center;">
+                            <span>"<i>A Chinese soldier performs the Gangnam Style dance.</i>"</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="column" style="padding-left: 30px; padding-right: 30px;">
+                        <div class="content">
+                          <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/zombie.mp4"
+                                    type="video/mp4">
+                          </video>
+                          <p style="text-align:center;">
+                            <span>"<i>A Roman soldier walks forward like a zombie.</i>"</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+          <div class="rows">
+              <div class="rows is-centered ">
+                    <h2 class="title is-3"><span class="dvima">Robotic Policy Generation</span></h2>
+                <span style="font-size: 125%">Genesis aims to use generative robotic agent and physics engine to automatically generate robotic policies and demonstration data for various skills under different scenarios. For the high-level motivation and more details behind the module, see <a href="https://robogen-ai.github.io/">RoboGen</a> and our upcoming paper.</span>
+                <br>
+                <br>
+
+                  <div class="columns is-centered">
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/manipulation/corn.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A mobile franka arm heats the corn with the bowl and the microwave.</i>"</span>
+                          <span></span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/manipulation/throw.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A mobile franka arm throws all the objects on the floor into the basket.</i>"</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                
+                  <div class="columns is-centered">
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/manipulation/book.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A mobile franka arm re-organizes the books on the table by pushing the brown and the white books to align with the red one.</i>"</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/drone_flip.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A fleet of 24 drones (arranged in 4x6) take off together from the ground and perform a flip together.</i>"</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                
+
+
+                  <div class="row is-full-width">
+                    <div class="columns is-centered">
+                      <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                        <div class="content">
+                          <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/locomotion/quadraped/rainy_dog_rainTrue.mp4"
+                                    type="video/mp4">
+                          </video>
+                          <p style="text-align:center;">
+                            <span>"<i>A Unitree Go2 Quadraped runs under the rain.</i>" (<b>Sim</b>)</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="columns is-centered">
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomotion/humanoid/h1_hop.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A Unitree H1 humanoid performs single-foot hopping.</i>" (<b>Sim</b>, because our robot is broken :( )</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomotion/humanoid/h1-2_walk.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A Unitree H1-2 humanoid walks forward.</i>" (<b>Sim2Real</b>)</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="columns is-centered">
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomotion/dexhand/leaphand_walk.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A robotic leap hand walks forward like a quadrapad using its all four fingers.</i>" (<b>Sim</b>)</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomotion/dexhand/shadowhand_walk.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A robotic shadow hand walks forward like a human using only its index and middle fingers.</i>" (<b>Sim</b>)</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="columns is-centered">
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomotion/quadraped/gaits.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>Quadraped locomotion with various gaits (<b>Sim2Real</b>)</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomotion/quadraped/diagonal_hopping.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>Quadraped 2-feet hopping (<b>Sim2Real</b>)</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="columns is-centered">
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomotion/quadraped/handstand.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>Quadraped performs handstand with its 2 front legs.</i>" (<b>Sim2Real</b>)</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomotion/quadraped/traverse.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>Quadraped locomotion with various base heights (<b>Sim2Real</b>)</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+          </div>
+      </div>
+  </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+          <div class="rows">
+              <div class="rows is-centered ">
+                    <h2 class="title is-3"><span class="dvima">More Sim2Real Policy Transfer</span></h2>
+                  <div class="columns is-centered">
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomanipulation.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>Loco-manipulation of large & underactuated objects</span>
+                          <span></span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/locomotion/quadraped/backflip.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>Quadraped single-backflip</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="columns is-centered">
+                      <div class="content">
+                        <p style="text-align:center;">
+                        <video autoplay controls muted loop playsinline width="100%">
+                          <source src="./videos/locomotion/quadraped/double_backflip.mp4"
+                                  type="video/mp4">
+                        </video>
+                            <br>
+                          <span>Quadraped double-backflip</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </section>
+    <section class="section">
+      <div class="container is-max-desktop">
+          <div class="rows">
+              <div class="rows is-centered ">
+                    <h2 class="title is-3"><span class="dvima">3D & Fully Interactive Scene Generation </span></h2>
+                  <div class="columns is-centered">
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/scene/house.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A home interior scene with a living room (including a dinning space), a restroom, a study and a bedroom.</i>"</span>
+                          <span></span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/scene/restaurant.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>A restaurant interior.</i>"</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+
+              </div>
+          </div>
+      </div>
+  </section>
+    <section class="section">
+      <div class="container is-max-desktop">
+          <div class="rows">
+              <div class="rows is-centered ">
+                    <h2 class="title is-3"><span class="dvima">Open-world Articulated Object Generation </span></h2>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/articulated.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="font-size: 125%">
+                          <span>We generate articulated of open-set mesh assets, extending beyond categories contained in human-annotated articulated object asset. For more details, see our upcoming paper (under submission now).</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+
+              </div>
+          </div>
+      </div>
+  </section>
+    <section class="section">
+      <div class="container is-max-desktop">
+          <div class="rows">
+              <div class="rows is-centered ">
+                    <h2 class="title is-3"><span class="dvima">Speech Audio, Facial Animation & Emotion Generation </span></h2>
+                  <div class="columns is-centered">
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/facial_single.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>"<i>Facial animation and speech of the text [Genesis is a physical platform designed for general purpose Robotics/Embodied AI/Physical AI applications]. Emotion transitions from neutral to angry, then to happy</i>".</span>
+                          <span></span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="column" style="padding-left: 2px; padding-right: 2px;">
+                      <div class="content">
+                        <video autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/facial_mix.mp4"
+                                  type="video/mp4">
+                        </video>
+                        <p style="text-align:center;">
+                          <span>Generalize across different facial characters and emotions</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+
+              </div>
+          </div>
+      </div>
+  </section>
+
+
+   
+
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@software{Genesis,
+          author = {Genesis Authors},
+          title = {Genesis: A Universal and Generative Physics Engine for Robotics and Beyond},
+          month = {December},
+          year = {2024},
+          url = {https://github.com/Genesis-Embodied-AI/Genesis}
+        }
+</code></pre>
+    </div>
+</section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column">
+                    <div class="content has-text-centered">
+                        <p>
+                            Website template borrowed from <a
+                                href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> and <a
+                                href="https://eureka-research.github.io/">Eureka</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
