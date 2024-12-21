@@ -1,1 +1,1 @@
-# robogen-ai.github.io
+# genesis-embodied-ai.github.io
